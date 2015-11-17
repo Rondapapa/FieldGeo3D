@@ -177,19 +177,20 @@ namespace FGeo3D_TE
                 SGLabelStyle eLabelStyle = SGLabelStyle.LS_DEFAULT;
                 cLabelStyle = sgworld.Creator.CreateLabelStyle(eLabelStyle);
 
-                uint nBGRValue = 0xFF0000;  // Blue
-                double dAlpha = 0.5;        // 50% 
-                var cBackgroundColor = cLabelStyle.BackgroundColor; // Get label style background 
-                cBackgroundColor.FromBGRColor(nBGRValue);               // Set background to 
-                cBackgroundColor.SetAlpha(dAlpha);                      // Set transparency to 50
-                cLabelStyle.BackgroundColor = cBackgroundColor;         // Set label style background 
+                
+                cLabelStyle.BackgroundColor = objProperty.FillColor;         // Set label style background 
                 cLabelStyle.FontName = "Arial";                         // Set font name to 
                 cLabelStyle.Italic = true;                              // Set label style font to 
-                cLabelStyle.Scale = 3;
+                cLabelStyle.Scale = 4;
 
-                string tText = InputTag();
-                gpgid = CreateGroup("标签点");
-                cTextLabel = sgworld.Creator.CreateTextLabel(cPos, tText, cLabelStyle, gpgid, "TextLabel");
+
+
+                //string tText = InputTag();
+                gpgid = CreateGroup("标签");
+                cTextLabel = sgworld.Creator.CreateTextLabel(cPos, objProperty.Name, cLabelStyle, gpgid, "Tag:" + objProperty.Name);
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                pbhander = "";
+
             }
             #endregion
 
@@ -502,8 +503,17 @@ namespace FGeo3D_TE
         private ObjProperty InputObjProperty(string pbhander)
         {
             ObjProperty retObjProperty = new ObjProperty();
-            
             frmObjProperty frmObjProperty = new frmObjProperty();
+            if (pbhander == "GeoTag")
+            {
+                frmObjProperty.labelName.Text = "标签内容";
+                frmObjProperty.labelFillColor.Text = "标签背景色";
+                frmObjProperty.labelLineColor.Text = "标签内容样式";
+                frmObjProperty.btnGetLineColor.Visible = false;
+                frmObjProperty.tbLineColor.Text = "默认斜体，字号3号";
+
+            }
+            
             if (pbhander == "GeoPolyline")
             {
                 frmObjProperty.btnGetFillColor.Visible = false;
@@ -511,7 +521,7 @@ namespace FGeo3D_TE
             }
 
             //若不指定名称，则默认
-            retObjProperty.Name = "地质对象名称";
+            retObjProperty.Name = "对象名称";
             //若不指定边界颜色，则默认为黑色
             retObjProperty.LineColor = sgworld.Creator.CreateColor(255, 255, 255, 255);
             //若不指定填充颜色，则默认为半透明蓝色
@@ -543,6 +553,18 @@ namespace FGeo3D_TE
             return retPolygon;
         }
 
+
+        private void ChangeCursorMode()
+        {
+            if (sgworld.Window.GetInputMode() == MouseInputMode.MI_COM_CLIENT)
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            }
+            if (sgworld.Window.GetInputMode() == MouseInputMode.MI_FREE_FLIGHT)
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            }
+        }
         /*
         public static int ArgbToAbgr(int argb)
         {
@@ -720,6 +742,7 @@ namespace FGeo3D_TE
             try
             {
                 pbhander = "GeoTag";
+                objProperty = InputObjProperty(pbhander);
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
             }
             catch (Exception ex)

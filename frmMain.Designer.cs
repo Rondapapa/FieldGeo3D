@@ -177,7 +177,7 @@
             this.btnGeoArea.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnGeoArea.Name = "btnGeoArea";
             this.btnGeoArea.SubItemsExpandWidth = 14;
-            this.btnGeoArea.Text = "地质区域";
+            this.btnGeoArea.Text = "地质界面";
             this.btnGeoArea.Click += new System.EventHandler(this.btnGeoArea_Click);
             // 
             // btnGeoPolygon3D

@@ -49,7 +49,7 @@
             this.tbName.Border.Class = "TextBoxBorder";
             this.tbName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbName.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbName.Location = new System.Drawing.Point(127, 21);
+            this.tbName.Location = new System.Drawing.Point(150, 21);
             this.tbName.Name = "tbName";
             this.tbName.PreventEnterBeep = true;
             this.tbName.Size = new System.Drawing.Size(404, 29);
@@ -65,7 +65,7 @@
             this.labelName.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelName.Location = new System.Drawing.Point(12, 21);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(109, 29);
+            this.labelName.Size = new System.Drawing.Size(132, 29);
             this.labelName.TabIndex = 2;
             this.labelName.Text = "对象名称";
             // 
@@ -73,7 +73,7 @@
             // 
             this.btnGetLineColor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnGetLineColor.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnGetLineColor.Location = new System.Drawing.Point(433, 65);
+            this.btnGetLineColor.Location = new System.Drawing.Point(456, 65);
             this.btnGetLineColor.Name = "btnGetLineColor";
             this.btnGetLineColor.Size = new System.Drawing.Size(98, 29);
             this.btnGetLineColor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -113,7 +113,7 @@
             this.tbLineColor.Border.Class = "TextBoxBorder";
             this.tbLineColor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbLineColor.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbLineColor.Location = new System.Drawing.Point(127, 65);
+            this.tbLineColor.Location = new System.Drawing.Point(150, 65);
             this.tbLineColor.Name = "tbLineColor";
             this.tbLineColor.PreventEnterBeep = true;
             this.tbLineColor.ReadOnly = true;
@@ -125,7 +125,7 @@
             // 
             this.btnGetFillColor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnGetFillColor.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnGetFillColor.Location = new System.Drawing.Point(433, 110);
+            this.btnGetFillColor.Location = new System.Drawing.Point(456, 110);
             this.btnGetFillColor.Name = "btnGetFillColor";
             this.btnGetFillColor.Size = new System.Drawing.Size(98, 29);
             this.btnGetFillColor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -141,7 +141,7 @@
             this.tbFillColor.Border.Class = "TextBoxBorder";
             this.tbFillColor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tbFillColor.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbFillColor.Location = new System.Drawing.Point(127, 110);
+            this.tbFillColor.Location = new System.Drawing.Point(150, 110);
             this.tbFillColor.Name = "tbFillColor";
             this.tbFillColor.PreventEnterBeep = true;
             this.tbFillColor.ReadOnly = true;
@@ -158,7 +158,7 @@
             this.labelLineColor.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelLineColor.Location = new System.Drawing.Point(12, 65);
             this.labelLineColor.Name = "labelLineColor";
-            this.labelLineColor.Size = new System.Drawing.Size(109, 29);
+            this.labelLineColor.Size = new System.Drawing.Size(132, 29);
             this.labelLineColor.TabIndex = 2;
             this.labelLineColor.Text = "边界颜色";
             // 
@@ -171,7 +171,7 @@
             this.labelFillColor.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelFillColor.Location = new System.Drawing.Point(12, 110);
             this.labelFillColor.Name = "labelFillColor";
-            this.labelFillColor.Size = new System.Drawing.Size(109, 29);
+            this.labelFillColor.Size = new System.Drawing.Size(132, 29);
             this.labelFillColor.TabIndex = 2;
             this.labelFillColor.Text = "填充颜色";
             // 
@@ -179,7 +179,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 219);
+            this.ClientSize = new System.Drawing.Size(568, 219);
             this.Controls.Add(this.tbFillColor);
             this.Controls.Add(this.tbLineColor);
             this.Controls.Add(this.labelFillColor);
@@ -203,14 +203,14 @@
         #endregion
 
         internal DevComponents.DotNetBar.Controls.TextBoxX tbName;
-        private DevComponents.DotNetBar.LabelX labelName;
         private DevComponents.DotNetBar.ButtonX btnOK;
         private DevComponents.DotNetBar.ButtonX btnCancel;
         internal DevComponents.DotNetBar.Controls.TextBoxX tbLineColor;
         internal DevComponents.DotNetBar.ButtonX btnGetLineColor;
         internal DevComponents.DotNetBar.ButtonX btnGetFillColor;
         internal DevComponents.DotNetBar.Controls.TextBoxX tbFillColor;
-        private DevComponents.DotNetBar.LabelX labelLineColor;
-        private DevComponents.DotNetBar.LabelX labelFillColor;
+        internal DevComponents.DotNetBar.LabelX labelName;
+        internal DevComponents.DotNetBar.LabelX labelLineColor;
+        internal DevComponents.DotNetBar.LabelX labelFillColor;
     }
 }
