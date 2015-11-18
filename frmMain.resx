@@ -227,7 +227,7 @@
   <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADr8AAA6/ATgFUyQAAAAGYktHRAC2AFkAAAWpU/QAAAAHdElNRQfYDBQRFSLXA3ec
+        YQUAAAAJcEhZcwAADr4AAA6+AepCscAAAAAGYktHRAC2AFkAAAWpU/QAAAAHdElNRQfYDBQRFSLXA3ec
         AAAINklEQVRYR81X+VNW5xm9UYN1XBAXgkH4UEFEdkiIG4JbQhaNiYmJWrW4dqypWpOYdKb/QWba0YrE
         ghQCFEWjyGBc0CDEDVkFAVEQZAcBZRER5fQ8L98Ln0o6/a19hmfu8t17z3nPs7wPBv7H9v9DwOTnB6vJ
         k+Hi4wPvxYvhtXAhPOmugYHYumsX0n7+GadOncL58+dx6dIlXL9+HVlZWcjJyUF2djYyMzNx584d3Lhx
@@ -313,7 +313,7 @@
         RudN65tdA8sHzg46DF645Xrr8m2v29fvrLwzMBQydHc4cnjkLvvu5L2key/vZ9yff7DpIfph4SOpR+WP
         lR7X/aj3Y+uI5ciZUdfRvidBTx6Mscae/5T+04fx/Kfkp+UTqhONk2aTp6fcp24+W/1s/Hnq8/npgp+l
         f65+ofviu18cf+mbWTUz/pL/cuHX4lfyr468Xva6e9Z/9vGb5Dfzc4Vv5d8efcd41/s+7P3EfOYH7IeK
-        j3ofuz55f3q4kLyw8Bv3hPP74uYdwgAAAAlwSFlzAAAN0QAADdEBwivf4wAAC0JJREFUWEfFl2lUVFcS
+        j3ofuz55f3q4kLyw8Bv3hPP74uYdwgAAAAlwSFlzAAAN0AAADdABEGw9BwAAC0JJREFUWEfFl2lUVFcS
         xy8IBOhuQbBlRxBEdppNQPZmVZMgGpecqDGZQBAF90yiJjP5kDgzJ2diYpSowagkRsdd3EBECIiAojQ7
         iCCLgsj2GhVl+0/dhzExmTPzce45fx+vG279blXdqpIB+L9K/Ge6vz9zCAjQtvHzMwhQKvWD/fyYp7s7
         8/H0ZJZmZmzD+vU6lVVVBtnZ2bKcnBxZYWGh7MaNG7LS0lLZ9evXX6impkamUqnE76+Xlhqk79un4xgc
@@ -526,7 +526,7 @@
   <data name="btnGeoPolygon3D.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1
-        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAACxAAAAsQAa0jvXUAADnsaVRYdFhNTDpjb20uYWRvYmUu
+        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAACw8AAAsPAZL5A6UAADnsaVRYdFhNTDpjb20uYWRvYmUu
         eG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/
         Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29y
         ZSA1LjYtYzA2NyA3OS4xNTc3NDcsIDIwMTUvMDMvMzAtMjM6NDA6NDIgICAgICAgICI+CiAgIDxyZGY6
