@@ -177,7 +177,7 @@
             this.btnGeoArea.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnGeoArea.Name = "btnGeoArea";
             this.btnGeoArea.SubItemsExpandWidth = 14;
-            this.btnGeoArea.Text = "地质区域";
+            this.btnGeoArea.Text = "地质界面";
             this.btnGeoArea.Click += new System.EventHandler(this.btnGeoArea_Click);
             // 
             // btnGeoPolygon3D
@@ -225,7 +225,6 @@
             this.axTE3DWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTE3DWindow1.OcxState")));
             this.axTE3DWindow1.Size = new System.Drawing.Size(845, 515);
             this.axTE3DWindow1.TabIndex = 1;
-            this.axTE3DWindow1.OnKeyboardMessage += new AxTerraExplorerX._ITE3DWindowEvents_OnKeyboardMessageEventHandler(this.axTE3DWindow1_OnKeyboardMessage);
             // 
             // axTEInformationWindow1
             // 

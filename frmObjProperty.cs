@@ -11,11 +11,14 @@ namespace FGeo3D_TE
 {
     public partial class frmObjProperty : Form
     {
-        internal int alpha;
-        internal int red;
-        internal int green;
-        internal int blue;
-
+        internal int lineAlpha;
+        internal int lineRed;
+        internal int lineGreen;
+        internal int lineBlue;
+        internal int fillAlpha;
+        internal int fillRed;
+        internal int fillGreen;
+        internal int fillBlue;
 
         public frmObjProperty()
         {
@@ -33,17 +36,37 @@ namespace FGeo3D_TE
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void colorComb_SelectedColorChanged(object sender, EventArgs e)
+        private void btnGetLineColor_Click(object sender, EventArgs e)
         {
-            alpha = colorComb.SelectedColor.A;
-            red = colorComb.SelectedColor.R;
-            green = colorComb.SelectedColor.G;
-            blue = colorComb.SelectedColor.B;
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                var color = colorDialog.Color;
+                lineAlpha = color.A;
+                lineRed = color.R;
+                lineGreen = color.G;
+                lineBlue = color.B;
+                tbLineColor.Text = String.Format("A={0},B={1},G={2},R={3}", lineAlpha, lineBlue, lineGreen, lineRed);
+                tbLineColor.BackColor = color;
+                tbLineColor.ForeColor = Color.FromArgb(lineAlpha, 255 - lineRed, 255 - lineGreen, 255 - lineBlue);
+            }
         }
 
-        
-
-        
+        private void buttonGetFillColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                var color = colorDialog.Color;
+                fillAlpha = color.A;
+                fillRed = color.R;
+                fillGreen = color.G;
+                fillBlue = color.B;
+                tbFillColor.Text = String.Format("A={0},B={1},G={2},R={3}", fillAlpha, fillBlue, fillGreen, fillRed);
+                tbFillColor.BackColor = color;
+                tbFillColor.ForeColor = Color.FromArgb(fillAlpha, 255 - fillRed, 255 - fillGreen, 255 - fillBlue);
+            }
+        }
 
         
     }
