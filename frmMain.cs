@@ -13,6 +13,7 @@ namespace FGeo3D_TE
 {
     public partial class frmMain : Form
     {
+        Boolean isSaved = false;
         SGWorld65 sgworld = null;
         String pbhander = "";
         ITerrainPolygon65 pITPolygon = null;
