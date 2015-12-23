@@ -41,11 +41,25 @@ namespace FGeo3D_TE
             sgworld.OnRButtonDown += new _ISGWorld65Events_OnRButtonDownEventHandler(sgworld_OnRButtonDown);
         }
 
-        #region 鼠标事件
+        #region 事件
 
         //右键
         bool sgworld_OnRButtonDown(int Flags, int X, int Y)
         {
+            #region 地质标签
+            if (pbhander == "GeoTag")
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            }
+            #endregion
+
+            #region 地质点
+            if (pbhander == "GeoPoint")
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            }
+            #endregion
+
             #region 地质线
             if (pbhander == "GeoPolyline")
             {
@@ -109,12 +123,10 @@ namespace FGeo3D_TE
                 }
             }
             #endregion
-
-
-
+            
             pbhander = "";
+            //MessageBox.Show("pbhander:"+pbhander);
             return true;
-
         }
 
         //左键
@@ -162,7 +174,6 @@ namespace FGeo3D_TE
             #endregion
 
 
-
             #region 创建地质标签
             //创建地质标签
             if (pbhander == "GeoTag")
@@ -188,9 +199,17 @@ namespace FGeo3D_TE
                 //string tText = InputTag();
                 gpgid = CreateGroup("标签");
                 cTextLabel = sgworld.Creator.CreateTextLabel(cPos, objProperty.Name, cLabelStyle, gpgid, "Tag:" + objProperty.Name);
-                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                pbhander = "";
+                
 
+            }
+            #endregion
+
+            #region 创建地质点
+            if (pbhander == "GeoPoint")
+            {
+                string gpgid  = CreateGroup("地质点");
+                string desc = "test";
+                CreateGeoPoint(pIWPInfo.Position, gpgid, desc);
             }
             #endregion
 
@@ -230,7 +249,7 @@ namespace FGeo3D_TE
             }
             #endregion
 
-            #region 创建地质界面2D
+            #region 创建地质区域
             //创建2D地质面
             if (pbhander == "GeoPolygon")
             {
@@ -248,7 +267,7 @@ namespace FGeo3D_TE
                     //cPolygonGeometry = sgworld.Creator.GeometryCreator.CreatePolygonGeometry(cRing, null);
 
 
-                    AltitudeTypeCode eAltitudeTypeCode = AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE;
+                    AltitudeTypeCode eAltitudeTypeCode = AltitudeTypeCode.ATC_ON_TERRAIN;
                     gpgid = CreateGroup("地质区域");
                     pITPolygon = sgworld.Creator.CreatePolygon(cRing, objProperty.LineColor.ToABGRColor(), objProperty.FillColor.ToABGRColor(), eAltitudeTypeCode, gpgid, objProperty.Name);
 
@@ -417,12 +436,19 @@ namespace FGeo3D_TE
 
             return false;
         }
+
+        //任意键事件
+        private void axTE3DWindow1_OnKeyboardMessage(object sender, AxTerraExplorerX._ITE3DWindowEvents_OnKeyboardMessageEvent e)
+        {
+            //MessageBox.Show("pbhander: " + pbhander);
+        }
         #endregion
 
 
 
 
         #region 其他方法
+
         private String CreateGroup(String GroupName)
         {
             string gid = sgworld.ProjectTree.FindItem(GroupName);
@@ -506,18 +532,13 @@ namespace FGeo3D_TE
             frmObjProperty frmObjProperty = new frmObjProperty();
             if (pbhander == "GeoTag")
             {
-                frmObjProperty.labelName.Text = "标签内容";
-                frmObjProperty.labelFillColor.Text = "标签背景色";
-                frmObjProperty.labelLineColor.Text = "标签内容样式";
-                frmObjProperty.btnGetLineColor.Visible = false;
-                frmObjProperty.tbLineColor.Text = "默认斜体，字号3号";
+                
 
             }
             
             if (pbhander == "GeoPolyline")
             {
-                frmObjProperty.btnGetFillColor.Visible = false;
-                frmObjProperty.tbFillColor.Text = "不可用";
+                
             }
 
             //若不指定名称，则默认
@@ -529,8 +550,8 @@ namespace FGeo3D_TE
             if (frmObjProperty.ShowDialog() == DialogResult.OK)
             {
                 retObjProperty.Name = frmObjProperty.tbName.Text;
-                retObjProperty.LineColor = sgworld.Creator.CreateColor(frmObjProperty.lineRed, frmObjProperty.lineGreen, frmObjProperty.lineBlue, frmObjProperty.lineAlpha);
-                retObjProperty.FillColor = sgworld.Creator.CreateColor(frmObjProperty.fillRed, frmObjProperty.fillGreen, frmObjProperty.fillBlue, 128);
+                retObjProperty.LineColor = sgworld.Creator.CreateColor(frmObjProperty.red, frmObjProperty.green, frmObjProperty.blue, frmObjProperty.alpha);
+                retObjProperty.FillColor = sgworld.Creator.CreateColor(frmObjProperty.red, frmObjProperty.green, frmObjProperty.blue, 128);
             }
             return retObjProperty;
         }
@@ -565,6 +586,18 @@ namespace FGeo3D_TE
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
             }
         }
+
+        private ITerrainSphere65 CreateGeoPoint(IPosition65 pos, string gid, string desc)
+        {
+            double radius = 10;
+            SphereStyle Style = SphereStyle.SPHERE_NORMAL;
+            uint nLineColor = 0xFF00FF00;
+            uint nFillColor = 0xFF646464;
+            int SegmentDensity = -1;
+            return sgworld.Creator.CreateSphere(pos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, desc);
+        }
+
+
         /*
         public static int ArgbToAbgr(int argb)
         {
@@ -578,9 +611,6 @@ namespace FGeo3D_TE
         }
         */
         #endregion
-
-
-
 
         #region 工具栏按钮
 
@@ -757,7 +787,8 @@ namespace FGeo3D_TE
             string tMsg = String.Empty;
             try
             {
-
+                pbhander = "GeoPoint";
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
             }
             catch (Exception ex)
             {
@@ -862,6 +893,8 @@ namespace FGeo3D_TE
         }
 
         #endregion
+
+        
 
     }
 }
