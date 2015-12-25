@@ -20,6 +20,8 @@ namespace FGeo3D_TE
         ITerrainPolyline65 pITerrainPolyline = null;
         ILineString pSectionptString = null;
         ITerrain3DPolygon65 pIT3DPolygon = null;
+        ITerrainPolygon65 pITContourMapRectangle = null;
+        IPolygon contourMapRecGeometry = null;
         double[] arrContourMapVertices = new double[4];
         string tProjectUrl;
         string gpgid;
@@ -112,7 +114,7 @@ namespace FGeo3D_TE
             if (pbhander == "CreateContourMap")
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-
+                sgworld.Creator.DeleteObject(pITContourMapRectangle.ID);
                 double upperLeftX = MinOf2(arrContourMapVertices[0], arrContourMapVertices[2]);
                 double upperLeftY = MinOf2(arrContourMapVertices[1], arrContourMapVertices[3]);
                 double lowerRightX = MaxOf2(arrContourMapVertices[0], arrContourMapVertices[2]);
@@ -122,6 +124,7 @@ namespace FGeo3D_TE
                 {
                     arrContourMapVertices[idx] = 0;
                 }
+                pITContourMapRectangle = null;
             }
             #endregion
             
@@ -173,7 +176,6 @@ namespace FGeo3D_TE
 
             }
             #endregion
-
 
             #region 创建地质标签
             //创建地质标签
@@ -303,7 +305,6 @@ namespace FGeo3D_TE
             }
             #endregion
 
-
             #region 创建地形剖面
             //创建地形剖面
             if (pbhander == "TerrainProfile")
@@ -365,7 +366,6 @@ namespace FGeo3D_TE
             }
             #endregion
 
-
             #region 创建地质界面3D
             if (pbhander == "GeoPolygon3D")
             {
@@ -425,13 +425,75 @@ namespace FGeo3D_TE
                 {
                     arrContourMapVertices[0] = pIWPInfo.Position.X;
                     arrContourMapVertices[1] = pIWPInfo.Position.Y;
+                    ILinearRing cContourMapRing = null;
+                    double[] cContourMapVerticesArray = new double[]{
+                        pIPosition.X, pIPosition.Y, 0,
+                        arrContourMapVertices[0], arrContourMapVertices[1], 0,
+                        arrContourMapVertices[0], arrContourMapVertices[1], 0,
+                    };
+                    cContourMapRing = sgworld.Creator.GeometryCreator.CreateLinearRingGeometry(cContourMapRing);
+                    AltitudeTypeCode eAltitudeTypeCode = AltitudeTypeCode.ATC_ON_TERRAIN;
+
+                    pITContourMapRectangle = sgworld.Creator.CreatePolygon(cContourMapRing, -16711936, -10197936, eAltitudeTypeCode, "", "");
+                    
+                    //contourMapRecGeometry = pITContourMapRectangle.Geometry as IPolygon;
+                    /*
+                    contourMapRecGeometry.StartEdit();
+                    foreach (ILinearRing ring in contourMapRecGeometry.Rings)
+                    {
+                        double dx = arrContourMapVertices[0];
+                        double dy = arrContourMapVertices[1];
+                        double dh = pIWPInfo.Position.Altitude;
+                        ring.Points.AddPoint(dx, dy, dh);
+                        //ring.Points.DeletePoint(0);
+                    }
+                    IGeometry editedGeometry = contourMapRecGeometry.EndEdit();
+                    pITContourMapRectangle.Geometry = editedGeometry;
+                    */
                 }
                 else
                 {
                     arrContourMapVertices[2] = pIWPInfo.Position.X;
                     arrContourMapVertices[3] = pIWPInfo.Position.Y;
-                    //sgworld.Analysis.CreateContourMap(arrContourMapVertices[0],arrContourMapVertices[1],arrContourMapVertices[2],arrContourMapVertices[3], ContourDisplayStyle.CDS_CONTOUR_STYLE_LINES_AND_COLORS,"","","等高线");
+
+                    sgworld.Creator.DeleteObject(pITContourMapRectangle.ID);
+
+                    ILinearRing cContourMapRing = null;
+                    double[] cContourMapVerticesArray = new double[]{
+                        arrContourMapVertices[0], arrContourMapVertices[1], 0,
+                        arrContourMapVertices[0], arrContourMapVertices[3], 0,
+                        arrContourMapVertices[2], arrContourMapVertices[3], 0,
+                        arrContourMapVertices[2], arrContourMapVertices[1], 0,
+                    };
+                    cContourMapRing = sgworld.Creator.GeometryCreator.CreateLinearRingGeometry(cContourMapRing);
+                    AltitudeTypeCode eAltitudeTypeCode = AltitudeTypeCode.ATC_ON_TERRAIN;
+
+                    pITContourMapRectangle = sgworld.Creator.CreatePolygon(cContourMapRing, -16711936, -10197936, eAltitudeTypeCode, "", "");
+                    contourMapRecGeometry = pITContourMapRectangle.Geometry as IPolygon;
+                    contourMapRecGeometry.StartEdit();
+                    ILinearRing ring = contourMapRecGeometry.ExteriorRing;
+                    ring.Points.AddPoint(arrContourMapVertices[0], arrContourMapVertices[1], 0);
+                    ring.Points.AddPoint(arrContourMapVertices[0], arrContourMapVertices[3], 0);
+                    ring.Points.AddPoint(arrContourMapVertices[2], arrContourMapVertices[3], 0);
+                    ring.Points.AddPoint(arrContourMapVertices[2], arrContourMapVertices[1], 0);
+                    IGeometry editedGeometry = contourMapRecGeometry.EndEdit();
+                    pITContourMapRectangle.Geometry = editedGeometry;
+                    /*
+                    contourMapRecGeometry = pITContourMapRectangle.Geometry as IPolygon;
+                    contourMapRecGeometry.StartEdit();
+                    ILinearRing ring = contourMapRecGeometry.ExteriorRing;
+                    double dx = arrContourMapVertices[2];
+                    double dy = arrContourMapVertices[3];
+                    double dh = pIWPInfo.Position.Altitude;
+                    ring.Points.AddPoint(arrContourMapVertices[0], arrContourMapVertices[1], dh);
+                    ring.Points.AddPoint(dx, arrContourMapVertices[1], dh);
+                    ring.Points.AddPoint(dx, dy, dh);
+                    ring.Points.AddPoint(arrContourMapVertices[0], dy, dh);
+                    IGeometry editedGeometry = contourMapRecGeometry.EndEdit();
+                    pITContourMapRectangle.Geometry = editedGeometry;
+                    */
                 }
+                
             }
             #endregion
 
