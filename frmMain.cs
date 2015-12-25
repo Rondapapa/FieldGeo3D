@@ -40,6 +40,7 @@ namespace FGeo3D_TE
         {
             InitializeComponent();
             sgworld = new SGWorld65();
+            
             sgworld.OnLButtonDown += new _ISGWorld65Events_OnLButtonDownEventHandler(sgworld_OnLButtonDown);
             sgworld.OnRButtonDown += new _ISGWorld65Events_OnRButtonDownEventHandler(sgworld_OnRButtonDown);
         }
@@ -173,6 +174,11 @@ namespace FGeo3D_TE
                     var cPosView = sgworld.Creator.CreatePosition(cPos.X, cPos.Y, 1200, AltitudeTypeCode.ATC_TERRAIN_RELATIVE, 0, -90, 0, 0);
                     sgworld.Navigate.FlyTo(cPosView);
                 }
+                else
+                {
+                    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                }
+                pbhander = "";
 
             }
             #endregion
@@ -696,6 +702,7 @@ namespace FGeo3D_TE
                 sgworld = new SGWorld65();
                 sgworld.Project.Open(tProjectUrl, bIsAsync, tUser, tPassword);
                 this.Text = tProjectUrl + " - FieldGeo3D";
+                sgworld.CoordServices.SourceCoordinateSystem.InitLatLong();
             }
 
             //string tAppRoot = Path.GetDirectoryName(Application.ExecutablePath);
@@ -952,7 +959,7 @@ namespace FGeo3D_TE
             //IPosition65 p1 = sgworld.Creator.CreatePosition(401000, 3280000, 7000, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE, 0, 0, 0, 0);
             //IPosition65 p2 = sgworld.Creator.CreatePosition(403000, 3264000, 7000, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE, 0, 0, 0, 0);
             //ITerrainPolygon65 ITPolygon = CreatePolygon3ps(p0, p1, p2);
-
+            sgworld.CoordServices.SourceCoordinateSystem.InitLatLong();
         }
 
         #endregion

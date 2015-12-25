@@ -63,7 +63,7 @@
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(97, 25);
             this.labelX.TabIndex = 1;
-            this.labelX.Text = "X";
+            this.labelX.Text = "经度";
             // 
             // labelY
             // 
@@ -76,7 +76,7 @@
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(97, 26);
             this.labelY.TabIndex = 2;
-            this.labelY.Text = "Y";
+            this.labelY.Text = "纬度";
             // 
             // tbX
             // 
