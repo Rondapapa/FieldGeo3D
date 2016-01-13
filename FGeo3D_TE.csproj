@@ -50,11 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmObjProperty.cs">
+    <Compile Include="FrmGeoObject.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmObjProperty.Designer.cs">
-      <DependentUpon>frmObjProperty.cs</DependentUpon>
+    <Compile Include="FrmGeoObject.Designer.cs">
+      <DependentUpon>FrmGeoObject.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPosition.cs">
       <SubType>Form</SubType>
@@ -62,11 +62,11 @@
     <Compile Include="frmPosition.Designer.cs">
       <DependentUpon>frmPosition.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="frmTag.cs">
       <SubType>Form</SubType>
@@ -74,16 +74,17 @@
     <Compile Include="frmTag.Designer.cs">
       <DependentUpon>frmTag.cs</DependentUpon>
     </Compile>
+    <Compile Include="GeoObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmObjProperty.resx">
-      <DependentUpon>frmObjProperty.cs</DependentUpon>
+    <EmbeddedResource Include="FrmGeoObject.resx">
+      <DependentUpon>FrmGeoObject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPosition.resx">
       <DependentUpon>frmPosition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTag.resx">
       <DependentUpon>frmTag.cs</DependentUpon>

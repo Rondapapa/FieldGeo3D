@@ -1,6 +1,6 @@
 ﻿namespace FGeo3D_TE
 {
-    partial class frmMain
+    partial class FrmMain
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
             this.axTE3DWindow1 = new AxTerraExplorerX.AxTE3DWindow();
             this.axTEInformationWindow1 = new AxTerraExplorerX.AxTEInformationWindow();
@@ -57,6 +57,7 @@
             this.btnLocate = new DevComponents.DotNetBar.ButtonX();
             this.btnQuery = new DevComponents.DotNetBar.ButtonX();
             this.btnTest = new DevComponents.DotNetBar.ButtonX();
+            this.btnDrawingApply = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
             this.gpMeasure.SuspendLayout();
@@ -109,7 +110,8 @@
             this.btnTag,
             this.btnGeoPoint,
             this.btnGeoLine,
-            this.btnGeoRegion});
+            this.btnGeoRegion,
+            this.btnDrawingApply});
             this.rbDraw.Location = new System.Drawing.Point(193, 5);
             this.rbDraw.Name = "rbDraw";
             this.rbDraw.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -140,6 +142,7 @@
             // 
             // btnGeoPoint
             // 
+            this.btnGeoPoint.ForeColor = System.Drawing.Color.Black;
             this.btnGeoPoint.Image = ((System.Drawing.Image)(resources.GetObject("btnGeoPoint.Image")));
             this.btnGeoPoint.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnGeoPoint.Name = "btnGeoPoint";
@@ -319,6 +322,7 @@
             // 
             // gpMeasure
             // 
+            this.gpMeasure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.gpMeasure.CanvasColor = System.Drawing.SystemColors.Control;
             this.gpMeasure.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2013;
             this.gpMeasure.Controls.Add(this.btnTerrainArea);
@@ -438,6 +442,7 @@
             // btnLocate
             // 
             this.btnLocate.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnLocate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLocate.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnLocate.Image = ((System.Drawing.Image)(resources.GetObject("btnLocate.Image")));
             this.btnLocate.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
@@ -452,6 +457,7 @@
             // btnQuery
             // 
             this.btnQuery.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnQuery.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnQuery.Image = ((System.Drawing.Image)(resources.GetObject("btnQuery.Image")));
             this.btnQuery.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
@@ -466,16 +472,26 @@
             // btnTest
             // 
             this.btnTest.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTest.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnTest.Location = new System.Drawing.Point(993, 38);
+            this.btnTest.Location = new System.Drawing.Point(990, 38);
             this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(52, 50);
+            this.btnTest.Size = new System.Drawing.Size(55, 50);
             this.btnTest.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnTest.TabIndex = 17;
             this.btnTest.Text = "test";
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
-            // frmMain
+            // btnDrawingApply
+            // 
+            this.btnDrawingApply.Image = ((System.Drawing.Image)(resources.GetObject("btnDrawingApply.Image")));
+            this.btnDrawingApply.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnDrawingApply.Name = "btnDrawingApply";
+            this.btnDrawingApply.SubItemsExpandWidth = 14;
+            this.btnDrawingApply.Text = "应用";
+            this.btnDrawingApply.Click += new System.EventHandler(this.btnDrawingApply_Click);
+            // 
+            // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -492,7 +508,7 @@
             this.Controls.Add(this.axTE3DWindow1);
             this.Controls.Add(this.axTEInformationWindow1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmMain";
+            this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FieldGeo3D";
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).EndInit();
@@ -508,10 +524,6 @@
         private AxTerraExplorerX.AxTE3DWindow axTE3DWindow1;
         private DevComponents.DotNetBar.StyleManager styleManager1;
         private DevComponents.DotNetBar.RibbonBar rbDraw;
-        private DevComponents.DotNetBar.ButtonItem btnTag;
-        private DevComponents.DotNetBar.ButtonItem btnGeoPoint;
-        private DevComponents.DotNetBar.ButtonItem btnGeoLine;
-        private DevComponents.DotNetBar.ButtonItem btnGeoRegion;
         private DevComponents.DotNetBar.RibbonBar rbTerrainAnalysis;
         private DevComponents.DotNetBar.ButtonItem btnTerrainProfile;
         private DevComponents.DotNetBar.ButtonItem btnContourMap;
@@ -531,6 +543,11 @@
         private DevComponents.DotNetBar.ButtonX btnLocate;
         private DevComponents.DotNetBar.ButtonX btnQuery;
         private DevComponents.DotNetBar.ButtonX btnTest;
+        internal DevComponents.DotNetBar.ButtonItem btnDrawingApply;
+        internal DevComponents.DotNetBar.ButtonItem btnTag;
+        internal DevComponents.DotNetBar.ButtonItem btnGeoPoint;
+        internal DevComponents.DotNetBar.ButtonItem btnGeoLine;
+        internal DevComponents.DotNetBar.ButtonItem btnGeoRegion;
     }
 }
 
