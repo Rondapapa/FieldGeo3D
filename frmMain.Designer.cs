@@ -38,6 +38,7 @@
             this.btnGeoPoint = new DevComponents.DotNetBar.ButtonItem();
             this.btnGeoLine = new DevComponents.DotNetBar.ButtonItem();
             this.btnGeoRegion = new DevComponents.DotNetBar.ButtonItem();
+            this.btnDrawingApply = new DevComponents.DotNetBar.ButtonItem();
             this.rbTerrainAnalysis = new DevComponents.DotNetBar.RibbonBar();
             this.btnTerrainProfile = new DevComponents.DotNetBar.ButtonItem();
             this.btnContourMap = new DevComponents.DotNetBar.ButtonItem();
@@ -57,7 +58,6 @@
             this.btnLocate = new DevComponents.DotNetBar.ButtonX();
             this.btnQuery = new DevComponents.DotNetBar.ButtonX();
             this.btnTest = new DevComponents.DotNetBar.ButtonX();
-            this.btnDrawingApply = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
             this.gpMeasure.SuspendLayout();
@@ -167,6 +167,15 @@
             this.btnGeoRegion.SubItemsExpandWidth = 14;
             this.btnGeoRegion.Text = "地质区域";
             this.btnGeoRegion.Click += new System.EventHandler(this.btnGeoRegion_Click);
+            // 
+            // btnDrawingApply
+            // 
+            this.btnDrawingApply.Image = ((System.Drawing.Image)(resources.GetObject("btnDrawingApply.Image")));
+            this.btnDrawingApply.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnDrawingApply.Name = "btnDrawingApply";
+            this.btnDrawingApply.SubItemsExpandWidth = 14;
+            this.btnDrawingApply.Text = "应用";
+            this.btnDrawingApply.Click += new System.EventHandler(this.btnDrawingApply_Click);
             // 
             // rbTerrainAnalysis
             // 
@@ -481,15 +490,6 @@
             this.btnTest.TabIndex = 17;
             this.btnTest.Text = "test";
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
-            // 
-            // btnDrawingApply
-            // 
-            this.btnDrawingApply.Image = ((System.Drawing.Image)(resources.GetObject("btnDrawingApply.Image")));
-            this.btnDrawingApply.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnDrawingApply.Name = "btnDrawingApply";
-            this.btnDrawingApply.SubItemsExpandWidth = 14;
-            this.btnDrawingApply.Text = "应用";
-            this.btnDrawingApply.Click += new System.EventHandler(this.btnDrawingApply_Click);
             // 
             // FrmMain
             // 

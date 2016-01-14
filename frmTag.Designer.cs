@@ -1,6 +1,6 @@
 ﻿namespace FGeo3D_TE
 {
-    partial class frmTag
+    partial class FrmTag
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTag));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTag));
             this.btnOK = new DevComponents.DotNetBar.ButtonX();
             this.tbGeoTag = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.SuspendLayout();
@@ -37,6 +37,7 @@
             // 
             this.btnOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnOK.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnOK.Location = new System.Drawing.Point(241, 12);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(86, 31);
@@ -60,17 +61,17 @@
             this.tbGeoTag.TabIndex = 1;
             this.tbGeoTag.Text = "地质标签";
             // 
-            // frmTag
+            // FrmTag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(339, 154);
+            this.ClientSize = new System.Drawing.Size(352, 58);
             this.Controls.Add(this.tbGeoTag);
             this.Controls.Add(this.btnOK);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmTag";
+            this.Name = "FrmTag";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "请输入地质标签";
             this.ResumeLayout(false);

@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace FGeo3D_TE
 {
-    public partial class frmTag : Form
+    public partial class FrmTag : Form
     {
-        public frmTag()
+        public FrmTag()
         {
             InitializeComponent();
         }
