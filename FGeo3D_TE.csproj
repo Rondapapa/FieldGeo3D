@@ -56,6 +56,12 @@
     <Compile Include="FrmGeoObject.Designer.cs">
       <DependentUpon>FrmGeoObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmGeoPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGeoPoint.Designer.cs">
+      <DependentUpon>FrmGeoPoint.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPosition.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +85,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmGeoObject.resx">
       <DependentUpon>FrmGeoObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGeoPoint.resx">
+      <DependentUpon>FrmGeoPoint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPosition.resx">
       <DependentUpon>frmPosition.cs</DependentUpon>
