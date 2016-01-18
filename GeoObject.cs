@@ -63,17 +63,19 @@ namespace FGeo3D_TE
             {
                 case "GeoPoint":
                     IsGeoPoint = true; 
-                    var frmGeoPoint = new FrmGeoPoint();
-                
+                    var frmGeoPoint = new FrmGeoPoint(ref sgworld);
+                    var frmDialog = frmGeoPoint.ShowDialog();
+                    //frmGeoPoint.Show();
+
                     //选择“从地图中选取”按钮
-                    if(frmGeoPoint.ShowDialog() == DialogResult.Yes)
+                    if (frmDialog == DialogResult.Yes)
                     {
                         Name = frmGeoPoint.tbName.Text;
                         ObjectID = frmGeoPoint.tbID.Text;
                         IsGeoPointTakenFromMap = true;
                     }
                     //选择“确认坐标”按钮
-                    else if(frmGeoPoint.ShowDialog() == DialogResult.OK)
+                    else if (frmDialog == DialogResult.OK)
                     {
                         Name = frmGeoPoint.tbName.Text;
                         ObjectID = frmGeoPoint.tbID.Text;

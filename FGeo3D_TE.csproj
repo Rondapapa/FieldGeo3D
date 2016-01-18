@@ -62,11 +62,11 @@
     <Compile Include="FrmGeoPoint.Designer.cs">
       <DependentUpon>FrmGeoPoint.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPosition.cs">
+    <Compile Include="FrmPosition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPosition.Designer.cs">
-      <DependentUpon>frmPosition.cs</DependentUpon>
+    <Compile Include="FrmPosition.Designer.cs">
+      <DependentUpon>FrmPosition.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
@@ -89,8 +89,8 @@
     <EmbeddedResource Include="FrmGeoPoint.resx">
       <DependentUpon>FrmGeoPoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPosition.resx">
-      <DependentUpon>frmPosition.cs</DependentUpon>
+    <EmbeddedResource Include="FrmPosition.resx">
+      <DependentUpon>FrmPosition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>

@@ -1,6 +1,6 @@
 ﻿namespace FGeo3D_TE
 {
-    partial class frmPosition
+    partial class FrmPosition
     {
         /// <summary>
         /// Required designer variable.
@@ -28,25 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPosition));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPosition));
             this.btnOK = new DevComponents.DotNetBar.ButtonX();
             this.labelX = new DevComponents.DotNetBar.LabelX();
             this.labelY = new DevComponents.DotNetBar.LabelX();
             this.tbX = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.tbY = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
-            this.tbAltitude = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.SuspendLayout();
             // 
             // btnOK
             // 
             this.btnOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnOK.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOK.Location = new System.Drawing.Point(12, 126);
+            this.btnOK.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnOK.Location = new System.Drawing.Point(12, 90);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(188, 31);
+            this.btnOK.Size = new System.Drawing.Size(139, 31);
             this.btnOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "确定";
@@ -58,12 +56,12 @@
             // 
             // 
             this.labelX.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelX.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelX.Location = new System.Drawing.Point(12, 18);
             this.labelX.Name = "labelX";
-            this.labelX.Size = new System.Drawing.Size(97, 25);
+            this.labelX.Size = new System.Drawing.Size(61, 25);
             this.labelX.TabIndex = 1;
-            this.labelX.Text = "X";
+            this.labelX.Text = "经度";
             // 
             // labelY
             // 
@@ -71,12 +69,12 @@
             // 
             // 
             this.labelY.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelY.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelY.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelY.Location = new System.Drawing.Point(12, 54);
             this.labelY.Name = "labelY";
-            this.labelY.Size = new System.Drawing.Size(97, 26);
+            this.labelY.Size = new System.Drawing.Size(61, 26);
             this.labelY.TabIndex = 2;
-            this.labelY.Text = "Y";
+            this.labelY.Text = "纬度";
             // 
             // tbX
             // 
@@ -91,6 +89,7 @@
             this.tbX.PreventEnterBeep = true;
             this.tbX.Size = new System.Drawing.Size(192, 31);
             this.tbX.TabIndex = 3;
+            this.tbX.TextChanged += new System.EventHandler(this.tbX_TextChanged);
             // 
             // tbY
             // 
@@ -105,57 +104,29 @@
             this.tbY.PreventEnterBeep = true;
             this.tbY.Size = new System.Drawing.Size(192, 31);
             this.tbY.TabIndex = 4;
+            this.tbY.TextChanged += new System.EventHandler(this.tbY_TextChanged);
             // 
             // btnCancel
             // 
             this.btnCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnCancel.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCancel.Location = new System.Drawing.Point(211, 126);
+            this.btnCancel.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnCancel.Location = new System.Drawing.Point(168, 90);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(188, 29);
+            this.btnCancel.Size = new System.Drawing.Size(139, 31);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "取消";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // tbAltitude
-            // 
-            // 
-            // 
-            // 
-            this.tbAltitude.Border.Class = "TextBoxBorder";
-            this.tbAltitude.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbAltitude.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbAltitude.Location = new System.Drawing.Point(115, 86);
-            this.tbAltitude.Name = "tbAltitude";
-            this.tbAltitude.PreventEnterBeep = true;
-            this.tbAltitude.Size = new System.Drawing.Size(192, 31);
-            this.tbAltitude.TabIndex = 4;
-            // 
-            // labelX1
-            // 
-            // 
-            // 
-            // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelX1.Location = new System.Drawing.Point(12, 91);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(97, 26);
-            this.labelX1.TabIndex = 2;
-            this.labelX1.Text = "高程";
-            // 
             // frmPosition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(417, 169);
+            this.ClientSize = new System.Drawing.Size(328, 133);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.tbAltitude);
             this.Controls.Add(this.tbY);
             this.Controls.Add(this.tbX);
-            this.Controls.Add(this.labelX1);
             this.Controls.Add(this.labelY);
             this.Controls.Add(this.labelX);
             this.Controls.Add(this.btnOK);
@@ -177,7 +148,5 @@
         internal DevComponents.DotNetBar.Controls.TextBoxX tbX;
         internal DevComponents.DotNetBar.Controls.TextBoxX tbY;
         internal DevComponents.DotNetBar.ButtonX btnOK;
-        internal DevComponents.DotNetBar.Controls.TextBoxX tbAltitude;
-        private DevComponents.DotNetBar.LabelX labelX1;
     }
 }

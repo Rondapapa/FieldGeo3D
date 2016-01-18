@@ -17,6 +17,8 @@ namespace FGeo3D_TE
         string tProjectUrl;
         SGWorld65 sgworld = new SGWorld65();
 
+        
+
         ITerrainPolygon65 pITPolygon = null;
         ITerrainPolyline65 pITerrainPolyline = null;
         //ILineString pSectionptString = null;
@@ -36,6 +38,12 @@ namespace FGeo3D_TE
         //    public IColor65 LineColor;
         //    public IColor65 FillColor;
         //};
+
+        public double XLeft { get; private set; }
+        public double XRight { get; private set; }
+        public double YTop { get; private set; }
+        public double YBottom { get; private set; }
+
 
 
         private string _pbhander = "";
@@ -82,7 +90,8 @@ namespace FGeo3D_TE
         //自定义构造函数
         private void Init()
         {
-            sgworld.CoordServices.SourceCoordinateSystem.InitLatLong();
+            
+            //sgworld.CoordServices.SourceCoordinateSystem.InitLatLong();
         }
 
         #region 工程
@@ -106,6 +115,16 @@ namespace FGeo3D_TE
             //MessageBox.Show(tProjectUrl);
             sgworld = new SGWorld65();
             sgworld.Project.Open(tProjectUrl, bIsAsync, tUser, tPassword);
+
+
+            sgworld.Project.set_Settings("RemoveSkylineCopyright", 1);
+            sgworld.Terrain.CoordinateSystem.InitLatLong();
+
+            XLeft = sgworld.Terrain.Left;
+            XRight = sgworld.Terrain.Right;
+            YTop = sgworld.Terrain.Top;
+            YBottom = sgworld.Terrain.Bottom;
+
             Text = tProjectUrl + @" - FieldGeo3D";
 
             //string tAppRoot = Path.GetDirectoryName(Application.ExecutablePath);
@@ -249,10 +268,13 @@ namespace FGeo3D_TE
                 }
                 else
                 {
-                    GeoObj.GeoPointGeometry = CreateGeoPoint(GeoObj.GeoPointPos, GeoObj.GroupID, GeoObj.Name);
+                    if (GeoObj.GeoPointPos != null)
+                    {
+                        GeoObj.GeoPointGeometry = CreateGeoPoint(GeoObj.GeoPointPos, GeoObj.GroupID, GeoObj.Name); 	
+                    }
                     btnGeoPoint.FontBold = false;
                     btnGeoPoint.ForeColor = Color.Black;
-                    btnGeoPoint.Checked = false;
+                    btnGeoPoint.Checked = false; 
                 }
             }
             catch (Exception ex)
@@ -469,7 +491,10 @@ namespace FGeo3D_TE
 
         private void btnLocate_Click(object sender, EventArgs e)
         {
-
+            var frmPosition = new FrmPosition(XLeft,XRight,YTop,YBottom);
+            if (frmPosition.ShowDialog() != DialogResult.OK) return;
+            var cPos = sgworld.Creator.CreatePosition(frmPosition.XLong, frmPosition.YLat, 800, AltitudeTypeCode.ATC_TERRAIN_RELATIVE, 0, -90, 0, 0);
+            sgworld.Navigate.FlyTo(cPos);
         }
 
         private void btnQuery_Click(object sender, EventArgs e)
@@ -527,32 +552,32 @@ namespace FGeo3D_TE
             //IPosition65 r_StartPosition = null, r_LastPosition;
 
             #region 获取位置
-            if (PbHander == "GetPos")
-            {
-                var cPos = pIWPInfo.Position;
-                var frmPosition = new frmPosition
-                {
-                    Text = @"选中位置信息如下：",
-                    btnOK = {Text = @"导航至该位置"},
-                    tbX = {Text = cPos.X.ToString()},
-                    tbY = {Text = cPos.Y.ToString()},
-                    tbAltitude = {Text = cPos.Altitude.ToString()}
-                };
-                if (frmPosition.ShowDialog() == DialogResult.OK)
-                {
-                    var dX = double.Parse(frmPosition.tbX.Text);
-                    var dY = double.Parse(frmPosition.tbY.Text);
-                    var dAltitude = double.Parse(frmPosition.tbAltitude.Text);
-                    var cPosView = sgworld.Creator.CreatePosition(cPos.X, cPos.Y, 1200, AltitudeTypeCode.ATC_TERRAIN_RELATIVE, 0, -90, 0, 0);
-                    sgworld.Navigate.FlyTo(cPosView);
-                }
-                //else
-                //{
-                //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                //}
+            //if (PbHander == "GetPos")
+            //{
+            //    var cPos = pIWPInfo.Position;
+            //    var frmPosition = new frmPosition
+            //    {
+            //        Text = @"选中位置信息如下：",
+            //        btnOK = {Text = @"导航至该位置"},
+            //        tbX = {Text = cPos.X.ToString()},
+            //        tbY = {Text = cPos.Y.ToString()},
+                    
+            //    };
+            //    if (frmPosition.ShowDialog() == DialogResult.OK)
+            //    {
+            //        var dX = double.Parse(frmPosition.tbX.Text);
+            //        var dY = double.Parse(frmPosition.tbY.Text);
+                    
+            //        var cPosView = sgworld.Creator.CreatePosition(cPos.X, cPos.Y, 1200, AltitudeTypeCode.ATC_TERRAIN_RELATIVE, 0, -90, 0, 0);
+            //        sgworld.Navigate.FlyTo(cPosView);
+            //    }
+            //    //else
+            //    //{
+            //    //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            //    //}
 
 
-            }
+            //}
             #endregion
 
             #region 创建地质标签
@@ -872,17 +897,17 @@ namespace FGeo3D_TE
         }
 
 
-        private IPosition65 InputPosition()
-        {
-            IPosition65 retPos = null;
-            var frmLocation = new frmPosition();
-            if (frmLocation.ShowDialog() != DialogResult.OK) return retPos;
-            var dX = double.Parse(frmLocation.tbX.Text);
-            var dY = double.Parse(frmLocation.tbY.Text);
-            var dAltitude = double.Parse(frmLocation.tbAltitude.Text);
-            retPos = sgworld.Creator.CreatePosition(dX, dY, dAltitude, AltitudeTypeCode.ATC_TERRAIN_RELATIVE, 0, -90, 0, 0);
-            return retPos;
-        }
+        //private IPosition65 InputPosition()
+        //{
+        //    IPosition65 retPos = null;
+        //    var frmLocation = new frmPosition();
+        //    if (frmLocation.ShowDialog() != DialogResult.OK) return retPos;
+        //    var dX = double.Parse(frmLocation.tbX.Text);
+        //    var dY = double.Parse(frmLocation.tbY.Text);
+            
+        //    retPos = sgworld.Creator.CreatePosition(dX, dY, 0, AltitudeTypeCode.ATC_ON_TERRAIN, 0, -90, 0, 0);
+        //    return retPos;
+        //}
 
         
 
