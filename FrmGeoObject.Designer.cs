@@ -51,7 +51,6 @@
             this.tbName.PreventEnterBeep = true;
             this.tbName.Size = new System.Drawing.Size(486, 29);
             this.tbName.TabIndex = 0;
-            this.tbName.Text = "地质对象名称";
             this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // labelName

@@ -243,6 +243,7 @@ namespace FGeo3D_TE
                 PbHander = "GeoTag";
                 GeoObj = new GeoObject(PbHander, ref sgworld);
                 sgworld.OnLButtonDown += sgworld_OnLButtonDown;
+                sgworld.OnRButtonDown += sgworld_OnRButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
             }
             catch (Exception ex)
@@ -264,6 +265,7 @@ namespace FGeo3D_TE
                 if(GeoObj.IsGeoPointTakenFromMap)
                 {
                     sgworld.OnLButtonDown += sgworld_OnLButtonDown;
+                    sgworld.OnRButtonDown += sgworld_OnRButtonDown;
                     sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
                 }
                 else
@@ -296,6 +298,7 @@ namespace FGeo3D_TE
                 PbHander = "GeoLine";
                 GeoObj = new GeoObject(PbHander, ref sgworld);
                 sgworld.OnLButtonDown += sgworld_OnLButtonDown;
+                sgworld.OnRButtonDown += sgworld_OnRButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
             }
 
@@ -318,6 +321,7 @@ namespace FGeo3D_TE
                 PbHander = "GeoRegion";
                 GeoObj = new GeoObject(PbHander, ref sgworld);
                 sgworld.OnLButtonDown += sgworld_OnLButtonDown;
+                sgworld.OnRButtonDown += sgworld_OnRButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
             }
 
@@ -537,10 +541,118 @@ namespace FGeo3D_TE
         }
 
         //右键 - 作废
-        //bool sgworld_OnRButtonDown(int Flags, int X, int Y)
-        //{
-        //    return true;
-        //}
+        bool sgworld_OnRButtonDown(int Flags, int X, int Y)
+        {
+            #region 地质标签
+            //if (pbhander == "GeoTag")
+            //{
+            //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            //}
+            #endregion
+
+            #region 地质点
+            //if (PbHander == "GeoPoint")
+            //{
+            //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            //}
+            #endregion
+
+            #region 地质线
+            if (PbHander == "GeoLine")
+            {
+                sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                if (GeoObj != null)
+                {
+                    GeoObj.ObjGeometry = pITerrainPolyline.Geometry;
+                    GeoObj.ObjectID = pITerrainPolyline.ID;
+                }
+                pITerrainPolyline = null;
+                GeoObj = null;
+
+                btnGeoLine.FontBold = false;
+                btnGeoLine.ForeColor = Color.Black;
+                btnDrawingApply.FontBold = false;
+                btnDrawingApply.ForeColor = Color.Black;
+                btnGeoLine.Checked = false;
+            }
+            #endregion
+
+            #region 地质区域
+            if (PbHander == "GeoRegion")
+            {
+                sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                if (GeoObj != null)
+                {
+                    GeoObj.ObjGeometry = pITPolygon.Geometry;
+                    GeoObj.ObjectID = pITPolygon.ID;
+                }
+                pITPolygon = null;
+                GeoObj = null;
+                btnGeoRegion.FontBold = false;
+                btnGeoRegion.ForeColor = Color.Black;
+                btnDrawingApply.FontBold = false;
+                btnDrawingApply.ForeColor = Color.Black;
+                btnGeoRegion.Checked = false;
+            }
+            #endregion
+
+            #region 地质体3D
+            //if (pbhander == "GeoRegion3D")
+            //{
+            //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            //    pIT3DPolygon = null;
+            //}
+            #endregion
+
+            #region 地形剖面
+            //if (pbhander == "TerrainProfile")
+            //{
+            //    //MessageBox.Show(pSectionptString.Points.Count.ToString());
+            //    //double[,] arrPoints = new double[pSectionptString.Points.Count, 2];
+            //    double[] arrPoints = new double[(pSectionptString.Points.Count - 1) * 2];
+
+            //    int j = 0;
+            //    for (int i = 1; i < pSectionptString.Points.Count; i++)
+            //    {
+            //        IPoint pt = pSectionptString.Points[i] as IPoint;
+            //        arrPoints[j] = pt.X;
+            //        arrPoints[j+1] = pt.Y;
+            //        j = j + 2 ;
+            //    }
+
+            //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            //    pITerrainPolyline = null;
+            //    sgworld.Analysis.CreateTerrainProfile(arrPoints);
+            //    pSectionptString = null;
+            //}
+            #endregion
+
+            #region 等高线
+            //if (PbHander == "CreateContourMap")
+            //{
+            //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            //    sgworld.Creator.DeleteObject(pITContourMapRectangle.ID);
+            //    double upperLeftX = MinOf2(arrContourMapVertices[0], arrContourMapVertices[2]);
+            //    double upperLeftY = MinOf2(arrContourMapVertices[1], arrContourMapVertices[3]);
+            //    double lowerRightX = MaxOf2(arrContourMapVertices[0], arrContourMapVertices[2]);
+            //    double lowerRightY = MaxOf2(arrContourMapVertices[1], arrContourMapVertices[3]);
+            //    var s = sgworld.Analysis.CreateContourMap(upperLeftX, upperLeftY, lowerRightX, lowerRightY, ContourDisplayStyle.CDS_CONTOUR_STYLE_LINES_AND_COLORS, "", "", "等高线");
+            //    for (int idx = 0; idx < 4; idx++)
+            //    {
+            //        arrContourMapVertices[idx] = 0;
+            //    }
+            //    pITContourMapRectangle = null;
+            //}
+            #endregion
+
+            sgworld.OnRButtonDown -= sgworld_OnRButtonDown;
+            PbHander = "";
+            IsSaved = false;
+            Text = tProjectUrl + @"* - FieldGeo3D";
+            return true;
+        }
 
         //左键
         bool sgworld_OnLButtonDown(int Flags, int X, int Y)

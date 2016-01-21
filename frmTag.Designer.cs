@@ -59,7 +59,6 @@
             this.tbGeoTag.PreventEnterBeep = true;
             this.tbGeoTag.Size = new System.Drawing.Size(192, 31);
             this.tbGeoTag.TabIndex = 1;
-            this.tbGeoTag.Text = "地质标签";
             // 
             // FrmTag
             // 
