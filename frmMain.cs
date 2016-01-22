@@ -26,6 +26,8 @@ namespace FGeo3D_TE
         //double[] arrContourMapVertices = new double[4];
         //ObjProperty objProperty;
         private GeoObject GeoObj;
+
+        ILineString tempLineString;
         //List<double> lArrPoints = new List<double>();
         //List<double> ListVerticsArray = new List<double>();
         
@@ -378,6 +380,7 @@ namespace FGeo3D_TE
                     GeoObj.ObjGeometry = pITPolygon.Geometry;
                     GeoObj.ObjectID = pITPolygon.ID;
                 }
+                tempLineString = null;
                 pITPolygon = null;
                 GeoObj = null;
                 btnGeoRegion.FontBold = false;
@@ -588,6 +591,7 @@ namespace FGeo3D_TE
                     GeoObj.ObjGeometry = pITPolygon.Geometry;
                     GeoObj.ObjectID = pITPolygon.ID;
                 }
+                tempLineString = null;
                 pITPolygon = null;
                 GeoObj = null;
                 btnGeoRegion.FontBold = false;
@@ -648,6 +652,7 @@ namespace FGeo3D_TE
             #endregion
 
             sgworld.OnRButtonDown -= sgworld_OnRButtonDown;
+            
             PbHander = "";
             IsSaved = false;
             Text = tProjectUrl + @"* - FieldGeo3D";
@@ -712,6 +717,7 @@ namespace FGeo3D_TE
             #endregion
 
             #region 创建地质点
+            //创建地质点
             if (PbHander == "GeoPoint")
             {
                 if (GeoObj != null)
@@ -758,6 +764,7 @@ namespace FGeo3D_TE
                     var dx = pIWPInfo.Position.X;
                     var dy = pIWPInfo.Position.Y;
                     var dz = pIWPInfo.Position.Altitude;
+                    
                     if (cLineString != null) cLineString.Points.AddPoint(dx, dy, dz);
                     var editedGeometry = pITerrainPolyline.Geometry.EndEdit();
                     pITerrainPolyline.Geometry = editedGeometry;
@@ -766,6 +773,8 @@ namespace FGeo3D_TE
                     //sgworld.Analysis.CreateTerrainProfile(cLineString.Points);
 
                 }
+
+
             }
             #endregion
 
@@ -781,6 +790,13 @@ namespace FGeo3D_TE
                         pIWPInfo.Position.X,  pIWPInfo.Position.Y,  pIWPInfo.Position.Altitude,  
                         pIWPInfo.Position.X,  pIWPInfo.Position.Y,  pIWPInfo.Position.Altitude,                         
                     };
+
+                    tempLineString = sgworld.Creator.GeometryCreator.CreateLineStringGeometry(cVerticesArray);
+                    tempLineString.StartEdit();
+                    tempLineString.Points.DeletePoint(0);
+                    tempLineString.EndEdit();
+                    
+
                     var cRing = sgworld.Creator.GeometryCreator.CreateLinearRingGeometry(cVerticesArray);
                     //cPolygonGeometry = sgworld.Creator.GeometryCreator.CreatePolygonGeometry(cRing, null);
                     
@@ -811,6 +827,7 @@ namespace FGeo3D_TE
                 {
                     var polygonGeometry = pITPolygon.Geometry as IPolygon;
                     if (polygonGeometry == null) return false;
+                   
                     polygonGeometry.StartEdit();
                     foreach (ILinearRing ring in polygonGeometry.Rings)
                     {
@@ -818,9 +835,21 @@ namespace FGeo3D_TE
                         var dy = pIWPInfo.Position.Y;
                         var dh = pIWPInfo.Position.Altitude;
                         ring.Points.AddPoint(dx, dy, dh);
+                        tempLineString.StartEdit();
+                        tempLineString.Points.AddPoint(dx, dy, dh);
+                        tempLineString.EndEdit();
+
+                        if (!tempLineString.IsSimple())
+                        {
+                            ring.Points.DeletePoint(ring.Points.Count - 1);
+                            tempLineString.Points.DeletePoint(tempLineString.Points.Count - 1);
+                            MessageBox.Show(@"选取点无效：不能形成有效区域");
+                        }
                     }
                     var editedGeometry = polygonGeometry.EndEdit();
                     pITPolygon.Geometry = editedGeometry;
+                    //pITPolygon.set_ClientData("Test Namespace","Guess Test");
+                    
                 }
             }
             #endregion
