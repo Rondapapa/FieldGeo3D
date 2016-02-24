@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using TerraExplorerX;
 using System.IO;
 using System.Threading;
+using DevComponents.DotNetBar;
 
 namespace FGeo3D_TE
 {
@@ -25,7 +26,10 @@ namespace FGeo3D_TE
         //ITerrain3DPolygon65 pIT3DPolygon = null;
         //double[] arrContourMapVertices = new double[4];
         //ObjProperty objProperty;
-        private GeoObject GeoObj;
+        //private GeoObject GeoObj;
+        private GeoObj GeoObj = new GeoObj();
+        private GeoObjInfo GeoObjInfo;
+
 
         ILineString tempLineString;
         //List<double> lArrPoints = new List<double>();
@@ -92,7 +96,6 @@ namespace FGeo3D_TE
         //自定义构造函数
         private void Init()
         {
-            
             //sgworld.CoordServices.SourceCoordinateSystem.InitLatLong();
         }
 
@@ -232,20 +235,16 @@ namespace FGeo3D_TE
 
 
         #region 绘录
-        private void btnTag_Click(object sender, EventArgs e)
+        private void btnLabel_Click(object sender, EventArgs e)
         {
             //sgworld.Command.Execute(1012, 0);
             
             try
             {
-                btnTag.FontBold = true;
-                btnTag.ForeColor = Color.Red;
-                btnTag.Checked = true;
-                
-                PbHander = "GeoTag";
-                GeoObj = new GeoObject(PbHander, ref sgworld);
+                HighlightButton(btnLabel);
+                PbHander = "GeoLabel";
+                GeoObjInfo = new GeoObjInfo(PbHander,ref sgworld);
                 sgworld.OnLButtonDown += sgworld_OnLButtonDown;
-                sgworld.OnRButtonDown += sgworld_OnRButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
             }
             catch (Exception ex)
@@ -258,27 +257,21 @@ namespace FGeo3D_TE
         {
             try
             {
-                btnGeoPoint.FontBold = true;
-                btnGeoPoint.ForeColor = Color.Red;
-                btnGeoPoint.Checked = true;
-                
+                HighlightButton(btnGeoPoint);
                 PbHander = "GeoPoint";
-                GeoObj = new GeoObject(PbHander, ref sgworld) {GroupID = CreateGroup("地质点")};
-                if(GeoObj.IsGeoPointTakenFromMap)
+                GeoObjInfo = new GeoObjInfo(PbHander, ref sgworld);
+                if(GeoObjInfo.IsGeoPointTakenFromMap)
                 {
                     sgworld.OnLButtonDown += sgworld_OnLButtonDown;
-                    sgworld.OnRButtonDown += sgworld_OnRButtonDown;
                     sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
                 }
                 else
                 {
-                    if (GeoObj.GeoPointPos != null)
+                    if (GeoObjInfo.PointPosition != null)
                     {
-                        GeoObj.GeoPointGeometry = CreateGeoPoint(GeoObj.GeoPointPos, GeoObj.GroupID, GeoObj.Name); 	
+                        GeoPoint cGeoPoint = new GeoPoint(GeoObjInfo, ref sgworld);  	
                     }
-                    btnGeoPoint.FontBold = false;
-                    btnGeoPoint.ForeColor = Color.Black;
-                    btnGeoPoint.Checked = false; 
+                    ResetButton(btnGeoPoint); 
                 }
             }
             catch (Exception ex)
@@ -292,13 +285,9 @@ namespace FGeo3D_TE
             //sgworld.Command.Execute(1012, 4);
             try
             {
-                btnGeoLine.FontBold = true;
-                btnGeoLine.ForeColor = Color.Red;
-                btnGeoLine.Checked = true;
-                btnDrawingApply.FontBold = true;
-                btnDrawingApply.ForeColor = Color.Green;
+                HighlightButton(btnGeoLine, true);
                 PbHander = "GeoLine";
-                GeoObj = new GeoObject(PbHander, ref sgworld);
+                GeoObjInfo = new GeoObjInfo(PbHander, ref sgworld);
                 sgworld.OnLButtonDown += sgworld_OnLButtonDown;
                 sgworld.OnRButtonDown += sgworld_OnRButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -315,13 +304,9 @@ namespace FGeo3D_TE
             //sgworld.Command.Execute(1012, 5);
             try
             {
-                btnGeoRegion.FontBold = true;
-                btnGeoRegion.ForeColor = Color.Red;
-                btnGeoRegion.Checked = true;
-                btnDrawingApply.FontBold = true;
-                btnDrawingApply.ForeColor = Color.Green;
+                HighlightButton(btnGeoRegion, true);
                 PbHander = "GeoRegion";
-                GeoObj = new GeoObject(PbHander, ref sgworld);
+                GeoObjInfo = new GeoObjInfo(PbHander, ref sgworld);
                 sgworld.OnLButtonDown += sgworld_OnLButtonDown;
                 sgworld.OnRButtonDown += sgworld_OnRButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -333,117 +318,17 @@ namespace FGeo3D_TE
             }
         }
 
+
+
         private void btnDrawingApply_Click(object sender, EventArgs e)
         {
-            #region 地质标签
-            //if (pbhander == "GeoTag")
-            //{
-            //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            //}
-            #endregion
-
-            #region 地质点
-            //if (PbHander == "GeoPoint")
-            //{
-            //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            //}
-            #endregion
-
-            #region 地质线
-            if (PbHander == "GeoLine")
-            {
-                sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
-                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                if (GeoObj != null)
-                {
-                    GeoObj.ObjGeometry = pITerrainPolyline.Geometry;
-                    GeoObj.ObjectID = pITerrainPolyline.ID;
-                }
-                pITerrainPolyline = null;
-                GeoObj = null;
-
-                btnGeoLine.FontBold = false;
-                btnGeoLine.ForeColor = Color.Black;
-                btnDrawingApply.FontBold = false;
-                btnDrawingApply.ForeColor = Color.Black;
-                btnGeoLine.Checked = false;
-            }
-            #endregion
-
-            #region 地质区域
-            if (PbHander == "GeoRegion")
-            {
-                sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
-                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                if (GeoObj != null)
-                {
-                    GeoObj.ObjGeometry = pITPolygon.Geometry;
-                    GeoObj.ObjectID = pITPolygon.ID;
-                }
-                tempLineString = null;
-                pITPolygon = null;
-                GeoObj = null;
-                btnGeoRegion.FontBold = false;
-                btnGeoRegion.ForeColor = Color.Black;
-                btnDrawingApply.FontBold = false;
-                btnDrawingApply.ForeColor = Color.Black;
-                btnGeoRegion.Checked = false;
-            }
-            #endregion
-
-            #region 地质体3D
-            //if (pbhander == "GeoRegion3D")
-            //{
-            //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            //    pIT3DPolygon = null;
-            //}
-            #endregion
-
-            #region 地形剖面
-            //if (pbhander == "TerrainProfile")
-            //{
-            //    //MessageBox.Show(pSectionptString.Points.Count.ToString());
-            //    //double[,] arrPoints = new double[pSectionptString.Points.Count, 2];
-            //    double[] arrPoints = new double[(pSectionptString.Points.Count - 1) * 2];
-
-            //    int j = 0;
-            //    for (int i = 1; i < pSectionptString.Points.Count; i++)
-            //    {
-            //        IPoint pt = pSectionptString.Points[i] as IPoint;
-            //        arrPoints[j] = pt.X;
-            //        arrPoints[j+1] = pt.Y;
-            //        j = j + 2 ;
-            //    }
-
-            //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            //    pITerrainPolyline = null;
-            //    sgworld.Analysis.CreateTerrainProfile(arrPoints);
-            //    pSectionptString = null;
-            //}
-            #endregion
-
-            #region 等高线
-            //if (PbHander == "CreateContourMap")
-            //{
-            //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            //    sgworld.Creator.DeleteObject(pITContourMapRectangle.ID);
-            //    double upperLeftX = MinOf2(arrContourMapVertices[0], arrContourMapVertices[2]);
-            //    double upperLeftY = MinOf2(arrContourMapVertices[1], arrContourMapVertices[3]);
-            //    double lowerRightX = MaxOf2(arrContourMapVertices[0], arrContourMapVertices[2]);
-            //    double lowerRightY = MaxOf2(arrContourMapVertices[1], arrContourMapVertices[3]);
-            //    var s = sgworld.Analysis.CreateContourMap(upperLeftX, upperLeftY, lowerRightX, lowerRightY, ContourDisplayStyle.CDS_CONTOUR_STYLE_LINES_AND_COLORS, "", "", "等高线");
-            //    for (int idx = 0; idx < 4; idx++)
-            //    {
-            //        arrContourMapVertices[idx] = 0;
-            //    }
-            //    pITContourMapRectangle = null;
-            //}
-            #endregion
-
+            Apply(PbHander);
             PbHander = "";
             IsSaved = false;
             Text = tProjectUrl + @"* - FieldGeo3D";
         }
+
+
 
         //Freehand Drawing - 不可用！
         //private void btnGeoLineFreehand_Click(object sender, EventArgs e)
@@ -539,78 +424,90 @@ namespace FGeo3D_TE
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            
+            MessageBox.Show(string.Format("Labels:{0}; Points:{1}; Lines:{2}; Regions:{3}",
+                GeoObj.Labels.Count.ToString(), GeoObj.Points.Count.ToString(), GeoObj.Lines.Count.ToString(), GeoObj.Regions.Count.ToString()));
             //MessageBox.Show(sgworld.Command.CanExecute(1149,25).ToString());
         }
 
-        //右键 - 作废
+        //右键
         bool sgworld_OnRButtonDown(int Flags, int X, int Y)
         {
+            Apply(PbHander);
+            sgworld.OnRButtonDown -= sgworld_OnRButtonDown;
+            PbHander = "";
+            IsSaved = false;
+            Text = tProjectUrl + @"* - FieldGeo3D";
+            return true;
+        }
+
+        private void Apply(string pbhander)
+        {
             #region 地质标签
-            //if (pbhander == "GeoTag")
+
+            //if (pbhander == "GeoLabel")
             //{
             //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             //}
+
             #endregion
 
             #region 地质点
+
             //if (PbHander == "GeoPoint")
             //{
             //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             //}
+
             #endregion
 
             #region 地质线
-            if (PbHander == "GeoLine")
+
+            if (pbhander == "GeoLine")
             {
                 sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                if (GeoObj != null)
+                if (pITerrainPolyline != null)
                 {
-                    GeoObj.ObjGeometry = pITerrainPolyline.Geometry;
-                    GeoObj.ObjectID = pITerrainPolyline.ID;
+                    GeoLine cGeoPoint = new GeoLine(pITerrainPolyline);
                 }
                 pITerrainPolyline = null;
-                GeoObj = null;
+                GeoObjInfo = null;
 
-                btnGeoLine.FontBold = false;
-                btnGeoLine.ForeColor = Color.Black;
-                btnDrawingApply.FontBold = false;
-                btnDrawingApply.ForeColor = Color.Black;
-                btnGeoLine.Checked = false;
+                ResetButton(btnGeoLine, true);
             }
+
             #endregion
 
             #region 地质区域
-            if (PbHander == "GeoRegion")
+
+            if (pbhander == "GeoRegion")
             {
                 sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                if (GeoObj != null)
+                if (pITPolygon != null)
                 {
-                    GeoObj.ObjGeometry = pITPolygon.Geometry;
-                    GeoObj.ObjectID = pITPolygon.ID;
+                    GeoRegion cGeoRegion = new GeoRegion(pITPolygon);
                 }
                 tempLineString = null;
                 pITPolygon = null;
-                GeoObj = null;
-                btnGeoRegion.FontBold = false;
-                btnGeoRegion.ForeColor = Color.Black;
-                btnDrawingApply.FontBold = false;
-                btnDrawingApply.ForeColor = Color.Black;
-                btnGeoRegion.Checked = false;
+                GeoObjInfo = null;
+                ResetButton(btnGeoRegion, true);
             }
+
             #endregion
 
             #region 地质体3D
+
             //if (pbhander == "GeoRegion3D")
             //{
             //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             //    pIT3DPolygon = null;
             //}
+
             #endregion
 
             #region 地形剖面
+
             //if (pbhander == "TerrainProfile")
             //{
             //    //MessageBox.Show(pSectionptString.Points.Count.ToString());
@@ -631,10 +528,12 @@ namespace FGeo3D_TE
             //    sgworld.Analysis.CreateTerrainProfile(arrPoints);
             //    pSectionptString = null;
             //}
+
             #endregion
 
             #region 等高线
-            //if (PbHander == "CreateContourMap")
+
+            //if (pbhander == "CreateContourMap")
             //{
             //    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             //    sgworld.Creator.DeleteObject(pITContourMapRectangle.ID);
@@ -649,14 +548,8 @@ namespace FGeo3D_TE
             //    }
             //    pITContourMapRectangle = null;
             //}
-            #endregion
 
-            sgworld.OnRButtonDown -= sgworld_OnRButtonDown;
-            
-            PbHander = "";
-            IsSaved = false;
-            Text = tProjectUrl + @"* - FieldGeo3D";
-            return true;
+            #endregion
         }
 
         //左键
@@ -699,20 +592,18 @@ namespace FGeo3D_TE
 
             #region 创建地质标签
             //创建地质标签
-            if (PbHander == "GeoTag")
+            if (PbHander == "GeoLabel")
             {
-                var cPos = sgworld.Creator.CreatePosition(pIWPInfo.Position.X, pIWPInfo.Position.Y, 50, AltitudeTypeCode.ATC_TERRAIN_RELATIVE, 0, 0, 0, 0);
-                GeoObj.GroupID = CreateGroup("标签");
-                GeoObj.GeoLabel = sgworld.Creator.CreateTextLabel(cPos, GeoObj.Name, GeoObj.LabelStyle, GeoObj.GroupID, "Tag:" + GeoObj.Name);
-                GeoObj.ObjectID = GeoObj.GeoLabel.ID;
+                GeoObjInfo.LabelPosition = sgworld.Creator.CreatePosition(pIWPInfo.Position.X, pIWPInfo.Position.Y, 50, AltitudeTypeCode.ATC_TERRAIN_RELATIVE, 0, 0, 0, 0);
+
+                GeoLabel cGeoLabel = new GeoLabel(GeoObjInfo, ref sgworld);
+
                 sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
-                btnTag.Checked = false;
-                btnTag.FontBold = false;
-                btnTag.ForeColor = Color.Black;
-                
+                ResetButton(btnLabel);
+
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
                 Text = tProjectUrl + @"* - FieldGeo3D";
-                GeoObj = null;
+                GeoObjInfo = null;
             }
             #endregion
 
@@ -720,23 +611,21 @@ namespace FGeo3D_TE
             //创建地质点
             if (PbHander == "GeoPoint")
             {
-                if (GeoObj != null)
+                if (GeoObjInfo != null)
                 {
-                    GeoObj.GroupID = CreateGroup("地质点");
-                
-                    if(GeoObj.GeoPointGeometry == null)
+                    if(GeoObjInfo.PointPosition == null)
                     {
-                        GeoObj.GeoPointGeometry = CreateGeoPoint(pIWPInfo.Position, GeoObj.GroupID, GeoObj.Name);
+                        GeoObjInfo.PointPosition = sgworld.Creator.CreatePosition(pIWPInfo.Position.X,
+                            pIWPInfo.Position.Y, 0, AltitudeTypeCode.ATC_ON_TERRAIN, 0, 0, 0, 0);
+                        GeoPoint cGeoPoint = new GeoPoint(GeoObjInfo, ref sgworld);
                         sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
                         sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
                     }
-                    btnGeoPoint.FontBold = false;
-                    btnGeoPoint.ForeColor = Color.Black;
-                    btnGeoPoint.Checked = false;
+                    ResetButton(btnGeoPoint);
                     //Thread.Sleep(500);
                     Text = tProjectUrl + @"* - FieldGeo3D";
                 }
-                GeoObj = null;
+                GeoObjInfo = null;
             }
             #endregion
 
@@ -751,10 +640,9 @@ namespace FGeo3D_TE
                         pIWPInfo.Position.X, pIWPInfo.Position.Y, pIWPInfo.Position.Distance, };
                     var cLineString = sgworld.Creator.GeometryCreator.CreateLineStringGeometry(cVerticesArray);
                     var eAltitudeTypeCode = AltitudeTypeCode.ATC_ON_TERRAIN;
-                    if (GeoObj != null)
+                    if (GeoObjInfo != null)
                     {
-                        GeoObj.GroupID = CreateGroup("地质界线");
-                        pITerrainPolyline = sgworld.Creator.CreatePolyline(cLineString, GeoObj.LineColor.ToABGRColor(), eAltitudeTypeCode, GeoObj.GroupID, GeoObj.Name);
+                        pITerrainPolyline = sgworld.Creator.CreatePolyline(cLineString, GeoObjInfo.LineColor.ToABGRColor(), eAltitudeTypeCode, GeoObjInfo.GroupId, GeoObjInfo.Name);
                     }
                 }
                 else
@@ -801,10 +689,9 @@ namespace FGeo3D_TE
                     //cPolygonGeometry = sgworld.Creator.GeometryCreator.CreatePolygonGeometry(cRing, null);
                     
                     var eAltitudeTypeCode = AltitudeTypeCode.ATC_ON_TERRAIN;
-                    if (GeoObj != null)
+                    if (GeoObjInfo != null)
                     {
-                        GeoObj.GroupID = CreateGroup("地质区域");
-                        pITPolygon = sgworld.Creator.CreatePolygon(cRing, GeoObj.LineColor.ToABGRColor(), GeoObj.FillColor.ToABGRColor(), eAltitudeTypeCode, GeoObj.GroupID, GeoObj.Name);
+                        pITPolygon = sgworld.Creator.CreatePolygon(cRing, GeoObjInfo.LineColor.ToABGRColor(), GeoObjInfo.FillColor.ToABGRColor(), eAltitudeTypeCode, GeoObjInfo.GroupId, GeoObjInfo.Name);
                     }
 
                     if (pITPolygon == null) return false;
@@ -1027,15 +914,6 @@ namespace FGeo3D_TE
 
         #region 其他方法
 
-        private string CreateGroup(string groupName)
-        {
-            var gid = sgworld.ProjectTree.FindItem(groupName);
-            if (!string.IsNullOrEmpty(gid))
-            {
-                return gid;
-            }
-            return sgworld.ProjectTree.CreateGroup(groupName);
-        }
 
 
         //private IPosition65 InputPosition()
@@ -1050,28 +928,28 @@ namespace FGeo3D_TE
         //    return retPos;
         //}
 
-        
-
-
-
-        private double MaxOf2(double a, double b)
+        private void HighlightButton(ButtonItem btn, bool isBtnDrawingApplyUsed = false)
         {
-            var ret = a;
-            if (a < b)
+            btn.FontBold = true;
+            btn.ForeColor = Color.Red;
+            btn.Checked = true;
+            if (isBtnDrawingApplyUsed)
             {
-                ret = b;
+                btnDrawingApply.FontBold = true;
+                btnDrawingApply.ForeColor = Color.Green;
             }
-            return ret;
         }
 
-        private double MinOf2(double a, double b)
+        private void ResetButton(ButtonItem btn, bool isBtnDrawingApplyUsed = false)
         {
-            var ret = a;
-            if (a > b)
+            btn.FontBold = false;
+            btn.ForeColor = Color.Black;
+            btn.Checked = false;
+            if(isBtnDrawingApplyUsed)
             {
-                ret = b;
+                btnDrawingApply.FontBold = false;
+                btnDrawingApply.ForeColor = Color.Black;
             }
-            return ret;
         }
 
         private ITerrainPolygon65 CreatePolygon3ps(IPosition65 p0, IPosition65 p1, IPosition65 p2)
@@ -1090,17 +968,6 @@ namespace FGeo3D_TE
 
 
             return retPolygon;
-        }
-
-
-        private ITerrainSphere65 CreateGeoPoint(IPosition65 pos, string gid, string desc)
-        {
-            double radius = 10;
-            var Style = SphereStyle.SPHERE_NORMAL;
-            var nLineColor = 0xFF00FF00;
-            var nFillColor = 0xFF646464;
-            var SegmentDensity = -1;
-            return sgworld.Creator.CreateSphere(pos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, desc);
         }
 
         #endregion

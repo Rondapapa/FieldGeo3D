@@ -50,6 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeoLine.cs" />
+    <Compile Include="GeoObj.cs" />
+    <Compile Include="GeoObjInfo.cs" />
+    <Compile Include="GeoLabel.cs" />
     <Compile Include="FrmGeoObject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,13 +78,14 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmTag.cs">
+    <Compile Include="FrmLabel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmTag.Designer.cs">
-      <DependentUpon>FrmTag.cs</DependentUpon>
+    <Compile Include="FrmLabel.Designer.cs">
+      <DependentUpon>FrmLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeoObject.cs" />
+    <Compile Include="GeoPoint.cs" />
+    <Compile Include="GeoRegion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmGeoObject.resx">
@@ -95,8 +100,8 @@
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmTag.resx">
-      <DependentUpon>FrmTag.cs</DependentUpon>
+    <EmbeddedResource Include="FrmLabel.resx">
+      <DependentUpon>FrmLabel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

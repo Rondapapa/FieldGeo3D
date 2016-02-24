@@ -1,6 +1,6 @@
 ﻿namespace FGeo3D_TE
 {
-    partial class FrmTag
+    partial class FrmLabel
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTag));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLabel));
             this.btnOK = new DevComponents.DotNetBar.ButtonX();
-            this.tbGeoTag = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.tbGeoLabel = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.SuspendLayout();
             // 
             // btnOK
@@ -46,26 +46,26 @@
             this.btnOK.Text = "确定";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // tbGeoTag
+            // tbGeoLabel
             // 
             // 
             // 
             // 
-            this.tbGeoTag.Border.Class = "TextBoxBorder";
-            this.tbGeoTag.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbGeoTag.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbGeoTag.Location = new System.Drawing.Point(21, 12);
-            this.tbGeoTag.Name = "tbGeoTag";
-            this.tbGeoTag.PreventEnterBeep = true;
-            this.tbGeoTag.Size = new System.Drawing.Size(192, 31);
-            this.tbGeoTag.TabIndex = 1;
+            this.tbGeoLabel.Border.Class = "TextBoxBorder";
+            this.tbGeoLabel.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbGeoLabel.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbGeoLabel.Location = new System.Drawing.Point(21, 12);
+            this.tbGeoLabel.Name = "tbGeoLabel";
+            this.tbGeoLabel.PreventEnterBeep = true;
+            this.tbGeoLabel.Size = new System.Drawing.Size(192, 31);
+            this.tbGeoLabel.TabIndex = 1;
             // 
             // FrmTag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(352, 58);
-            this.Controls.Add(this.tbGeoTag);
+            this.Controls.Add(this.tbGeoLabel);
             this.Controls.Add(this.btnOK);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -80,6 +80,6 @@
         #endregion
 
         private DevComponents.DotNetBar.ButtonX btnOK;
-        internal DevComponents.DotNetBar.Controls.TextBoxX tbGeoTag;
+        internal DevComponents.DotNetBar.Controls.TextBoxX tbGeoLabel;
     }
 }

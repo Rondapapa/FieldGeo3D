@@ -34,7 +34,7 @@
             this.axTE3DWindow1 = new AxTerraExplorerX.AxTE3DWindow();
             this.axTEInformationWindow1 = new AxTerraExplorerX.AxTEInformationWindow();
             this.rbDraw = new DevComponents.DotNetBar.RibbonBar();
-            this.btnTag = new DevComponents.DotNetBar.ButtonItem();
+            this.btnLabel = new DevComponents.DotNetBar.ButtonItem();
             this.btnGeoPoint = new DevComponents.DotNetBar.ButtonItem();
             this.btnGeoLine = new DevComponents.DotNetBar.ButtonItem();
             this.btnGeoRegion = new DevComponents.DotNetBar.ButtonItem();
@@ -107,7 +107,7 @@
             this.rbDraw.ContainerControlProcessDialogKey = true;
             this.rbDraw.DragDropSupport = true;
             this.rbDraw.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnTag,
+            this.btnLabel,
             this.btnGeoPoint,
             this.btnGeoLine,
             this.btnGeoRegion,
@@ -131,14 +131,14 @@
             // 
             this.rbDraw.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
-            // btnTag
+            // btnLabel
             // 
-            this.btnTag.Image = ((System.Drawing.Image)(resources.GetObject("btnTag.Image")));
-            this.btnTag.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnTag.Name = "btnTag";
-            this.btnTag.SubItemsExpandWidth = 14;
-            this.btnTag.Text = "插入标签";
-            this.btnTag.Click += new System.EventHandler(this.btnTag_Click);
+            this.btnLabel.Image = ((System.Drawing.Image)(resources.GetObject("btnLabel.Image")));
+            this.btnLabel.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnLabel.Name = "btnLabel";
+            this.btnLabel.SubItemsExpandWidth = 14;
+            this.btnLabel.Text = "插入标签";
+            this.btnLabel.Click += new System.EventHandler(this.btnLabel_Click);
             // 
             // btnGeoPoint
             // 
@@ -544,7 +544,7 @@
         private DevComponents.DotNetBar.ButtonX btnQuery;
         private DevComponents.DotNetBar.ButtonX btnTest;
         internal DevComponents.DotNetBar.ButtonItem btnDrawingApply;
-        internal DevComponents.DotNetBar.ButtonItem btnTag;
+        internal DevComponents.DotNetBar.ButtonItem btnLabel;
         internal DevComponents.DotNetBar.ButtonItem btnGeoPoint;
         internal DevComponents.DotNetBar.ButtonItem btnGeoLine;
         internal DevComponents.DotNetBar.ButtonItem btnGeoRegion;
