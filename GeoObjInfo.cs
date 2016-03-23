@@ -128,6 +128,20 @@ namespace FGeo3D_TE
                     LineColor = sgworld.Creator.CreateColor(theColor2.R, theColor2.G, theColor2.B, theColor2.A);
                     FillColor = sgworld.Creator.CreateColor(theColor2.R, theColor2.G, theColor2.B, 128);
                     break;
+
+                case "FreehandDrawing":
+                    GroupId = CreateGroup("地质线");
+                    var frmGeoObject3 = new FrmGeoObject(PbHander);
+                    //若不指定边界颜色，则默认为黑色
+                    LineColor = sgworld.Creator.CreateColor(255, 255, 255, 255);
+                    //若不指定填充颜色，则默认为半透明蓝色
+                    FillColor = sgworld.Creator.CreateColor(0, 0, 255, 128);
+                    if (frmGeoObject3.ShowDialog() != DialogResult.OK) return;
+                    Name = frmGeoObject3.ObjName;
+                    var theColor3 = frmGeoObject3.SelectedColor;
+                    LineColor = sgworld.Creator.CreateColor(theColor3.R, theColor3.G, theColor3.B, theColor3.A);
+                    FillColor = sgworld.Creator.CreateColor(theColor3.R, theColor3.G, theColor3.B, 128);
+                    break;
             }
 
         }

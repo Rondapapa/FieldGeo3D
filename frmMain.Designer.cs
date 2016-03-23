@@ -58,6 +58,7 @@
             this.btnLocate = new DevComponents.DotNetBar.ButtonX();
             this.btnQuery = new DevComponents.DotNetBar.ButtonX();
             this.btnTest = new DevComponents.DotNetBar.ButtonX();
+            this.btnFreehandDrawing = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
             this.gpMeasure.SuspendLayout();
@@ -110,12 +111,13 @@
             this.btnLabel,
             this.btnGeoPoint,
             this.btnGeoLine,
+            this.btnFreehandDrawing,
             this.btnGeoRegion,
             this.btnDrawingApply});
             this.rbDraw.Location = new System.Drawing.Point(193, 5);
             this.rbDraw.Name = "rbDraw";
             this.rbDraw.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbDraw.Size = new System.Drawing.Size(311, 83);
+            this.rbDraw.Size = new System.Drawing.Size(379, 83);
             this.rbDraw.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbDraw.TabIndex = 9;
             this.rbDraw.Text = "绘录";
@@ -156,7 +158,7 @@
             this.btnGeoLine.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnGeoLine.Name = "btnGeoLine";
             this.btnGeoLine.SubItemsExpandWidth = 14;
-            this.btnGeoLine.Text = "地质界线";
+            this.btnGeoLine.Text = "点选界线";
             this.btnGeoLine.Click += new System.EventHandler(this.btnGeoLine_Click);
             // 
             // btnGeoRegion
@@ -174,7 +176,7 @@
             this.btnDrawingApply.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnDrawingApply.Name = "btnDrawingApply";
             this.btnDrawingApply.SubItemsExpandWidth = 14;
-            this.btnDrawingApply.Text = "应用";
+            this.btnDrawingApply.Text = "变更应用";
             this.btnDrawingApply.Click += new System.EventHandler(this.btnDrawingApply_Click);
             // 
             // rbTerrainAnalysis
@@ -196,7 +198,7 @@
             this.btnContourMap,
             this.btnSlope,
             this.btnBestPath});
-            this.rbTerrainAnalysis.Location = new System.Drawing.Point(510, 5);
+            this.rbTerrainAnalysis.Location = new System.Drawing.Point(578, 5);
             this.rbTerrainAnalysis.Name = "rbTerrainAnalysis";
             this.rbTerrainAnalysis.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.rbTerrainAnalysis.Size = new System.Drawing.Size(205, 83);
@@ -491,6 +493,15 @@
             this.btnTest.Text = "test";
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
+            // btnFreehandDrawing
+            // 
+            this.btnFreehandDrawing.Image = ((System.Drawing.Image)(resources.GetObject("btnFreehandDrawing.Image")));
+            this.btnFreehandDrawing.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnFreehandDrawing.Name = "btnFreehandDrawing";
+            this.btnFreehandDrawing.SubItemsExpandWidth = 14;
+            this.btnFreehandDrawing.Text = "手绘界线";
+            this.btnFreehandDrawing.Click += new System.EventHandler(this.btnFreehandDrawing_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -548,6 +559,7 @@
         internal DevComponents.DotNetBar.ButtonItem btnGeoPoint;
         internal DevComponents.DotNetBar.ButtonItem btnGeoLine;
         internal DevComponents.DotNetBar.ButtonItem btnGeoRegion;
+        private DevComponents.DotNetBar.ButtonItem btnFreehandDrawing;
     }
 }
 

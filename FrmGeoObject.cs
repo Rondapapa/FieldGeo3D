@@ -33,6 +33,10 @@ namespace FGeo3D_TE
             {
                 this.Text += "地质区域";
             }
+            if(pbhander == "FreehandDrawing")
+            {
+                this.Text += "手绘地质界线";
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
