@@ -159,7 +159,7 @@ namespace FGeo3D_TE
             {
                 sgworld.Project.Save();
                 Text = tProjectUrl + @" - FieldGeo3D";
-                MessageBox.Show(@"保存成功！");
+                //MessageBox.Show(@"保存成功！");
             }
             catch (Exception ex)
             {
@@ -244,6 +244,11 @@ namespace FGeo3D_TE
                 HighlightButton(btnLabel);
                 PbHander = "GeoLabel";
                 GeoObjInfo = new GeoObjInfo(PbHander,ref sgworld);
+                if (GeoObjInfo.IsDrop)
+                {
+                    ResetButton(btnLabel);
+                    return;
+                }
                 sgworld.OnLButtonDown += sgworld_OnLButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
             }
@@ -260,6 +265,11 @@ namespace FGeo3D_TE
                 HighlightButton(btnGeoPoint);
                 PbHander = "GeoPoint";
                 GeoObjInfo = new GeoObjInfo(PbHander, ref sgworld);
+                if (GeoObjInfo.IsDrop)
+                {
+                    ResetButton(btnGeoPoint);
+                    return;
+                }
                 if(GeoObjInfo.IsGeoPointTakenFromMap)
                 {
                     sgworld.OnLButtonDown += sgworld_OnLButtonDown;
@@ -288,6 +298,11 @@ namespace FGeo3D_TE
                 HighlightButton(btnGeoLine, true);
                 PbHander = "GeoLine";
                 GeoObjInfo = new GeoObjInfo(PbHander, ref sgworld);
+                if (GeoObjInfo.IsDrop)
+                {
+                    ResetButton(btnGeoLine, true);
+                    return;
+                }
                 sgworld.OnLButtonDown += sgworld_OnLButtonDown;
                 sgworld.OnRButtonDown += sgworld_OnRButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -307,6 +322,11 @@ namespace FGeo3D_TE
                 HighlightButton(btnGeoRegion, true);
                 PbHander = "GeoRegion";
                 GeoObjInfo = new GeoObjInfo(PbHander, ref sgworld);
+                if (GeoObjInfo.IsDrop)
+                {
+                    ResetButton(btnGeoRegion, true);
+                    return;
+                }
                 sgworld.OnLButtonDown += sgworld_OnLButtonDown;
                 sgworld.OnRButtonDown += sgworld_OnRButtonDown;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -325,7 +345,11 @@ namespace FGeo3D_TE
                 HighlightButton(btnFreehandDrawing);
                 PbHander = "FreehandDrawing";
                 GeoObjInfo = new GeoObjInfo(PbHander, ref sgworld);
-
+                if (GeoObjInfo.IsDrop)
+                {
+                    ResetButton(btnFreehandDrawing, true);
+                    return;
+                }
                 sgworld.OnLButtonDown += sgworld_OnLButtonDown;
                 sgworld.OnLButtonUp += sgworld_OnLButtonUp;
                 sgworld.OnFrame += sgworld_OnMouseMove;
@@ -472,9 +496,12 @@ namespace FGeo3D_TE
 
             #region 地质线
 
-            if (pbhander == "GeoLine")
+            if (pbhander == "GeoLine" || pbhander == "FreehandDrawing")
             {
-                sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
+                if(pbhander == "GeoLine")
+                {
+                    sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
+                }
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
                 if (pITerrainPolyline != null)
                 {
@@ -955,6 +982,11 @@ namespace FGeo3D_TE
             pITerrainPolyline = null;
             GeoObjInfo = null;
             ResetButton(btnFreehandDrawing);
+
+            PbHander = "";
+            IsSaved = false;
+            Text = tProjectUrl + @"* - FieldGeo3D";
+
             return true;
         }
 

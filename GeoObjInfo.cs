@@ -10,7 +10,9 @@ namespace FGeo3D_TE
     public class GeoObjInfo
     {
         //名称
-        public SGWorld65 inSGWorld;
+        public SGWorld65 InSgWorld;
+
+        public bool IsDrop { get; set; }
 
         public string Name { get; set; }
         //ID:以此链接至ProjectTree中的Object
@@ -55,20 +57,28 @@ namespace FGeo3D_TE
         public string ClientData { get; set; }
 
 
-        public GeoObjInfo(string PbHander, ref SGWorld65 sgworld)
+        public GeoObjInfo(string pbHander, ref SGWorld65 sgworld)
         {
-            inSGWorld = sgworld;
-            switch(PbHander)
+            InSgWorld = sgworld;
+            IsDrop = false;
+            
+            switch(pbHander)
             {
               	case "GeoLabel":
                     IsLabel = true;
-                    GroupId = CreateGroup("标签");
+                    
                     LabelText = "LabelText";
                     FrmLabel frmTag = new FrmLabel();
                     if(frmTag.ShowDialog()==DialogResult.OK)
                     {
                         LabelText = frmTag.tbGeoLabel.Text;
                     }
+                    else
+                    {
+                        IsDrop = true;
+                        return;
+                    }
+                    GroupId = CreateGroup("标签");
                     LabelStyle = sgworld.Creator.CreateLabelStyle();
                     LabelStyle.MultilineJustification = "Center";
                     LabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
@@ -77,7 +87,7 @@ namespace FGeo3D_TE
                     break;
 
                 case "GeoPoint":
-                    GroupId = CreateGroup("地质点");
+                    
                     var frmGeoPoint = new FrmGeoPoint(ref sgworld);
                     var frmDialog = frmGeoPoint.ShowDialog();
                     //frmGeoPoint.Show();
@@ -99,48 +109,69 @@ namespace FGeo3D_TE
                         PointPosition = sgworld.Creator.CreatePosition(dLong, dLat, 0, AltitudeTypeCode.ATC_ON_TERRAIN,
                             0, 0, 0, 0);
                     }
+                    else
+                    {
+                        IsDrop = true;
+                        return;
+                    }
+                    GroupId = CreateGroup("地质点");
                     break;
 
                 case "GeoLine":
-                    GroupId = CreateGroup("地质线");
-                    var frmGeoObject1 = new FrmGeoObject(PbHander);
+                    
+                    var frmGeoLine = new FrmGeoObject(pbHander);
                     //若不指定边界颜色，则默认为黑色
                     LineColor = sgworld.Creator.CreateColor(255, 255, 255, 255);
                     //若不指定填充颜色，则默认为半透明蓝色
                     FillColor = sgworld.Creator.CreateColor(0, 0, 255, 128);
-                    if (frmGeoObject1.ShowDialog() != DialogResult.OK) return;
-                    Name = frmGeoObject1.ObjName;
-                    var theColor1 = frmGeoObject1.SelectedColor;
-                    LineColor = sgworld.Creator.CreateColor(theColor1.R, theColor1.G, theColor1.B, theColor1.A);
-                    FillColor = sgworld.Creator.CreateColor(theColor1.R, theColor1.G, theColor1.B, 128);
+                    if (frmGeoLine.ShowDialog() != DialogResult.OK)
+                    {
+                        IsDrop = true;
+                        return;
+                    }
+                    GroupId = CreateGroup("地质线");
+                    Name = frmGeoLine.ObjName;
+                    var lineColors = frmGeoLine.SelectedColor;
+                    LineColor = sgworld.Creator.CreateColor(lineColors.R, lineColors.G, lineColors.B, lineColors.A);
+                    FillColor = sgworld.Creator.CreateColor(lineColors.R, lineColors.G, lineColors.B, 128);
                     break;
 
                 case "GeoRegion":
-                    GroupId = CreateGroup("地质区域");
-                    var frmGeoObject2 = new FrmGeoObject(PbHander);
+                    
+                    var frmGeoRegion = new FrmGeoObject(pbHander);
                     //若不指定边界颜色，则默认为黑色
                     LineColor = sgworld.Creator.CreateColor(255, 255, 255, 255);
                     //若不指定填充颜色，则默认为半透明蓝色
                     FillColor = sgworld.Creator.CreateColor(0, 0, 255, 128);
-                    if (frmGeoObject2.ShowDialog() != DialogResult.OK) return;
-                    Name = frmGeoObject2.ObjName;
-                    var theColor2 = frmGeoObject2.SelectedColor;
-                    LineColor = sgworld.Creator.CreateColor(theColor2.R, theColor2.G, theColor2.B, theColor2.A);
-                    FillColor = sgworld.Creator.CreateColor(theColor2.R, theColor2.G, theColor2.B, 128);
+                    if (frmGeoRegion.ShowDialog() != DialogResult.OK)
+                    {
+                        IsDrop = true;
+                        return;
+                    }
+                    GroupId = CreateGroup("地质区域");
+                    Name = frmGeoRegion.ObjName;
+                    var regionColors = frmGeoRegion.SelectedColor;
+                    LineColor = sgworld.Creator.CreateColor(regionColors.R, regionColors.G, regionColors.B, regionColors.A);
+                    FillColor = sgworld.Creator.CreateColor(regionColors.R, regionColors.G, regionColors.B, 128);
                     break;
 
                 case "FreehandDrawing":
-                    GroupId = CreateGroup("地质线");
-                    var frmGeoObject3 = new FrmGeoObject(PbHander);
+                    
+                    var frmGeoFreehandDrawing = new FrmGeoObject(pbHander);
                     //若不指定边界颜色，则默认为黑色
                     LineColor = sgworld.Creator.CreateColor(255, 255, 255, 255);
                     //若不指定填充颜色，则默认为半透明蓝色
                     FillColor = sgworld.Creator.CreateColor(0, 0, 255, 128);
-                    if (frmGeoObject3.ShowDialog() != DialogResult.OK) return;
-                    Name = frmGeoObject3.ObjName;
-                    var theColor3 = frmGeoObject3.SelectedColor;
-                    LineColor = sgworld.Creator.CreateColor(theColor3.R, theColor3.G, theColor3.B, theColor3.A);
-                    FillColor = sgworld.Creator.CreateColor(theColor3.R, theColor3.G, theColor3.B, 128);
+                    if (frmGeoFreehandDrawing.ShowDialog() != DialogResult.OK)
+                    {
+                        IsDrop = true;
+                        return;
+                    }
+                    GroupId = CreateGroup("地质线");
+                    Name = frmGeoFreehandDrawing.ObjName;
+                    var freehandDrawingColors = frmGeoFreehandDrawing.SelectedColor;
+                    LineColor = sgworld.Creator.CreateColor(freehandDrawingColors.R, freehandDrawingColors.G, freehandDrawingColors.B, freehandDrawingColors.A);
+                    FillColor = sgworld.Creator.CreateColor(freehandDrawingColors.R, freehandDrawingColors.G, freehandDrawingColors.B, 128);
                     break;
             }
 
@@ -148,12 +179,12 @@ namespace FGeo3D_TE
 
         private string CreateGroup(string groupName)
         {
-            var gid = inSGWorld.ProjectTree.FindItem(groupName);
+            var gid = InSgWorld.ProjectTree.FindItem(groupName);
             if (!string.IsNullOrEmpty(gid))
             {
                 return gid;
             }
-            return inSGWorld.ProjectTree.CreateGroup(groupName);
+            return InSgWorld.ProjectTree.CreateGroup(groupName);
         }
 
     }
