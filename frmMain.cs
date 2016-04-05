@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using TerraExplorerX;
 using System.IO;
 using System.Threading;
+using OSGeo.GDAL;
 using DevComponents.DotNetBar;
 
 namespace FGeo3D_TE
@@ -17,7 +18,6 @@ namespace FGeo3D_TE
     {
         string tProjectUrl;
         SGWorld65 sgworld = new SGWorld65();
-
         
 
         ITerrainPolygon65 pITPolygon = null;
