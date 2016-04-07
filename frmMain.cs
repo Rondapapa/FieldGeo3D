@@ -17,7 +17,7 @@ namespace FGeo3D_TE
     public partial class FrmMain : Form
     {
         string tProjectUrl;
-        SGWorld66 sgworld = new SGWorld66();
+        SGWorld66 sgworld = null;
         
 
         ITerrainPolygon66 pITPolygon = null;
@@ -96,6 +96,7 @@ namespace FGeo3D_TE
         //自定义构造函数
         private void Init()
         {
+            sgworld = new SGWorld66();
             //sgworld.CoordServices.SourceCoordinateSystem.InitLatLong();
         }
 
