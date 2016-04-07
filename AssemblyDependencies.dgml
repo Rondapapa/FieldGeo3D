@@ -33,7 +33,7 @@
     <Node Id="@137" Category="CodeSchema_Class" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="GeoObject" />
     <Node Id="@138" Category="CodeSchema_Class" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="GroupPanel" />
     <Node Id="@139" Category="CodeSchema_Attribute" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="GuidAttribute" />
-    <Node Id="@14" Category="CodeSchema_Assembly" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_StrongName="AxInterop.TerraExplorerX, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Group="Collapsed" Label="AxInterop.TerraExplorerX.dll" />
+    <Node Id="@14" Category="CodeSchema_Assembly" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_StrongName="Interop.TerraExplorerX, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Group="Collapsed" Label="Interop.TerraExplorerX.dll" />
     <Node Id="@140" Category="CodeSchema_Interface" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPrivate="True" Group="Collapsed" Label="IArrangedElement" />
     <Node Id="@141" Category="CodeSchema_Interface" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="IBindableComponent" />
     <Node Id="@142" Category="CodeSchema_Interface" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="IColor65" />
@@ -50,7 +50,7 @@
     <Node Id="@155" Category="CodeSchema_Interface" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="IGeometryCreator" />
     <Node Id="@157" Category="CodeSchema_Interface" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="ILabelStyle65" />
     <Node Id="@158" Category="CodeSchema_Interface" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="ILinearRing" />
-    <Node Id="@16" Category="CodeSchema_Assembly" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_StrongName="Interop.TerraExplorerX, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Group="Collapsed" Label="Interop.TerraExplorerX.dll" />
+    <Node Id="@16" Category="CodeSchema_Assembly" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_StrongName="AxInterop.TerraExplorerX, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Group="Collapsed" Label="AxInterop.TerraExplorerX.dll" />
     <Node Id="@160" Category="CodeSchema_Interface" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="ILineString" />
     <Node Id="@161" Category="CodeSchema_Class" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="ImageItem" />
     <Node Id="@162" Category="CodeSchema_Interface" CodeSchemaProperty_IsExternal="True" CodeSchemaProperty_IsPublic="True" Group="Collapsed" Label="INavigate65" />
@@ -856,7 +856,7 @@
     <Link Source="@138" Target="@283" Category="Contains" />
     <Link Source="@138" Target="@494" Category="Contains" />
     <Link Source="@139" Target="@79" Category="InheritsFrom" />
-    <Link Source="@14" Target="@18" Category="Contains" />
+    <Link Source="@14" Target="@58" Category="Contains" />
     <Link Source="@142" Target="@618" Category="Contains" />
     <Link Source="@143" Target="@447" Category="Contains" />
     <Link Source="@147" Target="@607" Category="Contains" />
@@ -881,7 +881,7 @@
     <Link Source="@157" Target="@390" Category="Contains" />
     <Link Source="@157" Target="@400" Category="Contains" />
     <Link Source="@158" Target="@565" Category="Contains" />
-    <Link Source="@16" Target="@58" Category="Contains" />
+    <Link Source="@16" Target="@18" Category="Contains" />
     <Link Source="@160" Target="@508" Category="Contains" />
     <Link Source="@160" Target="@566" Category="Contains" />
     <Link Source="@160" Target="@608" Category="Contains" />
@@ -2202,12 +2202,12 @@
     <Alias n="10" Id="(@9)" />
     <Alias n="11" Uri="Assembly=$(FxReferenceAssembliesUri)/.NETFramework/v4.0/Profile/Client/System.Windows.Forms.dll" />
     <Alias n="12" Id="(@11)" />
-    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/obj/x86/Debug/AxInterop.TerraExplorerX.dll" />
+    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/obj/x86/Debug/Interop.TerraExplorerX.dll" />
     <Alias n="14" Id="(@13)" />
-    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/obj/x86/Debug/Interop.TerraExplorerX.dll" />
+    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/obj/x86/Debug/AxInterop.TerraExplorerX.dll" />
     <Alias n="16" Id="(@15)" />
     <Alias n="17" Id="Namespace=AxTerraExplorerX" />
-    <Alias n="18" Id="(@13 @17)" />
+    <Alias n="18" Id="(@15 @17)" />
     <Alias n="19" Id="Namespace=DevComponents.DotNetBar" />
     <Alias n="20" Id="(@3 @19)" />
     <Alias n="21" Id="Namespace=DevComponents.DotNetBar.ColorPickers" />
@@ -2247,13 +2247,13 @@
     <Alias n="55" Id="(@11 @54)" />
     <Alias n="56" Id="(@11 Namespace=System.Windows.Forms.Layout)" />
     <Alias n="57" Id="Namespace=TerraExplorerX" />
-    <Alias n="58" Id="(@15 @57)" />
+    <Alias n="58" Id="(@13 @57)" />
     <Alias n="59" Id="(@11 @54 Type=(Name=ControlCollection ParentType=Control))" />
     <Alias n="60" Id="(@5 @39 Type=(Name=DebuggingModes ParentType=DebuggableAttribute))" />
     <Alias n="61" Id="Type=_ISGWorld65Events_Event" />
-    <Alias n="62" Id="(@15 @57 @61)" />
-    <Alias n="63" Id="(@15 @57 Type=_ISGWorld65Events_OnLButtonDownEventHandler)" />
-    <Alias n="64" Id="(@15 @57 Type=_ISGWorld65Events_OnRButtonDownEventHandler)" />
+    <Alias n="62" Id="(@13 @57 @61)" />
+    <Alias n="63" Id="(@13 @57 Type=_ISGWorld65Events_OnLButtonDownEventHandler)" />
+    <Alias n="64" Id="(@13 @57 Type=_ISGWorld65Events_OnRButtonDownEventHandler)" />
     <Alias n="65" Id="Type=Application" />
     <Alias n="66" Id="(@11 @54 @65)" />
     <Alias n="67" Id="(@9 @37 Type=ApplicationSettingsBase)" />
@@ -2270,8 +2270,8 @@
     <Alias n="78" Id="(@5 @46 Type=AssemblyTrademarkAttribute)" />
     <Alias n="79" Id="(@5 @30 Type=Attribute)" />
     <Alias n="80" Id="(@11 @54 Type=AxHost)" />
-    <Alias n="81" Id="(@13 @17 Type=AxTE3DWindow)" />
-    <Alias n="82" Id="(@13 @17 Type=AxTEInformationWindow)" />
+    <Alias n="81" Id="(@15 @17 Type=AxTE3DWindow)" />
+    <Alias n="82" Id="(@15 @17 Type=AxTEInformationWindow)" />
     <Alias n="83" Id="Type=BaseItem" />
     <Alias n="84" Id="(@3 @19 @83)" />
     <Alias n="85" Id="(@3 @19 Type=BaseItemControl)" />
@@ -2331,55 +2331,55 @@
     <Alias n="139" Id="(@5 Namespace=System.Runtime.InteropServices Type=GuidAttribute)" />
     <Alias n="140" Id="(@11 Namespace=System.Windows.Forms.Layout Type=IArrangedElement)" />
     <Alias n="141" Id="(@11 @54 Type=IBindableComponent)" />
-    <Alias n="142" Id="(@15 @57 Type=IColor65)" />
-    <Alias n="143" Id="(@15 @57 Type=ICommand65)" />
+    <Alias n="142" Id="(@13 @57 Type=IColor65)" />
+    <Alias n="143" Id="(@13 @57 Type=ICommand65)" />
     <Alias n="144" Id="(@9 @35 Type=IComponent)" />
     <Alias n="145" Id="(@9 @35 Type=IContainer)" />
     <Alias n="146" Id="(@11 @54 Type=IContainerControl)" />
-    <Alias n="147" Id="(@15 @57 Type=ICoordinateSystem65)" />
+    <Alias n="147" Id="(@13 @57 Type=ICoordinateSystem65)" />
     <Alias n="148" Id="Type=ICreator65" />
-    <Alias n="149" Id="(@15 @57 @148)" />
+    <Alias n="149" Id="(@13 @57 @148)" />
     <Alias n="150" Id="(@5 @30 Type=IDisposable)" />
     <Alias n="151" Id="(@11 @54 Type=IDropTarget)" />
     <Alias n="152" Id="(@5 @33 Type=IEnumerator)" />
-    <Alias n="153" Id="(@15 @57 Type=IGeometry)" />
+    <Alias n="153" Id="(@13 @57 Type=IGeometry)" />
     <Alias n="154" Id="Type=IGeometryCreator" />
-    <Alias n="155" Id="(@15 @57 @154)" />
+    <Alias n="155" Id="(@13 @57 @154)" />
     <Alias n="156" Id="Type=ILabelStyle65" />
-    <Alias n="157" Id="(@15 @57 @156)" />
-    <Alias n="158" Id="(@15 @57 Type=ILinearRing)" />
+    <Alias n="157" Id="(@13 @57 @156)" />
+    <Alias n="158" Id="(@13 @57 Type=ILinearRing)" />
     <Alias n="159" Id="Type=ILineString" />
-    <Alias n="160" Id="(@15 @57 @159)" />
+    <Alias n="160" Id="(@13 @57 @159)" />
     <Alias n="161" Id="(@3 @19 Type=ImageItem)" />
-    <Alias n="162" Id="(@15 @57 Type=INavigate65)" />
+    <Alias n="162" Id="(@13 @57 Type=INavigate65)" />
     <Alias n="163" Id="(@9 @35 Type=INotifyPropertyChanged)" />
     <Alias n="164" Id="Type=IPoints" />
-    <Alias n="165" Id="(@15 @57 @164)" />
+    <Alias n="165" Id="(@13 @57 @164)" />
     <Alias n="166" Id="Type=IPolygon" />
-    <Alias n="167" Id="(@15 @57 @166)" />
+    <Alias n="167" Id="(@13 @57 @166)" />
     <Alias n="168" Id="Type=IPosition65" />
-    <Alias n="169" Id="(@15 @57 @168)" />
+    <Alias n="169" Id="(@13 @57 @168)" />
     <Alias n="170" Id="Type=IProject65" />
-    <Alias n="171" Id="(@15 @57 @170)" />
-    <Alias n="172" Id="(@15 @57 Type=IProjectTree65)" />
-    <Alias n="173" Id="(@15 @57 Type=IRings)" />
+    <Alias n="171" Id="(@13 @57 @170)" />
+    <Alias n="172" Id="(@13 @57 Type=IProjectTree65)" />
+    <Alias n="173" Id="(@13 @57 Type=IRings)" />
     <Alias n="174" Id="Type=ISGWorld65" />
-    <Alias n="175" Id="(@15 @57 @174)" />
+    <Alias n="175" Id="(@13 @57 @174)" />
     <Alias n="176" Id="(@9 @35 Type=ISupportInitialize)" />
     <Alias n="177" Id="(@9 @35 Type=ISynchronizeInvoke)" />
     <Alias n="178" Id="Type=ItemControl" />
     <Alias n="179" Id="(@3 @19 @178)" />
     <Alias n="180" Id="Type=ITerrain65" />
-    <Alias n="181" Id="(@15 @57 @180)" />
-    <Alias n="182" Id="(@15 @57 Type=ITerrainLabel65)" />
+    <Alias n="181" Id="(@13 @57 @180)" />
+    <Alias n="182" Id="(@13 @57 Type=ITerrainLabel65)" />
     <Alias n="183" Id="Type=ITerrainPolygon65" />
-    <Alias n="184" Id="(@15 @57 @183)" />
+    <Alias n="184" Id="(@13 @57 @183)" />
     <Alias n="185" Id="Type=ITerrainPolyline65" />
-    <Alias n="186" Id="(@15 @57 @185)" />
-    <Alias n="187" Id="(@15 @57 Type=ITerrainSphere65)" />
+    <Alias n="186" Id="(@13 @57 @185)" />
+    <Alias n="187" Id="(@13 @57 Type=ITerrainSphere65)" />
     <Alias n="188" Id="(@11 @54 Type=IWin32Window)" />
-    <Alias n="189" Id="(@15 @57 Type=IWindow65)" />
-    <Alias n="190" Id="(@15 @57 Type=IWorldPointInfo65)" />
+    <Alias n="189" Id="(@13 @57 Type=IWindow65)" />
+    <Alias n="190" Id="(@13 @57 Type=IWorldPointInfo65)" />
     <Alias n="191" Id="(@3 @19 Type=LabelX)" />
     <Alias n="192" Id="(@5 @30 Type=MarshalByRefObject)" />
     <Alias n="193" Id="(@5 @46 Type=MemberInfo)" />
@@ -2406,8 +2406,8 @@
     <Alias n="214" Id="Type=Settings" />
     <Alias n="215" Id="(@1 @28 @214)" />
     <Alias n="216" Id="(@9 @37 Type=SettingsBase)" />
-    <Alias n="217" Id="(@15 @57 Type=SGWorld65)" />
-    <Alias n="218" Id="(@15 @57 Type=SGWorld65Class)" />
+    <Alias n="217" Id="(@13 @57 Type=SGWorld65)" />
+    <Alias n="218" Id="(@13 @57 Type=SGWorld65Class)" />
     <Alias n="219" Id="(@7 @41 Type=Size)" />
     <Alias n="220" Id="(@7 @41 Type=SizeF)" />
     <Alias n="221" Id="(@5 @30 Type=STAThreadAttribute)" />
@@ -2428,13 +2428,13 @@
     <Alias n="236" Id="(@11 @54 Type=AxHost Member=(Name=set_OcxState OverloadingParameters=[(@11 @54 Type=(Name=State ParentType=AxHost))]))" />
     <Alias n="237" Id="(@5 @30 Type=Environment Member=(Name=GetFolderPath OverloadingParameters=[(@5 @30 Type=(Name=SpecialFolder ParentType=Environment))]))" />
     <Alias n="238" Id="(@3 @19 Type=SubItemsCollection Member=(Name=AddRange OverloadingParameters=[(@3 @19 Type=(Name=BaseItem ArrayRank=1 ParentType=BaseItem))]))" />
-    <Alias n="239" Id="(@15 @57 @61 Member=(Name=add_OnLButtonDown OverloadingParameters=[@63]))" />
-    <Alias n="240" Id="(@15 @57 @61 Member=(Name=remove_OnLButtonDown OverloadingParameters=[@63]))" />
-    <Alias n="241" Id="(@15 @57 @61 Member=(Name=add_OnRButtonDown OverloadingParameters=[@64]))" />
-    <Alias n="242" Id="(@15 @57 @61 Member=(Name=remove_OnRButtonDown OverloadingParameters=[@64]))" />
+    <Alias n="239" Id="(@13 @57 @61 Member=(Name=add_OnLButtonDown OverloadingParameters=[@63]))" />
+    <Alias n="240" Id="(@13 @57 @61 Member=(Name=remove_OnLButtonDown OverloadingParameters=[@63]))" />
+    <Alias n="241" Id="(@13 @57 @61 Member=(Name=add_OnRButtonDown OverloadingParameters=[@64]))" />
+    <Alias n="242" Id="(@13 @57 @61 Member=(Name=remove_OnRButtonDown OverloadingParameters=[@64]))" />
     <Alias n="243" Id="(@11 @54 @104 Member=(Name=set_AccessibleRole OverloadingParameters=[(@11 @54 Type=AccessibleRole)]))" />
-    <Alias n="244" Id="(@15 @57 Type=AltitudeTypeCode)" />
-    <Alias n="245" Id="(@15 @57 Type=INavigate65 Member=(Name=GetPosition OverloadingParameters=[@244]))" />
+    <Alias n="244" Id="(@13 @57 Type=AltitudeTypeCode)" />
+    <Alias n="245" Id="(@13 @57 Type=INavigate65 Member=(Name=GetPosition OverloadingParameters=[@244]))" />
     <Alias n="246" Id="(@11 @54 @104 Member=(Name=set_Anchor OverloadingParameters=[(@11 @54 Type=AnchorStyles)]))" />
     <Alias n="247" Id="(@11 @54 Type=ContainerControl Member=(Name=set_AutoScaleMode OverloadingParameters=[(@11 @54 Type=AutoScaleMode)]))" />
     <Alias n="248" Id="(@11 @54 @123 Member=(Name=set_AutoSizeMode OverloadingParameters=[(@11 @54 Type=AutoSizeMode)]))" />
@@ -2522,20 +2522,20 @@
     <Alias n="330" Id="(@11 @54 Type=TextBox Member=(Name=set_TextAlign OverloadingParameters=[(@11 @54 Type=HorizontalAlignment)]))" />
     <Alias n="331" Id="(@1 @26 @136 Member=(Name=set_FillColor OverloadingParameters=[@142]))" />
     <Alias n="332" Id="(@1 @26 @136 Member=(Name=set_LineColor OverloadingParameters=[@142]))" />
-    <Alias n="333" Id="(@15 @57 @156 Member=(Name=set_LineColor OverloadingParameters=[@142]))" />
-    <Alias n="334" Id="(@15 @57 @156 Member=(Name=set_TextColor OverloadingParameters=[@142]))" />
+    <Alias n="333" Id="(@13 @57 @156 Member=(Name=set_LineColor OverloadingParameters=[@142]))" />
+    <Alias n="334" Id="(@13 @57 @156 Member=(Name=set_TextColor OverloadingParameters=[@142]))" />
     <Alias n="335" Id="(@11 @54 @123 Member=(Name=set_Icon OverloadingParameters=[(@7 @41 Type=Icon)]))" />
     <Alias n="336" Id="Name=.ctor" />
     <Alias n="337" Id="(@3 @19 @224 Member=(@336 OverloadingParameters=[@145]))" />
-    <Alias n="338" Id="(@15 @57 @183 Member=(Name=set_Geometry OverloadingParameters=[@153]))" />
-    <Alias n="339" Id="(@15 @57 @185 Member=(Name=set_Geometry OverloadingParameters=[@153]))" />
+    <Alias n="338" Id="(@13 @57 @183 Member=(Name=set_Geometry OverloadingParameters=[@153]))" />
+    <Alias n="339" Id="(@13 @57 @185 Member=(Name=set_Geometry OverloadingParameters=[@153]))" />
     <Alias n="340" Id="(@1 @26 @136 Member=(Name=set_ObjGeometry OverloadingParameters=[@153]))" />
     <Alias n="341" Id="(@1 @26 @136 Member=(Name=set_LabelStyle OverloadingParameters=[@157]))" />
     <Alias n="342" Id="(@3 @19 @87 Member=(Name=set_Image OverloadingParameters=[(@7 @41 Type=Image)]))" />
     <Alias n="343" Id="(@3 @19 @89 Member=(Name=set_Image OverloadingParameters=[(@7 @41 Type=Image)]))" />
     <Alias n="344" Id="(@5 @30 Type=Int32)" />
     <Alias n="345" Id="OverloadingParameters=[@344]" />
-    <Alias n="346" Id="(@15 @57 @164 Member=(Name=DeletePoint @345))" />
+    <Alias n="346" Id="(@13 @57 @164 Member=(Name=DeletePoint @345))" />
     <Alias n="347" Id="(@3 @19 @112 Member=(Name=set_BackColorGradientAngle @345))" />
     <Alias n="348" Id="(@3 @19 @112 Member=(Name=set_BorderBottomWidth @345))" />
     <Alias n="349" Id="(@3 @19 @112 Member=(Name=set_BorderLeftWidth @345))" />
@@ -2550,14 +2550,14 @@
     <Alias n="358" Id="(@1 @26 @136 Member=(Name=set_GeoLabel OverloadingParameters=[@182]))" />
     <Alias n="359" Id="(@1 @26 @136 Member=(Name=set_GeoPointGeometry OverloadingParameters=[@187]))" />
     <Alias n="360" Id="(@3 @19 @224 Member=(Name=set_MetroColorParameters OverloadingParameters=[@195]))" />
-    <Alias n="361" Id="(@15 @57 @154 Member=(Name=CreateLinearRingGeometry OverloadingParameters=[@197]))" />
-    <Alias n="362" Id="(@15 @57 @154 Member=(Name=CreateLineStringGeometry OverloadingParameters=[@197]))" />
+    <Alias n="361" Id="(@13 @57 @154 Member=(Name=CreateLinearRingGeometry OverloadingParameters=[@197]))" />
+    <Alias n="362" Id="(@13 @57 @154 Member=(Name=CreateLineStringGeometry OverloadingParameters=[@197]))" />
     <Alias n="363" Id="(@11 @54 @104 Member=(Name=set_Location OverloadingParameters=[@202]))" />
     <Alias n="364" Id="(@11 @54 @104 Member=(Name=set_RightToLeft OverloadingParameters=[(@11 @54 Type=RightToLeft)]))" />
     <Alias n="365" Id="(@5 @30 Type=Type Member=(Name=GetTypeFromHandle OverloadingParameters=[(@5 @30 Type=RuntimeTypeHandle)]))" />
     <Alias n="366" Id="(@9 @37 Type=SettingsBase Member=(Name=Synchronized OverloadingParameters=[@216]))" />
-    <Alias n="367" Id="(@15 @57 @148 Member=(Name=CreateLabelStyle OverloadingParameters=[(@15 @57 Type=SGLabelStyle)]))" />
-    <Alias n="368" Id="(@1 @26 @127 Member=(@336 OverloadingParameters=[(@15 @57 Type=SGWorld65&amp;)]))" />
+    <Alias n="367" Id="(@13 @57 @148 Member=(Name=CreateLabelStyle OverloadingParameters=[(@13 @57 Type=SGLabelStyle)]))" />
+    <Alias n="368" Id="(@1 @26 @127 Member=(@336 OverloadingParameters=[(@13 @57 Type=SGWorld65&amp;)]))" />
     <Alias n="369" Id="(@11 @54 @123 Member=(Name=set_ClientSize OverloadingParameters=[@219]))" />
     <Alias n="370" Id="(@11 @54 @104 Member=(Name=set_Size OverloadingParameters=[@219]))" />
     <Alias n="371" Id="(@11 @54 Type=ContainerControl Member=(Name=set_AutoScaleDimensions OverloadingParameters=[@220]))" />
@@ -2568,18 +2568,18 @@
     <Alias n="376" Id="(@1 @26 @129 Member=(Name=CreateGroup @372))" />
     <Alias n="377" Id="(@5 @44 @118 Member=(Name=Delete @372))" />
     <Alias n="378" Id="(@5 @44 @118 Member=(Name=Exists @372))" />
-    <Alias n="379" Id="(@15 @57 Type=IProjectTree65 Member=(Name=FindItem @372))" />
+    <Alias n="379" Id="(@13 @57 Type=IProjectTree65 Member=(Name=FindItem @372))" />
     <Alias n="380" Id="(@5 @48 Type=ResourceManager Member=(Name=GetObject @372))" />
     <Alias n="381" Id="(@1 @26 @125 Member=(Name=Init @372))" />
     <Alias n="382" Id="(@5 @30 @222 Member=(Name=IsNullOrEmpty @372))" />
-    <Alias n="383" Id="(@15 @57 @170 Member=(Name=SaveAs @372))" />
+    <Alias n="383" Id="(@13 @57 @170 Member=(Name=SaveAs @372))" />
     <Alias n="384" Id="(@3 @19 @112 Member=(Name=set_Class @372))" />
     <Alias n="385" Id="(@1 @26 @136 Member=(Name=set_ClientData @372))" />
     <Alias n="386" Id="(@1 @26 @136 Member=(Name=set_Description @372))" />
     <Alias n="387" Id="(@11 @54 @120 Member=(Name=set_Filter @372))" />
     <Alias n="388" Id="(@1 @26 @136 Member=(Name=set_GroupID @372))" />
     <Alias n="389" Id="(@11 @54 @120 Member=(Name=set_InitialDirectory @372))" />
-    <Alias n="390" Id="(@15 @57 @156 Member=(Name=set_MultilineJustification @372))" />
+    <Alias n="390" Id="(@13 @57 @156 Member=(Name=set_MultilineJustification @372))" />
     <Alias n="391" Id="(@3 @19 @83 Member=(Name=set_Name @372))" />
     <Alias n="392" Id="(@11 @54 @104 Member=(Name=set_Name @372))" />
     <Alias n="393" Id="(@1 @26 @136 Member=(Name=set_Name @372))" />
@@ -2589,12 +2589,12 @@
     <Alias n="397" Id="(@3 @19 @89 Member=(Name=set_Symbol @372))" />
     <Alias n="398" Id="(@3 @19 @83 Member=(Name=set_Text @372))" />
     <Alias n="399" Id="(@11 @54 @104 Member=(Name=set_Text @372))" />
-    <Alias n="400" Id="(@15 @57 @156 Member=(Name=set_TextAlignment @372))" />
+    <Alias n="400" Id="(@13 @57 @156 Member=(Name=set_TextAlignment @372))" />
     <Alias n="401" Id="(@11 @54 @120 Member=(Name=set_Title @372))" />
     <Alias n="402" Id="(@11 @54 Type=MessageBox Member=(Name=Show @372))" />
     <Alias n="403" Id="(@5 @30 Type=Convert Member=(Name=ToDouble @372))" />
     <Alias n="404" Id="(@9 @35 Type=ComponentResourceManager Member=(@336 OverloadingParameters=[@234]))" />
-    <Alias n="405" Id="(@15 @57 Type=INavigate65 Member=(Name=FlyTo OverloadingParameters=[@197,(@15 @57 Type=ActionCode)]))" />
+    <Alias n="405" Id="(@13 @57 Type=INavigate65 Member=(Name=FlyTo OverloadingParameters=[@197,(@13 @57 Type=ActionCode)]))" />
     <Alias n="406" Id="(@5 @48 Type=ResourceManager Member=(@336 OverloadingParameters=[@223,(@5 @46 Type=Assembly)]))" />
     <Alias n="407" Id="(@3 Namespace=DevComponents.DotNetBar.Metro.ColorTables Type=MetroColorGeneratorParameters Member=(@336 OverloadingParameters=[@93,@93]))" />
     <Alias n="408" Id="(@1 @26 @131 Member=(Name=IsPosInRange OverloadingParameters=[@111,@111]))" />
@@ -2636,46 +2636,46 @@
     <Alias n="444" Id="(@7 @41 Type=Point Member=(@336 OverloadingParameters=[@344,@344]))" />
     <Alias n="445" Id="(@7 @41 Type=Size Member=(@336 OverloadingParameters=[@344,@344]))" />
     <Alias n="446" Id="(@5 @30 Type=EventHandler Member=(@336 OverloadingParameters=[@197,(@5 @30 Type=IntPtr)]))" />
-    <Alias n="447" Id="(@15 @57 Type=ICommand65 Member=(Name=Execute OverloadingParameters=[@344,@197]))" />
-    <Alias n="448" Id="(@15 @57 @154 Member=(Name=CreatePolygonGeometry OverloadingParameters=[@197,@197]))" />
+    <Alias n="447" Id="(@13 @57 Type=ICommand65 Member=(Name=Execute OverloadingParameters=[@344,@197]))" />
+    <Alias n="448" Id="(@13 @57 @154 Member=(Name=CreatePolygonGeometry OverloadingParameters=[@197,@197]))" />
     <Alias n="449" Id="(@5 @30 @222 Member=(Name=Format OverloadingParameters=[@223,@197]))" />
-    <Alias n="450" Id="(@15 @57 @170 Member=(Name=set_Settings OverloadingParameters=[@223,@197]))" />
-    <Alias n="451" Id="(@1 @26 @136 Member=(@336 OverloadingParameters=[@223,(@15 @57 Type=SGWorld65&amp;)]))" />
+    <Alias n="450" Id="(@13 @57 @170 Member=(Name=set_Settings OverloadingParameters=[@223,@197]))" />
+    <Alias n="451" Id="(@1 @26 @136 Member=(@336 OverloadingParameters=[@223,(@13 @57 Type=SGWorld65&amp;)]))" />
     <Alias n="452" Id="(@7 @41 Type=SizeF Member=(@336 OverloadingParameters=[(@5 @30 Type=Single),(@5 @30 Type=Single)]))" />
     <Alias n="453" Id="OverloadingParameters=[@223,@223]" />
     <Alias n="454" Id="(@5 @30 @222 Member=(Name=Concat @453))" />
-    <Alias n="455" Id="(@15 @57 Type=IProjectTree65 Member=(Name=CreateGroup @453))" />
+    <Alias n="455" Id="(@13 @57 Type=IProjectTree65 Member=(Name=CreateGroup @453))" />
     <Alias n="456" Id="(@5 @44 @118 Member=(Name=Move @453))" />
     <Alias n="457" Id="(@5 @30 @222 Member=(Name=op_Equality @453))" />
     <Alias n="458" Id="(@5 @30 @222 Member=(Name=op_Inequality @453))" />
     <Alias n="459" Id="(@5 @30 @222 Member=(Name=LastIndexOf OverloadingParameters=[@223,(@5 @30 Type=StringComparison)]))" />
-    <Alias n="460" Id="(@15 @57 Type=_ISGWorld65Events_OnLButtonDownEventHandler Member=(@336 OverloadingParameters=[@197,(@5 @30 Type=UIntPtr)]))" />
-    <Alias n="461" Id="(@15 @57 Type=_ISGWorld65Events_OnRButtonDownEventHandler Member=(@336 OverloadingParameters=[@197,(@5 @30 Type=UIntPtr)]))" />
-    <Alias n="462" Id="(@15 @57 Type=IWindow65 Member=(Name=SetInputMode OverloadingParameters=[(@15 @57 Type=MouseInputMode),@223,@86]))" />
-    <Alias n="463" Id="(@15 @57 @164 Member=(Name=AddPoint OverloadingParameters=[@111,@111,@111]))" />
+    <Alias n="460" Id="(@13 @57 Type=_ISGWorld65Events_OnLButtonDownEventHandler Member=(@336 OverloadingParameters=[@197,(@5 @30 Type=UIntPtr)]))" />
+    <Alias n="461" Id="(@13 @57 Type=_ISGWorld65Events_OnRButtonDownEventHandler Member=(@336 OverloadingParameters=[@197,(@5 @30 Type=UIntPtr)]))" />
+    <Alias n="462" Id="(@13 @57 Type=IWindow65 Member=(Name=SetInputMode OverloadingParameters=[(@13 @57 Type=MouseInputMode),@223,@86]))" />
+    <Alias n="463" Id="(@13 @57 @164 Member=(Name=AddPoint OverloadingParameters=[@111,@111,@111]))" />
     <Alias n="464" Id="(@7 @41 @92 Member=(Name=FromArgb OverloadingParameters=[@344,@344,@344]))" />
     <Alias n="465" Id="(@1 @26 @129 Member=(Name=sgworld_OnLButtonDown OverloadingParameters=[@344,@344,@344]))" />
     <Alias n="466" Id="(@1 @26 @129 Member=(Name=sgworld_OnRButtonDown OverloadingParameters=[@344,@344,@344]))" />
     <Alias n="467" Id="(@1 @26 @129 Member=(Name=CreatePolygon3ps OverloadingParameters=[@169,@169,@169]))" />
     <Alias n="468" Id="(@1 @26 @129 Member=(Name=CreateGeoPoint OverloadingParameters=[@169,@223,@223]))" />
     <Alias n="469" Id="(@5 @30 @222 Member=(Name=Concat OverloadingParameters=[@223,@223,@223]))" />
-    <Alias n="470" Id="(@15 @57 Type=IWindow65 Member=(Name=PixelToWorld OverloadingParameters=[@344,@344,(@15 @57 Type=WorldPointType)]))" />
+    <Alias n="470" Id="(@13 @57 Type=IWindow65 Member=(Name=PixelToWorld OverloadingParameters=[@344,@344,(@13 @57 Type=WorldPointType)]))" />
     <Alias n="471" Id="(@1 @26 @131 Member=(@336 OverloadingParameters=[@111,@111,@111,@111]))" />
-    <Alias n="472" Id="(@15 @57 @148 Member=(Name=CreateColor OverloadingParameters=[@344,@344,@344,@344]))" />
+    <Alias n="472" Id="(@13 @57 @148 Member=(Name=CreateColor OverloadingParameters=[@344,@344,@344,@344]))" />
     <Alias n="473" Id="(@7 @41 @92 Member=(Name=FromArgb OverloadingParameters=[@344,@344,@344,@344]))" />
     <Alias n="474" Id="(@5 @30 @222 Member=(Name=Format OverloadingParameters=[@223,@197,@197,@197]))" />
-    <Alias n="475" Id="(@15 @57 @170 Member=(Name=Open OverloadingParameters=[@223,@86,@223,@223]))" />
+    <Alias n="475" Id="(@13 @57 @170 Member=(Name=Open OverloadingParameters=[@223,@86,@223,@223]))" />
     <Alias n="476" Id="(@7 @41 Type=Font Member=(@336 OverloadingParameters=[@223,(@5 @30 Type=Single),(@7 @41 Type=FontStyle),(@7 @41 Type=GraphicsUnit),(@5 @30 Type=Byte)]))" />
-    <Alias n="477" Id="(@15 @57 @148 Member=(Name=CreatePolyline OverloadingParameters=[@153,@197,@244,@223,@223]))" />
-    <Alias n="478" Id="(@15 @57 @148 Member=(Name=CreateTextLabel OverloadingParameters=[@169,@223,@157,@223,@223]))" />
-    <Alias n="479" Id="(@15 @57 @148 Member=(Name=CreatePolygon OverloadingParameters=[@153,@197,@197,@244,@223,@223]))" />
-    <Alias n="480" Id="(@15 @57 @148 Member=(Name=CreatePosition OverloadingParameters=[@111,@111,@111,@244,@111,@111,@111,@111]))" />
-    <Alias n="481" Id="(@15 @57 @148 Member=(Name=CreateSphere OverloadingParameters=[@169,@111,(@15 @57 Type=SphereStyle),@197,@197,@344,@223,@223]))" />
+    <Alias n="477" Id="(@13 @57 @148 Member=(Name=CreatePolyline OverloadingParameters=[@153,@197,@244,@223,@223]))" />
+    <Alias n="478" Id="(@13 @57 @148 Member=(Name=CreateTextLabel OverloadingParameters=[@169,@223,@157,@223,@223]))" />
+    <Alias n="479" Id="(@13 @57 @148 Member=(Name=CreatePolygon OverloadingParameters=[@153,@197,@197,@244,@223,@223]))" />
+    <Alias n="480" Id="(@13 @57 @148 Member=(Name=CreatePosition OverloadingParameters=[@111,@111,@111,@244,@111,@111,@111,@111]))" />
+    <Alias n="481" Id="(@13 @57 @148 Member=(Name=CreateSphere OverloadingParameters=[@169,@111,(@13 @57 Type=SphereStyle),@197,@197,@344,@223,@223]))" />
     <Alias n="482" Id="(@1 @28 @214 Member=.cctor)" />
     <Alias n="483" Id="Member=.ctor" />
     <Alias n="484" Id="(@9 @37 Type=ApplicationSettingsBase @483)" />
-    <Alias n="485" Id="(@13 @17 Type=AxTE3DWindow @483)" />
-    <Alias n="486" Id="(@13 @17 Type=AxTEInformationWindow @483)" />
+    <Alias n="485" Id="(@15 @17 Type=AxTE3DWindow @483)" />
+    <Alias n="486" Id="(@15 @17 Type=AxTEInformationWindow @483)" />
     <Alias n="487" Id="(@3 @19 @87 @483)" />
     <Alias n="488" Id="(@3 @19 @89 @483)" />
     <Alias n="489" Id="(@3 @21 @94 @483)" />
@@ -2691,17 +2691,17 @@
     <Alias n="499" Id="(@3 @19 @209 @483)" />
     <Alias n="500" Id="(@11 @54 Type=SaveFileDialog @483)" />
     <Alias n="501" Id="(@1 @28 @214 @483)" />
-    <Alias n="502" Id="(@15 @57 Type=SGWorld65Class @483)" />
+    <Alias n="502" Id="(@13 @57 Type=SGWorld65Class @483)" />
     <Alias n="503" Id="(@3 @23 @232 @483)" />
     <Alias n="504" Id="(@9 @35 Type=ISupportInitialize Member=BeginInit)" />
     <Alias n="505" Id="(@5 @30 Type=IDisposable Member=Dispose)" />
     <Alias n="506" Id="(@11 @54 @65 Member=EnableVisualStyles)" />
-    <Alias n="507" Id="(@15 @57 Type=IGeometry Member=EndEdit)" />
-    <Alias n="508" Id="(@15 @57 @159 Member=EndEdit)" />
-    <Alias n="509" Id="(@15 @57 @166 Member=EndEdit)" />
+    <Alias n="507" Id="(@13 @57 Type=IGeometry Member=EndEdit)" />
+    <Alias n="508" Id="(@13 @57 @159 Member=EndEdit)" />
+    <Alias n="509" Id="(@13 @57 @166 Member=EndEdit)" />
     <Alias n="510" Id="(@9 @35 Type=ISupportInitialize Member=EndInit)" />
     <Alias n="511" Id="(@7 @41 @92 Member=get_A)" />
-    <Alias n="512" Id="(@15 @57 @168 Member=get_Altitude)" />
+    <Alias n="512" Id="(@13 @57 @168 Member=get_Altitude)" />
     <Alias n="513" Id="(@5 @30 Type=Type Member=get_Assembly)" />
     <Alias n="514" Id="(@7 @41 @92 Member=get_B)" />
     <Alias n="515" Id="(@3 @19 @209 Member=get_BackgroundMouseOverStyle)" />
@@ -2709,35 +2709,35 @@
     <Alias n="517" Id="(@3 @19 @178 Member=get_BackgroundStyle)" />
     <Alias n="518" Id="(@7 @41 @92 Member=get_Black)" />
     <Alias n="519" Id="(@3 @23 @232 Member=get_Border)" />
-    <Alias n="520" Id="(@15 @57 @180 Member=get_Bottom)" />
+    <Alias n="520" Id="(@13 @57 @180 Member=get_Bottom)" />
     <Alias n="521" Id="(@7 @41 @92 Member=get_Chartreuse)" />
     <Alias n="522" Id="(@1 @26 @136 Member=get_ClientData)" />
-    <Alias n="523" Id="(@15 @57 @174 Member=get_Command)" />
+    <Alias n="523" Id="(@13 @57 @174 Member=get_Command)" />
     <Alias n="524" Id="(@7 @41 Type=SystemColors Member=get_Control)" />
     <Alias n="525" Id="(@11 @54 @104 Member=get_Controls)" />
-    <Alias n="526" Id="(@15 @57 @180 Member=get_CoordinateSystem)" />
-    <Alias n="527" Id="(@15 @57 @164 Member=get_Count)" />
-    <Alias n="528" Id="(@15 @57 @174 Member=get_Creator)" />
+    <Alias n="526" Id="(@13 @57 @180 Member=get_CoordinateSystem)" />
+    <Alias n="527" Id="(@13 @57 @164 Member=get_Count)" />
+    <Alias n="528" Id="(@13 @57 @174 Member=get_Creator)" />
     <Alias n="529" Id="(@1 @28 @207 Member=get_Culture)" />
     <Alias n="530" Id="(@5 @33 Type=IEnumerator Member=get_Current)" />
     <Alias n="531" Id="(@1 @28 @214 Member=get_Default)" />
     <Alias n="532" Id="(@1 @26 @136 Member=get_Description)" />
-    <Alias n="533" Id="(@15 @57 @168 Member=get_Distance)" />
+    <Alias n="533" Id="(@13 @57 @168 Member=get_Distance)" />
     <Alias n="534" Id="(@11 @54 @120 Member=get_FileName)" />
     <Alias n="535" Id="(@1 @26 @136 Member=get_FillColor)" />
     <Alias n="536" Id="(@7 @41 @92 Member=get_G)" />
     <Alias n="537" Id="(@1 @26 @136 Member=get_GeoLabel)" />
-    <Alias n="538" Id="(@15 @57 @183 Member=get_Geometry)" />
-    <Alias n="539" Id="(@15 @57 @185 Member=get_Geometry)" />
-    <Alias n="540" Id="(@15 @57 @148 Member=get_GeometryCreator)" />
+    <Alias n="538" Id="(@13 @57 @183 Member=get_Geometry)" />
+    <Alias n="539" Id="(@13 @57 @185 Member=get_Geometry)" />
+    <Alias n="540" Id="(@13 @57 @148 Member=get_GeometryCreator)" />
     <Alias n="541" Id="(@1 @26 @136 Member=get_GeoPointGeometry)" />
     <Alias n="542" Id="(@1 @26 @136 Member=get_GeoPointPos)" />
     <Alias n="543" Id="(@7 @41 @92 Member=get_Green)" />
     <Alias n="544" Id="(@1 @26 @136 Member=get_GroupID)" />
     <Alias n="545" Id="(@1 @26 @136 Member=get_HasGeometry)" />
-    <Alias n="546" Id="(@15 @57 Type=ITerrainLabel65 Member=get_ID)" />
-    <Alias n="547" Id="(@15 @57 @183 Member=get_ID)" />
-    <Alias n="548" Id="(@15 @57 @185 Member=get_ID)" />
+    <Alias n="546" Id="(@13 @57 Type=ITerrainLabel65 Member=get_ID)" />
+    <Alias n="547" Id="(@13 @57 @183 Member=get_ID)" />
+    <Alias n="548" Id="(@13 @57 @185 Member=get_ID)" />
     <Alias n="549" Id="(@1 @26 @136 Member=get_IsGeoPoint)" />
     <Alias n="550" Id="(@1 @26 @136 Member=get_IsGeoPointTakenFromMap)" />
     <Alias n="551" Id="(@1 @26 @127 Member=get_IsGetFromMapPressed)" />
@@ -2745,50 +2745,50 @@
     <Alias n="553" Id="(@1 @26 @129 Member=get_IsSaved)" />
     <Alias n="554" Id="(@3 @19 @209 Member=get_Items)" />
     <Alias n="555" Id="(@1 @26 @136 Member=get_LabelStyle)" />
-    <Alias n="556" Id="(@15 @57 @180 Member=get_Left)" />
+    <Alias n="556" Id="(@13 @57 @180 Member=get_Left)" />
     <Alias n="557" Id="(@1 @26 @136 Member=get_LineColor)" />
     <Alias n="558" Id="(@5 @30 Type=Exception Member=get_Message)" />
     <Alias n="559" Id="(@1 @26 @136 Member=get_Name)" />
-    <Alias n="560" Id="(@15 @57 @174 Member=get_Navigate)" />
+    <Alias n="560" Id="(@13 @57 @174 Member=get_Navigate)" />
     <Alias n="561" Id="(@1 @26 @136 Member=get_ObjectID)" />
     <Alias n="562" Id="(@1 @26 @136 Member=get_ObjectType)" />
     <Alias n="563" Id="(@1 @26 @136 Member=get_ObjGeometry)" />
     <Alias n="564" Id="(@1 @26 @129 Member=get_PbHander)" />
-    <Alias n="565" Id="(@15 @57 Type=ILinearRing Member=get_Points)" />
-    <Alias n="566" Id="(@15 @57 @159 Member=get_Points)" />
-    <Alias n="567" Id="(@15 @57 Type=IWorldPointInfo65 Member=get_Position)" />
-    <Alias n="568" Id="(@15 @57 @174 Member=get_Project)" />
-    <Alias n="569" Id="(@15 @57 @174 Member=get_ProjectTree)" />
+    <Alias n="565" Id="(@13 @57 Type=ILinearRing Member=get_Points)" />
+    <Alias n="566" Id="(@13 @57 @159 Member=get_Points)" />
+    <Alias n="567" Id="(@13 @57 Type=IWorldPointInfo65 Member=get_Position)" />
+    <Alias n="568" Id="(@13 @57 @174 Member=get_Project)" />
+    <Alias n="569" Id="(@13 @57 @174 Member=get_ProjectTree)" />
     <Alias n="570" Id="(@7 @41 @92 Member=get_R)" />
     <Alias n="571" Id="(@7 @41 @92 Member=get_Red)" />
     <Alias n="572" Id="(@1 @28 @207 Member=get_ResourceManager)" />
-    <Alias n="573" Id="(@15 @57 @180 Member=get_Right)" />
-    <Alias n="574" Id="(@15 @57 @166 Member=get_Rings)" />
+    <Alias n="573" Id="(@13 @57 @180 Member=get_Right)" />
+    <Alias n="574" Id="(@13 @57 @166 Member=get_Rings)" />
     <Alias n="575" Id="(@3 @21 @94 Member=get_SelectedColor)" />
     <Alias n="576" Id="(@7 @41 @92 Member=get_Silver)" />
     <Alias n="577" Id="(@3 @19 @200 Member=get_Style)" />
     <Alias n="578" Id="(@3 @19 @200 Member=get_StyleMouseDown)" />
     <Alias n="579" Id="(@3 @19 @200 Member=get_StyleMouseOver)" />
-    <Alias n="580" Id="(@15 @57 @174 Member=get_Terrain)" />
+    <Alias n="580" Id="(@13 @57 @174 Member=get_Terrain)" />
     <Alias n="581" Id="(@11 @54 @104 Member=get_Text)" />
     <Alias n="582" Id="(@3 @19 @209 Member=get_TitleStyle)" />
     <Alias n="583" Id="(@3 @19 @209 Member=get_TitleStyleMouseOver)" />
-    <Alias n="584" Id="(@15 @57 @180 Member=get_Top)" />
+    <Alias n="584" Id="(@13 @57 @180 Member=get_Top)" />
     <Alias n="585" Id="(@7 @41 @92 Member=get_White)" />
-    <Alias n="586" Id="(@15 @57 @174 Member=get_Window)" />
-    <Alias n="587" Id="(@15 @57 @168 Member=get_X)" />
+    <Alias n="586" Id="(@13 @57 @174 Member=get_Window)" />
+    <Alias n="587" Id="(@13 @57 @168 Member=get_X)" />
     <Alias n="588" Id="(@1 @26 @129 Member=get_XLeft)" />
     <Alias n="589" Id="(@1 @26 @131 Member=get_XLeft)" />
     <Alias n="590" Id="(@1 @26 @131 Member=get_XLong)" />
     <Alias n="591" Id="(@1 @26 @129 Member=get_XRight)" />
     <Alias n="592" Id="(@1 @26 @131 Member=get_XRight)" />
-    <Alias n="593" Id="(@15 @57 @168 Member=get_Y)" />
+    <Alias n="593" Id="(@13 @57 @168 Member=get_Y)" />
     <Alias n="594" Id="(@1 @26 @129 Member=get_YBottom)" />
     <Alias n="595" Id="(@1 @26 @131 Member=get_YBottom)" />
     <Alias n="596" Id="(@1 @26 @131 Member=get_YLat)" />
     <Alias n="597" Id="(@1 @26 @129 Member=get_YTop)" />
     <Alias n="598" Id="(@1 @26 @131 Member=get_YTop)" />
-    <Alias n="599" Id="(@15 @57 Type=IRings Member=GetEnumerator)" />
+    <Alias n="599" Id="(@13 @57 Type=IRings Member=GetEnumerator)" />
     <Alias n="600" Id="(@1 @26 @129 Member=Init)" />
     <Alias n="601" Id="Member=InitializeComponent" />
     <Alias n="602" Id="(@1 @26 @125 @601)" />
@@ -2796,24 +2796,27 @@
     <Alias n="604" Id="(@1 @26 @129 @601)" />
     <Alias n="605" Id="(@1 @26 @131 @601)" />
     <Alias n="606" Id="(@1 @26 @133 @601)" />
-    <Alias n="607" Id="(@15 @57 Type=ICoordinateSystem65 Member=InitLatLong)" />
-    <Alias n="608" Id="(@15 @57 @159 Member=IsSimple)" />
+    <Alias n="607" Id="(@13 @57 Type=ICoordinateSystem65 Member=InitLatLong)" />
+    <Alias n="608" Id="(@13 @57 @159 Member=IsSimple)" />
     <Alias n="609" Id="(@1 @26 Type=Program Member=Main)" />
     <Alias n="610" Id="(@5 @33 Type=IEnumerator Member=MoveNext)" />
-    <Alias n="611" Id="(@15 @57 @170 Member=Save)" />
+    <Alias n="611" Id="(@13 @57 @170 Member=Save)" />
     <Alias n="612" Id="(@11 @54 Type=CommonDialog Member=ShowDialog)" />
     <Alias n="613" Id="(@11 @54 @123 Member=ShowDialog)" />
-    <Alias n="614" Id="(@15 @57 Type=IGeometry Member=StartEdit)" />
-    <Alias n="615" Id="(@15 @57 @159 Member=StartEdit)" />
-    <Alias n="616" Id="(@15 @57 @166 Member=StartEdit)" />
+    <Alias n="614" Id="(@13 @57 Type=IGeometry Member=StartEdit)" />
+    <Alias n="615" Id="(@13 @57 @159 Member=StartEdit)" />
+    <Alias n="616" Id="(@13 @57 @166 Member=StartEdit)" />
     <Alias n="617" Id="(@11 @54 @104 Member=SuspendLayout)" />
-    <Alias n="618" Id="(@15 @57 Type=IColor65 Member=ToABGRColor)" />
+    <Alias n="618" Id="(@13 @57 Type=IColor65 Member=ToABGRColor)" />
   </IdentifierAliases>
   <Paths>
     <Path Id="94f3e6d3-16db-460b-b805-36a17d861cf3.OutputPath" Value="D:\工作目录\横向：工程地质三维实景编录系统\FGeo3D\FGeo3D\FGeo3D\bin\Debug\FGeo3D_TE.exe" />
     <Path Id="94f3e6d3-16db-460b-b805-36a17d861cf3.OutputPathUri" Value="file:///D:/工作目录/横向：工程地质三维实景编录系统/FGeo3D/FGeo3D/FGeo3D/bin/Debug/FGeo3D_TE.exe" />
+    <Path Id="FxReferenceAssemblies" Value="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework" />
     <Path Id="FxReferenceAssembliesUri" Value="file:///C:/Program Files (x86)/Reference Assemblies/Microsoft/Framework" />
+    <Path Id="ProgramFiles" Value="C:\Program Files (x86)" />
     <Path Id="ProgramFilesUri" Value="file:///C:/Program Files (x86)" />
+    <Path Id="VsSolution" Value="D:\工作目录\横向：工程地质三维实景编录系统\FGeo3D\FGeo3D\FGeo3D" />
     <Path Id="VsSolutionUri" Value="file:///D:/工作目录/横向：工程地质三维实景编录系统/FGeo3D/FGeo3D/FGeo3D" />
   </Paths>
 </DirectedGraph>

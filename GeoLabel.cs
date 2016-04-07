@@ -10,7 +10,7 @@ namespace FGeo3D_TE
     class GeoLabel:GeoObj
     {
 
-        private ITerrainLabel65 _label;
+        private ITerrainLabel66 _label;
 
         public string Id
         {
@@ -20,7 +20,7 @@ namespace FGeo3D_TE
             }
         }
 
-        public IPosition65 Position
+        public IPosition66 Position
         {
           	get { return _label.Position; }
         }
@@ -30,19 +30,19 @@ namespace FGeo3D_TE
           	get { return _label.Text; }
         }
 
-        public ILabelStyle65 Style
+        public ILabelStyle66 Style
         {
           	get { return _label.Style; }
         }
 
-        public GeoLabel(ITerrainLabel65 inLabel65)
+        public GeoLabel(ITerrainLabel66 inLabel66)
         {
             GeoType = "Label";
-            _label = inLabel65;
+            _label = inLabel66;
 
         }
 
-        public GeoLabel(GeoObjInfo geoObjInfo, ref SGWorld65 sgworld)
+        public GeoLabel(GeoObjInfo geoObjInfo, ref SGWorld66 sgworld)
         {
             GeoType = "Label";
             _label = sgworld.Creator.CreateTextLabel(geoObjInfo.LabelPosition, geoObjInfo.LabelText, geoObjInfo.LabelStyle, geoObjInfo.GroupId, "Label:" + geoObjInfo.LabelText);

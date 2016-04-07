@@ -12,10 +12,10 @@ namespace FGeo3D_TE
 {
     public partial class FrmGeoPoint : Form
     {
-        private SGWorld65 sgworld;
+        private SGWorld66 sgworld;
         public bool IsGetFromMapPressed { get; private set; }
 
-        public FrmGeoPoint(ref SGWorld65 theSGWorld)
+        public FrmGeoPoint(ref SGWorld66 theSGWorld)
         {
             InitializeComponent();
             sgworld = theSGWorld;

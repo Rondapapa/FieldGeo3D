@@ -8,14 +8,14 @@ namespace FGeo3D_TE
 {
     class GeoLine : GeoObj
     {
-        private ITerrainPolyline65 _line;
+        private ITerrainPolyline66 _line;
 
         public string Id
         {
             get { return _line.ID; }
         }
 
-        public GeoLine(ITerrainPolyline65 inLine)
+        public GeoLine(ITerrainPolyline66 inLine)
         {
             GeoType = "Line";
             _line = inLine;

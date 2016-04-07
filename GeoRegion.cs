@@ -8,14 +8,14 @@ namespace FGeo3D_TE
 {
     class GeoRegion:GeoObj
     {
-        private ITerrainPolygon65 _region;
+        private ITerrainPolygon66 _region;
 
         public string Id
         {
           	get { return _region.ID; }
         }
 
-        public GeoRegion(ITerrainPolygon65 inRegion)
+        public GeoRegion(ITerrainPolygon66 inRegion)
         {
             GeoType = "Region";
             _region = inRegion;

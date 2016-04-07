@@ -8,7 +8,7 @@ namespace FGeo3D_TE
 {
     class GeoPoint:GeoObj
     {
-        private ITerrainSphere65 _point;
+        private ITerrainSphere66 _point;
 
         public string Id
         {
@@ -18,21 +18,21 @@ namespace FGeo3D_TE
             }
         }
 
-        public IPosition65 Position
+        public IPosition66 Position
         {
           	get { return _point.Position; }
         }
 
         
 
-        public GeoPoint(ITerrainSphere65 inSphere65)
+        public GeoPoint(ITerrainSphere66 inSphere66)
         {
             GeoType = "Point";
-            _point = inSphere65;
+            _point = inSphere66;
             AddObj(this, Id);
         }
 
-        public GeoPoint(GeoObjInfo geoObjInfo, ref SGWorld65 sgworld)
+        public GeoPoint(GeoObjInfo geoObjInfo, ref SGWorld66 sgworld)
         {
             GeoType = "Point";
             double radius = 10;

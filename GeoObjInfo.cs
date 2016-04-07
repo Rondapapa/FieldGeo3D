@@ -10,7 +10,7 @@ namespace FGeo3D_TE
     public class GeoObjInfo
     {
         //名称
-        public SGWorld65 InSgWorld;
+        public SGWorld66 InSgWorld;
 
         public bool IsDrop { get; set; }
 
@@ -29,7 +29,7 @@ namespace FGeo3D_TE
 
         public bool IsGeoPointTakenFromMap { get; set; }
 
-        public IPosition65 PointPosition { get; set; }
+        public IPosition66 PointPosition { get; set; }
 
 #endregion
 
@@ -37,9 +37,9 @@ namespace FGeo3D_TE
         //是否有几何实体
         public bool HasGeometry { get; set; }
         //线颜色、边界颜色
-        public IColor65 LineColor { get; set; }
+        public IColor66 LineColor { get; set; }
         //填充颜色
-        public IColor65 FillColor { get; set; }
+        public IColor66 FillColor { get; set; }
 #endregion
 
 #region 标签数据
@@ -48,16 +48,16 @@ namespace FGeo3D_TE
 
         public string LabelText { get; set; }
         //标签样式
-        public ILabelStyle65 LabelStyle { get; set; }
+        public ILabelStyle66 LabelStyle { get; set; }
 
-        public IPosition65 LabelPosition { get; set; }
+        public IPosition66 LabelPosition { get; set; }
 #endregion
 
         //用户数据
         public string ClientData { get; set; }
 
 
-        public GeoObjInfo(string pbHander, ref SGWorld65 sgworld)
+        public GeoObjInfo(string pbHander, ref SGWorld66 sgworld)
         {
             InSgWorld = sgworld;
             IsDrop = false;

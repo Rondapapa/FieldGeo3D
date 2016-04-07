@@ -17,13 +17,13 @@ namespace FGeo3D_TE
     public partial class FrmMain : Form
     {
         string tProjectUrl;
-        SGWorld65 sgworld = new SGWorld65();
+        SGWorld66 sgworld = new SGWorld66();
         
 
-        ITerrainPolygon65 pITPolygon = null;
-        ITerrainPolyline65 pITerrainPolyline = null;
+        ITerrainPolygon66 pITPolygon = null;
+        ITerrainPolyline66 pITerrainPolyline = null;
         //ILineString pSectionptString = null;
-        //ITerrain3DPolygon65 pIT3DPolygon = null;
+        //ITerrain3DPolygon66 pIT3DPolygon = null;
         //double[] arrContourMapVertices = new double[4];
         //ObjProperty objProperty;
         //private GeoObject GeoObj;
@@ -35,14 +35,14 @@ namespace FGeo3D_TE
         //List<double> lArrPoints = new List<double>();
         //List<double> ListVerticsArray = new List<double>();
         
-        //sgworld.OnLButtonDown += new _ISGWorld65Events_OnLButtonDownEventHandler(sgworld_OnLButtonDown);
-        //sgworld.OnRButtonDown += new _ISGWorld65Events_OnRButtonDownEventHandler(sgworld_OnRButtonDown);
+        //sgworld.OnLButtonDown += new _ISGWorld66Events_OnLButtonDownEventHandler(sgworld_OnLButtonDown);
+        //sgworld.OnRButtonDown += new _ISGWorld66Events_OnRButtonDownEventHandler(sgworld_OnRButtonDown);
         
         //private struct ObjProperty
         //{
         //    public String Name;
-        //    public IColor65 LineColor;
-        //    public IColor65 FillColor;
+        //    public IColor66 LineColor;
+        //    public IColor66 FillColor;
         //};
 
         public double XLeft { get; private set; }
@@ -118,7 +118,7 @@ namespace FGeo3D_TE
             var tUser = string.Empty;
             var tPassword = string.Empty;
             //MessageBox.Show(tProjectUrl);
-            sgworld = new SGWorld65();
+            sgworld = new SGWorld66();
             sgworld.Project.Open(tProjectUrl, bIsAsync, tUser, tPassword);
 
 
@@ -185,7 +185,7 @@ namespace FGeo3D_TE
             //获取文件名，不带路径  
             var fileNameExt = localFilePath.Substring(localFilePath.LastIndexOf("\\", StringComparison.Ordinal) + 1);
 
-            //sgworld = new SGWorld65();
+            //sgworld = new SGWorld66();
             sgworld.Project.SaveAs(fileNameExt);
             //sgworld.ProjectTree.SaveAsFly(fileNameExt, gpgid);
 
@@ -460,15 +460,30 @@ namespace FGeo3D_TE
 
         private void btnTerrainArea_Click(object sender, EventArgs e)
         {
-            sgworld.Command.Execute(1165, 0);
+            sgworld.Command.Execute(1166, 0);
         }
         #endregion
 
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(string.Format("Labels:{0}; Points:{1}; Lines:{2}; Regions:{3}",
-                GeoObj.Labels.Count.ToString(), GeoObj.Points.Count.ToString(), GeoObj.Lines.Count.ToString(), GeoObj.Regions.Count.ToString()));
+            IPosition66 p1 = sgworld.Creator.CreatePosition(412465.396283, 3264008.200115);
+            IPosition66 p2 = sgworld.Creator.CreatePosition(412019.599981, 3264057.697713);
+            IPosition66 p3 = sgworld.Creator.CreatePosition(412344.021811, 3263541.641142);
+
+            IPosition66 p4 = sgworld.Creator.CreatePosition(412480.938471, 3264213.0889);
+            IPosition66 p5 = sgworld.Creator.CreatePosition(412262.35476, 3263878.751618);
+            IPosition66 p6 = sgworld.Creator.CreatePosition(412992.85769, 3263822.762772);
+
+            ITerrainPolygon66 Itp1 = CreatePolygon3ps(p1, p2, p3);
+            ITerrainPolygon66 Itp2 = CreatePolygon3ps(p4, p5, p6);
+
+            bool overlaps = Itp1.Geometry.SpatialRelation.Overlaps(Itp2.Geometry);
+            MessageBox.Show("overlaps: " + overlaps);
+
+            IGeometry ig = Itp1.Geometry.SpatialOperator.Intersection(Itp2.Geometry);
+            ITerrainPolygon66 itp3 = sgworld.Creator.CreatePolygon(ig);
+
             //MessageBox.Show(sgworld.Command.CanExecute(1149,25).ToString());
         }
 
@@ -604,10 +619,10 @@ namespace FGeo3D_TE
         bool sgworld_OnLButtonDown(int Flags, int X, int Y)
         {
             
-            IWorldPointInfo65 pIWPInfo = sgworld.Window.PixelToWorld(X, Y, WorldPointType.WPT_TERRAIN); //真实位置信息
-            IPosition65 pIPosition = sgworld.Navigate.GetPosition(AltitudeTypeCode.ATC_ON_TERRAIN); //视点位置信息（相机位置）
+            IWorldPointInfo66 pIWPInfo = sgworld.Window.PixelToWorld(X, Y, WorldPointType.WPT_TERRAIN); //真实位置信息
+            IPosition66 pIPosition = sgworld.Navigate.GetPosition(AltitudeTypeCode.ATC_ON_TERRAIN); //视点位置信息（相机位置）
 
-            //IPosition65 r_StartPosition = null, r_LastPosition;
+            //IPosition66 r_StartPosition = null, r_LastPosition;
 
             #region 获取位置
             //if (PbHander == "GetPos")
@@ -995,9 +1010,9 @@ namespace FGeo3D_TE
           	if(PbHander == "FreehandDrawing" && IsFreehandDrawing)
             {
                 //手绘代码
-                IMouseInfo65 mouseInfo = sgworld.Window.GetMouseInfo();
-                IWorldPointInfo65 pIWPInfo = sgworld.Window.PixelToWorld(mouseInfo.X, mouseInfo.Y, WorldPointType.WPT_TERRAIN); //真实位置信息
-                IPosition65 pIPosition = sgworld.Navigate.GetPosition(AltitudeTypeCode.ATC_ON_TERRAIN); //视点位置信息（相机位置）
+                IMouseInfo66 mouseInfo = sgworld.Window.GetMouseInfo();
+                IWorldPointInfo66 pIWPInfo = sgworld.Window.PixelToWorld(mouseInfo.X, mouseInfo.Y, WorldPointType.WPT_TERRAIN); //真实位置信息
+                IPosition66 pIPosition = sgworld.Navigate.GetPosition(AltitudeTypeCode.ATC_ON_TERRAIN); //视点位置信息（相机位置）
 
                 if (pITerrainPolyline == null)
                 {
@@ -1034,9 +1049,9 @@ namespace FGeo3D_TE
 
 
 
-        //private IPosition65 InputPosition()
+        //private IPosition66 InputPosition()
         //{
-        //    IPosition65 retPos = null;
+        //    IPosition66 retPos = null;
         //    var frmLocation = new frmPosition();
         //    if (frmLocation.ShowDialog() != DialogResult.OK) return retPos;
         //    var dX = double.Parse(frmLocation.tbX.Text);
@@ -1070,7 +1085,7 @@ namespace FGeo3D_TE
             }
         }
 
-        private ITerrainPolygon65 CreatePolygon3ps(IPosition65 p0, IPosition65 p1, IPosition65 p2)
+        private ITerrainPolygon66 CreatePolygon3ps(IPosition66 p0, IPosition66 p1, IPosition66 p2)
         {
             double[] cVerticesArray = new double[] {
                 p0.X, p0.Y, p0.Altitude,
@@ -1081,8 +1096,9 @@ namespace FGeo3D_TE
             IGeometry cPolygonGeometry = sgworld.Creator.GeometryCreator.CreatePolygonGeometry(cRing, null);
             uint nLineColor = 0xFF00FF00; // Abgr value -> solid green
             uint nFillColor = 0x7FFF0000; // Abgr value -> 50% transparent blue
-            AltitudeTypeCode eAltitudeTypeCode = AltitudeTypeCode.ATC_TERRAIN_RELATIVE;
-            ITerrainPolygon65 retPolygon = sgworld.Creator.CreatePolygon(cPolygonGeometry, nLineColor, nFillColor, eAltitudeTypeCode, "", "test3ps");
+            //AltitudeTypeCode eAltitudeTypeCode = AltitudeTypeCode.ATC_TERRAIN_RELATIVE;
+            AltitudeTypeCode eAltitudeTypeCode = AltitudeTypeCode.ATC_ON_TERRAIN;
+            ITerrainPolygon66 retPolygon = sgworld.Creator.CreatePolygon(cPolygonGeometry, nLineColor, nFillColor, eAltitudeTypeCode, "", "test3ps");
 
 
             return retPolygon;
