@@ -16,76 +16,48 @@ namespace FGeo3D_TE
 {
     public partial class FrmMain : Form
     {
+        //工程目录
         string tProjectUrl;
-        SGWorld66 sgworld = null;
-        
 
+        //主接口
+        SGWorld66 sgworld = null;
+
+        //地形多边形
         ITerrainPolygon66 pITPolygon = null;
+
+        //地形多段线
         ITerrainPolyline66 pITerrainPolyline = null;
+        
         //ILineString pSectionptString = null;
-        //ITerrain3DPolygon66 pIT3DPolygon = null;
+
         //double[] arrContourMapVertices = new double[4];
-        //ObjProperty objProperty;
-        //private GeoObject GeoObj;
+
+        //地理地质对象管理对象-单例（还未实现）！
         private GeoObj GeoObj = new GeoObj();
+
+        //地理地质对象信息传递对象
         private GeoObjInfo GeoObjInfo;
 
-
+        //绘制多边形时用于判断isSimple的辅助线环
         ILineString tempLineString;
+
         //List<double> lArrPoints = new List<double>();
         //List<double> ListVerticsArray = new List<double>();
         
-        //sgworld.OnLButtonDown += new _ISGWorld66Events_OnLButtonDownEventHandler(sgworld_OnLButtonDown);
-        //sgworld.OnRButtonDown += new _ISGWorld66Events_OnRButtonDownEventHandler(sgworld_OnRButtonDown);
-        
-        //private struct ObjProperty
-        //{
-        //    public String Name;
-        //    public IColor66 LineColor;
-        //    public IColor66 FillColor;
-        //};
-
+        //窗口上下左右位置
         public double XLeft { get; private set; }
         public double XRight { get; private set; }
         public double YTop { get; private set; }
         public double YBottom { get; private set; }
+        
+        //鼠标状态
+        public string PbHander { get; private set; }
 
+        //保存状态（暂时没用到）
+        public bool IsSaved { get; set; }
 
-
-        private string _pbhander = "";
-        private bool _isPbHanderChanged = false;
-        public string PbHander
-        {
-            get { return _pbhander; }
-            set
-            {
-                if (value == null) throw new ArgumentNullException("value");
-                _isPbHanderChanged = false || value != _pbhander;
-                _pbhander = value;
-                if (_isPbHanderChanged)
-                {
-                    //WhenPBHanderChange();
-                }
-            }
-        }
-
-        private bool _isSaved = true;
-        private bool _isIsSavedChanged = false;
-        public bool IsSaved
-        {
-            get { return _isSaved; }
-            set
-            {
-                _isIsSavedChanged = false || value != _isSaved;
-                _isSaved = value;
-                if (_isIsSavedChanged)
-                {
-                    //WhenIsSavedChange();
-                }
-            }
-        }
-
-        public bool IsFreehandDrawing { get; set; }
+        //手绘鼠标是否按下状态
+        public bool IsFreehandDrawingMouseDown { get; set; }
 
         public FrmMain()
         {
@@ -233,7 +205,6 @@ namespace FGeo3D_TE
             MessageBox.Show(@"该功能正在开发中……");
         }
         #endregion
-
 
         #region 绘录
         private void btnLabel_Click(object sender, EventArgs e)
@@ -425,6 +396,11 @@ namespace FGeo3D_TE
         }
         #endregion
 
+        /// <summary>
+        /// 定位
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLocate_Click(object sender, EventArgs e)
         {
             var frmPosition = new FrmPosition(XLeft,XRight,YTop,YBottom);
@@ -433,6 +409,11 @@ namespace FGeo3D_TE
             sgworld.Navigate.FlyTo(cPos);
         }
 
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnQuery_Click(object sender, EventArgs e)
         {
             sgworld.Command.Execute(1023, 0);
@@ -465,7 +446,11 @@ namespace FGeo3D_TE
         }
         #endregion
 
-
+        /// <summary>
+        /// 测试按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnTest_Click(object sender, EventArgs e)
         {
             IPosition66 p1 = sgworld.Creator.CreatePosition(412465.396283, 3264008.200115);
@@ -489,7 +474,10 @@ namespace FGeo3D_TE
         }
 
         
-
+        /// <summary>
+        /// 应用绘制命令，并释放鼠标和相关全局引用
+        /// </summary>
+        /// <param name="pbhander"></param>
         private void Apply(string pbhander)
         {
             #region 地质标签
@@ -605,7 +593,13 @@ namespace FGeo3D_TE
             #endregion
         }
 
-        //右键按下
+        /// <summary>
+        /// 右键按下方法
+        /// </summary>
+        /// <param name="Flags"></param>
+        /// <param name="X">鼠标坐标X</param>
+        /// <param name="Y">鼠标坐标Y</param>
+        /// <returns></returns>
         bool sgworld_OnRButtonDown(int Flags, int X, int Y)
         {
             Apply(PbHander);
@@ -616,7 +610,13 @@ namespace FGeo3D_TE
             return true;
         }
 
-        //左键按下
+        /// <summary>
+        /// 左键按下方法
+        /// </summary>
+        /// <param name="Flags"></param>
+        /// <param name="X">鼠标坐标X</param>
+        /// <param name="Y">鼠标坐标Y</param>
+        /// <returns></returns>
         bool sgworld_OnLButtonDown(int Flags, int X, int Y)
         {
             
@@ -808,7 +808,7 @@ namespace FGeo3D_TE
             #region 手绘地质界线
             if (PbHander == "FreehandDrawing")
             {
-                IsFreehandDrawing = true;
+                IsFreehandDrawingMouseDown = true;
             }
             #endregion
 
@@ -980,11 +980,18 @@ namespace FGeo3D_TE
             return false;
         }
 
+        /// <summary>
+        /// 左键松开方法
+        /// </summary>
+        /// <param name="Flags"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
+        /// <returns></returns>
         bool sgworld_OnLButtonUp(int Flags, int X, int Y)
         {
             if (PbHander == "FreehandDrawing")
             {
-                IsFreehandDrawing = false;
+                IsFreehandDrawingMouseDown = false;
             }
             sgworld.OnFrame -= sgworld_OnMouseMove;
             sgworld.OnLButtonDown -= sgworld_OnLButtonDown;
@@ -1006,9 +1013,12 @@ namespace FGeo3D_TE
             return true;
         }
 
+        /// <summary>
+        /// 鼠标移动方法，用于挂接OnFrame事件
+        /// </summary>
         void sgworld_OnMouseMove()
         {
-          	if(PbHander == "FreehandDrawing" && IsFreehandDrawing)
+          	if(PbHander == "FreehandDrawing" && IsFreehandDrawingMouseDown)
             {
                 //手绘代码
                 IMouseInfo66 mouseInfo = sgworld.Window.GetMouseInfo();
@@ -1038,30 +1048,31 @@ namespace FGeo3D_TE
                     if (cLineString != null) cLineString.Points.AddPoint(dx, dy, dz);
                     var editedGeometry = pITerrainPolyline.Geometry.EndEdit();
                     pITerrainPolyline.Geometry = editedGeometry;
-
-                    //MessageBox.Show(cLineString.Points.GetType().ToString());
-                    //sgworld.Analysis.CreateTerrainProfile(cLineString.Points);
-
                 }
             }
         }
 
         #region 其他方法
 
+        /*
+        private IPosition66 InputPosition()
+        {
+            IPosition66 retPos = null;
+            var frmLocation = new frmPosition();
+            if (frmLocation.ShowDialog() != DialogResult.OK) return retPos;
+            var dX = double.Parse(frmLocation.tbX.Text);
+            var dY = double.Parse(frmLocation.tbY.Text);
 
+            retPos = sgworld.Creator.CreatePosition(dX, dY, 0, AltitudeTypeCode.ATC_ON_TERRAIN, 0, -90, 0, 0);
+            return retPos;
+        }
+        */
 
-        //private IPosition66 InputPosition()
-        //{
-        //    IPosition66 retPos = null;
-        //    var frmLocation = new frmPosition();
-        //    if (frmLocation.ShowDialog() != DialogResult.OK) return retPos;
-        //    var dX = double.Parse(frmLocation.tbX.Text);
-        //    var dY = double.Parse(frmLocation.tbY.Text);
-            
-        //    retPos = sgworld.Creator.CreatePosition(dX, dY, 0, AltitudeTypeCode.ATC_ON_TERRAIN, 0, -90, 0, 0);
-        //    return retPos;
-        //}
-
+        /// <summary>
+        /// 高亮按钮
+        /// </summary>
+        /// <param name="btn">按钮控件</param>
+        /// <param name="isBtnDrawingApplyUsed">是否关联“应用更改”按钮</param>
         private void HighlightButton(ButtonItem btn, bool isBtnDrawingApplyUsed = false)
         {
             btn.FontBold = true;
@@ -1074,6 +1085,11 @@ namespace FGeo3D_TE
             }
         }
 
+        /// <summary>
+        /// 复位按钮
+        /// </summary>
+        /// <param name="btn">按钮控件</param>
+        /// <param name="isBtnDrawingApplyUsed">是否关联“应用更改”按钮</param>
         private void ResetButton(ButtonItem btn, bool isBtnDrawingApplyUsed = false)
         {
             btn.FontBold = false;
@@ -1086,6 +1102,13 @@ namespace FGeo3D_TE
             }
         }
 
+        /// <summary>
+        /// 三点成面
+        /// </summary>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
         private ITerrainPolygon66 CreatePolygon3ps(IPosition66 p0, IPosition66 p1, IPosition66 p2)
         {
             double[] cVerticesArray = new double[] {
