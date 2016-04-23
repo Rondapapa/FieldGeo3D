@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeoAttitude.cs" />
     <Compile Include="GeoLine.cs" />
     <Compile Include="GeoObj.cs" />
     <Compile Include="GeoObjInfo.cs" />
@@ -106,6 +107,7 @@
     </Compile>
     <Compile Include="GeoPoint.cs" />
     <Compile Include="GeoRegion.cs" />
+    <Compile Include="GeoTecture.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmGeoObject.resx">
