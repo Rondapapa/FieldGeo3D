@@ -7,7 +7,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    public class GeoObjInfo
+    public class ObjectInfo
     {
         //名称
         public SGWorld66 InSgWorld;
@@ -27,7 +27,7 @@ namespace FGeo3D_TE
 #region 地质点数据
         public string PointId { get; set; }
 
-        public bool IsGeoPointTakenFromMap { get; set; }
+        public bool IsPointTakenFromMap { get; set; }
 
         public IPosition66 PointPosition { get; set; }
 
@@ -57,7 +57,7 @@ namespace FGeo3D_TE
         public string ClientData { get; set; }
 
 
-        public GeoObjInfo(string pbHander, ref SGWorld66 sgworld)
+        public ObjectInfo(string pbHander, ref SGWorld66 sgworld)
         {
             InSgWorld = sgworld;
             IsDrop = false;
@@ -88,24 +88,24 @@ namespace FGeo3D_TE
 
                 case "GeoPoint":
                     
-                    var frmGeoPoint = new FrmGeoPoint(ref sgworld);
-                    var frmDialog = frmGeoPoint.ShowDialog();
+                    var frmPoint = new FrmPoint(ref sgworld);
+                    var frmDialog = frmPoint.ShowDialog();
                     //frmGeoPoint.Show();
 
                     //选择“从地图中选取”按钮
                     if (frmDialog == DialogResult.Yes)
                     {
-                        Name = frmGeoPoint.tbName.Text;
-                        PointId = frmGeoPoint.tbID.Text;
-                        IsGeoPointTakenFromMap = true;
+                        Name = frmPoint.tbName.Text;
+                        PointId = frmPoint.tbID.Text;
+                        IsPointTakenFromMap = true;
                     }
                     //选择“确认坐标”按钮
                     else if (frmDialog == DialogResult.OK)
                     {
-                        Name = frmGeoPoint.tbName.Text;
-                        PointId = frmGeoPoint.tbID.Text;
-                        var dLong = Convert.ToDouble(frmGeoPoint.tbLong.Text);
-                        var dLat = Convert.ToDouble(frmGeoPoint.tbLat.Text);
+                        Name = frmPoint.tbName.Text;
+                        PointId = frmPoint.tbID.Text;
+                        var dLong = Convert.ToDouble(frmPoint.tbLong.Text);
+                        var dLat = Convert.ToDouble(frmPoint.tbLat.Text);
                         PointPosition = sgworld.Creator.CreatePosition(dLong, dLat, 0, AltitudeTypeCode.ATC_ON_TERRAIN,
                             0, 0, 0, 0);
                     }
@@ -119,57 +119,57 @@ namespace FGeo3D_TE
 
                 case "GeoLine":
                     
-                    var frmGeoLine = new FrmGeoObject(pbHander);
+                    var frmLine = new FrmObject(pbHander);
                     //若不指定边界颜色，则默认为黑色
                     LineColor = sgworld.Creator.CreateColor(255, 255, 255, 255);
                     //若不指定填充颜色，则默认为半透明蓝色
                     FillColor = sgworld.Creator.CreateColor(0, 0, 255, 128);
-                    if (frmGeoLine.ShowDialog() != DialogResult.OK)
+                    if (frmLine.ShowDialog() != DialogResult.OK)
                     {
                         IsDrop = true;
                         return;
                     }
                     GroupId = CreateGroup("地质线");
-                    Name = frmGeoLine.ObjName;
-                    var lineColors = frmGeoLine.SelectedColor;
+                    Name = frmLine.ObjName;
+                    var lineColors = frmLine.SelectedColor;
                     LineColor = sgworld.Creator.CreateColor(lineColors.R, lineColors.G, lineColors.B, lineColors.A);
                     FillColor = sgworld.Creator.CreateColor(lineColors.R, lineColors.G, lineColors.B, 128);
                     break;
 
                 case "GeoRegion":
                     
-                    var frmGeoRegion = new FrmGeoObject(pbHander);
+                    var frmRegion = new FrmObject(pbHander);
                     //若不指定边界颜色，则默认为黑色
                     LineColor = sgworld.Creator.CreateColor(255, 255, 255, 255);
                     //若不指定填充颜色，则默认为半透明蓝色
                     FillColor = sgworld.Creator.CreateColor(0, 0, 255, 128);
-                    if (frmGeoRegion.ShowDialog() != DialogResult.OK)
+                    if (frmRegion.ShowDialog() != DialogResult.OK)
                     {
                         IsDrop = true;
                         return;
                     }
                     GroupId = CreateGroup("地质区域");
-                    Name = frmGeoRegion.ObjName;
-                    var regionColors = frmGeoRegion.SelectedColor;
+                    Name = frmRegion.ObjName;
+                    var regionColors = frmRegion.SelectedColor;
                     LineColor = sgworld.Creator.CreateColor(regionColors.R, regionColors.G, regionColors.B, regionColors.A);
                     FillColor = sgworld.Creator.CreateColor(regionColors.R, regionColors.G, regionColors.B, 128);
                     break;
 
                 case "FreehandDrawing":
                     
-                    var frmGeoFreehandDrawing = new FrmGeoObject(pbHander);
+                    var frmFreehandDrawing = new FrmObject(pbHander);
                     //若不指定边界颜色，则默认为黑色
                     LineColor = sgworld.Creator.CreateColor(255, 255, 255, 255);
                     //若不指定填充颜色，则默认为半透明蓝色
                     FillColor = sgworld.Creator.CreateColor(0, 0, 255, 128);
-                    if (frmGeoFreehandDrawing.ShowDialog() != DialogResult.OK)
+                    if (frmFreehandDrawing.ShowDialog() != DialogResult.OK)
                     {
                         IsDrop = true;
                         return;
                     }
                     GroupId = CreateGroup("地质线");
-                    Name = frmGeoFreehandDrawing.ObjName;
-                    var freehandDrawingColors = frmGeoFreehandDrawing.SelectedColor;
+                    Name = frmFreehandDrawing.ObjName;
+                    var freehandDrawingColors = frmFreehandDrawing.SelectedColor;
                     LineColor = sgworld.Creator.CreateColor(freehandDrawingColors.R, freehandDrawingColors.G, freehandDrawingColors.B, freehandDrawingColors.A);
                     FillColor = sgworld.Creator.CreateColor(freehandDrawingColors.R, freehandDrawingColors.G, freehandDrawingColors.B, 128);
                     break;

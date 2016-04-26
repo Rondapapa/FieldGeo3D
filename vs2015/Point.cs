@@ -6,7 +6,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class GeoPoint:GeoObj
+    class Point:Object
     {
         private ITerrainSphere66 _point;
 
@@ -25,16 +25,16 @@ namespace FGeo3D_TE
 
         
 
-        public GeoPoint(ITerrainSphere66 inSphere66)
+        public Point(ITerrainSphere66 inSphere66)
         {
-            GeoType = "Point";
+            Type = "Point";
             _point = inSphere66;
             AddObj(this, Id);
         }
 
-        public GeoPoint(GeoObjInfo geoObjInfo, ref SGWorld66 sgworld)
+        public Point(ObjectInfo geoObjInfo, ref SGWorld66 sgworld)
         {
-            GeoType = "Point";
+            Type = "Point";
             double radius = 10;
             var Style = SphereStyle.SPHERE_NORMAL;
             var nLineColor = 0xFF00FF00;

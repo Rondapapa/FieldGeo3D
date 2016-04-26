@@ -1,6 +1,6 @@
 ﻿namespace FGeo3D_TE
 {
-    partial class FrmGeoObject
+    partial class FrmObject
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmGeoObject));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmObject));
             this.tbName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelName = new DevComponents.DotNetBar.LabelX();
             this.btnOK = new DevComponents.DotNetBar.ButtonX();

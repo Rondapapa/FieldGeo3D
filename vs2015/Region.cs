@@ -6,7 +6,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class GeoRegion:GeoObj
+    class Region:Object
     {
         private ITerrainPolygon66 _region;
 
@@ -15,9 +15,9 @@ namespace FGeo3D_TE
           	get { return _region.ID; }
         }
 
-        public GeoRegion(ITerrainPolygon66 inRegion)
+        public Region(ITerrainPolygon66 inRegion)
         {
-            GeoType = "Region";
+            Type = "Region";
             _region = inRegion;
             AddObj(this, Id);
         }

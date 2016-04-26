@@ -1,6 +1,6 @@
 ﻿namespace FGeo3D_TE
 {
-    partial class FrmGeoPoint
+    partial class FrmPoint
     {
         /// <summary>
         /// Required designer variable.
@@ -202,7 +202,7 @@
             this.buttonOK.Text = "确认坐标";
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
-            // FrmGeoPoint
+            // FrmPoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -219,7 +219,7 @@
             this.Controls.Add(this.labelUseLatLong);
             this.Controls.Add(this.labelLocation);
             this.Controls.Add(this.labelName);
-            this.Name = "FrmGeoPoint";
+            this.Name = "FrmPoint";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "请输入地质点信息";
             this.ResumeLayout(false);

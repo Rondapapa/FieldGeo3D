@@ -10,12 +10,12 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    public partial class FrmGeoPoint : Form
+    public partial class FrmPoint : Form
     {
         private SGWorld66 sgworld;
         public bool IsGetFromMapPressed { get; private set; }
 
-        public FrmGeoPoint(ref SGWorld66 theSGWorld)
+        public FrmPoint(ref SGWorld66 theSGWorld)
         {
             InitializeComponent();
             sgworld = theSGWorld;

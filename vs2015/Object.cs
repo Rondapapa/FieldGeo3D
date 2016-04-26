@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FGeo3D_TE
 {
-    class GeoObj
+    class Object
     {
         public static Hashtable Labels = new Hashtable();
 
@@ -16,28 +16,28 @@ namespace FGeo3D_TE
 
         public static Hashtable Regions = new Hashtable();
         
-        public string GeoType { get; set;}
+        public string Type { get; set;}
 
-        public GeoObj()
+        public Object()
         {
           	
         }
 
-        public void AddObj(GeoObj geoObj, string geoId)
+        public void AddObj(Object obj, string id)
         {
-          	switch(geoObj.GeoType)
+          	switch(obj.Type)
             {
               	case "Label":
-                    Labels.Add(geoId, geoObj);
+                    Labels.Add(id, obj);
                     break;
                 case "Point":
-                    Points.Add(geoId, geoObj);
+                    Points.Add(id, obj);
                     break;
                 case "Line":
-                    Lines.Add(geoId, geoObj);
+                    Lines.Add(id, obj);
                     break;
                 case "Region":
-                    Regions.Add(geoId, geoObj);
+                    Regions.Add(id, obj);
                     break;
                 default:
                     break;

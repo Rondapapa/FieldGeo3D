@@ -7,7 +7,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class GeoLabel:GeoObj
+    class Label:Object
     {
 
         private ITerrainLabel66 _label;
@@ -35,17 +35,17 @@ namespace FGeo3D_TE
           	get { return _label.Style; }
         }
 
-        public GeoLabel(ITerrainLabel66 inLabel66)
+        public Label(ITerrainLabel66 inLabel66)
         {
-            GeoType = "Label";
+            Type = "Label";
             _label = inLabel66;
 
         }
 
-        public GeoLabel(GeoObjInfo geoObjInfo, ref SGWorld66 sgworld)
+        public Label(ObjectInfo objInfo, ref SGWorld66 sgworld)
         {
-            GeoType = "Label";
-            _label = sgworld.Creator.CreateTextLabel(geoObjInfo.LabelPosition, geoObjInfo.LabelText, geoObjInfo.LabelStyle, geoObjInfo.GroupId, "Label:" + geoObjInfo.LabelText);
+            Type = "Label";
+            _label = sgworld.Creator.CreateTextLabel(objInfo.LabelPosition, objInfo.LabelText, objInfo.LabelStyle, objInfo.GroupId, "Label:" + objInfo.LabelText);
             AddObj(this, Id);
         }
 

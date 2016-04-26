@@ -70,22 +70,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bore.cs" />
+    <Compile Include="Footrill.cs" />
     <Compile Include="GeoAttitude.cs" />
-    <Compile Include="GeoLine.cs" />
-    <Compile Include="GeoObj.cs" />
-    <Compile Include="GeoObjInfo.cs" />
-    <Compile Include="GeoLabel.cs" />
-    <Compile Include="FrmGeoObject.cs">
+    <Compile Include="GeoHelper.cs" />
+    <Compile Include="Line.cs" />
+    <Compile Include="GeoLineNew.cs" />
+    <Compile Include="GeoMarkPoint.cs" />
+    <Compile Include="Object.cs" />
+    <Compile Include="GeoObject.cs" />
+    <Compile Include="ObjectInfo.cs" />
+    <Compile Include="Label.cs" />
+    <Compile Include="FrmObject.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmGeoObject.Designer.cs">
-      <DependentUpon>FrmGeoObject.cs</DependentUpon>
+    <Compile Include="FrmObject.Designer.cs">
+      <DependentUpon>FrmObject.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmGeoPoint.cs">
+    <Compile Include="FrmPoint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmGeoPoint.Designer.cs">
-      <DependentUpon>FrmGeoPoint.cs</DependentUpon>
+    <Compile Include="FrmPoint.Designer.cs">
+      <DependentUpon>FrmPoint.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmPosition.cs">
       <SubType>Form</SubType>
@@ -105,16 +111,18 @@
     <Compile Include="FrmLabel.Designer.cs">
       <DependentUpon>FrmLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeoPoint.cs" />
-    <Compile Include="GeoRegion.cs" />
+    <Compile Include="GeoPlane.cs" />
+    <Compile Include="Point.cs" />
+    <Compile Include="GeoPointNew.cs" />
+    <Compile Include="Region.cs" />
     <Compile Include="GeoTecture.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmGeoObject.resx">
-      <DependentUpon>FrmGeoObject.cs</DependentUpon>
+    <EmbeddedResource Include="FrmObject.resx">
+      <DependentUpon>FrmObject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmGeoPoint.resx">
-      <DependentUpon>FrmGeoPoint.cs</DependentUpon>
+    <EmbeddedResource Include="FrmPoint.resx">
+      <DependentUpon>FrmPoint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPosition.resx">
       <DependentUpon>FrmPosition.cs</DependentUpon>
@@ -154,6 +162,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="stdole">
       <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
@@ -171,7 +180,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
   <ItemGroup>

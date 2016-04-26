@@ -12,13 +12,13 @@ namespace FGeo3D_TE
     };
     class GeoTecture
     {
-        TectureType Tecture { get; set; } //构造类型
+        TectureType TectureType { get; set; } //构造类型
         string TectureData { get; set; } //构造类型信息
         GeoAttitude Attitude { get; set; } //构造产状
 
         GeoTecture(TectureType tectureType, string tectureData, GeoAttitude attitude)
         {
-            Tecture = tectureType;
+            TectureType = tectureType;
             TectureData = tectureData;
             Attitude = attitude;
         }

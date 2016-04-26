@@ -6,7 +6,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class GeoLine : GeoObj
+    class Line : Object
     {
         private ITerrainPolyline66 _line;
 
@@ -15,9 +15,9 @@ namespace FGeo3D_TE
             get { return _line.ID; }
         }
 
-        public GeoLine(ITerrainPolyline66 inLine)
+        public Line(ITerrainPolyline66 inLine)
         {
-            GeoType = "Line";
+            Type = "Line";
             _line = inLine;
             AddObj(this, Id);
         }

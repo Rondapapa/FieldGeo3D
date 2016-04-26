@@ -10,13 +10,13 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    public partial class FrmGeoObject : Form
+    public partial class FrmObject : Form
     {
         internal string ObjName = "地质对象#";
         internal Color SelectedColor;
 
 
-        public FrmGeoObject(string pbhander)
+        public FrmObject(string pbhander)
         {
             InitializeComponent();
             Init(pbhander);
