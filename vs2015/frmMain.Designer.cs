@@ -33,28 +33,18 @@
             this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
             this.axTE3DWindow1 = new AxTerraExplorerX.AxTE3DWindow();
             this.axTEInformationWindow1 = new AxTerraExplorerX.AxTEInformationWindow();
-            this.rbDraw = new DevComponents.DotNetBar.RibbonBar();
-            this.btnImport = new DevComponents.DotNetBar.ButtonItem();
-            this.btnLabel = new DevComponents.DotNetBar.ButtonItem();
-            this.btnPoint = new DevComponents.DotNetBar.ButtonItem();
-            this.btnLine = new DevComponents.DotNetBar.ButtonItem();
-            this.btnFreehandDrawing = new DevComponents.DotNetBar.ButtonItem();
-            this.btnRegion = new DevComponents.DotNetBar.ButtonItem();
-            this.btnDrawingApply = new DevComponents.DotNetBar.ButtonItem();
+            this.rbData = new DevComponents.DotNetBar.RibbonBar();
+            this.btnBore = new DevComponents.DotNetBar.ButtonItem();
+            this.btnFootrill = new DevComponents.DotNetBar.ButtonItem();
             this.rbTerrainAnalysis = new DevComponents.DotNetBar.RibbonBar();
-            this.btnTerrainProfile = new DevComponents.DotNetBar.ButtonItem();
-            this.btnContourMap = new DevComponents.DotNetBar.ButtonItem();
-            this.btnSlope = new DevComponents.DotNetBar.ButtonItem();
-            this.btnBestPath = new DevComponents.DotNetBar.ButtonItem();
             this.btnBuildSurface = new DevComponents.DotNetBar.ButtonItem();
             this.btnStretchSurface = new DevComponents.DotNetBar.ButtonItem();
-            this.btnTerraExport = new DevComponents.DotNetBar.ButtonItem();
             this.btnBlockAnalyse = new DevComponents.DotNetBar.ButtonItem();
             this.rbProject = new DevComponents.DotNetBar.RibbonBar();
             this.btnOpen = new DevComponents.DotNetBar.ButtonItem();
             this.btnSave = new DevComponents.DotNetBar.ButtonItem();
             this.btnSaveAs = new DevComponents.DotNetBar.ButtonItem();
-            this.btnExport = new DevComponents.DotNetBar.ButtonItem();
+            this.btnConnectDB = new DevComponents.DotNetBar.ButtonItem();
             this.gpMeasure = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.btnTerrainArea = new DevComponents.DotNetBar.ButtonX();
             this.btnPlaneArea = new DevComponents.DotNetBar.ButtonX();
@@ -64,6 +54,14 @@
             this.btnLocate = new DevComponents.DotNetBar.ButtonX();
             this.btnQuery = new DevComponents.DotNetBar.ButtonX();
             this.btnTest = new DevComponents.DotNetBar.ButtonX();
+            this.btnImport = new DevComponents.DotNetBar.ButtonItem();
+            this.btnPhotoRecognition = new DevComponents.DotNetBar.ButtonItem();
+            this.rbDraw = new DevComponents.DotNetBar.RibbonBar();
+            this.btnPoint = new DevComponents.DotNetBar.ButtonItem();
+            this.btnLine = new DevComponents.DotNetBar.ButtonItem();
+            this.btnFreehandDrawing = new DevComponents.DotNetBar.ButtonItem();
+            this.btnRegion = new DevComponents.DotNetBar.ButtonItem();
+            this.btnDrawingApply = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
             this.gpMeasure.SuspendLayout();
@@ -98,10 +96,10 @@
             this.axTEInformationWindow1.Size = new System.Drawing.Size(368, 544);
             this.axTEInformationWindow1.TabIndex = 0;
             // 
-            // rbDraw
+            // rbData
             // 
-            this.rbDraw.AutoOverflowEnabled = true;
-            this.rbDraw.AutoSizeItems = false;
+            this.rbData.AutoOverflowEnabled = true;
+            this.rbData.AutoSizeItems = false;
             // 
             // 
             // 
@@ -110,23 +108,19 @@
             // 
             // 
             this.rbDraw.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.rbDraw.ContainerControlProcessDialogKey = true;
-            this.rbDraw.DragDropSupport = true;
-            this.rbDraw.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnImport,
-            this.btnLabel,
-            this.btnPoint,
-            this.btnLine,
-            this.btnFreehandDrawing,
-            this.btnRegion,
-            this.btnDrawingApply});
-            this.rbDraw.Location = new System.Drawing.Point(213, 5);
-            this.rbDraw.Name = "rbDraw";
-            this.rbDraw.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbDraw.Size = new System.Drawing.Size(439, 83);
-            this.rbDraw.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.rbDraw.TabIndex = 9;
-            this.rbDraw.Text = "信息绘录";
+            this.rbData.ContainerControlProcessDialogKey = true;
+            this.rbData.DragDropSupport = true;
+            this.rbData.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnBore,
+            this.btnFootrill,
+            this.btnPhotoRecognition});
+            this.rbData.Location = new System.Drawing.Point(326, 5);
+            this.rbData.Name = "rbData";
+            this.rbData.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.rbData.Size = new System.Drawing.Size(189, 83);
+            this.rbData.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.rbData.TabIndex = 9;
+            this.rbData.Text = "信息编录";
             // 
             // 
             // 
@@ -139,68 +133,19 @@
             // 
             this.rbDraw.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
-            // btnImport
+            // btnBore
             // 
-            this.btnImport.Image = ((System.Drawing.Image)(resources.GetObject("btnImport.Image")));
-            this.btnImport.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnImport.Name = "btnImport";
-            this.btnImport.SubItemsExpandWidth = 14;
-            this.btnImport.Text = "导入信息";
+            this.btnBore.Image = ((System.Drawing.Image)(resources.GetObject("btnBore.Image")));
+            this.btnBore.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnBore.Name = "btnBore";
+            this.btnBore.SubItemsExpandWidth = 14;
+            this.btnBore.Text = "新建钻孔";
             // 
-            // btnLabel
+            // btnFootrill
             // 
-            this.btnLabel.Image = ((System.Drawing.Image)(resources.GetObject("btnLabel.Image")));
-            this.btnLabel.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnLabel.Name = "btnLabel";
-            this.btnLabel.SubItemsExpandWidth = 14;
-            this.btnLabel.Text = "插入标签";
-            this.btnLabel.Click += new System.EventHandler(this.btnLabel_Click);
-            // 
-            // btnPoint
-            // 
-            this.btnPoint.ForeColor = System.Drawing.Color.Black;
-            this.btnPoint.Image = ((System.Drawing.Image)(resources.GetObject("btnPoint.Image")));
-            this.btnPoint.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPoint.Name = "btnPoint";
-            this.btnPoint.SubItemsExpandWidth = 14;
-            this.btnPoint.Text = "地质点";
-            this.btnPoint.Click += new System.EventHandler(this.btnGeoPoint_Click);
-            // 
-            // btnLine
-            // 
-            this.btnLine.Image = ((System.Drawing.Image)(resources.GetObject("btnLine.Image")));
-            this.btnLine.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnLine.Name = "btnLine";
-            this.btnLine.SubItemsExpandWidth = 14;
-            this.btnLine.Text = "点选界线";
-            this.btnLine.Click += new System.EventHandler(this.btnGeoLine_Click);
-            // 
-            // btnFreehandDrawing
-            // 
-            this.btnFreehandDrawing.Image = ((System.Drawing.Image)(resources.GetObject("btnFreehandDrawing.Image")));
-            this.btnFreehandDrawing.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnFreehandDrawing.Name = "btnFreehandDrawing";
-            this.btnFreehandDrawing.SubItemsExpandWidth = 14;
-            this.btnFreehandDrawing.Text = "手绘界线";
-            this.btnFreehandDrawing.Click += new System.EventHandler(this.btnFreehandDrawing_Click);
-            // 
-            // btnRegion
-            // 
-            this.btnRegion.Image = ((System.Drawing.Image)(resources.GetObject("btnRegion.Image")));
-            this.btnRegion.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnRegion.Name = "btnRegion";
-            this.btnRegion.SubItemsExpandWidth = 14;
-            this.btnRegion.Text = "地质区域";
-            this.btnRegion.Click += new System.EventHandler(this.btnGeoRegion_Click);
-            // 
-            // btnDrawingApply
-            // 
-            this.btnDrawingApply.Image = ((System.Drawing.Image)(resources.GetObject("btnDrawingApply.Image")));
-            this.btnDrawingApply.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnDrawingApply.Name = "btnDrawingApply";
-            this.btnDrawingApply.SubItemsExpandWidth = 14;
-            this.btnDrawingApply.Text = "变更应用";
-            this.btnDrawingApply.Click += new System.EventHandler(this.btnDrawingApply_Click);
+            this.btnFootrill.Name = "btnFootrill";
+            this.btnFootrill.SubItemsExpandWidth = 14;
+            this.btnFootrill.Text = "新建平硐";
             // 
             // rbTerrainAnalysis
             // 
@@ -217,18 +162,13 @@
             this.rbTerrainAnalysis.ContainerControlProcessDialogKey = true;
             this.rbTerrainAnalysis.DragDropSupport = true;
             this.rbTerrainAnalysis.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnTerrainProfile,
-            this.btnContourMap,
-            this.btnSlope,
-            this.btnBestPath,
             this.btnBuildSurface,
             this.btnStretchSurface,
-            this.btnTerraExport,
             this.btnBlockAnalyse});
-            this.rbTerrainAnalysis.Location = new System.Drawing.Point(658, 5);
+            this.rbTerrainAnalysis.Location = new System.Drawing.Point(850, 5);
             this.rbTerrainAnalysis.Name = "rbTerrainAnalysis";
             this.rbTerrainAnalysis.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbTerrainAnalysis.Size = new System.Drawing.Size(501, 83);
+            this.rbTerrainAnalysis.Size = new System.Drawing.Size(358, 83);
             this.rbTerrainAnalysis.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbTerrainAnalysis.TabIndex = 8;
             this.rbTerrainAnalysis.Text = "分析处理";
@@ -243,43 +183,6 @@
             // 
             // 
             this.rbTerrainAnalysis.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // btnTerrainProfile
-            // 
-            this.btnTerrainProfile.AccessKeyEnabled = false;
-            this.btnTerrainProfile.Image = ((System.Drawing.Image)(resources.GetObject("btnTerrainProfile.Image")));
-            this.btnTerrainProfile.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnTerrainProfile.Name = "btnTerrainProfile";
-            this.btnTerrainProfile.SubItemsExpandWidth = 14;
-            this.btnTerrainProfile.Text = "剖面分析";
-            this.btnTerrainProfile.Click += new System.EventHandler(this.btnTerrainProfile_Click);
-            // 
-            // btnContourMap
-            // 
-            this.btnContourMap.Image = ((System.Drawing.Image)(resources.GetObject("btnContourMap.Image")));
-            this.btnContourMap.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnContourMap.Name = "btnContourMap";
-            this.btnContourMap.SubItemsExpandWidth = 14;
-            this.btnContourMap.Text = "等高线";
-            this.btnContourMap.Click += new System.EventHandler(this.btnContourMap_Click);
-            // 
-            // btnSlope
-            // 
-            this.btnSlope.Image = ((System.Drawing.Image)(resources.GetObject("btnSlope.Image")));
-            this.btnSlope.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnSlope.Name = "btnSlope";
-            this.btnSlope.SubItemsExpandWidth = 14;
-            this.btnSlope.Text = "坡度分析";
-            this.btnSlope.Click += new System.EventHandler(this.btnSlope_Click);
-            // 
-            // btnBestPath
-            // 
-            this.btnBestPath.Image = ((System.Drawing.Image)(resources.GetObject("btnBestPath.Image")));
-            this.btnBestPath.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnBestPath.Name = "btnBestPath";
-            this.btnBestPath.SubItemsExpandWidth = 14;
-            this.btnBestPath.Text = "最佳路径";
-            this.btnBestPath.Click += new System.EventHandler(this.btnBestPath_Click);
             // 
             // btnBuildSurface
             // 
@@ -296,14 +199,6 @@
             this.btnStretchSurface.Name = "btnStretchSurface";
             this.btnStretchSurface.SubItemsExpandWidth = 14;
             this.btnStretchSurface.Text = "延伸界面";
-            // 
-            // btnTerraExport
-            // 
-            this.btnTerraExport.Image = ((System.Drawing.Image)(resources.GetObject("btnTerraExport.Image")));
-            this.btnTerraExport.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnTerraExport.Name = "btnTerraExport";
-            this.btnTerraExport.SubItemsExpandWidth = 14;
-            this.btnTerraExport.Text = "导出地形";
             // 
             // btnBlockAnalyse
             // 
@@ -331,14 +226,15 @@
             this.btnOpen,
             this.btnSave,
             this.btnSaveAs,
-            this.btnExport});
+            this.btnConnectDB,
+            this.btnImport});
             this.rbProject.Location = new System.Drawing.Point(0, 5);
             this.rbProject.Name = "rbProject";
             this.rbProject.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbProject.Size = new System.Drawing.Size(207, 83);
+            this.rbProject.Size = new System.Drawing.Size(320, 83);
             this.rbProject.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbProject.TabIndex = 7;
-            this.rbProject.Text = "工程";
+            this.rbProject.Text = "数据来源";
             // 
             // 
             // 
@@ -360,7 +256,7 @@
             this.btnOpen.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.SubItemsExpandWidth = 14;
-            this.btnOpen.Text = "打开";
+            this.btnOpen.Text = "打开场景";
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // btnSave
@@ -369,7 +265,7 @@
             this.btnSave.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnSave.Name = "btnSave";
             this.btnSave.SubItemsExpandWidth = 14;
-            this.btnSave.Text = "保存";
+            this.btnSave.Text = "保存场景";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnSaveAs
@@ -378,16 +274,16 @@
             this.btnSaveAs.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnSaveAs.Name = "btnSaveAs";
             this.btnSaveAs.SubItemsExpandWidth = 14;
-            this.btnSaveAs.Text = "另存为";
+            this.btnSaveAs.Text = "另存场景";
             this.btnSaveAs.Click += new System.EventHandler(this.btnSaveAs_Click);
             // 
-            // btnExport
+            // btnConnectDB
             // 
-            this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
-            this.btnExport.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnExport.Name = "btnExport";
-            this.btnExport.SubItemsExpandWidth = 14;
-            this.btnExport.Text = "输出成果";
+            this.btnConnectDB.Image = ((System.Drawing.Image)(resources.GetObject("btnConnectDB.Image")));
+            this.btnConnectDB.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnConnectDB.Name = "btnConnectDB";
+            this.btnConnectDB.SubItemsExpandWidth = 14;
+            this.btnConnectDB.Text = "连数据库";
             // 
             // gpMeasure
             // 
@@ -552,6 +448,100 @@
             this.btnTest.Text = "临时测试";
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
+            // btnImport
+            // 
+            this.btnImport.Image = ((System.Drawing.Image)(resources.GetObject("btnImport.Image")));
+            this.btnImport.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnImport.Name = "btnImport";
+            this.btnImport.SubItemsExpandWidth = 14;
+            this.btnImport.Text = "导入数据";
+            // 
+            // btnPhotoRecognition
+            // 
+            this.btnPhotoRecognition.Name = "btnPhotoRecognition";
+            this.btnPhotoRecognition.SubItemsExpandWidth = 14;
+            this.btnPhotoRecognition.Text = "图像编录";
+            // 
+            // rbDraw
+            // 
+            this.rbDraw.AutoOverflowEnabled = true;
+            this.rbDraw.AutoSizeItems = false;
+            // 
+            // 
+            // 
+            this.rbDraw.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.rbDraw.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.rbDraw.ContainerControlProcessDialogKey = true;
+            this.rbDraw.DragDropSupport = true;
+            this.rbDraw.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnPoint,
+            this.btnLine,
+            this.btnFreehandDrawing,
+            this.btnRegion,
+            this.btnDrawingApply});
+            this.rbDraw.Location = new System.Drawing.Point(521, 5);
+            this.rbDraw.Name = "rbDraw";
+            this.rbDraw.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.rbDraw.Size = new System.Drawing.Size(323, 83);
+            this.rbDraw.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.rbDraw.TabIndex = 8;
+            this.rbDraw.Text = "几何绘制";
+            // 
+            // 
+            // 
+            this.rbDraw.TitleStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.rbDraw.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.rbDraw.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rbDraw.TitleStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
+            // 
+            // 
+            // 
+            this.rbDraw.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // btnPoint
+            // 
+            this.btnPoint.ForeColor = System.Drawing.Color.Black;
+            this.btnPoint.Image = ((System.Drawing.Image)(resources.GetObject("btnPoint.Image")));
+            this.btnPoint.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPoint.Name = "btnPoint";
+            this.btnPoint.SubItemsExpandWidth = 14;
+            this.btnPoint.Text = "绘制地点";
+            // 
+            // btnLine
+            // 
+            this.btnLine.Image = ((System.Drawing.Image)(resources.GetObject("btnLine.Image")));
+            this.btnLine.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnLine.Name = "btnLine";
+            this.btnLine.SubItemsExpandWidth = 14;
+            this.btnLine.Text = "点选地线";
+            // 
+            // btnFreehandDrawing
+            // 
+            this.btnFreehandDrawing.Image = ((System.Drawing.Image)(resources.GetObject("btnFreehandDrawing.Image")));
+            this.btnFreehandDrawing.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnFreehandDrawing.Name = "btnFreehandDrawing";
+            this.btnFreehandDrawing.SubItemsExpandWidth = 14;
+            this.btnFreehandDrawing.Text = "手绘地线";
+            // 
+            // btnRegion
+            // 
+            this.btnRegion.Image = ((System.Drawing.Image)(resources.GetObject("btnRegion.Image")));
+            this.btnRegion.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnRegion.Name = "btnRegion";
+            this.btnRegion.SubItemsExpandWidth = 14;
+            this.btnRegion.Text = "点选区域";
+            // 
+            // btnDrawingApply
+            // 
+            this.btnDrawingApply.Image = ((System.Drawing.Image)(resources.GetObject("btnDrawingApply.Image")));
+            this.btnDrawingApply.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnDrawingApply.Name = "btnDrawingApply";
+            this.btnDrawingApply.SubItemsExpandWidth = 14;
+            this.btnDrawingApply.Text = "变更应用";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -563,6 +553,7 @@
             this.Controls.Add(this.gpMeasure);
             this.Controls.Add(this.btnLocate);
             this.Controls.Add(this.btnQuery);
+            this.Controls.Add(this.rbData);
             this.Controls.Add(this.rbDraw);
             this.Controls.Add(this.rbTerrainAnalysis);
             this.Controls.Add(this.rbProject);
@@ -584,12 +575,8 @@
         private AxTerraExplorerX.AxTEInformationWindow axTEInformationWindow1;
         private AxTerraExplorerX.AxTE3DWindow axTE3DWindow1;
         private DevComponents.DotNetBar.StyleManager styleManager1;
-        private DevComponents.DotNetBar.RibbonBar rbDraw;
+        private DevComponents.DotNetBar.RibbonBar rbData;
         private DevComponents.DotNetBar.RibbonBar rbTerrainAnalysis;
-        private DevComponents.DotNetBar.ButtonItem btnTerrainProfile;
-        private DevComponents.DotNetBar.ButtonItem btnContourMap;
-        private DevComponents.DotNetBar.ButtonItem btnSlope;
-        private DevComponents.DotNetBar.ButtonItem btnBestPath;
         private DevComponents.DotNetBar.RibbonBar rbProject;
         private DevComponents.DotNetBar.ButtonItem btnOpen;
         private DevComponents.DotNetBar.ButtonItem btnSave;
@@ -603,18 +590,20 @@
         private DevComponents.DotNetBar.ButtonX btnLocate;
         private DevComponents.DotNetBar.ButtonX btnQuery;
         private DevComponents.DotNetBar.ButtonX btnTest;
-        internal DevComponents.DotNetBar.ButtonItem btnDrawingApply;
-        internal DevComponents.DotNetBar.ButtonItem btnLabel;
-        internal DevComponents.DotNetBar.ButtonItem btnPoint;
-        internal DevComponents.DotNetBar.ButtonItem btnLine;
-        internal DevComponents.DotNetBar.ButtonItem btnRegion;
-        private DevComponents.DotNetBar.ButtonItem btnFreehandDrawing;
-        private DevComponents.DotNetBar.ButtonItem btnImport;
+        private DevComponents.DotNetBar.ButtonItem btnBore;
         private DevComponents.DotNetBar.ButtonItem btnBuildSurface;
         private DevComponents.DotNetBar.ButtonItem btnStretchSurface;
-        private DevComponents.DotNetBar.ButtonItem btnTerraExport;
         private DevComponents.DotNetBar.ButtonItem btnBlockAnalyse;
-        private DevComponents.DotNetBar.ButtonItem btnExport;
+        private DevComponents.DotNetBar.ButtonItem btnConnectDB;
+        private DevComponents.DotNetBar.ButtonItem btnFootrill;
+        private DevComponents.DotNetBar.ButtonItem btnImport;
+        private DevComponents.DotNetBar.ButtonItem btnPhotoRecognition;
+        private DevComponents.DotNetBar.RibbonBar rbDraw;
+        internal DevComponents.DotNetBar.ButtonItem btnPoint;
+        internal DevComponents.DotNetBar.ButtonItem btnLine;
+        private DevComponents.DotNetBar.ButtonItem btnFreehandDrawing;
+        internal DevComponents.DotNetBar.ButtonItem btnRegion;
+        internal DevComponents.DotNetBar.ButtonItem btnDrawingApply;
     }
 }
 

@@ -56,6 +56,13 @@ namespace FGeo3D_TE
         //用户数据
         public string ClientData { get; set; }
 
+        public FrmMain frmMain { get; set; }
+
+        public ObjectInfo(string pbHander, FrmMain frmmain, ref SGWorld66 sgworld)
+            : this(pbHander, ref sgworld)
+        {
+            frmMain = frmmain;
+        }
 
         public ObjectInfo(string pbHander, ref SGWorld66 sgworld)
         {
@@ -64,12 +71,12 @@ namespace FGeo3D_TE
             
             switch(pbHander)
             {
-              	case "GeoLabel":
+              	case "Label":
                     IsLabel = true;
                     
                     LabelText = "LabelText";
                     FrmLabel frmTag = new FrmLabel();
-                    if(frmTag.ShowDialog()==DialogResult.OK)
+                    if(frmTag.ShowDialog() == DialogResult.OK)
                     {
                         LabelText = frmTag.tbGeoLabel.Text;
                     }
@@ -86,9 +93,10 @@ namespace FGeo3D_TE
                     LabelStyle.TextAlignment = "Bottom, Center";
                     break;
 
-                case "GeoPoint":
+                case "Point":
                     
                     var frmPoint = new FrmPoint(ref sgworld);
+                    
                     var frmDialog = frmPoint.ShowDialog();
                     //frmGeoPoint.Show();
 
@@ -117,7 +125,7 @@ namespace FGeo3D_TE
                     GroupId = CreateGroup("地质点");
                     break;
 
-                case "GeoLine":
+                case "Line":
                     
                     var frmLine = new FrmObject(pbHander);
                     //若不指定边界颜色，则默认为黑色
@@ -136,7 +144,7 @@ namespace FGeo3D_TE
                     FillColor = sgworld.Creator.CreateColor(lineColors.R, lineColors.G, lineColors.B, 128);
                     break;
 
-                case "GeoRegion":
+                case "Region":
                     
                     var frmRegion = new FrmObject(pbHander);
                     //若不指定边界颜色，则默认为黑色
