@@ -14,10 +14,10 @@ namespace FGeo3D_TE
         public double Y { get; set; }
         public double H { get; set; }
         public double Depth { get; set; }
-        public List<GeoPointNew> Links { get; set; }
+        public List<GeoPoint> Links { get; set; }
         public List<GeoMarkPoint> Marks { get; set; }
 
-        public Footrill(string id, string name, double x, double y, double h, double depth, List<GeoPointNew> links, List<GeoMarkPoint> marks)
+        public Footrill(string id, string name, double x, double y, double h, double depth, List<GeoPoint> links, List<GeoMarkPoint> marks)
         {
             ID = id;
             Name = name;
@@ -29,6 +29,10 @@ namespace FGeo3D_TE
             Marks = marks;
         }
 
+        /// <summary>
+        /// 查询该平硐的详细信息，调用GeoSmart面板。
+        /// </summary>
+        public void QueryDetail() { }
 
         public void DrawMouth(ref SGWorld66 sgworld)
         {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FGeo3D_TE
 {
-    class GeoMarkPoint:GeoPointNew
+    class GeoMarkPoint:GeoPoint
     {
         public GeoTecture Tecture { get; set; }
 

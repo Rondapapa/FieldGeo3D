@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using TerraExplorerX;
 
+
 namespace FGeo3D_TE
 {
     static class GeoHelper
@@ -29,6 +30,19 @@ namespace FGeo3D_TE
 
             GeoObject result = new GeoObject();
             //
+            return result;
+        }
+
+        /// <summary>
+        /// 通过三维散点集生成回归平面，用过平面的三维点集表示
+        /// </summary>
+        /// <param name="inGeoPoints">三维散点集</param>
+        /// <returns></returns>
+        public static List<GeoPoint> FitPlane(List<GeoPoint> inGeoPoints)
+        {
+            var result = new List<GeoPoint>();
+
+
             return result;
         }
     }

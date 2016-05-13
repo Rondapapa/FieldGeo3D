@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
@@ -15,12 +16,19 @@ namespace FGeo3D_TE
         public string ID { get; set; }
         public GeometryType Type { get; set; }
         public string Name { get; set; }
+        
 
         
         /// <summary>
         /// 在三维场景中绘制该对象
         /// </summary>
-        public virtual void Draw() { }
+        public virtual void Draw(ref SGWorld66 sgworld) { }
+
+
+        /// <summary>
+        /// 在三维场景中移除该对象
+        /// </summary>
+        public virtual void Erase(ref SGWorld66 sgworld) { }
 
 
         /// <summary>

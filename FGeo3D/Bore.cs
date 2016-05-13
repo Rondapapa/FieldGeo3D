@@ -25,6 +25,7 @@ namespace FGeo3D_TE
             H = h;
             Depth = depth;
             Marks = marks;
+            
         }
 
         /// <summary>

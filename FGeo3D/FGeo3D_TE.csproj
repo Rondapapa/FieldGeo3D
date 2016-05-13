@@ -49,6 +49,10 @@
       <HintPath>packages\MathNet.Numerics.3.11.0\lib\net40\MathNet.Numerics.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MathNet.Spatial, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Spatial.0.2.0-alpha\lib\net40\MathNet.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NetTopologySuite, Version=1.14.0.0, Culture=neutral, PublicKeyToken=f580a05016ebada1, processorArchitecture=MSIL">
       <HintPath>packages\NetTopologySuite.1.14\lib\net40-client\NetTopologySuite.dll</HintPath>
       <Private>True</Private>
@@ -75,7 +79,7 @@
     <Compile Include="GeoAttitude.cs" />
     <Compile Include="GeoHelper.cs" />
     <Compile Include="Line.cs" />
-    <Compile Include="GeoLineNew.cs" />
+    <Compile Include="GeoLine.cs" />
     <Compile Include="GeoMarkPoint.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="GeoObject.cs" />
@@ -113,7 +117,7 @@
     </Compile>
     <Compile Include="GeoPlane.cs" />
     <Compile Include="Point.cs" />
-    <Compile Include="GeoPointNew.cs" />
+    <Compile Include="GeoPoint.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="GeoTecture.cs" />
     <Compile Include="Program.cs" />
