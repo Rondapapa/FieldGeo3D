@@ -22,6 +22,27 @@ namespace FGeo3D_TE
             Type = GeometryType.Point;
         }
 
+        /// <summary>
+        /// 两点间距离
+        /// </summary>
+        /// <param name="that"></param>
+        /// <returns></returns>
+        public double DistanceToPoint(GeoPoint that)
+        {
+            var distancePow2 = Math.Pow(X - that.Y, 2) + Math.Pow(Y - that.Y, 2) + Math.Pow(H - that.H, 2);
+            return Math.Sqrt(distancePow2);
+        }
+
+        /// <summary>
+        /// 两点连线方位角，待实现
+        /// </summary>
+        /// <param name="that"></param>
+        /// <returns></returns>
+        public double VectorAngleTo(GeoPoint that)
+        {
+            return 0.0;
+        }
+
         public override void Draw(ref SGWorld66 sgworld)
         {
             base.Draw(ref sgworld);
