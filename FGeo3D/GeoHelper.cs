@@ -11,6 +11,42 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace FGeo3D_TE
 {
+    internal class PolarData:IComparable
+    {
+        public int Index { get; set;}
+        public double Distance { get; set; }
+        public double Yaw { get; set; }
+        public double Pitch { get; set; }
+
+        public PolarData(int index, double distance, double yaw, double pitch)
+        {
+            Index = index;
+            Distance = distance;
+            Yaw = yaw;
+            Pitch = pitch;
+        }
+
+        public PolarData()
+        {
+            
+        }
+
+        public int CompareTo(object obj)
+        {
+            
+            var that = obj as PolarData;
+            if (that != null)
+            {
+                
+            }
+            else
+            {
+                
+            }
+            return 0;
+        }
+    }
+
     static class GeoHelper
     {
         public static string CreateGroup(string groupName, ref SGWorld66 sgworld)
@@ -30,9 +66,7 @@ namespace FGeo3D_TE
         /// <returns></returns>
         public static GeoObject GetObject(string id)
         {
-
-
-            GeoObject result = new GeoObject();
+            var result = new GeoObject();
             //
             return result;
         }
@@ -45,18 +79,10 @@ namespace FGeo3D_TE
         public static List<GeoPoint> FitPlane(List<GeoPoint> inGeoPoints)
         {
             //获取中心点
-            var xSum = 0.0;
-            var ySum = 0.0;
-            var hSum = 0.0;
-            foreach (var point in inGeoPoints)
-            {
-                xSum += point.X;
-                ySum += point.Y;
-                hSum += point.H;
-            }
-            var xAve = xSum / inGeoPoints.Count;
-            var yAve = ySum / inGeoPoints.Count;
-            var hAve = hSum / inGeoPoints.Count;
+            var centrialPoint = CentrialPoint(inGeoPoints);
+            var xAve = centrialPoint.X;
+            var yAve = centrialPoint.Y;
+            var hAve = centrialPoint.H;
 
             //构造Jacobian矩阵
             var jacobian = new DenseMatrix(inGeoPoints.Count, 3);
@@ -72,7 +98,7 @@ namespace FGeo3D_TE
             }
 
             //奇异值分解
-            var svd = jacobian.Svd(true);
+            var svd = jacobian.Svd();
             // get matrix of left singular vectors with first n columns of U
             var U = svd.U.SubMatrix(0, inGeoPoints.Count, 0, 3);
             // get matrix of singular values
@@ -86,18 +112,17 @@ namespace FGeo3D_TE
             var b = param[1];
             var c = param[2];
 
-            //结果点集，并返回（新点集与原点集的X、Y相同，H经过fitting重算）
+            //返回结果点集（新点集与原点集的X、Y相同，H经过fitting重算）
             return (from point in inGeoPoints let x = point.X let y = point.Y let h = point.H - a/c*(x - xAve) - b/c*(y - yAve) select new GeoPoint(x, y, h, "#Fitting Point#")).ToList();
         }
 
         /// <summary>
-        /// 获取某一点集的近似平面凸包
+        /// 获取某一点集的中心点
         /// </summary>
         /// <param name="inGeoPoints"></param>
         /// <returns></returns>
-        public static List<GeoPoint> ConvexHull(List<GeoPoint> inGeoPoints)
+        public static GeoPoint CentrialPoint(List<GeoPoint> inGeoPoints)
         {
-            var result = new List<GeoPoint>();
             var xSum = 0.0;
             var ySum = 0.0;
             var hSum = 0.0;
@@ -110,12 +135,53 @@ namespace FGeo3D_TE
             var xAve = xSum / inGeoPoints.Count;
             var yAve = ySum / inGeoPoints.Count;
             var hAve = hSum / inGeoPoints.Count;
-            var centrialPoint = new GeoPoint(xAve, yAve, hAve, "##Centrial Point##");
-
-            return result;
+            return new GeoPoint(xAve, yAve, hAve, "##Centrial Point##");
         }
 
-        
+        /// <summary>
+        /// 获取二维、三维散点集的近似平面轮廓有序点集
+        /// </summary>
+        /// <param name="inGeoPoints"></param>
+        /// <returns></returns>
+        public static List<GeoPoint> GetHullPoints(List<GeoPoint> inGeoPoints)
+        {
+            //获取点集中心
+            var centrialPoint = CentrialPoint(inGeoPoints);
+
+            //对应极距、水平方位角、竖直俯仰角列表
+            var polarList = new List<PolarData>();
+            var polarListIndex = 0;
+            foreach (var point in inGeoPoints)
+            {
+                var polarData = new PolarData
+                {
+                    Index = polarListIndex,
+                    Distance = centrialPoint.DistanceToPoint(point),
+                    Pitch = centrialPoint.PitchTo(point),
+                    Yaw = centrialPoint.YawTo(point)
+                };
+                polarList.Add(polarData);
+                polarListIndex += 1;
+            }
+
+            //根据PolarData排序
+            var hullPolarDatas = new List<PolarData>();
+            const double yawInterval = Math.PI/180*5;
+            for (var yawCurrent = -Math.PI; yawCurrent <= Math.PI; yawCurrent += yawInterval)
+            {
+                //开列表，存入水平方位角区间内的所有点
+                var yawIntervalList = polarList.FindAll(x => (x.Yaw >= yawCurrent) && (x.Yaw < yawCurrent + yawInterval));
+                //获取列表内距离最大的点的距离
+                var maxDistanceInYawInterval = yawIntervalList.Max(x => x.Distance);
+                //获取距离最大的点（距离容差为0.5）
+                var targetPolarData = yawIntervalList.Find(x => Math.Abs(x.Distance - maxDistanceInYawInterval) < 0.5);
+                //存入结果列表
+                hullPolarDatas.Add(targetPolarData);
+            }
+
+            //返回近似平面轮廓有序点集
+            return hullPolarDatas.Select(polardata => inGeoPoints[polardata.Index]).ToList();
+        }
         
     }
 }
