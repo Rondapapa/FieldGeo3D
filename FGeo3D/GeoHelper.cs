@@ -11,7 +11,7 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace FGeo3D_TE
 {
-    internal class PolarData:IComparable
+    internal class PolarData
     {
         public int Index { get; set;}
         public double Distance { get; set; }
@@ -26,25 +26,8 @@ namespace FGeo3D_TE
             Pitch = pitch;
         }
 
-        public PolarData()
-        {
-            
-        }
+        public PolarData(){}
 
-        public int CompareTo(object obj)
-        {
-            
-            var that = obj as PolarData;
-            if (that != null)
-            {
-                
-            }
-            else
-            {
-                
-            }
-            return 0;
-        }
     }
 
     static class GeoHelper
@@ -78,6 +61,61 @@ namespace FGeo3D_TE
         /// <returns></returns>
         public static List<GeoPoint> FitPlane(List<GeoPoint> inGeoPoints)
         {
+            //三点以下，直接返回原点集
+            if(inGeoPoints.Count <= 3)
+                return inGeoPoints;
+            
+            //获取矩阵向量参数
+            var sumXiSq = 0.0;
+            var sumYiSq = 0.0;
+            var sumXiYi = 0.0;
+            var sumXiZi = 0.0;
+            var sumYiZi = 0.0;
+            var sumXi = 0.0;
+            var sumYi = 0.0;
+            var sumZi = 0.0;
+            foreach (var point in inGeoPoints)
+            {
+                sumXiSq += Math.Pow(point.X, 2);
+                sumYiSq += Math.Pow(point.Y, 2);
+                sumXiYi += point.X * point.Y;
+                sumXiZi += point.X * point.H;
+                sumYiZi += point.H * point.Y;
+                sumXi += point.X;
+                sumYi += point.Y;
+                sumZi += point.H;
+            }
+            
+            //构造矩阵
+            var matrix = new DenseMatrix(3, 3)
+            {
+                [0, 0] = sumXiSq, [0, 1] = sumXiYi, [0, 2] = sumXi,
+                [1, 0] = sumXiYi, [1, 1] = sumYiSq, [1, 2] = sumYi,
+                [2, 0] = sumXi,   [2, 1] = sumYi,   [2, 2] = inGeoPoints.Count
+            };
+
+            //构造向量
+            var vector = new DenseVector(3)
+            {
+                [0] = sumXiZi,
+                [1] = sumYiZi,
+                [2] = sumZi
+            };
+
+            //计算平面参数
+            var parameters = matrix.Inverse().Multiply(vector);
+            var a0 = parameters[0];
+            var a1 = parameters[1];
+            var a2 = parameters[2];
+
+            //返回结果点集（新点集与原点集的X、Y相同，H经过fitting重算）
+            return (from point in inGeoPoints
+                    let x = point.X
+                    let y = point.Y
+                    let h = a0*x + a1*y + a2
+                    select new GeoPoint(x, y, h, "#Fitting Point#")).ToList();
+
+            /*
             //获取中心点
             var centrialPoint = CentrialPoint(inGeoPoints);
             var xAve = centrialPoint.X;
@@ -114,6 +152,8 @@ namespace FGeo3D_TE
 
             //返回结果点集（新点集与原点集的X、Y相同，H经过fitting重算）
             return (from point in inGeoPoints let x = point.X let y = point.Y let h = point.H - a/c*(x - xAve) - b/c*(y - yAve) select new GeoPoint(x, y, h, "#Fitting Point#")).ToList();
+            */
+
         }
 
         /// <summary>
@@ -145,6 +185,9 @@ namespace FGeo3D_TE
         /// <returns></returns>
         public static List<GeoPoint> GetHullPoints(List<GeoPoint> inGeoPoints)
         {
+            if (inGeoPoints.Count <= 3)
+                return inGeoPoints;
+            
             //获取点集中心
             var centrialPoint = CentrialPoint(inGeoPoints);
 
@@ -171,6 +214,8 @@ namespace FGeo3D_TE
             {
                 //开列表，存入水平方位角区间内的所有点
                 var yawIntervalList = polarList.FindAll(x => (x.Yaw >= yawCurrent) && (x.Yaw < yawCurrent + yawInterval));
+                if (yawIntervalList.Count == 0)
+                    continue;
                 //获取列表内距离最大的点的距离
                 var maxDistanceInYawInterval = yawIntervalList.Max(x => x.Distance);
                 //获取距离最大的点（距离容差为0.5）

@@ -447,6 +447,7 @@ namespace FGeo3D_TE
         /// <param name="e"></param>
         private void btnTest_Click(object sender, EventArgs e)
         {
+            /*
             IPosition66 p1 = sgworld.Creator.CreatePosition(412465.396283, 3264008.200115);
             IPosition66 p2 = sgworld.Creator.CreatePosition(412019.599981, 3264057.697713);
             IPosition66 p3 = sgworld.Creator.CreatePosition(412344.021811, 3263541.641142);
@@ -463,8 +464,29 @@ namespace FGeo3D_TE
 
             IGeometry ig = Itp1.Geometry.SpatialOperator.Intersection(Itp2.Geometry);
             ITerrainPolygon66 itp3 = sgworld.Creator.CreatePolygon(ig);
+            */
+            
+            //测试geoplane
+            var p0 = new GeoPoint(415896.957085, 3269487.527959, 3157.6826, "p0");
+            var p1 = new GeoPoint(416440.844915, 3270171.110581, 3316.4351, "p1");
+            var p2 = new GeoPoint(416994.127891, 3270955.529197, 3404.8826, "p2");
+            var p3 = new GeoPoint(417134.990163, 3271563.044139, 3582.7659, "p3");
+            var p4 = new GeoPoint(417047.97109, 3272202.00806, 3525.4553, "p4");
+            var p5 = new GeoPoint(416789.154441, 3273192.007297, 3103.405, "p5");
+            var p6 = new GeoPoint(416129.200254, 3273107.372097, 2933.7236, "p6");
 
-            //MessageBox.Show(sgworld.Command.CanExecute(1149,25).ToString());
+            var pList = new List<GeoPoint>();
+            pList.Add(p0);
+            pList.Add(p1);
+            pList.Add(p2);
+            pList.Add(p3);
+            pList.Add(p4);
+            pList.Add(p5);
+            pList.Add(p6);
+
+            var plane1 = new GeoPlane(pList);
+            plane1.Draw(ref sgworld);
+            plane1.Draw(ref sgworld, true);
         }
 
         
