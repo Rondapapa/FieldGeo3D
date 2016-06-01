@@ -8,12 +8,12 @@ namespace FGeo3D_TE
 {
     public enum GeometryType : byte
     {
-        Point, Line, Plane
+        Point, Line, Plane, Surface
     }
 
     class GeoObject
     {
-        public string ID { get; set; }
+        public string Id { get; set; }
         public GeometryType Type { get; set; }
         public string Name { get; set; }
         

@@ -8,18 +8,19 @@ namespace FGeo3D_TE
 {
     class Footrill
     {
-        public string ID { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
         public double H { get; set; }
         public double Depth { get; set; }
-        public List<GeoPoint> Links { get; set; }
-        public List<GeoMarkPoint> Marks { get; set; }
+        public List<GeoPoint> Links { get; set; } //平硐硐身几何关键点
+        public List<GeoMarkPoint> Marks { get; set; } //平硐构造关键点
+        public List<GeoSurface> Surfaces { get; set; } //平硐边壁构造
 
-        public Footrill(string id, string name, double x, double y, double h, double depth, List<GeoPoint> links, List<GeoMarkPoint> marks)
+        public Footrill(string id, string name, double x, double y, double h, double depth, List<GeoPoint> links, List<GeoMarkPoint> marks, List<GeoSurface> surfaces )
         {
-            ID = id;
+            Id = id;
             Name = name;
             X = x;
             Y = y;
@@ -27,6 +28,7 @@ namespace FGeo3D_TE
             Depth = depth;
             Links = links;
             Marks = marks;
+            Surfaces = surfaces;
         }
 
         /// <summary>
@@ -34,6 +36,10 @@ namespace FGeo3D_TE
         /// </summary>
         public void QueryDetail() { }
 
+        /// <summary>
+        /// 绘制平硐洞口
+        /// </summary>
+        /// <param name="sgworld"></param>
         public void DrawMouth(ref SGWorld66 sgworld)
         {
             double radius = 10;
@@ -53,11 +59,19 @@ namespace FGeo3D_TE
             sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, gid, "平硐标签：" + Name);
         }
 
+        /// <summary>
+        /// 绘制平硐硐身
+        /// </summary>
+        /// <param name="sgworld"></param>
         public void DrawLinks(ref SGWorld66 sgworld)
         {
             
         }
 
+        /// <summary>
+        /// 绘制平硐构造关键点（有必要嘛？）
+        /// </summary>
+        /// <param name="sgworld"></param>
         public void DrawMarks(ref SGWorld66 sgworld)
         {
             

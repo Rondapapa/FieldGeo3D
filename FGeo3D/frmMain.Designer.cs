@@ -506,6 +506,7 @@
             this.btnPoint.Name = "btnPoint";
             this.btnPoint.SubItemsExpandWidth = 14;
             this.btnPoint.Text = "绘制地点";
+            this.btnPoint.Click += new System.EventHandler(this.btnPoint_Click);
             // 
             // btnLine
             // 
@@ -514,6 +515,7 @@
             this.btnLine.Name = "btnLine";
             this.btnLine.SubItemsExpandWidth = 14;
             this.btnLine.Text = "点选地线";
+            this.btnLine.Click += new System.EventHandler(this.btnLine_Click);
             // 
             // btnFreehandDrawing
             // 
@@ -522,6 +524,7 @@
             this.btnFreehandDrawing.Name = "btnFreehandDrawing";
             this.btnFreehandDrawing.SubItemsExpandWidth = 14;
             this.btnFreehandDrawing.Text = "手绘地线";
+            this.btnFreehandDrawing.Click += new System.EventHandler(this.btnFreehandDrawing_Click);
             // 
             // btnRegion
             // 
@@ -530,6 +533,7 @@
             this.btnRegion.Name = "btnRegion";
             this.btnRegion.SubItemsExpandWidth = 14;
             this.btnRegion.Text = "点选区域";
+            this.btnRegion.Click += new System.EventHandler(this.btnRegion_Click);
             // 
             // btnDrawingApply
             // 
@@ -538,6 +542,7 @@
             this.btnDrawingApply.Name = "btnDrawingApply";
             this.btnDrawingApply.SubItemsExpandWidth = 14;
             this.btnDrawingApply.Text = "变更应用";
+            this.btnDrawingApply.Click += new System.EventHandler(this.btnDrawingApply_Click);
             // 
             // FrmMain
             // 

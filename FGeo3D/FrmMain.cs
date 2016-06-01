@@ -475,14 +475,7 @@ namespace FGeo3D_TE
             var p5 = new GeoPoint(416789.154441, 3273192.007297, 3103.405, "p5");
             var p6 = new GeoPoint(416129.200254, 3273107.372097, 2933.7236, "p6");
 
-            var pList = new List<GeoPoint>();
-            pList.Add(p0);
-            pList.Add(p1);
-            pList.Add(p2);
-            pList.Add(p3);
-            pList.Add(p4);
-            pList.Add(p5);
-            pList.Add(p6);
+            var pList = new List<GeoPoint> {p0, p1, p2, p3, p4, p5, p6};
 
             var plane1 = new GeoPlane(pList);
             plane1.Draw(ref sgworld);

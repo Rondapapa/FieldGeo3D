@@ -78,6 +78,7 @@
     <Compile Include="Footrill.cs" />
     <Compile Include="GeoAttitude.cs" />
     <Compile Include="GeoHelper.cs" />
+    <Compile Include="GeoSurface.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="GeoLine.cs" />
     <Compile Include="GeoMarkPoint.cs" />
@@ -116,12 +117,15 @@
       <DependentUpon>FrmLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="GeoPlane.cs" />
+    <Compile Include="Pit.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="GeoPoint.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="GeoTecture.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trench.cs" />
+    <Compile Include="Well.cs" />
     <EmbeddedResource Include="FrmObject.resx">
       <DependentUpon>FrmObject.cs</DependentUpon>
     </EmbeddedResource>
