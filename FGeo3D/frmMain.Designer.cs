@@ -62,6 +62,10 @@
             this.btnFreehandDrawing = new DevComponents.DotNetBar.ButtonItem();
             this.btnRegion = new DevComponents.DotNetBar.ButtonItem();
             this.btnDrawingApply = new DevComponents.DotNetBar.ButtonItem();
+            this.btnPit = new DevComponents.DotNetBar.ButtonItem();
+            this.btnWell = new DevComponents.DotNetBar.ButtonItem();
+            this.btnTrench = new DevComponents.DotNetBar.ButtonItem();
+            this.btnGeoPoint = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
             this.gpMeasure.SuspendLayout();
@@ -113,11 +117,15 @@
             this.rbData.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnBore,
             this.btnFootrill,
+            this.btnPit,
+            this.btnWell,
+            this.btnTrench,
+            this.btnGeoPoint,
             this.btnPhotoRecognition});
             this.rbData.Location = new System.Drawing.Point(335, 5);
             this.rbData.Name = "rbData";
             this.rbData.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbData.Size = new System.Drawing.Size(205, 83);
+            this.rbData.Size = new System.Drawing.Size(334, 83);
             this.rbData.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbData.TabIndex = 9;
             this.rbData.Text = "信息编录";
@@ -136,16 +144,18 @@
             this.btnBore.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnBore.Name = "btnBore";
             this.btnBore.SubItemsExpandWidth = 14;
-            this.btnBore.Text = "新建钻孔";
+            this.btnBore.Text = "钻孔";
             // 
             // btnFootrill
             // 
             this.btnFootrill.Name = "btnFootrill";
             this.btnFootrill.SubItemsExpandWidth = 14;
-            this.btnFootrill.Text = "新建平硐";
+            this.btnFootrill.Text = "硐探";
             // 
             // btnPhotoRecognition
             // 
+            this.btnPhotoRecognition.Image = ((System.Drawing.Image)(resources.GetObject("btnPhotoRecognition.Image")));
+            this.btnPhotoRecognition.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnPhotoRecognition.Name = "btnPhotoRecognition";
             this.btnPhotoRecognition.SubItemsExpandWidth = 14;
             this.btnPhotoRecognition.Text = "图像编录";
@@ -168,10 +178,10 @@
             this.btnBuildSurface,
             this.btnStretchSurface,
             this.btnBlockAnalyse});
-            this.rbTerrainAnalysis.Location = new System.Drawing.Point(897, 5);
+            this.rbTerrainAnalysis.Location = new System.Drawing.Point(1010, 5);
             this.rbTerrainAnalysis.Name = "rbTerrainAnalysis";
             this.rbTerrainAnalysis.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbTerrainAnalysis.Size = new System.Drawing.Size(311, 83);
+            this.rbTerrainAnalysis.Size = new System.Drawing.Size(199, 83);
             this.rbTerrainAnalysis.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbTerrainAnalysis.TabIndex = 8;
             this.rbTerrainAnalysis.Text = "分析处理";
@@ -479,10 +489,10 @@
             this.btnFreehandDrawing,
             this.btnRegion,
             this.btnDrawingApply});
-            this.rbDraw.Location = new System.Drawing.Point(546, 5);
+            this.rbDraw.Location = new System.Drawing.Point(675, 5);
             this.rbDraw.Name = "rbDraw";
             this.rbDraw.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbDraw.Size = new System.Drawing.Size(345, 83);
+            this.rbDraw.Size = new System.Drawing.Size(329, 83);
             this.rbDraw.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbDraw.TabIndex = 8;
             this.rbDraw.Text = "几何绘制";
@@ -543,6 +553,30 @@
             this.btnDrawingApply.SubItemsExpandWidth = 14;
             this.btnDrawingApply.Text = "变更应用";
             this.btnDrawingApply.Click += new System.EventHandler(this.btnDrawingApply_Click);
+            // 
+            // btnPit
+            // 
+            this.btnPit.Name = "btnPit";
+            this.btnPit.SubItemsExpandWidth = 14;
+            this.btnPit.Text = "坑探";
+            // 
+            // btnWell
+            // 
+            this.btnWell.Name = "btnWell";
+            this.btnWell.SubItemsExpandWidth = 14;
+            this.btnWell.Text = "井探";
+            // 
+            // btnTrench
+            // 
+            this.btnTrench.Name = "btnTrench";
+            this.btnTrench.SubItemsExpandWidth = 14;
+            this.btnTrench.Text = "槽探";
+            // 
+            // btnGeoPoint
+            // 
+            this.btnGeoPoint.Name = "btnGeoPoint";
+            this.btnGeoPoint.SubItemsExpandWidth = 14;
+            this.btnGeoPoint.Text = "地质点";
             // 
             // FrmMain
             // 
@@ -606,6 +640,10 @@
         private DevComponents.DotNetBar.ButtonItem btnFreehandDrawing;
         internal DevComponents.DotNetBar.ButtonItem btnRegion;
         internal DevComponents.DotNetBar.ButtonItem btnDrawingApply;
+        private DevComponents.DotNetBar.ButtonItem btnPit;
+        private DevComponents.DotNetBar.ButtonItem btnWell;
+        private DevComponents.DotNetBar.ButtonItem btnTrench;
+        private DevComponents.DotNetBar.ButtonItem btnGeoPoint;
     }
 }
 

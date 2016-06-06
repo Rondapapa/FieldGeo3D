@@ -84,7 +84,7 @@ namespace FGeo3D_TE
             if (string.IsNullOrWhiteSpace(_skylineId))
                 return;
             sgworld.ProjectTree.DeleteItem(_skylineId);
-
+            _skylineId = string.Empty;
         }
 
         public override void Store()

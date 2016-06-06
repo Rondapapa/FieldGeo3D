@@ -16,6 +16,7 @@ namespace FGeo3D_TE
             DipAngel = dipAngel * Math.PI / 180;
         }
 
+
         public override string ToString()
         {
             return $"{Dip*180/Math.PI}°∠{DipAngel*180/Math.PI}°";

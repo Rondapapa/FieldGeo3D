@@ -6,7 +6,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    public enum GeometryType : byte
+    public enum GeometryType
     {
         Point, Line, Plane, Surface
     }

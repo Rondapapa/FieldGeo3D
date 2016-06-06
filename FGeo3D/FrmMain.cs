@@ -21,6 +21,7 @@ namespace FGeo3D_TE
 
         //主接口
         SGWorld66 sgworld = null;
+        
 
         //地形多边形
         ITerrainPolygon66 pITPolygon = null;
@@ -480,6 +481,33 @@ namespace FGeo3D_TE
             var plane1 = new GeoPlane(pList);
             plane1.Draw(ref sgworld);
             plane1.Draw(ref sgworld, true);
+
+            //测试IsSimple
+            var arrP1 = new double[]
+            {
+                412615.291731,3269523.095953,0,
+                414177.661433,3269060.668648,0,
+                412365.834826,3268080.880464,0,
+                413435.563589,3269818.148106,0,
+                414215.54368,3269670.723062,0,
+            };
+            var arrP2 = new double[]
+            {
+                411771.724269,3269043.558136,0,
+                412294.277262,3268514.991006,0,
+                411507.287252,3268021.481417,0,
+                411150.209789,3268490.430657,0,
+            };
+
+            bool b1IsSimple = sgworld.Creator.GeometryCreator.CreateLinearRingGeometry(arrP1).IsSimple();
+            bool b2IsSimple = sgworld.Creator.GeometryCreator.CreateLinearRingGeometry(arrP2).IsSimple();
+
+            MessageBox.Show($"p1 simple:{b1IsSimple}, p2 simple:{b2IsSimple}");
+
+            var tp1 = sgworld.Creator.CreatePolygonFromArray(arrP1);
+            var tp2 = sgworld.Creator.CreatePolygonFromArray(arrP2);
+
+
         }
 
         
@@ -635,7 +663,7 @@ namespace FGeo3D_TE
             IPosition66 pIPosition = sgworld.Navigate.GetPosition(AltitudeTypeCode.ATC_ON_TERRAIN); //视点位置信息（相机位置）
 
             //IPosition66 r_StartPosition = null, r_LastPosition;
-
+            
             #region 获取位置
             if (PbHander == "GetPos")
             {
@@ -739,6 +767,7 @@ namespace FGeo3D_TE
                     _tempLineString.Points.DeletePoint(0);
                     _tempLineString.EndEdit();
                     
+                    
 
                     var cRing = sgworld.Creator.GeometryCreator.CreateLinearRingGeometry(cVerticesArray);
                     //cPolygonGeometry = sgworld.Creator.GeometryCreator.CreatePolygonGeometry(cRing, null);
@@ -776,6 +805,13 @@ namespace FGeo3D_TE
                         var dy = pIWPInfo.Position.Y;
                         var dh = pIWPInfo.Position.Altitude;
                         ring.Points.AddPoint(dx, dy, dh);
+
+                        if (!ring.IsSimple())
+                        {
+                            ring.Points.DeletePoint(ring.Points.Count - 1);
+                            MessageBox.Show(@"选取点无效：不能形成有效区域");
+                        }
+
                         _tempLineString.StartEdit();
                         _tempLineString.Points.AddPoint(dx, dy, dh);
                         _tempLineString.EndEdit();
@@ -789,7 +825,6 @@ namespace FGeo3D_TE
                     }
                     var editedGeometry = polygonGeometry.EndEdit();
                     pITPolygon.Geometry = editedGeometry;
-                    //pITPolygon.set_ClientData("Test Namespace","Guess Test");
                     
                 }
             }
@@ -990,7 +1025,7 @@ namespace FGeo3D_TE
             
             if (pITerrainPolyline != null)
             {
-                Line cGeoPoint = new Line(pITerrainPolyline);
+                Line cLine = new Line(pITerrainPolyline);
             }
             pITerrainPolyline = null;
             _objInfo = null;

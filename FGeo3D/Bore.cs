@@ -34,11 +34,12 @@ namespace FGeo3D_TE
         public void QueryDetail() { }
 
         /// <summary>
-        /// 绘制钻孔孔口
+        /// 绘制钻孔孔口(需要用钻孔口模型)
         /// </summary>
         /// <param name="sgworld"></param>
         public void DrawTop(ref SGWorld66 sgworld)
         {
+            //暂时用小圆点替代钻孔口模型
             double radius = 10;
             var Style = SphereStyle.SPHERE_NORMAL;
             var nLineColor = 0xFF00FF00;
@@ -47,6 +48,7 @@ namespace FGeo3D_TE
             string gid = GeoHelper.CreateGroup("钻孔", ref sgworld);
             IPosition66 cPos = sgworld.Creator.CreatePosition(X, Y, H, AltitudeTypeCode.ATC_ON_TERRAIN);
             sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
+            
 
             var cLabelStyle = sgworld.Creator.CreateLabelStyle();
             cLabelStyle.MultilineJustification = "Center";
