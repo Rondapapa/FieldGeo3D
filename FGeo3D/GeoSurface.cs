@@ -19,7 +19,7 @@ namespace FGeo3D_TE
         public List<GeoLine> Lines { get; set; } //地质构造点集
 
         /// <summary>
-        /// 绘制地质表面
+        /// 绘制地质表面？？？？？
         /// </summary>
         /// <param name="sgworld"></param>
         public override void Draw(ref SGWorld66 sgworld)
