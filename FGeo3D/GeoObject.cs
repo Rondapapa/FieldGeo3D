@@ -11,7 +11,7 @@ namespace FGeo3D_TE
         Point, Line, Plane, Surface
     }
 
-    class GeoObject
+    class GeoObject:IComparable
     {
         public string Id { get; set; }
         public GeometryType Type { get; set; }
@@ -41,5 +41,11 @@ namespace FGeo3D_TE
         /// 将该对象存入数据库
         /// </summary>
         public virtual void Store() { }
+
+        public int CompareTo(object obj)
+        {
+
+            throw new NotImplementedException();
+        }
     }
 }
