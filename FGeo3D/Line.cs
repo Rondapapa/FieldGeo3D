@@ -6,7 +6,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class Line : Object
+    class Line : DrawingObject
     {
         private ITerrainPolyline66 _line;
 

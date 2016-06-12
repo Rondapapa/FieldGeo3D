@@ -33,16 +33,19 @@ namespace FGeo3D_TE
         //double[] arrContourMapVertices = new double[4];
 
         //地理地质对象管理对象-单例（还未实现）！
-        private Object GeoObj = new Object();
+        private DrawingObject DrawingObj = new DrawingObject();
+        private LoggingObject LoggingObj = new LoggingObject();
 
         //地理地质对象信息传递对象
-        private ObjectInfo _objInfo;
+        private DrawingObjectInfo _objInfo;
 
         //绘制多边形时用于判断isSimple的辅助线环
         ILineString _tempLineString;
 
         //当前选取对象、及其监控事件
         private IWorldPointInfo66 _cWorldPointInfo;
+
+        /*
         public delegate void CurrrentWorldPointInfoChange(object sender, EventArgs e);
         public event CurrrentWorldPointInfoChange OnCurrentWorldPointInfoChange;
         private void WhenCurrentWorldPointInfoChange()
@@ -57,12 +60,27 @@ namespace FGeo3D_TE
             }
             set
             {
-                if (_cWorldPointInfo != value)
+                if (value != null && _cWorldPointInfo != value)
                     WhenCurrentWorldPointInfoChange();
                 _cWorldPointInfo = value;
             }
         }
 
+        public void OnCurrentWPIChange_GetPos(object sender, EventArgs e)
+        {
+            //x,y值信息存储在_cWorldPointInfo.Position中
+
+            OnCurrentWorldPointInfoChange -= OnCurrentWPIChange_GetPos;
+        }
+
+        public void OnCurrentWPIChange_QueryDetail(object sender, EventArgs e)
+        {
+            var loggingObj = LoggingObject.LoggingObjects[_cWorldPointInfo.ObjectID] as LoggingObject;
+            loggingObj?.QueryDetail();
+            MessageBox.Show($"X:{_cWorldPointInfo.Position.X};Y:{_cWorldPointInfo.Position.Y}");
+            OnCurrentWorldPointInfoChange -= OnCurrentWPIChange_QueryDetail;
+        }
+        */
 
 
         //窗口上下左右位置
@@ -90,15 +108,13 @@ namespace FGeo3D_TE
         private void Init()
         {
             sgworld = new SGWorld66();
-            //sgworld.CoordServices.SourceCoordinateSystem.InitLatLong();
         }
 
         #region 工程
         //打开
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            string tMsg = String.Empty;
-            // 设置工程中open 方法的参数
+            //打开工程
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 InitialDirectory = "D://",
@@ -111,38 +127,19 @@ namespace FGeo3D_TE
             var bIsAsync = false;
             var tUser = string.Empty;
             var tPassword = string.Empty;
-            //MessageBox.Show(tProjectUrl);
-            sgworld = new SGWorld66();
+            
             sgworld.Project.Open(_tProjectUrl, bIsAsync, tUser, tPassword);
 
-
+            //隐藏Skyline商标
             sgworld.Project.set_Settings("RemoveSkylineCopyright", 1);
             sgworld.Terrain.CoordinateSystem.InitLatLong();
-
-            XLeft = sgworld.Window.Rect.Left;
-            XRight = XLeft + sgworld.Window.Rect.Width;
-            YTop = sgworld.Window.Rect.Top;
-            YBottom = YTop - sgworld.Window.Rect.Height;
-
+            //初始化地形边界
+            XLeft = sgworld.Terrain.Left;
+            XRight = sgworld.Terrain.Right;
+            YTop = sgworld.Terrain.Top;
+            YBottom = sgworld.Terrain.Bottom;
+            //设置窗体标题
             Text = _tProjectUrl + @" - FieldGeo3D";
-
-            //string tAppRoot = Path.GetDirectoryName(Application.ExecutablePath);
-            /*string tProjectUrl = Path.Combine("E:\\Skyline_codes\\楞古库区地质灾害信息系统-北科大\\DATA\\default.FLY");
-            bool bIsAsync = false;
-            string tUser = String.Empty;
-            string tPassword = String.Empty;
-
-            // 实例化 Terra Explorer Globe 使用project 接口
-            try
-            {
-                SGWorld61 sgworld = new SGWorld61();
-                sgworld.Project.Open(tProjectUrl, bIsAsync, tUser, tPassword);
-            }
-            catch (Exception ex)
-            {
-                tMsg = String.Format("OpenProjectButton_Click Exception: {0}", ex.Message);
-                MessageBox.Show(tMsg);
-            }*/
         }
 
         //保存
@@ -215,14 +212,13 @@ namespace FGeo3D_TE
             {
                 MessageBox.Show($"Save_Click Exception: {ex}");
             }
-            /*
-                string sSaveName = InputSaveName();
-                string s = sgworld.Project.SaveAs(sSaveName);
-                MessageBox.Show(s);
-                frmDir frmDir = new frmDir();
-                frmDir.tbPath.Text = s;
-                //System.Diagnostics.Process.Start(@"explorer %APPDATA\Skyline\TerraExplorer%");
-                */
+            
+        }
+
+        //连接数据库
+        private void btnConnectDB_Click(object sender, EventArgs e)
+        {
+
         }
 
         //导入
@@ -298,7 +294,7 @@ namespace FGeo3D_TE
             {
                 HighlightButton(btnPoint);
                 PbHander = "Point";
-                _objInfo = new ObjectInfo(PbHander, ref sgworld);
+                _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
                 if (_objInfo.IsDrop)
                 {
                     ResetButton(btnPoint);
@@ -331,7 +327,7 @@ namespace FGeo3D_TE
             {
                 HighlightButton(btnLine, true);
                 PbHander = "Line";
-                _objInfo = new ObjectInfo(PbHander, ref sgworld);
+                _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
                 if (_objInfo.IsDrop)
                 {
                     ResetButton(btnLine, true);
@@ -355,7 +351,7 @@ namespace FGeo3D_TE
             {
                 HighlightButton(btnRegion, true);
                 PbHander = "Region";
-                _objInfo = new ObjectInfo(PbHander, ref sgworld);
+                _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
                 if (_objInfo.IsDrop)
                 {
                     ResetButton(btnRegion, true);
@@ -378,7 +374,7 @@ namespace FGeo3D_TE
             {
                 HighlightButton(btnFreehandDrawing);
                 PbHander = "FreehandDrawing";
-                _objInfo = new ObjectInfo(PbHander, ref sgworld);
+                _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
                 if (_objInfo.IsDrop)
                 {
                     ResetButton(btnFreehandDrawing, true);
@@ -494,16 +490,35 @@ namespace FGeo3D_TE
         #endregion
 
         /// <summary>
-        /// 定位
+        /// 定位(待修正GPS！！！！！)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnLocate_Click(object sender, EventArgs e)
         {
+            
             var frmPosition = new FrmPosition(XLeft, XRight, YTop, YBottom);
             if (frmPosition.ShowDialog() != DialogResult.OK) return;
             var position = sgworld.Creator.CreatePosition(frmPosition.XLong, frmPosition.YLat, 800, AltitudeTypeCode.ATC_TERRAIN_RELATIVE, 0, -90, 0, 0);
             sgworld.Navigate.FlyTo(position);
+        }
+
+
+        private void swbtnGPS_ValueChanged(object sender, EventArgs e)
+        {
+            sgworld.Navigate.SetGPSMode(swbtnGPS.Value == false
+                ? GPSOperationMode.GPS_MODE_FOLLOW
+                : GPSOperationMode.GPS_MODE_SHOW_LOCATION_INDICATOR);
+        }
+
+        /// <summary>
+        /// 定位(？？？？)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnGPS_Click(object sender, EventArgs e)
+        {
+            
         }
 
         /// <summary>
@@ -518,7 +533,8 @@ namespace FGeo3D_TE
 
             //挂接鼠标左键事件
             sgworld.OnLButtonDown += OnLBtnDown_GetWorldPointInfo;
-            //监测_cWorldPointInfo是否刷新，若刷新，则提取其中数据。
+            //挂接数据变化处理方法（查询数据库）
+            //OnCurrentWorldPointInfoChange += OnCurrentWPIChange_QueryDetail;
 
         }
 
@@ -741,12 +757,14 @@ namespace FGeo3D_TE
         {
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
 
-            //需求信息在_cWorldPointInfo中，如何获取所需？
-            var pos = _cWorldPointInfo.Position;
-            MessageBox.Show($"X:{pos.X},Y:{pos.Y}");
-            
+            var loggingObj = LoggingObject.LoggingObjects[_cWorldPointInfo.ObjectID] as LoggingObject;
+            loggingObj?.QueryDetail();
+            MessageBox.Show($"X:{_cWorldPointInfo.Position.X};Y:{_cWorldPointInfo.Position.Y}");
+            //_cWorldPointInfo改变，触发事件。(并没有触发！！！！！！！！！！！！)
+            //MessageBox.Show($"X:{_cWorldPointInfo.Position.X};Y:{_cWorldPointInfo.Position.Y}");
             sgworld.OnLButtonDown -= OnLBtnDown_GetWorldPointInfo;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            _cWorldPointInfo = null;//此处不应触发事件。
             return false;
         }
 
@@ -1198,8 +1216,12 @@ namespace FGeo3D_TE
 
 
 
+
+
+
         #endregion
 
 
+        
     }
 }

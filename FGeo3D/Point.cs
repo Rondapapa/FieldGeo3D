@@ -6,7 +6,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class Point:Object
+    class Point:DrawingObject
     {
         private ITerrainSphere66 _point;
 
@@ -32,7 +32,7 @@ namespace FGeo3D_TE
             AddObj(this, Id);
         }
 
-        public Point(ObjectInfo geoObjInfo, ref SGWorld66 sgworld)
+        public Point(DrawingObjectInfo geoObjInfo, ref SGWorld66 sgworld)
         {
             Type = "Point";
             double radius = 10;

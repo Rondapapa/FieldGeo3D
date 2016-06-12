@@ -7,7 +7,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class Label:Object
+    class Label:DrawingObject
     {
 
         private ITerrainLabel66 _label;
@@ -42,7 +42,7 @@ namespace FGeo3D_TE
 
         }
 
-        public Label(ObjectInfo objInfo, ref SGWorld66 sgworld)
+        public Label(DrawingObjectInfo objInfo, ref SGWorld66 sgworld)
         {
             Type = "Label";
             _label = sgworld.Creator.CreateTextLabel(objInfo.LabelPosition, objInfo.LabelText, objInfo.LabelStyle, objInfo.GroupId, "Label:" + objInfo.LabelText);

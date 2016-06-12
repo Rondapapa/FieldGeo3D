@@ -7,10 +7,8 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class Trench
+    class Trench:LoggingObject
     {
-        public string ID { get; set; }
-        public string Name { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
         public double H { get; set; }
@@ -20,7 +18,7 @@ namespace FGeo3D_TE
 
         public Trench(string id, string name, double x, double y, double h, double depth, GeoLine baseLine, List<GeoSurface> surfaces)
         {
-            ID = id;
+            Id = id;
             Name = name;
             X = x;
             Y = y;
@@ -28,9 +26,10 @@ namespace FGeo3D_TE
             Depth = depth;
             BaseLine = baseLine;
             Surfaces = surfaces;
+            Type = LoggingType.Trench;
         }
 
-        public void QueryDetail() { }
+        public override void QueryDetail() { }
 
         public void Draw(ref SGWorld66 sgworld) { }
     }

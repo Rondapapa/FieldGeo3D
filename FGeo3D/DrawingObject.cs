@@ -6,9 +6,9 @@ using System.Text;
 
 namespace FGeo3D_TE
 {
-    class Object
+    class DrawingObject
     {
-        public static Hashtable Labels = new Hashtable();
+        //public static Hashtable Labels = new Hashtable();
 
         public static Hashtable Points = new Hashtable();
 
@@ -18,20 +18,21 @@ namespace FGeo3D_TE
         
         public string Type { get; set;}
 
-        public Object()
+        public DrawingObject()
         {
           	
         }
 
-        public void AddObj(Object obj, string id)
+        public void AddObj(DrawingObject obj, string id)
         {
           	switch(obj.Type)
             {
-              	case "Label":
-                    Labels.Add(id, obj);
-                    break;
+              	//case "Label":
+                    //Labels.Add(id, obj);
+                    //break;
                 case "Point":
                     Points.Add(id, obj);
+                    
                     break;
                 case "Line":
                     Lines.Add(id, obj);

@@ -9,7 +9,6 @@ namespace FGeo3D_TE
     class GeoMarkPoint:GeoPoint
     {
         public GeoTecture Tecture { get; set; }
-        private string _skylineId;
 
         public GeoMarkPoint(double x, double y, double h, string name, GeoTecture tecture)
             : base(x, y, h, name)

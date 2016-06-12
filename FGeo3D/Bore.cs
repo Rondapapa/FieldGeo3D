@@ -6,10 +6,8 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class Bore
+    class Bore:LoggingObject
     {
-        public string ID { get; set; }
-        public string Name { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
         public double H { get; set; }
@@ -18,20 +16,21 @@ namespace FGeo3D_TE
 
         public Bore(string id, string name, double x, double y, double h, double depth, List<GeoMarkPoint> marks)
         {
-            ID = id;
+            Id = id;
             Name = name;
             X = x;
             Y = y;
             H = h;
             Depth = depth;
             Marks = marks;
-            
+            Type = LoggingType.Bore;
+
         }
 
         /// <summary>
         /// 查询该钻孔的详细信息，调用GeoSmart面板。
         /// </summary>
-        public void QueryDetail() { }
+        public override void QueryDetail() { }
 
         /// <summary>
         /// 绘制钻孔孔口(需要用钻孔口模型)

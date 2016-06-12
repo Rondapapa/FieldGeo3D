@@ -6,10 +6,8 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class Footrill
+    class Footrill:LoggingObject
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
         public double H { get; set; }
@@ -29,12 +27,13 @@ namespace FGeo3D_TE
             Links = links;
             Marks = marks;
             Surfaces = surfaces;
+            Type = LoggingType.Footrill;
         }
 
         /// <summary>
         /// 查询该平硐的详细信息，调用GeoSmart面板。
         /// </summary>
-        public void QueryDetail() { }
+        public override void QueryDetail() { }
 
         /// <summary>
         /// 绘制平硐洞口

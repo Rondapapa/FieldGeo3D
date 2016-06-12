@@ -7,7 +7,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    public class ObjectInfo
+    public class DrawingObjectInfo
     {
         //名称
         public SGWorld66 InSgWorld;
@@ -56,15 +56,15 @@ namespace FGeo3D_TE
         //用户数据
         public string ClientData { get; set; }
 
-        public FrmMain frmMain { get; set; }
+        public FrmMain FrmMain { get; set; }
 
-        public ObjectInfo(string pbHander, FrmMain frmmain, ref SGWorld66 sgworld)
+        public DrawingObjectInfo(string pbHander, FrmMain frmmain, ref SGWorld66 sgworld)
             : this(pbHander, ref sgworld)
         {
-            frmMain = frmmain;
+            FrmMain = frmmain;
         }
 
-        public ObjectInfo(string pbHander, ref SGWorld66 sgworld)
+        public DrawingObjectInfo(string pbHander, ref SGWorld66 sgworld)
         {
             InSgWorld = sgworld;
             IsDrop = false;
@@ -101,28 +101,26 @@ namespace FGeo3D_TE
                     //frmGeoPoint.Show();
 
                     //选择“从地图中选取”按钮
-                    if (frmDialog == DialogResult.Yes)
+                    switch (frmDialog)
                     {
-                        Name = frmPoint.tbName.Text;
-                        PointId = frmPoint.tbID.Text;
-                        IsPointTakenFromMap = true;
+                        case DialogResult.Yes:
+                            Name = frmPoint.tbName.Text;
+                            PointId = frmPoint.tbID.Text;
+                            IsPointTakenFromMap = true;
+                            break;
+                        case DialogResult.OK:
+                            Name = frmPoint.tbName.Text;
+                            PointId = frmPoint.tbID.Text;
+                            var dLong = Convert.ToDouble(frmPoint.tbLong.Text);
+                            var dLat = Convert.ToDouble(frmPoint.tbLat.Text);
+                            PointPosition = sgworld.Creator.CreatePosition(dLong, dLat, 0, AltitudeTypeCode.ATC_ON_TERRAIN,
+                                0, 0, 0, 0);
+                            break;
+                        default:
+                            IsDrop = true;
+                            return;
                     }
-                    //选择“确认坐标”按钮
-                    else if (frmDialog == DialogResult.OK)
-                    {
-                        Name = frmPoint.tbName.Text;
-                        PointId = frmPoint.tbID.Text;
-                        var dLong = Convert.ToDouble(frmPoint.tbLong.Text);
-                        var dLat = Convert.ToDouble(frmPoint.tbLat.Text);
-                        PointPosition = sgworld.Creator.CreatePosition(dLong, dLat, 0, AltitudeTypeCode.ATC_ON_TERRAIN,
-                            0, 0, 0, 0);
-                    }
-                    else
-                    {
-                        IsDrop = true;
-                        return;
-                    }
-                    GroupId = CreateGroup("地质点");
+                    GroupId = CreateGroup("点");
                     break;
 
                 case "Line":
@@ -137,7 +135,7 @@ namespace FGeo3D_TE
                         IsDrop = true;
                         return;
                     }
-                    GroupId = CreateGroup("地质线");
+                    GroupId = CreateGroup("线");
                     Name = frmLine.ObjName;
                     var lineColors = frmLine.SelectedColor;
                     LineColor = sgworld.Creator.CreateColor(lineColors.R, lineColors.G, lineColors.B, lineColors.A);
@@ -156,7 +154,7 @@ namespace FGeo3D_TE
                         IsDrop = true;
                         return;
                     }
-                    GroupId = CreateGroup("地质区域");
+                    GroupId = CreateGroup("区域");
                     Name = frmRegion.ObjName;
                     var regionColors = frmRegion.SelectedColor;
                     LineColor = sgworld.Creator.CreateColor(regionColors.R, regionColors.G, regionColors.B, regionColors.A);
@@ -175,7 +173,7 @@ namespace FGeo3D_TE
                         IsDrop = true;
                         return;
                     }
-                    GroupId = CreateGroup("地质线");
+                    GroupId = CreateGroup("线");
                     Name = frmFreehandDrawing.ObjName;
                     var freehandDrawingColors = frmFreehandDrawing.SelectedColor;
                     LineColor = sgworld.Creator.CreateColor(freehandDrawingColors.R, freehandDrawingColors.G, freehandDrawingColors.B, freehandDrawingColors.A);

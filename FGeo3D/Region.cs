@@ -6,7 +6,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class Region:Object
+    class Region:DrawingObject
     {
         private ITerrainPolygon66 _region;
 
