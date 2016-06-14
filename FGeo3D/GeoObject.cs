@@ -47,5 +47,7 @@ namespace FGeo3D_TE
 
             throw new NotImplementedException();
         }
+
+        public virtual void BuildTsFile() { }
     }
 }

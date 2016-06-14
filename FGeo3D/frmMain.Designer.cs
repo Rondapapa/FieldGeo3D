@@ -40,7 +40,6 @@
             this.btnWell = new DevComponents.DotNetBar.ButtonItem();
             this.btnTrench = new DevComponents.DotNetBar.ButtonItem();
             this.btnSpot = new DevComponents.DotNetBar.ButtonItem();
-            this.btnPhotoRecognition = new DevComponents.DotNetBar.ButtonItem();
             this.rbAnalysis = new DevComponents.DotNetBar.RibbonBar();
             this.btnBuildSurface = new DevComponents.DotNetBar.ButtonItem();
             this.btnStretchSurface = new DevComponents.DotNetBar.ButtonItem();
@@ -60,14 +59,16 @@
             this.btnGPS = new DevComponents.DotNetBar.ButtonX();
             this.btnQuery = new DevComponents.DotNetBar.ButtonX();
             this.btnTest = new DevComponents.DotNetBar.ButtonX();
-            this.rbDraw = new DevComponents.DotNetBar.RibbonBar();
-            this.btnPoint = new DevComponents.DotNetBar.ButtonItem();
+            this.btnChamber = new DevComponents.DotNetBar.RibbonBar();
             this.btnLine = new DevComponents.DotNetBar.ButtonItem();
             this.btnFreehandDrawing = new DevComponents.DotNetBar.ButtonItem();
             this.btnRegion = new DevComponents.DotNetBar.ButtonItem();
             this.btnDrawingComplete = new DevComponents.DotNetBar.ButtonItem();
             this.swbtnGPS = new DevComponents.DotNetBar.Controls.SwitchButton();
             this.labelGPS = new DevComponents.DotNetBar.LabelX();
+            this.btnSlope = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnFoundation = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
             this.gpMeasure.SuspendLayout();
@@ -117,17 +118,19 @@
             this.rbLog.ContainerControlProcessDialogKey = true;
             this.rbLog.DragDropSupport = true;
             this.rbLog.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnSpot,
             this.btnBore,
             this.btnFootrill,
             this.btnPit,
             this.btnWell,
             this.btnTrench,
-            this.btnSpot,
-            this.btnPhotoRecognition});
+            this.btnSlope,
+            this.buttonItem1,
+            this.btnFoundation});
             this.rbLog.Location = new System.Drawing.Point(335, 5);
             this.rbLog.Name = "rbLog";
             this.rbLog.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbLog.Size = new System.Drawing.Size(334, 83);
+            this.rbLog.Size = new System.Drawing.Size(401, 83);
             this.rbLog.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbLog.TabIndex = 9;
             this.rbLog.Text = "信息编录";
@@ -146,7 +149,7 @@
             this.btnBore.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnBore.Name = "btnBore";
             this.btnBore.SubItemsExpandWidth = 14;
-            this.btnBore.Text = "钻孔";
+            this.btnBore.Text = "钻探";
             this.btnBore.Click += new System.EventHandler(this.btnBore_Click);
             // 
             // btnFootrill
@@ -183,15 +186,6 @@
             this.btnSpot.SubItemsExpandWidth = 14;
             this.btnSpot.Text = "地质点";
             this.btnSpot.Click += new System.EventHandler(this.btnGeoPoint_Click);
-            // 
-            // btnPhotoRecognition
-            // 
-            this.btnPhotoRecognition.Image = ((System.Drawing.Image)(resources.GetObject("btnPhotoRecognition.Image")));
-            this.btnPhotoRecognition.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPhotoRecognition.Name = "btnPhotoRecognition";
-            this.btnPhotoRecognition.SubItemsExpandWidth = 14;
-            this.btnPhotoRecognition.Text = "图像编录";
-            this.btnPhotoRecognition.Click += new System.EventHandler(this.btnPhotoRecognition_Click);
             // 
             // rbAnalysis
             // 
@@ -507,54 +501,43 @@
             this.btnTest.Text = "临时测试";
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
-            // rbDraw
+            // btnChamber
             // 
-            this.rbDraw.AutoOverflowEnabled = true;
-            this.rbDraw.AutoSizeItems = false;
-            // 
-            // 
-            // 
-            this.rbDraw.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.btnChamber.AutoOverflowEnabled = true;
+            this.btnChamber.AutoSizeItems = false;
             // 
             // 
             // 
-            this.rbDraw.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.rbDraw.ContainerControlProcessDialogKey = true;
-            this.rbDraw.DragDropSupport = true;
-            this.rbDraw.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnPoint,
+            this.btnChamber.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.btnChamber.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.btnChamber.ContainerControlProcessDialogKey = true;
+            this.btnChamber.DragDropSupport = true;
+            this.btnChamber.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnLine,
             this.btnFreehandDrawing,
             this.btnRegion,
             this.btnDrawingComplete});
-            this.rbDraw.Location = new System.Drawing.Point(675, 5);
-            this.rbDraw.Name = "rbDraw";
-            this.rbDraw.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbDraw.Size = new System.Drawing.Size(329, 83);
-            this.rbDraw.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.rbDraw.TabIndex = 8;
-            this.rbDraw.Text = "几何绘制";
+            this.btnChamber.Location = new System.Drawing.Point(742, 5);
+            this.btnChamber.Name = "btnChamber";
+            this.btnChamber.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnChamber.Size = new System.Drawing.Size(262, 83);
+            this.btnChamber.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnChamber.TabIndex = 8;
+            this.btnChamber.Text = "几何绘制";
             // 
             // 
             // 
-            this.rbDraw.TitleStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.rbDraw.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.rbDraw.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbDraw.TitleStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
+            this.btnChamber.TitleStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.btnChamber.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.btnChamber.TitleStyle.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnChamber.TitleStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
             // 
             // 
             // 
-            this.rbDraw.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // btnPoint
-            // 
-            this.btnPoint.ForeColor = System.Drawing.Color.Black;
-            this.btnPoint.Image = ((System.Drawing.Image)(resources.GetObject("btnPoint.Image")));
-            this.btnPoint.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPoint.Name = "btnPoint";
-            this.btnPoint.SubItemsExpandWidth = 14;
-            this.btnPoint.Text = "绘制地点";
-            this.btnPoint.Click += new System.EventHandler(this.btnPoint_Click);
+            this.btnChamber.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // btnLine
             // 
@@ -620,6 +603,24 @@
             this.labelGPS.Text = "GPS状态";
             this.labelGPS.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
+            // btnSlope
+            // 
+            this.btnSlope.Name = "btnSlope";
+            this.btnSlope.SubItemsExpandWidth = 14;
+            this.btnSlope.Text = "边坡";
+            // 
+            // buttonItem1
+            // 
+            this.buttonItem1.Name = "buttonItem1";
+            this.buttonItem1.SubItemsExpandWidth = 14;
+            this.buttonItem1.Text = "洞室";
+            // 
+            // btnFoundation
+            // 
+            this.btnFoundation.Name = "btnFoundation";
+            this.btnFoundation.SubItemsExpandWidth = 14;
+            this.btnFoundation.Text = "基础";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -634,7 +635,7 @@
             this.Controls.Add(this.btnGPS);
             this.Controls.Add(this.btnQuery);
             this.Controls.Add(this.rbLog);
-            this.Controls.Add(this.rbDraw);
+            this.Controls.Add(this.btnChamber);
             this.Controls.Add(this.rbAnalysis);
             this.Controls.Add(this.rbData);
             this.Controls.Add(this.axTE3DWindow1);
@@ -677,9 +678,7 @@
         private DevComponents.DotNetBar.ButtonItem btnConnectDB;
         private DevComponents.DotNetBar.ButtonItem btnFootrill;
         private DevComponents.DotNetBar.ButtonItem btnImport;
-        private DevComponents.DotNetBar.ButtonItem btnPhotoRecognition;
-        private DevComponents.DotNetBar.RibbonBar rbDraw;
-        internal DevComponents.DotNetBar.ButtonItem btnPoint;
+        private DevComponents.DotNetBar.RibbonBar btnChamber;
         internal DevComponents.DotNetBar.ButtonItem btnLine;
         private DevComponents.DotNetBar.ButtonItem btnFreehandDrawing;
         internal DevComponents.DotNetBar.ButtonItem btnRegion;
@@ -690,6 +689,9 @@
         private DevComponents.DotNetBar.ButtonItem btnSpot;
         private DevComponents.DotNetBar.Controls.SwitchButton swbtnGPS;
         private DevComponents.DotNetBar.LabelX labelGPS;
+        private DevComponents.DotNetBar.ButtonItem btnSlope;
+        private DevComponents.DotNetBar.ButtonItem buttonItem1;
+        private DevComponents.DotNetBar.ButtonItem btnFoundation;
     }
 }
 

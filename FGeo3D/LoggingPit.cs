@@ -7,8 +7,9 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class Well:LoggingObject
+    class LoggingPit:LoggingObject
     {
+
         public double X { get; set; }
         public double Y { get; set; }
         public double H { get; set; }
@@ -16,7 +17,7 @@ namespace FGeo3D_TE
 
         public List<GeoMarkPoint> Marks { get; set; }
 
-        public Well(string id, string name, double x, double y, double h, double depth, List<GeoMarkPoint> marks)
+        public LoggingPit(string id, string name, double x, double y, double h, double depth, List<GeoMarkPoint> marks)
         {
             Id = id;
             Name = name;
@@ -25,7 +26,7 @@ namespace FGeo3D_TE
             H = h;
             Depth = depth;
             Marks = marks;
-            Type = LoggingType.Well;
+            Type = LoggingType.Pit;
         }
 
         public override void QueryDetail() { }

@@ -288,6 +288,7 @@ namespace FGeo3D_TE
         //    }
         //}
 
+        /*
         private void btnPoint_Click(object sender, EventArgs e)
         {
             try
@@ -319,6 +320,7 @@ namespace FGeo3D_TE
                 MessageBox.Show($"GeoPoint_Click Exception: {ex.Message}");
             }
         }
+        */
 
         private void btnLine_Click(object sender, EventArgs e)
         {
@@ -652,7 +654,7 @@ namespace FGeo3D_TE
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
                 if (_pITerrainPolyline != null)
                 {
-                    Line cGeoLine = new Line(_pITerrainPolyline);
+                    DrawingLine cGeoLine = new DrawingLine(_pITerrainPolyline);
                 }
                 _pITerrainPolyline = null;
                 _objInfo = null;
@@ -670,7 +672,7 @@ namespace FGeo3D_TE
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
                 if (_pItPolygon != null)
                 {
-                    Region cGeoRegion = new Region(_pItPolygon);
+                    DrawingRegion cGeoRegion = new DrawingRegion(_pItPolygon);
                 }
                 _tempLineString = null;
                 _pItPolygon = null;
@@ -768,6 +770,7 @@ namespace FGeo3D_TE
             return false;
         }
 
+        /*
         private bool OnLBtnDown_Point(int flags, int x, int y)
         {
             IWorldPointInfo66 pIwpInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN); //真实位置信息
@@ -788,6 +791,7 @@ namespace FGeo3D_TE
             _objInfo = null;
             return false;
         }
+        */
 
         private bool OnLBtnDown_Line(int flags, int x, int y)
         {
@@ -1112,7 +1116,7 @@ namespace FGeo3D_TE
             
             if (_pITerrainPolyline != null)
             {
-                Line cLine = new Line(_pITerrainPolyline);
+                DrawingLine cLine = new DrawingLine(_pITerrainPolyline);
             }
             _pITerrainPolyline = null;
             _objInfo = null; 
@@ -1219,9 +1223,13 @@ namespace FGeo3D_TE
 
 
 
+
+
         #endregion
 
+        private void btnFoundation_Click(object sender, EventArgs e)
+        {
 
-        
+        }
     }
 }

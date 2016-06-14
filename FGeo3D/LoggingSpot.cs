@@ -7,7 +7,7 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class Spot:LoggingObject
+    class LoggingSpot:LoggingObject
     {
         public double X { get; set; }
         public double Y { get; set; }
@@ -15,7 +15,7 @@ namespace FGeo3D_TE
 
         public GeoMarkPoint Mark { get; set; }
 
-        public Spot(double x, double y, double h, GeoMarkPoint mark)
+        public LoggingSpot(double x, double y, double h, GeoMarkPoint mark)
         {
             X = x;
             Y = y;

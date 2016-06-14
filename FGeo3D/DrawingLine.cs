@@ -6,21 +6,22 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class Region:DrawingObject
+    class DrawingLine : DrawingObject
     {
-        private ITerrainPolygon66 _region;
+        private ITerrainPolyline66 _line;
 
         public string Id
         {
-          	get { return _region.ID; }
+            get { return _line.ID; }
         }
 
-        public Region(ITerrainPolygon66 inRegion)
+        public DrawingLine(ITerrainPolyline66 inLine)
         {
-            Type = "Region";
-            _region = inRegion;
+            Type = "Line";
+            _line = inLine;
             AddObj(this, Id);
         }
+
 
 
     }

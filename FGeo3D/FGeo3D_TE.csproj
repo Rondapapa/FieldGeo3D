@@ -74,18 +74,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bore.cs" />
-    <Compile Include="Footrill.cs" />
+    <Compile Include="LoggingBore.cs" />
+    <Compile Include="LoggingCavity.cs" />
+    <Compile Include="LoggingFootrill.cs" />
     <Compile Include="GeoAttitude.cs" />
     <Compile Include="GeoHelper.cs" />
     <Compile Include="GeoSurface.cs" />
-    <Compile Include="Line.cs" />
+    <Compile Include="DrawingLine.cs" />
     <Compile Include="GeoLine.cs" />
     <Compile Include="GeoMarkPoint.cs" />
     <Compile Include="DrawingObject.cs" />
     <Compile Include="GeoObject.cs" />
     <Compile Include="DrawingObjectInfo.cs" />
-    <Compile Include="Label.cs" />
+    <Compile Include="DrawingLabel.cs" />
     <Compile Include="FrmObject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,17 +118,19 @@
       <DependentUpon>FrmLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="GeoPlane.cs" />
+    <Compile Include="LoggingFoundation.cs" />
     <Compile Include="LoggingObject.cs" />
-    <Compile Include="Pit.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="LoggingPit.cs" />
+    <Compile Include="DrawingPoint.cs" />
     <Compile Include="GeoPoint.cs" />
-    <Compile Include="Region.cs" />
+    <Compile Include="DrawingRegion.cs" />
     <Compile Include="GeoTecture.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Spot.cs" />
-    <Compile Include="Trench.cs" />
-    <Compile Include="Well.cs" />
+    <Compile Include="LoggingSlope.cs" />
+    <Compile Include="LoggingSpot.cs" />
+    <Compile Include="LoggingTrench.cs" />
+    <Compile Include="LoggingWell.cs" />
     <EmbeddedResource Include="FrmObject.resx">
       <DependentUpon>FrmObject.cs</DependentUpon>
     </EmbeddedResource>

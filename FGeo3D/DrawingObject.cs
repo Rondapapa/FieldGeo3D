@@ -45,5 +45,7 @@ namespace FGeo3D_TE
             }
         }
 
+        public virtual void ToLoggingObject() { }
+
     }
 }
