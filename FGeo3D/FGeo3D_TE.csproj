@@ -74,19 +74,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoggingBore.cs" />
-    <Compile Include="LoggingCavity.cs" />
-    <Compile Include="LoggingFootrill.cs" />
-    <Compile Include="GeoAttitude.cs" />
+    <Compile Include="LoggingObj\LoggingBore.cs" />
+    <Compile Include="LoggingObj\LoggingCavity.cs" />
+    <Compile Include="LoggingObj\LoggingFootrill.cs" />
+    <Compile Include="GeoObj\GeoAttitude.cs" />
     <Compile Include="GeoHelper.cs" />
-    <Compile Include="GeoSurface.cs" />
-    <Compile Include="DrawingLine.cs" />
-    <Compile Include="GeoLine.cs" />
-    <Compile Include="GeoMarkPoint.cs" />
-    <Compile Include="DrawingObject.cs" />
-    <Compile Include="GeoObject.cs" />
-    <Compile Include="DrawingObjectInfo.cs" />
-    <Compile Include="DrawingLabel.cs" />
+    <Compile Include="GeoObj\GeoSurface.cs" />
+    <Compile Include="DrawingObj\DrawingLine.cs" />
+    <Compile Include="GeoObj\GeoLine.cs" />
+    <Compile Include="GeoObj\GeoMarkPoint.cs" />
+    <Compile Include="DrawingObj\DrawingObject.cs" />
+    <Compile Include="GeoObj\GeoObject.cs" />
+    <Compile Include="DrawingObj\DrawingObjectInfo.cs" />
+    <Compile Include="DrawingObj\DrawingLabel.cs" />
     <Compile Include="FrmObject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,20 +117,20 @@
     <Compile Include="FrmLabel.Designer.cs">
       <DependentUpon>FrmLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeoPlane.cs" />
-    <Compile Include="LoggingFoundation.cs" />
-    <Compile Include="LoggingObject.cs" />
-    <Compile Include="LoggingPit.cs" />
-    <Compile Include="DrawingPoint.cs" />
-    <Compile Include="GeoPoint.cs" />
-    <Compile Include="DrawingRegion.cs" />
-    <Compile Include="GeoTecture.cs" />
+    <Compile Include="GeoObj\GeoPlane.cs" />
+    <Compile Include="LoggingObj\LoggingFoundation.cs" />
+    <Compile Include="LoggingObj\LoggingObject.cs" />
+    <Compile Include="LoggingObj\LoggingPit.cs" />
+    <Compile Include="DrawingObj\DrawingPoint.cs" />
+    <Compile Include="GeoObj\GeoPoint.cs" />
+    <Compile Include="DrawingObj\DrawingRegion.cs" />
+    <Compile Include="GeoObj\GeoTecture.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LoggingSlope.cs" />
-    <Compile Include="LoggingSpot.cs" />
-    <Compile Include="LoggingTrench.cs" />
-    <Compile Include="LoggingWell.cs" />
+    <Compile Include="LoggingObj\LoggingSlope.cs" />
+    <Compile Include="LoggingObj\LoggingSpot.cs" />
+    <Compile Include="LoggingObj\LoggingTrench.cs" />
+    <Compile Include="LoggingObj\LoggingWell.cs" />
     <EmbeddedResource Include="FrmObject.resx">
       <DependentUpon>FrmObject.cs</DependentUpon>
     </EmbeddedResource>

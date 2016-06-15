@@ -218,13 +218,16 @@ namespace FGeo3D_TE
         //连接数据库
         private void btnConnectDB_Click(object sender, EventArgs e)
         {
-
+            //登录
+            //选择工程阶段
+            //创建模型
         }
 
         //导入
         private void btnImport_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(@"该功能正在开发中……");
+            //弹出数据库筛选面板
+            //导入相关数据
         }
         #endregion
 
