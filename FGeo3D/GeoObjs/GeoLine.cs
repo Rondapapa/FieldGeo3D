@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GeoIM.CHIDI.DZ.COM;
 using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
     class GeoLine:GeoObject
     {
-        public List<GeoPoint> Points { get; set; }
-        private string _skylineId;
+        public List<IGPoint> Points { get; set; }
 
-        public GeoLine(List<GeoPoint> points)
+
+        public GeoLine(IGMarker marker)
         {
-            Points = points;
-            Type = GeometryType.Line;
+            for (var index = 0; index < marker.Points.Count; index++)
+            {
+                Points.Add(marker.Points.GetPoint(index));
+            }
         }
 
         public override void Draw(ref SGWorld66 sgworld)
@@ -25,7 +28,7 @@ namespace FGeo3D_TE
             {
                 verticesArray.Add(point.X);
                 verticesArray.Add(point.Y);
-                verticesArray.Add(point.H);
+                verticesArray.Add(point.Z);
             }
             var cLineString = sgworld.Creator.GeometryCreator.CreateLineStringGeometry(verticesArray.ToArray());
             
@@ -33,17 +36,10 @@ namespace FGeo3D_TE
             var altitudeType = AltitudeTypeCode.ATC_TERRAIN_RELATIVE; //待定
             string gid = GeoHelper.CreateGroup("地质线", ref sgworld);
             var item = sgworld.Creator.CreatePolyline(cLineString, lineColor, altitudeType, gid, Name);
-            _skylineId = item.ID;
+            SetSkylineObj(item);
         }
 
-        public override void Erase(ref SGWorld66 sgworld)
-        {
-            base.Erase(ref sgworld);
-            if (string.IsNullOrWhiteSpace(_skylineId))
-                return;
-            sgworld.ProjectTree.DeleteItem(_skylineId);
-            _skylineId = string.Empty;
-        }
+
 
         public override void Store()
         {

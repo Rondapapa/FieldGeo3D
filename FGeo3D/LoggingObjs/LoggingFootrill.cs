@@ -2,38 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GeoIM.CHIDI.DZ.COM;
 using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
     class LoggingFootrill:LoggingObject
     {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double H { get; set; }
-        public double Depth { get; set; }
+
         public List<GeoPoint> Links { get; set; } //平硐硐身几何关键点
         public List<GeoMarkPoint> Marks { get; set; } //平硐构造关键点
         public List<GeoSurface> Surfaces { get; set; } //平硐边壁构造
 
-        public LoggingFootrill(string id, string name, double x, double y, double h, double depth, List<GeoPoint> links, List<GeoMarkPoint> marks, List<GeoSurface> surfaces )
+
+        public LoggingFootrill(IObjData dataObj) : base(dataObj)
         {
-            Id = id;
-            Name = name;
-            X = x;
-            Y = y;
-            H = h;
-            Depth = depth;
-            Links = links;
-            Marks = marks;
-            Surfaces = surfaces;
-            Type = LoggingType.Footrill;
         }
 
-        /// <summary>
-        /// 查询该平硐的详细信息，调用GeoSmart面板。
-        /// </summary>
-        public override void QueryDetail() { }
 
         /// <summary>
         /// 绘制平硐洞口
@@ -75,6 +60,7 @@ namespace FGeo3D_TE
         {
             
         }
+
 
 
     }

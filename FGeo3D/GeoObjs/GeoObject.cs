@@ -2,23 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GeoIM.CHIDI.DZ.COM;
 using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    public enum GeometryType
+    class GeoObject
     {
-        Point, Line, Plane, Surface
-    }
+        private IGMarker _markerObj;
+        private ITerraExplorerObject66 _skylineObj;
 
-    class GeoObject:IComparable
-    {
-        public string Id { get; set; }
-        public GeometryType Type { get; set; }
-        public string Name { get; set; }
-        
+        public string Guid => _markerObj.Guid;
+        public string BH => _markerObj.BH;
+        public string Name => _markerObj.Name;
+        public string JHLX => _markerObj.JHLX;
+        public string Layers => _markerObj.Layers;
+        public string Type => _markerObj.Type;
+        public string UseFor => _markerObj.UseFor;
+        public double PathLength => _markerObj.PathLength;
+        public int JMBJLX => _markerObj.JMBJLX;
 
-        
+        public double Dip => _markerObj.Dip;
+        public double Angle => _markerObj.Angle;
+
+        public string SkylineId => _skylineObj.ID;
+
+        public GeoObject()
+        {
+        }
+
+        public GeoObject(IGMarker marker)
+        {
+            _markerObj = marker;
+        }
+
+
+
+        public void SetSkylineObj(ITerraExplorerObject66 skylineObj)
+        {
+            _skylineObj = skylineObj;
+        }
+
+
         /// <summary>
         /// 在三维场景中绘制该对象
         /// </summary>
@@ -28,7 +53,12 @@ namespace FGeo3D_TE
         /// <summary>
         /// 在三维场景中移除该对象
         /// </summary>
-        public virtual void Erase(ref SGWorld66 sgworld) { }
+        public void Erase(ref SGWorld66 sgworld)
+        {
+            sgworld.Creator.DeleteObject(_skylineObj.ID);
+            sgworld.ProjectTree.DeleteItem(_skylineObj.ID);
+            _skylineObj = null;
+        }
 
 
         /// <summary>

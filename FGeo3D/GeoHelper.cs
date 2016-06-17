@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TerraExplorerX;
-using System.Data.Entity.Spatial;
+
 using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Numerics.LinearAlgebra.Factorization;
 using MathNet.Numerics;
@@ -79,11 +79,11 @@ namespace FGeo3D_TE
                 sumXiSq += Math.Pow(point.X, 2);
                 sumYiSq += Math.Pow(point.Y, 2);
                 sumXiYi += point.X * point.Y;
-                sumXiZi += point.X * point.H;
-                sumYiZi += point.H * point.Y;
+                sumXiZi += point.X * point.Z;
+                sumYiZi += point.Z * point.Y;
                 sumXi += point.X;
                 sumYi += point.Y;
-                sumZi += point.H;
+                sumZi += point.Z;
             }
             
             //构造矩阵
@@ -113,14 +113,14 @@ namespace FGeo3D_TE
                     let x = point.X
                     let y = point.Y
                     let h = a0*x + a1*y + a2
-                    select new GeoPoint(x, y, h, "#Fitting Point#")).ToList();
+                    select new GeoPoint(x, y, h)).ToList();
 
             /*
             //获取中心点
             var centrialPoint = CentrialPoint(inGeoPoints);
             var xAve = centrialPoint.X;
             var yAve = centrialPoint.Y;
-            var hAve = centrialPoint.H;
+            var hAve = centrialPoint.Z;
 
             //构造Jacobian矩阵
             var jacobian = new DenseMatrix(inGeoPoints.Count, 3);
@@ -130,7 +130,7 @@ namespace FGeo3D_TE
                 {
                     [0] = point.X - xAve,
                     [1] = point.Y - yAve,
-                    [2] = point.H - hAve
+                    [2] = point.Z - hAve
                 };
                 jacobian.SetRow(inGeoPoints.IndexOf(point), gradient);
             }
@@ -151,7 +151,7 @@ namespace FGeo3D_TE
             var c = param[2];
 
             //返回结果点集（新点集与原点集的X、Y相同，H经过fitting重算）
-            return (from point in inGeoPoints let x = point.X let y = point.Y let h = point.H - a/c*(x - xAve) - b/c*(y - yAve) select new GeoPoint(x, y, h, "#Fitting Point#")).ToList();
+            return (from point in inGeoPoints let x = point.X let y = point.Y let h = point.Z - a/c*(x - xAve) - b/c*(y - yAve) select new GeoPoint(x, y, h, "#Fitting Point#")).ToList();
             */
 
         }
@@ -170,12 +170,12 @@ namespace FGeo3D_TE
             {
                 xSum += point.X;
                 ySum += point.Y;
-                hSum += point.H;
+                hSum += point.Z;
             }
             var xAve = xSum / inGeoPoints.Count;
             var yAve = ySum / inGeoPoints.Count;
             var hAve = hSum / inGeoPoints.Count;
-            return new GeoPoint(xAve, yAve, hAve, "##Centrial Point##");
+            return new GeoPoint(xAve, yAve, hAve);
         }
 
         /// <summary>

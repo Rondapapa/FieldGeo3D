@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeoIM.CHIDI.DZ.COM;
 using TerraExplorerX;
 
 namespace FGeo3D_TE
@@ -10,12 +11,15 @@ namespace FGeo3D_TE
     //地质面
     class GeoSurface:GeoObject
     {
-        
-        private List<string> _skylineId; //skyline id 集合
+        public List<IGPoint> Points { get; set; } //几何参照点集
 
-        public List<GeoPoint> References { get; set; } //几何参照点集
-
-        public List<GeoPlane> Planes { get; set; }
+        public GeoSurface(IGMarker marker)
+        {
+            for (var index = 0; index < marker.Points.Count; index++)
+            {
+                Points.Add(marker.Points.GetPoint(index));
+            }
+        }
 
         /// <summary>
         /// 绘制地质表面？？？？？

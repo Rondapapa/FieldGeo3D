@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeoIM.CHIDI.DZ.COM;
 using TerraExplorerX;
 
 namespace FGeo3D_TE
@@ -15,24 +16,19 @@ namespace FGeo3D_TE
 
         public GeoMarkPoint Mark { get; set; }
 
-        public LoggingSpot(double x, double y, double h, GeoMarkPoint mark)
+        public LoggingSpot(IObjData dataObj) : base(dataObj)
         {
-            X = x;
-            Y = y;
-            H = h;
-            Mark = mark;
         }
 
         public void Draw(ref SGWorld66 sgworld) { }
 
-        public override void QueryDetail()
-        {
-            base.QueryDetail();
-        }
+
 
         public override void Store()
         {
             base.Store();
         }
+
+
     }
 }

@@ -2,36 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GeoIM.CHIDI.DZ.COM;
 using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
     class LoggingBore:LoggingObject
     {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double H { get; set; }
-        public double Depth { get; set; }
-        public List<GeoMarkPoint> Marks { get; set; }
-
-        public LoggingBore(string id, string name, double x, double y, double h, double depth, List<GeoMarkPoint> marks)
+        public LoggingBore(IObjData dataObj)
+            :base(dataObj)
         {
-            Id = id;
-            Name = name;
-            X = x;
-            Y = y;
-            H = h;
-            Depth = depth;
-            Marks = marks;
             Type = LoggingType.Bore;
-
         }
 
-        /// <summary>
-        /// 查询该钻孔的详细信息，调用GeoSmart面板。
-        /// </summary>
-        public override void QueryDetail() { }
-
+        
         /// <summary>
         /// 绘制钻孔孔口(需要用钻孔口模型)
         /// </summary>
@@ -45,7 +29,7 @@ namespace FGeo3D_TE
             var nFillColor = 0xFF646464;
             var SegmentDensity = -1;
             string gid = GeoHelper.CreateGroup("钻孔", ref sgworld);
-            IPosition66 cPos = sgworld.Creator.CreatePosition(X, Y, H, AltitudeTypeCode.ATC_ON_TERRAIN);
+            IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_ON_TERRAIN);
             sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
             
 

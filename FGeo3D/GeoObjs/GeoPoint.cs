@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GeoIM.CHIDI.DZ.COM;
 using TerraExplorerX;
 
 namespace FGeo3D_TE
@@ -10,16 +11,26 @@ namespace FGeo3D_TE
     {
         public double X { get; set; }
         public double Y { get; set; }
-        public double H { get; set; }
-        private string _skylineId;
+        public double Z { get; set; }
 
-        public GeoPoint(double x, double y, double h, string name)
+
+        public GeoPoint(double x, double y, double z)
         {
             X = x;
             Y = y;
-            H = h;
-            Name = name;
-            Type = GeometryType.Point;
+            Z = z;
+        }
+
+        public GeoPoint(IGMarker marker) : base(marker)
+        {
+            X = marker.X;
+            Y = marker.Y;
+            Z = marker.Z;
+        }
+
+        public GeoPoint()
+        {
+            
         }
 
         /// <summary>
@@ -29,7 +40,7 @@ namespace FGeo3D_TE
         /// <returns></returns>
         public double DistanceToPoint(GeoPoint that)
         {
-            var distanceSq = Math.Pow(X - that.Y, 2) + Math.Pow(Y - that.Y, 2) + Math.Pow(H - that.H, 2);
+            var distanceSq = Math.Pow(X - that.Y, 2) + Math.Pow(Y - that.Y, 2) + Math.Pow(Z - that.Z, 2);
             return Math.Sqrt(distanceSq);
         }
 
@@ -54,7 +65,7 @@ namespace FGeo3D_TE
         {
             var deltaX = that.X - X;
             var deltaY = that.Y - Y;
-            var deltaH = that.H - H;
+            var deltaH = that.Z - Z;
             var dHorizonSq = Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2);
             return Math.Atan2(deltaH, Math.Sqrt(dHorizonSq));
         }
@@ -71,21 +82,14 @@ namespace FGeo3D_TE
             var nFillColor = 0xFFFF6464;
             var SegmentDensity = -1;
             string gid = GeoHelper.CreateGroup("地质点", ref sgworld);
-            IPosition66 cPos = sgworld.Creator.CreatePosition(X, Y, H, AltitudeTypeCode.ATC_ON_TERRAIN);
+            IPosition66 cPos = sgworld.Creator.CreatePosition(X, Y, Z, AltitudeTypeCode.ATC_ON_TERRAIN);
             var item = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
 
             //获取Skyline中的ID
-            _skylineId = item.ID;
+            SetSkylineObj(item);
         }
 
-        public override void Erase(ref SGWorld66 sgworld)
-        {
-            base.Erase(ref sgworld);
-            if (string.IsNullOrWhiteSpace(_skylineId))
-                return;
-            sgworld.ProjectTree.DeleteItem(_skylineId);
-            _skylineId = string.Empty;
-        }
+
 
         public override void Store()
         {

@@ -9,8 +9,9 @@ using System.Windows.Forms;
 using TerraExplorerX;
 using System.IO;
 using System.Threading;
-using OSGeo.GDAL;
 using DevComponents.DotNetBar;
+using GeoIM.CHIDI.DZ.COM;
+using YWCH.CHIDI.DZ.COM.Skyline;
 
 namespace FGeo3D_TE
 {
@@ -22,6 +23,15 @@ namespace FGeo3D_TE
         //主接口
         SGWorld66 sgworld = null;
         
+        //数据库
+        YWCHEntEx db = null;
+
+        //数据库连接？
+        private bool IsDBConnected = false;
+        
+        //模型路径
+        string modelPath;
+
         //地形多边形
         ITerrainPolygon66 _pItPolygon = null;
 
@@ -108,6 +118,7 @@ namespace FGeo3D_TE
         private void Init()
         {
             sgworld = new SGWorld66();
+            db = new YWCHEntEx();
         }
 
         #region 工程
@@ -218,9 +229,26 @@ namespace FGeo3D_TE
         //连接数据库
         private void btnConnectDB_Click(object sender, EventArgs e)
         {
-            //登录
-            //选择工程阶段
-            //创建模型
+            //登录、选择工程阶段
+            IsDBConnected = db.SkyLogin();
+            if (IsDBConnected)
+            {
+                //创建模型
+                modelPath = db.SkyOpenOrNewModal();
+            }
+            
+        }
+
+        private void btnProject_Click(object sender, EventArgs e)
+        {
+            if (IsDBConnected)
+            {
+                db.SkySelectProject();
+            }
+            else
+            {
+                MessageBox.Show(@"请先登录数据库，再选择工程阶段！",@"选择工程阶段失败");
+            }
         }
 
         //导入
@@ -228,44 +256,82 @@ namespace FGeo3D_TE
         {
             //弹出数据库筛选面板
             //导入相关数据
+            var objs = db.SkyGetData();
+            if (objs.Count == 0) return;
+            for (var index = 0; index < objs.Count; index++)
+            {
+                var cType = objs.GetObjData(index).Type;
+                switch (cType)
+                {
+                    case "钻探编录":
+
+                        break;
+                }
+            }
+            var obj = objs.GetObjData(0);
+            
+            var point = obj.Points.GetPoint(0);
+            
+
+            var mark = obj.MarkersNO1.GetMarker(0);
+            var gmark = new GMarker();
+            
+
+
         }
         #endregion
 
         #region 编录
         private void btnBore_Click(object sender, EventArgs e)
         {
-
+            db.SkyFrmSJLYEdit("ZT");
         }
 
         private void btnFootrill_Click(object sender, EventArgs e)
         {
-
+            db.SkyFrmSJLYEdit("DT");
         }
 
         private void btnPit_Click(object sender, EventArgs e)
         {
-
+            db.SkyFrmSJLYEdit("KT");
         }
 
         private void btnWell_Click(object sender, EventArgs e)
         {
-
+            db.SkyFrmSJLYEdit("JT");
         }
 
         private void btnTrench_Click(object sender, EventArgs e)
         {
-
+            db.SkyFrmSJLYEdit("CT");
         }
 
         private void btnGeoPoint_Click(object sender, EventArgs e)
         {
-
+            db.SkyFrmSJLYEdit("DZD");
         }
 
-        private void btnPhotoRecognition_Click(object sender, EventArgs e)
+        private void btnSlope_Click(object sender, EventArgs e)
         {
+            db.SkyFrmSJLYEdit("BPBL");
+        }
+
+        private void btnCavity_Click(object sender, EventArgs e)
+        {
+            db.SkyFrmSJLYEdit("DSBL");
+        }
+
+        private void btnFoundation_Click(object sender, EventArgs e)
+        {
+            //db.SkyFrmSJLYEdit("JKBL");
+            var cGuid = new Guid();
+            db.SkyNewObject("BT", cGuid.ToString(),"D","地质点123","255,255,128");
+            
 
         }
+
+
         #endregion
 
         #region 绘图
@@ -440,10 +506,7 @@ namespace FGeo3D_TE
             //}
         }
 
-        private void btnSlope_Click(object sender, EventArgs e)
-        {
-            sgworld.Command.Execute(1092, 0);
-        }
+        
 
         private void btnBestPath_Click(object sender, EventArgs e)
         {
@@ -570,19 +633,17 @@ namespace FGeo3D_TE
             */
             
             //测试geoplane
-            var p0 = new GeoPoint(415896.957085, 3269487.527959, 3157.6826, "p0");
-            var p1 = new GeoPoint(416440.844915, 3270171.110581, 3316.4351, "p1");
-            var p2 = new GeoPoint(416994.127891, 3270955.529197, 3404.8826, "p2");
-            var p3 = new GeoPoint(417134.990163, 3271563.044139, 3582.7659, "p3");
-            var p4 = new GeoPoint(417047.97109, 3272202.00806, 3525.4553, "p4");
-            var p5 = new GeoPoint(416789.154441, 3273192.007297, 3103.405, "p5");
-            var p6 = new GeoPoint(416129.200254, 3273107.372097, 2933.7236, "p6");
+            var p0 = new GeoPoint(415896.957085, 3269487.527959, 3157.6826);
+            var p1 = new GeoPoint(416440.844915, 3270171.110581, 3316.4351);
+            var p2 = new GeoPoint(416994.127891, 3270955.529197, 3404.8826);
+            var p3 = new GeoPoint(417134.990163, 3271563.044139, 3582.7659);
+            var p4 = new GeoPoint(417047.97109, 3272202.00806, 3525.4553);
+            var p5 = new GeoPoint(416789.154441, 3273192.007297, 3103.405);
+            var p6 = new GeoPoint(416129.200254, 3273107.372097, 2933.7236);
 
             var pList = new List<GeoPoint> {p0, p1, p2, p3, p4, p5, p6};
 
-            var plane1 = new GeoPlane(pList);
-            plane1.Draw(ref sgworld);
-            plane1.Draw(ref sgworld, true);
+            
 
             //测试IsSimple
             var arrP1 = new double[]
@@ -761,7 +822,7 @@ namespace FGeo3D_TE
         private bool OnLBtnDown_GetWorldPointInfo(int flags, int x, int y)
         {
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
-
+            /*
             var loggingObj = LoggingObject.LoggingObjects[_cWorldPointInfo.ObjectID] as LoggingObject;
             loggingObj?.QueryDetail();
             MessageBox.Show($"X:{_cWorldPointInfo.Position.X};Y:{_cWorldPointInfo.Position.Y}");
@@ -770,6 +831,7 @@ namespace FGeo3D_TE
             sgworld.OnLButtonDown -= OnLBtnDown_GetWorldPointInfo;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             _cWorldPointInfo = null;//此处不应触发事件。
+            */
             return false;
         }
 
@@ -1221,18 +1283,8 @@ namespace FGeo3D_TE
 
 
 
-
-
-
-
-
-
-
         #endregion
 
-        private void btnFoundation_Click(object sender, EventArgs e)
-        {
 
-        }
     }
 }

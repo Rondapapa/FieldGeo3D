@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FGeo3D_TE
 {
-    class GoCADHelper
+    static class TsFile
     {
     }
 }
