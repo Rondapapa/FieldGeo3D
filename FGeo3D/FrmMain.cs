@@ -11,6 +11,7 @@ using System.IO;
 using System.Threading;
 using DevComponents.DotNetBar;
 using GeoIM.CHIDI.DZ.COM;
+using stdole;
 using YWCH.CHIDI.DZ.COM.Skyline;
 
 namespace FGeo3D_TE
@@ -26,11 +27,14 @@ namespace FGeo3D_TE
         //数据库
         YWCHEntEx db = null;
 
-        //数据库连接？
+        //数据库连接
         private bool IsDBConnected = false;
         
         //模型路径
         string modelPath;
+
+        //
+        private Dictionary<string, LoggingObject> SkyId_LogObj = new Dictionary<string, LoggingObject>();
 
         //地形多边形
         ITerrainPolygon66 _pItPolygon = null;
@@ -43,7 +47,7 @@ namespace FGeo3D_TE
         //double[] arrContourMapVertices = new double[4];
 
         //地理地质对象管理对象-单例（还未实现）！
-        private DrawingObject DrawingObj = new DrawingObject();
+        //private DrawingObject DrawingObj = new DrawingObject();
         private LoggingObject LoggingObj = new LoggingObject();
 
         //地理地质对象信息传递对象
@@ -143,7 +147,10 @@ namespace FGeo3D_TE
 
             //隐藏Skyline商标
             sgworld.Project.set_Settings("RemoveSkylineCopyright", 1);
-            sgworld.Terrain.CoordinateSystem.InitLatLong();
+            
+            //地下模式
+            sgworld.Navigate.UndergroundMode = true;
+
             //初始化地形边界
             XLeft = sgworld.Terrain.Left;
             XRight = sgworld.Terrain.Right;
@@ -260,21 +267,53 @@ namespace FGeo3D_TE
             if (objs.Count == 0) return;
             for (var index = 0; index < objs.Count; index++)
             {
-                var cType = objs.GetObjData(index).Type;
+                var thisObj = objs.GetObjData(index);
+                if (LoggingObject.DictOfLoggingObjects.ContainsKey(thisObj.Guid))
+                    continue;
+                var cType = thisObj.Type;
                 switch (cType)
                 {
                     case "钻探编录":
-
+                        var thisBore = new LoggingBore(thisObj, ref sgworld);
+                        LoggingObject.DictOfLoggingObjects.Add(thisBore.Guid, thisBore);
+                        break;
+                    case "硐探编录":
+                        var thisFootrill = new LoggingFootrill(thisObj, ref sgworld);
+                        LoggingObject.DictOfLoggingObjects.Add(thisFootrill.Guid, thisFootrill);
+                        break;
+                    case "坑探编录":
+                        var thisPit = new LoggingPit(thisObj, ref sgworld);
+                        LoggingObject.DictOfLoggingObjects.Add(thisPit.Guid, thisPit);
+                        break;
+                    case "井探编录":
+                        var thisWell = new LoggingWell(thisObj, ref sgworld);
+                        LoggingObject.DictOfLoggingObjects.Add(thisWell.Guid, thisWell);
+                        break;
+                    case "槽探编录":
+                        var thisTrench = new LoggingTrench(thisObj, ref sgworld);
+                        LoggingObject.DictOfLoggingObjects.Add(thisTrench.Guid, thisTrench);
+                        break;
+                    case "边坡编录":
+                        var thisSlope = new LoggingSlope(thisObj, ref sgworld);
+                        LoggingObject.DictOfLoggingObjects.Add(thisSlope.Guid, thisSlope);
+                        break;
+                    case "洞室编录":
+                        var thisCavity = new LoggingCavity(thisObj, ref sgworld);
+                        LoggingObject.DictOfLoggingObjects.Add(thisCavity.Guid, thisCavity);
+                        break;
+                    case "基础编录":
+                        var thisFoundation = new LoggingFoundation(thisObj, ref sgworld);
+                        LoggingObject.DictOfLoggingObjects.Add(thisFoundation.Guid, thisFoundation);
+                        break;
+                    case "地质点":
+                        var thisSpot = new LoggingSpot(thisObj, ref sgworld);
+                        LoggingObject.DictOfLoggingObjects.Add(thisSpot.Guid, thisSpot);
                         break;
                 }
             }
-            var obj = objs.GetObjData(0);
             
-            var point = obj.Points.GetPoint(0);
             
-
-            var mark = obj.MarkersNO1.GetMarker(0);
-            var gmark = new GMarker();
+            
             
 
 
@@ -284,42 +323,42 @@ namespace FGeo3D_TE
         #region 编录
         private void btnBore_Click(object sender, EventArgs e)
         {
-            db.SkyFrmSJLYEdit("ZT");
+            //db.SkyFrmSJLYEdit("ZT");
         }
 
         private void btnFootrill_Click(object sender, EventArgs e)
         {
-            db.SkyFrmSJLYEdit("DT");
+            //db.SkyFrmSJLYEdit("DT");
         }
 
         private void btnPit_Click(object sender, EventArgs e)
         {
-            db.SkyFrmSJLYEdit("KT");
+            //db.SkyFrmSJLYEdit("KT");
         }
 
         private void btnWell_Click(object sender, EventArgs e)
         {
-            db.SkyFrmSJLYEdit("JT");
+            //db.SkyFrmSJLYEdit("JT");
         }
 
         private void btnTrench_Click(object sender, EventArgs e)
         {
-            db.SkyFrmSJLYEdit("CT");
+            //db.SkyFrmSJLYEdit("CT");
         }
 
         private void btnGeoPoint_Click(object sender, EventArgs e)
         {
-            db.SkyFrmSJLYEdit("DZD");
+            //db.SkyFrmSJLYEdit("DZD");
         }
 
         private void btnSlope_Click(object sender, EventArgs e)
         {
-            db.SkyFrmSJLYEdit("BPBL");
+            //db.SkyFrmSJLYEdit("BPBL");
         }
 
         private void btnCavity_Click(object sender, EventArgs e)
         {
-            db.SkyFrmSJLYEdit("DSBL");
+            //db.SkyFrmSJLYEdit("DSBL");
         }
 
         private void btnFoundation_Click(object sender, EventArgs e)

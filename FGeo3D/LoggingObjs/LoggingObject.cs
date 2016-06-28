@@ -18,7 +18,9 @@ namespace FGeo3D_TE
     class LoggingObject
     {
         private readonly IObjData _dataObj; //GeoSmart对象
-        private ITerraExplorerObject66 _skylineObj; //Skyline对象
+        protected ITerraExplorerObject66 _skylineMouthObj;
+        protected ITerraExplorerObject66 _skylineBodyObj;
+        protected ITerraExplorerObject66 _skylineLabelObj;
 
         public string Guid => _dataObj.Guid;
         public string BH => _dataObj.BH;
@@ -36,13 +38,13 @@ namespace FGeo3D_TE
         
 
 
-        public string SkylineId => _skylineObj.ID;
-        public ObjectTypeCode SkylineType => _skylineObj.ObjectType;
+        public string SkylineId => _skylineMouthObj.ID;
+        public ObjectTypeCode SkylineType => _skylineMouthObj.ObjectType;
 
         public LoggingType Type { get; set; }
 
 
-        //public static Hashtable LoggingObjects = new Hashtable();
+        public static Dictionary<string, LoggingObject> DictOfLoggingObjects = new Dictionary<string, LoggingObject>();
 
         /*
         public static Hashtable Bores = new Hashtable();
@@ -53,21 +55,21 @@ namespace FGeo3D_TE
         public static Hashtable Spots = new Hashtable();
         */
 
-        public LoggingObject(IObjData dataObj)
+        public LoggingObject(IObjData dataObj, ref SGWorld66 sgworld)
         {
             _dataObj = dataObj;
             Top = new GeoPoint
             {
                 X = dataObj.Points.GetPoint(0).X,
                 Y = dataObj.Points.GetPoint(0).Y,
-                Z = dataObj.Points.GetPoint(0).Z,
+                Z = dataObj.Points.GetPoint(0).Z
                 
             };
             Bottom = new GeoPoint
             {
                 X = dataObj.Points.GetPoint(1).X,
                 Y = dataObj.Points.GetPoint(1).Y,
-                Z = dataObj.Points.GetPoint(1).Z,
+                Z = dataObj.Points.GetPoint(1).Z
                 
             };
             Markers01 = dataObj.MarkersNO1;
@@ -81,7 +83,7 @@ namespace FGeo3D_TE
 
         public void SetSkylineObj(ITerraExplorerObject66 skylineObj)
         {
-            _skylineObj = skylineObj;
+            _skylineMouthObj = skylineObj;
         }
 
         /// <summary>

@@ -14,9 +14,9 @@ namespace FGeo3D_TE
         public double Y { get; set; }
         public double H { get; set; }
 
-        public GeoMarkPoint Mark { get; set; }
+        
 
-        public LoggingSpot(IObjData dataObj) : base(dataObj)
+        public LoggingSpot(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
         {
         }
 

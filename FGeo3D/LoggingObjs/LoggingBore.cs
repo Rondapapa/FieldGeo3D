@@ -9,10 +9,11 @@ namespace FGeo3D_TE
 {
     class LoggingBore:LoggingObject
     {
-        public LoggingBore(IObjData dataObj)
-            :base(dataObj)
+        public LoggingBore(IObjData dataObj, ref SGWorld66 sgworld)
+            :base(dataObj, ref sgworld)
         {
             Type = LoggingType.Bore;
+            Draw(ref sgworld);
         }
 
         
@@ -20,25 +21,64 @@ namespace FGeo3D_TE
         /// 绘制钻孔孔口(需要用钻孔口模型)
         /// </summary>
         /// <param name="sgworld"></param>
-        public void DrawTop(ref SGWorld66 sgworld)
+        public void Draw(ref SGWorld66 sgworld)
         {
-            //暂时用小圆点替代钻孔口模型
+            //绘制孔口：暂时用小圆点替代钻孔口模型
             double radius = 10;
             var Style = SphereStyle.SPHERE_NORMAL;
             var nLineColor = 0xFF00FF00;
             var nFillColor = 0xFF646464;
             var SegmentDensity = -1;
             string gid = GeoHelper.CreateGroup("钻孔", ref sgworld);
-            IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_ON_TERRAIN);
-            sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
-            
+            IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
+            _skylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
 
+            //绘制孔身
+            var arrVertices = new double[]
+            {
+                Top.X, Top.Y, Top.Z,
+                Bottom.X, Bottom.Y, Bottom.Z
+            };
+            var lineColor = sgworld.Creator.CreateColor(255, 0, 0, 128);
+            _skylineBodyObj = sgworld.Creator.CreatePolylineFromArray(arrVertices, lineColor, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE, 
+                sgworld.ProjectTree.HiddenGroupID, Name);
+
+
+            //绘制文字标签
             var cLabelStyle = sgworld.Creator.CreateLabelStyle();
             cLabelStyle.MultilineJustification = "Center";
             cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
             cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
             cLabelStyle.TextAlignment = "Bottom, Center";
-            sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, gid, "钻孔标签：" + Name);
+            _skylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
+
+            
         }
+
+        /// <summary>
+        ///删除该对象的skyline可视化项目 
+        /// </summary>
+        /// <param name="sgworld"></param>
+        public void Erase(ref SGWorld66 sgworld)
+        {
+            if (_skylineMouthObj != null)
+            {
+                sgworld.Creator.DeleteObject(_skylineMouthObj.ID);
+                _skylineMouthObj = null;
+            }
+            if (_skylineBodyObj != null)
+            {
+                sgworld.Creator.DeleteObject(_skylineBodyObj.ID);
+                _skylineBodyObj = null;
+            }
+            if (_skylineLabelObj != null)
+            {
+                sgworld.Creator.DeleteObject(_skylineLabelObj.ID);
+                _skylineLabelObj = null;
+            }
+            
+            
+        }
+        
     }
 }

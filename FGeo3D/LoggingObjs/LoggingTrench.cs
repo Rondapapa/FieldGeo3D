@@ -14,7 +14,7 @@ namespace FGeo3D_TE
         public GeoLine BaseLine { get; set; } //探槽基线（包括位置，方位角）
         public List<GeoSurface> Surfaces { get; set; } //探槽壁
 
-        public LoggingTrench(IObjData dataObj) : base(dataObj)
+        public LoggingTrench(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
         {
         }
 

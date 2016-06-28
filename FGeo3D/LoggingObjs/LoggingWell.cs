@@ -10,11 +10,11 @@ namespace FGeo3D_TE
 {
     class LoggingWell:LoggingObject
     {
-        public LoggingWell(IObjData dataObj) : base(dataObj)
+        public LoggingWell(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
         {
         }
 
-        public List<GeoMarkPoint> Marks { get; set; }
+        
 
 
         public void Draw(ref SGWorld66 sgworld) { }

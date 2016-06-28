@@ -13,9 +13,9 @@ namespace FGeo3D_TE
 
 
 
-        public List<GeoMarkPoint> Marks { get; set; }
+        
 
-        public LoggingPit(IObjData dataObj) : base(dataObj)
+        public LoggingPit(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
         {
         }
 
