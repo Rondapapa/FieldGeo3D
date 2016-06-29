@@ -9,6 +9,7 @@ namespace FGeo3D_TE
 {
     class GeoObject
     {
+        private IGPoint _pointObj;
         private IGMarker _markerObj;
         private ITerraExplorerObject66 _skylineObj;
 
@@ -29,6 +30,11 @@ namespace FGeo3D_TE
 
         public GeoObject()
         {
+        }
+
+        public GeoObject(IGPoint gPoint)
+        {
+            _pointObj = gPoint;
         }
 
         public GeoObject(IGMarker marker)

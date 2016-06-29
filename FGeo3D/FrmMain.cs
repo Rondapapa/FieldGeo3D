@@ -268,6 +268,7 @@ namespace FGeo3D_TE
             for (var index = 0; index < objs.Count; index++)
             {
                 var thisObj = objs.GetObjData(index);
+
                 if (LoggingObject.DictOfLoggingObjects.ContainsKey(thisObj.Guid))
                     continue;
                 var cType = thisObj.Type;
@@ -275,39 +276,39 @@ namespace FGeo3D_TE
                 {
                     case "钻探编录":
                         var thisBore = new LoggingBore(thisObj, ref sgworld);
-                        LoggingObject.DictOfLoggingObjects.Add(thisBore.Guid, thisBore);
+                        
                         break;
                     case "硐探编录":
                         var thisFootrill = new LoggingFootrill(thisObj, ref sgworld);
-                        LoggingObject.DictOfLoggingObjects.Add(thisFootrill.Guid, thisFootrill);
+                        
                         break;
                     case "坑探编录":
                         var thisPit = new LoggingPit(thisObj, ref sgworld);
-                        LoggingObject.DictOfLoggingObjects.Add(thisPit.Guid, thisPit);
+                        
                         break;
                     case "井探编录":
                         var thisWell = new LoggingWell(thisObj, ref sgworld);
-                        LoggingObject.DictOfLoggingObjects.Add(thisWell.Guid, thisWell);
+                        
                         break;
                     case "槽探编录":
                         var thisTrench = new LoggingTrench(thisObj, ref sgworld);
-                        LoggingObject.DictOfLoggingObjects.Add(thisTrench.Guid, thisTrench);
+                        
                         break;
                     case "边坡编录":
                         var thisSlope = new LoggingSlope(thisObj, ref sgworld);
-                        LoggingObject.DictOfLoggingObjects.Add(thisSlope.Guid, thisSlope);
+                        
                         break;
                     case "洞室编录":
                         var thisCavity = new LoggingCavity(thisObj, ref sgworld);
-                        LoggingObject.DictOfLoggingObjects.Add(thisCavity.Guid, thisCavity);
+                        
                         break;
                     case "基础编录":
                         var thisFoundation = new LoggingFoundation(thisObj, ref sgworld);
-                        LoggingObject.DictOfLoggingObjects.Add(thisFoundation.Guid, thisFoundation);
+                        
                         break;
                     case "地质点":
                         var thisSpot = new LoggingSpot(thisObj, ref sgworld);
-                        LoggingObject.DictOfLoggingObjects.Add(thisSpot.Guid, thisSpot);
+                        
                         break;
                 }
             }

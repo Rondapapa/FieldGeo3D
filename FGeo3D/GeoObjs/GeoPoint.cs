@@ -21,6 +21,13 @@ namespace FGeo3D_TE
             Z = z;
         }
 
+        public GeoPoint(IGPoint gPoint) :base(gPoint)
+        {
+            X = gPoint.X;
+            Y = gPoint.Y;
+            Z = gPoint.Z;
+        }
+
         public GeoPoint(IGMarker marker) : base(marker)
         {
             X = marker.X;

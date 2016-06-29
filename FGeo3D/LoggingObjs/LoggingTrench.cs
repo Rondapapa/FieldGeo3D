@@ -11,14 +11,55 @@ namespace FGeo3D_TE
     class LoggingTrench:LoggingObject
     {
 
-        public GeoLine BaseLine { get; set; } //探槽基线（包括位置，方位角）
-        public List<GeoSurface> Surfaces { get; set; } //探槽壁
+        public List<GeoPoint> Links { get; set; } = new List<GeoPoint>();  //控制点
+        
 
         public LoggingTrench(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
         {
+            Type = LoggingType.Trench;
+            //控制点
+            for (var index = 0; index < dataObj.Points.Count; index++)
+            {
+                var thisPoint = dataObj.Points.GetPoint(index);
+                Links.Add(new GeoPoint(thisPoint));
+            }
+            
+
+            Draw(ref sgworld);
         }
 
-        public void Draw(ref SGWorld66 sgworld) { }
+        public void Draw(ref SGWorld66 sgworld)
+        {
+            //口
+            double radius = 10;
+            var Style = SphereStyle.SPHERE_NORMAL;
+            var nLineColor = 0xFF00FF00;
+            var nFillColor = 0xFF64FF64;
+            var SegmentDensity = -1;
+            string gid = GeoHelper.CreateGroup("槽探", ref sgworld);
+            IPosition66 cPos = sgworld.Creator.CreatePosition(0, 0, 0, AltitudeTypeCode.ATC_ON_TERRAIN);
+            _skylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
+
+            //身
+            List<double> ListVertices = new List<double>();
+            foreach (var point in Links)
+            {
+                ListVertices.Add(point.X);
+                ListVertices.Add(point.Y);
+                ListVertices.Add(point.Z);
+            }
+            var lineColor = sgworld.Creator.CreateColor(255, 0, 0, 128);
+            _skylineBodyObj = sgworld.Creator.CreatePolylineFromArray(ListVertices.ToArray(), lineColor, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
+                sgworld.ProjectTree.HiddenGroupID, Name);
+
+            //标签
+            var cLabelStyle = sgworld.Creator.CreateLabelStyle();
+            cLabelStyle.MultilineJustification = "Center";
+            cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
+            cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
+            cLabelStyle.TextAlignment = "Bottom, Center";
+            _skylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
+        }
 
 
     }

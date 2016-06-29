@@ -10,18 +10,20 @@ namespace FGeo3D_TE
     class LoggingFootrill:LoggingObject
     {
 
-        public List<GeoPoint> Links { get; set; } //平硐硐身几何关键点
-        
-        public List<GeoSurface> Surfaces { get; set; } //平硐边壁构造
+        public List<GeoPoint> Links { get; set; } = new List<GeoPoint>();  //平硐控制点
 
+        
 
         public LoggingFootrill(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
         {
-            for (var index = 0; index < dataObj.MarkersNO1.Count; index++)
+            Type = LoggingType.Footrill;
+            //控制点
+            for (var index = 0; index < dataObj.Points.Count; index++)
             {
-                var thisMarker = dataObj.MarkersNO1.GetMarker(index);
-                Links.Add(new GeoPoint(thisMarker));
+                var thisPoint = dataObj.Points.GetPoint(index);
+                Links.Add(new GeoPoint(thisPoint));
             }
+            Draw(ref sgworld);
         }
 
 
@@ -37,12 +39,22 @@ namespace FGeo3D_TE
             var nLineColor = 0xFF00FF00;
             var nFillColor = 0xFF64FF64;
             var SegmentDensity = -1;
-            string gid = GeoHelper.CreateGroup("平硐", ref sgworld);
+            string gid = GeoHelper.CreateGroup("硐探", ref sgworld);
             IPosition66 cPos = sgworld.Creator.CreatePosition(0, 0, 0, AltitudeTypeCode.ATC_ON_TERRAIN);
             _skylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
 
             //硐身
-
+            List<double> ListVertices = new List<double>();
+            
+            foreach (var point in Links)
+            {
+                ListVertices.Add(point.X);
+                ListVertices.Add(point.Y);
+                ListVertices.Add(point.Z);
+            }
+            var lineColor = sgworld.Creator.CreateColor(255, 0, 0, 128);
+            _skylineBodyObj = sgworld.Creator.CreatePolylineFromArray(ListVertices.ToArray(), lineColor, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
+                sgworld.ProjectTree.HiddenGroupID, Name);
 
             //标签
             var cLabelStyle = sgworld.Creator.CreateLabelStyle();
@@ -51,27 +63,6 @@ namespace FGeo3D_TE
             cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
             cLabelStyle.TextAlignment = "Bottom, Center";
             _skylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
-        }
-
-        public void Erase(ref SGWorld66 sgworld)
-        {
-            if (_skylineMouthObj != null)
-            {
-                sgworld.Creator.DeleteObject(_skylineMouthObj.ID);
-                _skylineMouthObj = null;
-            }
-            if (_skylineBodyObj != null)
-            {
-                sgworld.Creator.DeleteObject(_skylineBodyObj.ID);
-                _skylineBodyObj = null;
-            }
-            if (_skylineLabelObj != null)
-            {
-                sgworld.Creator.DeleteObject(_skylineLabelObj.ID);
-                _skylineLabelObj = null;
-            }
-            //注意，此时没有删除dict里的字段
-
         }
 
 

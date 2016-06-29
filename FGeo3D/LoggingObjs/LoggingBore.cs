@@ -17,6 +17,7 @@ namespace FGeo3D_TE
         }
 
         
+        
         /// <summary>
         /// 绘制钻孔孔口(需要用钻孔口模型)
         /// </summary>
@@ -29,7 +30,7 @@ namespace FGeo3D_TE
             var nLineColor = 0xFF00FF00;
             var nFillColor = 0xFF646464;
             var SegmentDensity = -1;
-            string gid = GeoHelper.CreateGroup("钻孔", ref sgworld);
+            string gid = GeoHelper.CreateGroup("钻探", ref sgworld);
             IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
             _skylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
 
@@ -55,30 +56,6 @@ namespace FGeo3D_TE
             
         }
 
-        /// <summary>
-        ///删除该对象的skyline可视化项目 
-        /// </summary>
-        /// <param name="sgworld"></param>
-        public void Erase(ref SGWorld66 sgworld)
-        {
-            if (_skylineMouthObj != null)
-            {
-                sgworld.Creator.DeleteObject(_skylineMouthObj.ID);
-                _skylineMouthObj = null;
-            }
-            if (_skylineBodyObj != null)
-            {
-                sgworld.Creator.DeleteObject(_skylineBodyObj.ID);
-                _skylineBodyObj = null;
-            }
-            if (_skylineLabelObj != null)
-            {
-                sgworld.Creator.DeleteObject(_skylineLabelObj.ID);
-                _skylineLabelObj = null;
-            }
-            
-            
-        }
         
     }
 }
