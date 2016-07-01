@@ -47,6 +47,10 @@
     <Reference Include="GeoIM.CHIDI.DZ.COM.Common">
       <HintPath>..\DB\GeoIM.CHIDI.DZ.COM.Common.dll</HintPath>
     </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.Util.Common, Version=2.0.2.0, Culture=neutral, PublicKeyToken=2bc0b3e9af90ed3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.Util.Common.dll</HintPath>
+    </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Util.EnumHelper">
       <HintPath>..\DB\GeoIM.CHIDI.DZ.Util.EnumHelper.dll</HintPath>
     </Reference>

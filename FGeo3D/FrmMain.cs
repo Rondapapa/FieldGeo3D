@@ -11,6 +11,7 @@ using System.IO;
 using System.Threading;
 using DevComponents.DotNetBar;
 using GeoIM.CHIDI.DZ.COM;
+using GeoIM.CHIDI.DZ.Util.Common;
 using stdole;
 using YWCH.CHIDI.DZ.COM.Skyline;
 
@@ -242,6 +243,7 @@ namespace FGeo3D_TE
             {
                 //创建模型
                 modelPath = db.SkyOpenOrNewModal();
+                Text = db.GCName + @" - FieldGeo3D"; 
             }
             
         }
@@ -312,63 +314,71 @@ namespace FGeo3D_TE
                         break;
                 }
             }
-            
-            
-            
-            
-
-
         }
         #endregion
 
         #region 编录
         private void btnBore_Click(object sender, EventArgs e)
         {
-            //db.SkyFrmSJLYEdit("ZT");
+            sgworld.OnLButtonDown += OnLBtnDown_LoggingBore;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnFootrill_Click(object sender, EventArgs e)
         {
+            sgworld.OnLButtonDown += OnLBtnDown_LoggingFootrill;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+
             //db.SkyFrmSJLYEdit("DT");
         }
 
         private void btnPit_Click(object sender, EventArgs e)
         {
             //db.SkyFrmSJLYEdit("KT");
+            sgworld.OnLButtonDown += OnLBtnDown_LoggingPit;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnWell_Click(object sender, EventArgs e)
         {
             //db.SkyFrmSJLYEdit("JT");
+            sgworld.OnLButtonDown += OnLBtnDown_LoggingWell;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnTrench_Click(object sender, EventArgs e)
         {
             //db.SkyFrmSJLYEdit("CT");
+            sgworld.OnLButtonDown += OnLBtnDown_LoggingTrench;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnGeoPoint_Click(object sender, EventArgs e)
         {
             //db.SkyFrmSJLYEdit("DZD");
+            sgworld.OnLButtonDown += OnLBtnDown_LoggingSpot;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnSlope_Click(object sender, EventArgs e)
         {
             //db.SkyFrmSJLYEdit("BPBL");
+            sgworld.OnLButtonDown += OnLBtnDown_LoggingSlope;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnCavity_Click(object sender, EventArgs e)
         {
             //db.SkyFrmSJLYEdit("DSBL");
+            sgworld.OnLButtonDown += OnLBtnDown_LoggingCavity;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnFoundation_Click(object sender, EventArgs e)
         {
             //db.SkyFrmSJLYEdit("JKBL");
-            var cGuid = new Guid();
-            db.SkyNewObject("BT", cGuid.ToString(),"D","地质点123","255,255,128");
-            
-
+            sgworld.OnLButtonDown += OnLBtnDown_LoggingFoundation;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
 
@@ -855,9 +865,319 @@ namespace FGeo3D_TE
             sgworld.OnRButtonDown -= OnRBtnDown_DrawingComplete;
             PbHander = "";
             IsSaved = false;
-            Text = _tProjectUrl + @"* - FieldGeo3D";
+            Text = db.GCName + @"* - FieldGeo3D" ;
             return true;
         }
+
+        /// <summary>
+        /// 地质点
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_LoggingSpot(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+            sgworld.OnLButtonDown -= OnLBtnDown_LoggingSpot;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            var top = new DMarker
+            {
+                X = _cWorldPointInfo.Position.X,
+                Y = _cWorldPointInfo.Position.Y,
+                Z = _cWorldPointInfo.Position.Altitude,
+                SD = 0,
+                DZDXLX = "KZD"
+            };
+            var bottom = top;
+            _cWorldPointInfo = null;
+            var kzdList = new List<DMarker> { top, bottom };
+
+            var thisLoggingSpotGuid = db.SkyFrmSJLYEdit("DZD", kzdList);
+
+            var thisLoggingSpot = db.SkyGetGeoDataList(thisLoggingSpotGuid).GetObjData(0);
+            if (thisLoggingSpot == null)
+                return true;
+            var thisSpot = new LoggingSpot(thisLoggingSpot, ref sgworld);
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// 钻探
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_LoggingBore(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+            sgworld.OnLButtonDown -= OnLBtnDown_LoggingBore;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            var top = new DMarker
+            {
+                X = _cWorldPointInfo.Position.X,
+                Y = _cWorldPointInfo.Position.Y,
+                Z = _cWorldPointInfo.Position.Altitude,
+                SD = 0,
+                DZDXLX = "KZD"
+            };
+            var bottom = top;
+            _cWorldPointInfo = null;
+            var kzdList = new List<DMarker> { top, bottom };
+
+            var thisLoggingBoreGuid = db.SkyFrmSJLYEdit("ZT", kzdList);
+           
+            var thisLoggingBore = db.SkyGetGeoDataList(thisLoggingBoreGuid).GetObjData(0);
+            if (thisLoggingBore == null)
+                return true;
+            var thisBore = new LoggingBore(thisLoggingBore, ref sgworld);
+
+            return true;
+        }
+
+        /// <summary>
+        /// 硐探
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_LoggingFootrill(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+            sgworld.OnLButtonDown -= OnLBtnDown_LoggingFootrill;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            var top = new DMarker
+            {
+                X = _cWorldPointInfo.Position.X,
+                Y = _cWorldPointInfo.Position.Y,
+                Z = _cWorldPointInfo.Position.Altitude,
+                SD = 0,
+                DZDXLX = "KZD"
+            };
+            var bottom = top;
+            _cWorldPointInfo = null;
+            var kzdList = new List<DMarker> { top, bottom };
+
+            var thisLoggingFootrillGuid = db.SkyFrmSJLYEdit("DT", kzdList);
+
+            var thisLoggingFootrill = db.SkyGetGeoDataList(thisLoggingFootrillGuid).GetObjData(0);
+            if (thisLoggingFootrill == null)
+                return true;
+            var thisFootrill = new LoggingFootrill(thisLoggingFootrill, ref sgworld);
+
+            return true;
+        }
+
+        /// <summary>
+        /// 坑探
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_LoggingPit(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+            sgworld.OnLButtonDown -= OnLBtnDown_LoggingPit;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            var top = new DMarker
+            {
+                X = _cWorldPointInfo.Position.X,
+                Y = _cWorldPointInfo.Position.Y,
+                Z = _cWorldPointInfo.Position.Altitude,
+                SD = 0,
+                DZDXLX = "KZD"
+            };
+            var bottom = top;
+            _cWorldPointInfo = null;
+            var kzdList = new List<DMarker> { top, bottom };
+
+            var thisLoggingPitGuid = db.SkyFrmSJLYEdit("KT", kzdList);
+
+            var thisLoggingPit = db.SkyGetGeoDataList(thisLoggingPitGuid).GetObjData(0);
+            if (thisLoggingPit == null)
+                return true;
+            var thisPit = new LoggingPit(thisLoggingPit, ref sgworld);
+
+            return true;
+        }
+
+        /// <summary>
+        /// 井探
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_LoggingWell(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+            sgworld.OnLButtonDown -= OnLBtnDown_LoggingWell;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            var top = new DMarker
+            {
+                X = _cWorldPointInfo.Position.X,
+                Y = _cWorldPointInfo.Position.Y,
+                Z = _cWorldPointInfo.Position.Altitude,
+                SD = 0,
+                DZDXLX = "KZD"
+            };
+            var bottom = top;
+            _cWorldPointInfo = null;
+            var kzdList = new List<DMarker> { top, bottom };
+
+            var thisLoggingWellGuid = db.SkyFrmSJLYEdit("JT", kzdList);
+
+            var thisLoggingWell = db.SkyGetGeoDataList(thisLoggingWellGuid).GetObjData(0);
+            if (thisLoggingWell == null)
+                return true;
+            var thisWell = new LoggingWell(thisLoggingWell, ref sgworld);
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// 槽探
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_LoggingTrench(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+            sgworld.OnLButtonDown -= OnLBtnDown_LoggingTrench;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            var top = new DMarker
+            {
+                X = _cWorldPointInfo.Position.X,
+                Y = _cWorldPointInfo.Position.Y,
+                Z = _cWorldPointInfo.Position.Altitude,
+                SD = 0,
+                DZDXLX = "KZD"
+            };
+            var bottom = top;
+            _cWorldPointInfo = null;
+            var kzdList = new List<DMarker> { top, bottom };
+
+            var thisLoggingTrenchGuid = db.SkyFrmSJLYEdit("CT", kzdList);
+
+            var thisLoggingTrench = db.SkyGetGeoDataList(thisLoggingTrenchGuid).GetObjData(0);
+            if (thisLoggingTrench == null)
+                return true;
+            var thisTrench = new LoggingTrench(thisLoggingTrench, ref sgworld);
+
+            return true;
+        }
+
+        /// <summary>
+        /// 边坡
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_LoggingSlope(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+            sgworld.OnLButtonDown -= OnLBtnDown_LoggingSlope;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            var top = new DMarker
+            {
+                X = _cWorldPointInfo.Position.X,
+                Y = _cWorldPointInfo.Position.Y,
+                Z = _cWorldPointInfo.Position.Altitude,
+                SD = 0,
+                DZDXLX = "KZD"
+            };
+            var bottom = top;
+            _cWorldPointInfo = null;
+            var kzdList = new List<DMarker> { top, bottom };
+
+            var thisLoggingSlopeGuid = db.SkyFrmSJLYEdit("BPBL", kzdList);
+
+            var thisLoggingSlope = db.SkyGetGeoDataList(thisLoggingSlopeGuid).GetObjData(0);
+            if (thisLoggingSlope == null)
+                return true;
+            var thisSlope = new LoggingSlope(thisLoggingSlope, ref sgworld);
+
+            return true;
+        }
+
+        /// <summary>
+        /// 洞室
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_LoggingCavity(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+            sgworld.OnLButtonDown -= OnLBtnDown_LoggingCavity;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            var top = new DMarker
+            {
+                X = _cWorldPointInfo.Position.X,
+                Y = _cWorldPointInfo.Position.Y,
+                Z = _cWorldPointInfo.Position.Altitude,
+                SD = 0,
+                DZDXLX = "KZD"
+            };
+            var bottom = top;
+            _cWorldPointInfo = null;
+            var kzdList = new List<DMarker> { top, bottom };
+
+            var thisLoggingCavityGuid = db.SkyFrmSJLYEdit("DSBL", kzdList);
+
+            var thisLoggingCavity = db.SkyGetGeoDataList(thisLoggingCavityGuid).GetObjData(0);
+            if (thisLoggingCavity == null)
+                return true;
+            var thisCavity = new LoggingCavity(thisLoggingCavity, ref sgworld);
+
+            return true;
+        }
+
+        /// <summary>
+        /// 基础
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_LoggingFoundation(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+            sgworld.OnLButtonDown -= OnLBtnDown_LoggingFoundation;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            var top = new DMarker
+            {
+                X = _cWorldPointInfo.Position.X,
+                Y = _cWorldPointInfo.Position.Y,
+                Z = _cWorldPointInfo.Position.Altitude,
+                SD = 0,
+                DZDXLX = "KZD"
+            };
+            var bottom = top;
+            _cWorldPointInfo = null;
+            var kzdList = new List<DMarker> { top, bottom };
+
+            var thisLoggingFoundationGuid = db.SkyFrmSJLYEdit("JKBL", kzdList);
+
+            var thisLoggingFoundation = db.SkyGetGeoDataList(thisLoggingFoundationGuid).GetObjData(0);
+            if (thisLoggingFoundation == null)
+                return true;
+            var thisFoundation = new LoggingFoundation(thisLoggingFoundation, ref sgworld);
+
+            return true;
+        }
+
+
 
         private bool OnLBtnDown_GetWorldPointInfo(int flags, int x, int y)
         {
@@ -872,6 +1192,8 @@ namespace FGeo3D_TE
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             _cWorldPointInfo = null;//此处不应触发事件。
             */
+            sgworld.OnLButtonDown -= OnLBtnDown_GetWorldPointInfo;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             return false;
         }
 
