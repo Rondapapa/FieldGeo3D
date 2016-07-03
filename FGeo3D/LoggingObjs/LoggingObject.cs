@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using GeoIM.CHIDI.DZ.COM;
 using GeoIM.CHIDI.DZ.COM.Common;
+using GeoIM.CHIDI.DZ.Util.Common;
 using TerraExplorerX;
+using YWCH.CHIDI.DZ.COM.Skyline;
 
 namespace FGeo3D_TE
 {
@@ -53,6 +55,8 @@ namespace FGeo3D_TE
 
 
         public static Dictionary<string, LoggingObject> DictOfLoggingObjects = new Dictionary<string, LoggingObject>();
+
+        public static Dictionary<string, string> DictOfSkyId_Guid = new Dictionary<string, string>();
 
         /*
         public static Hashtable Bores = new Hashtable();
@@ -124,15 +128,20 @@ namespace FGeo3D_TE
         {
         }
 
-        public void SetSkylineObj(ITerraExplorerObject66 skylineObj)
+        public void RecordLabelSkyId()
         {
-            _skylineMouthObj = skylineObj;
+            if (!DictOfSkyId_Guid.ContainsKey(_skylineLabelObj.ID))
+                DictOfSkyId_Guid.Add(_skylineLabelObj.ID, Guid);
+
         }
 
         /// <summary>
         /// 查询该数据来源的详细信息，调用GeoSmart面板。
         /// </summary>
-        public void QueryDetail() { }
+        public void QueryDetail(ref YWCHEntEx db)
+        {
+            db.SkyFrmSJLYEdit(db.SkyGetSJLYMDL(Guid).SJSJLYID, new List<DMarker>(), Guid);
+        }
 
 
         public void Erase(ref SGWorld66 sgworld)
@@ -140,16 +149,19 @@ namespace FGeo3D_TE
             if (_skylineMouthObj != null)
             {
                 sgworld.Creator.DeleteObject(_skylineMouthObj.ID);
+                
                 _skylineMouthObj = null;
             }
             if (_skylineBodyObj != null)
             {
                 sgworld.Creator.DeleteObject(_skylineBodyObj.ID);
+                
                 _skylineBodyObj = null;
             }
             if (_skylineLabelObj != null)
             {
                 sgworld.Creator.DeleteObject(_skylineLabelObj.ID);
+                
                 _skylineLabelObj = null;
             }
         }

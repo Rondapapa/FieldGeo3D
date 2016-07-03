@@ -52,6 +52,8 @@ namespace FGeo3D_TE
             cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
             cLabelStyle.TextAlignment = "Bottom, Center";
             _skylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
+
+            RecordLabelSkyId();
         }
 
         public void Erase(ref SGWorld66 sgworld)

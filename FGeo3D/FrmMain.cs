@@ -646,14 +646,9 @@ namespace FGeo3D_TE
         /// <param name="e"></param>
         private void btnQuery_Click(object sender, EventArgs e)
         {
-            //sgworld.Command.Execute(1023, 0);
-            //待修正，结合数据库！
-
             //挂接鼠标左键事件
-            sgworld.OnLButtonDown += OnLBtnDown_GetWorldPointInfo;
-            //挂接数据变化处理方法（查询数据库）
-            //OnCurrentWorldPointInfoChange += OnCurrentWPIChange_QueryDetail;
-
+            sgworld.OnLButtonDown += OnLBtnDown_Query;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         /// <summary>
@@ -724,7 +719,7 @@ namespace FGeo3D_TE
             //var item = GetWorldPointInfo();
             //var pos = item.Position;
             
-            sgworld.OnLButtonDown += OnLBtnDown_GetWorldPointInfo;
+            sgworld.OnLButtonDown += OnLBtnDown_Query;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
 
             //var pos = _cWorldPointInfo.Position;
@@ -1179,22 +1174,22 @@ namespace FGeo3D_TE
 
 
 
-        private bool OnLBtnDown_GetWorldPointInfo(int flags, int x, int y)
+        private bool OnLBtnDown_Query(int flags, int x, int y)
         {
-            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
-            /*
-            var loggingObj = LoggingObject.LoggingObjects[_cWorldPointInfo.ObjectID] as LoggingObject;
-            loggingObj?.QueryDetail();
-            MessageBox.Show($"X:{_cWorldPointInfo.Position.X};Y:{_cWorldPointInfo.Position.Y}");
-            //_cWorldPointInfo改变，触发事件。(并没有触发！！！！！！！！！！！！)
-            //MessageBox.Show($"X:{_cWorldPointInfo.Position.X};Y:{_cWorldPointInfo.Position.Y}");
-            sgworld.OnLButtonDown -= OnLBtnDown_GetWorldPointInfo;
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
+            if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+            {
+                MessageBox.Show(@"未能查询到您所选取的地质对象。请选取地质对象的文字标签！", @"查询地质对象失败");
+                return true;
+            }
+            var thisGuid = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+
+            db.SkyFrmSJLYEdit(db.SkyGetSJLYMDL(thisGuid).SJLYLXID, new List<DMarker>(), thisGuid);
+            
+            _cWorldPointInfo = null;
+            sgworld.OnLButtonDown -= OnLBtnDown_Query;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            _cWorldPointInfo = null;//此处不应触发事件。
-            */
-            sgworld.OnLButtonDown -= OnLBtnDown_GetWorldPointInfo;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            return false;
+            return true;
         }
 
         /*

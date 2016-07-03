@@ -48,7 +48,7 @@ namespace FGeo3D_TE
             cLabelStyle.TextAlignment = "Bottom, Center";
             _skylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
 
-
+            RecordLabelSkyId();
         }
     }
 }
