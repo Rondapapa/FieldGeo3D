@@ -43,9 +43,6 @@ namespace FGeo3D_TE
         //地形多段线
         ITerrainPolyline66 _pITerrainPolyline = null;
         
-        //ILineString pSectionptString = null;
-
-        //double[] arrContourMapVertices = new double[4];
 
         //地理地质对象管理对象-单例（还未实现）！
         //private DrawingObject DrawingObj = new DrawingObject();
@@ -59,46 +56,9 @@ namespace FGeo3D_TE
 
         //当前选取对象、及其监控事件
         private IWorldPointInfo66 _cWorldPointInfo;
+        
 
-        /*
-        public delegate void CurrrentWorldPointInfoChange(object sender, EventArgs e);
-        public event CurrrentWorldPointInfoChange OnCurrentWorldPointInfoChange;
-        private void WhenCurrentWorldPointInfoChange()
-        {
-            OnCurrentWorldPointInfoChange?.Invoke(this, null);
-        }
-        public IWorldPointInfo66 CurrentWorldPointInfo
-        {
-            get
-            {
-                return _cWorldPointInfo;
-            }
-            set
-            {
-                if (value != null && _cWorldPointInfo != value)
-                    WhenCurrentWorldPointInfoChange();
-                _cWorldPointInfo = value;
-            }
-        }
-
-        public void OnCurrentWPIChange_GetPos(object sender, EventArgs e)
-        {
-            //x,y值信息存储在_cWorldPointInfo.Position中
-
-            OnCurrentWorldPointInfoChange -= OnCurrentWPIChange_GetPos;
-        }
-
-        public void OnCurrentWPIChange_QueryDetail(object sender, EventArgs e)
-        {
-            var loggingObj = LoggingObject.LoggingObjects[_cWorldPointInfo.ObjectID] as LoggingObject;
-            loggingObj?.QueryDetail();
-            MessageBox.Show($"X:{_cWorldPointInfo.Position.X};Y:{_cWorldPointInfo.Position.Y}");
-            OnCurrentWorldPointInfoChange -= OnCurrentWPIChange_QueryDetail;
-        }
-        */
-
-
-        //窗口上下左右位置
+        //地形上下左右位置
         public double XLeft { get; private set; }
         public double XRight { get; private set; }
         public double YTop { get; private set; }
@@ -239,13 +199,11 @@ namespace FGeo3D_TE
         {
             //登录、选择工程阶段
             IsDBConnected = db.SkyLogin();
-            if (IsDBConnected)
-            {
-                //创建模型
-                modelPath = db.SkyOpenOrNewModal();
-                Text = db.GCName + @" - FieldGeo3D"; 
-            }
-            
+            if (!IsDBConnected) return;
+            //创建模型
+            modelPath = db.SkyOpenOrNewModal();
+            Text = db.GCName + @" - FieldGeo3D";
+            StatusDatabase.Text = $"数据库状态：【已连接】|工程：{db.GCName}";
         }
 
         private void btnProject_Click(object sender, EventArgs e)
@@ -320,63 +278,66 @@ namespace FGeo3D_TE
         #region 编录
         private void btnBore_Click(object sender, EventArgs e)
         {
+            StatusSystem.Text = @"系统状态：【钻探编录】";
             sgworld.OnLButtonDown += OnLBtnDown_LoggingBore;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnFootrill_Click(object sender, EventArgs e)
         {
+            StatusSystem.Text = @"系统状态：【硐探编录】";
             sgworld.OnLButtonDown += OnLBtnDown_LoggingFootrill;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
 
-            //db.SkyFrmSJLYEdit("DT");
+            
         }
 
         private void btnPit_Click(object sender, EventArgs e)
         {
-            //db.SkyFrmSJLYEdit("KT");
+            
+            StatusSystem.Text = @"系统状态：【坑探编录】";
             sgworld.OnLButtonDown += OnLBtnDown_LoggingPit;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnWell_Click(object sender, EventArgs e)
         {
-            //db.SkyFrmSJLYEdit("JT");
+            StatusSystem.Text = @"系统状态：【井探编录】";
             sgworld.OnLButtonDown += OnLBtnDown_LoggingWell;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnTrench_Click(object sender, EventArgs e)
         {
-            //db.SkyFrmSJLYEdit("CT");
+            StatusSystem.Text = @"系统状态：【槽探编录】";
             sgworld.OnLButtonDown += OnLBtnDown_LoggingTrench;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnGeoPoint_Click(object sender, EventArgs e)
         {
-            //db.SkyFrmSJLYEdit("DZD");
+            StatusSystem.Text = @"系统状态：【地质点编录】";
             sgworld.OnLButtonDown += OnLBtnDown_LoggingSpot;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnSlope_Click(object sender, EventArgs e)
         {
-            //db.SkyFrmSJLYEdit("BPBL");
+            StatusSystem.Text = @"系统状态：【边坡编录】";
             sgworld.OnLButtonDown += OnLBtnDown_LoggingSlope;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnCavity_Click(object sender, EventArgs e)
         {
-            //db.SkyFrmSJLYEdit("DSBL");
+            StatusSystem.Text = @"系统状态：【洞室编录】";
             sgworld.OnLButtonDown += OnLBtnDown_LoggingCavity;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
         private void btnFoundation_Click(object sender, EventArgs e)
         {
-            //db.SkyFrmSJLYEdit("JKBL");
+            StatusSystem.Text = @"系统状态：【基坑编录】";
             sgworld.OnLButtonDown += OnLBtnDown_LoggingFoundation;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
@@ -649,6 +610,7 @@ namespace FGeo3D_TE
             //挂接鼠标左键事件
             sgworld.OnLButtonDown += OnLBtnDown_Query;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            StatusSystem.Text = @"系统状态：【查询地质对象】";
         }
 
         /// <summary>
@@ -894,7 +856,7 @@ namespace FGeo3D_TE
             if (thisLoggingSpot == null)
                 return true;
             var thisSpot = new LoggingSpot(thisLoggingSpot, ref sgworld);
-
+            StatusSystem.Text = @"系统状态：【默认】";
             return true;
         }
 
@@ -926,10 +888,11 @@ namespace FGeo3D_TE
             var thisLoggingBoreGuid = db.SkyFrmSJLYEdit("ZT", kzdList);
            
             var thisLoggingBore = db.SkyGetGeoDataList(thisLoggingBoreGuid).GetObjData(0);
+            StatusSystem.Text = @"系统状态：【默认】";
             if (thisLoggingBore == null)
                 return true;
             var thisBore = new LoggingBore(thisLoggingBore, ref sgworld);
-
+            
             return true;
         }
 
@@ -960,10 +923,11 @@ namespace FGeo3D_TE
             var thisLoggingFootrillGuid = db.SkyFrmSJLYEdit("DT", kzdList);
 
             var thisLoggingFootrill = db.SkyGetGeoDataList(thisLoggingFootrillGuid).GetObjData(0);
+            StatusSystem.Text = @"系统状态：【默认】";
             if (thisLoggingFootrill == null)
                 return true;
             var thisFootrill = new LoggingFootrill(thisLoggingFootrill, ref sgworld);
-
+            
             return true;
         }
 
@@ -994,10 +958,11 @@ namespace FGeo3D_TE
             var thisLoggingPitGuid = db.SkyFrmSJLYEdit("KT", kzdList);
 
             var thisLoggingPit = db.SkyGetGeoDataList(thisLoggingPitGuid).GetObjData(0);
+            StatusSystem.Text = @"系统状态：【默认】";
             if (thisLoggingPit == null)
                 return true;
             var thisPit = new LoggingPit(thisLoggingPit, ref sgworld);
-
+            
             return true;
         }
 
@@ -1028,10 +993,11 @@ namespace FGeo3D_TE
             var thisLoggingWellGuid = db.SkyFrmSJLYEdit("JT", kzdList);
 
             var thisLoggingWell = db.SkyGetGeoDataList(thisLoggingWellGuid).GetObjData(0);
+            StatusSystem.Text = @"系统状态：【默认】";
             if (thisLoggingWell == null)
                 return true;
             var thisWell = new LoggingWell(thisLoggingWell, ref sgworld);
-
+            
             return true;
         }
 
@@ -1063,10 +1029,11 @@ namespace FGeo3D_TE
             var thisLoggingTrenchGuid = db.SkyFrmSJLYEdit("CT", kzdList);
 
             var thisLoggingTrench = db.SkyGetGeoDataList(thisLoggingTrenchGuid).GetObjData(0);
+            StatusSystem.Text = @"系统状态：【默认】";
             if (thisLoggingTrench == null)
                 return true;
             var thisTrench = new LoggingTrench(thisLoggingTrench, ref sgworld);
-
+            
             return true;
         }
 
@@ -1097,10 +1064,11 @@ namespace FGeo3D_TE
             var thisLoggingSlopeGuid = db.SkyFrmSJLYEdit("BPBL", kzdList);
 
             var thisLoggingSlope = db.SkyGetGeoDataList(thisLoggingSlopeGuid).GetObjData(0);
+            StatusSystem.Text = @"系统状态：【默认】";
             if (thisLoggingSlope == null)
                 return true;
             var thisSlope = new LoggingSlope(thisLoggingSlope, ref sgworld);
-
+            
             return true;
         }
 
@@ -1131,10 +1099,11 @@ namespace FGeo3D_TE
             var thisLoggingCavityGuid = db.SkyFrmSJLYEdit("DSBL", kzdList);
 
             var thisLoggingCavity = db.SkyGetGeoDataList(thisLoggingCavityGuid).GetObjData(0);
+            StatusSystem.Text = @"系统状态：【默认】";
             if (thisLoggingCavity == null)
                 return true;
             var thisCavity = new LoggingCavity(thisLoggingCavity, ref sgworld);
-
+            
             return true;
         }
 
@@ -1168,7 +1137,7 @@ namespace FGeo3D_TE
             if (thisLoggingFoundation == null)
                 return true;
             var thisFoundation = new LoggingFoundation(thisLoggingFoundation, ref sgworld);
-
+            StatusSystem.Text = @"系统状态：【默认】";
             return true;
         }
 
@@ -1189,6 +1158,7 @@ namespace FGeo3D_TE
             _cWorldPointInfo = null;
             sgworld.OnLButtonDown -= OnLBtnDown_Query;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            StatusSystem.Text = @"系统状态：【默认】";
             return true;
         }
 

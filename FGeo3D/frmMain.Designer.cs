@@ -52,6 +52,7 @@
             this.btnSave = new DevComponents.DotNetBar.ButtonItem();
             this.btnSaveAs = new DevComponents.DotNetBar.ButtonItem();
             this.btnConnectDB = new DevComponents.DotNetBar.ButtonItem();
+            this.btnProject = new DevComponents.DotNetBar.ButtonItem();
             this.btnImport = new DevComponents.DotNetBar.ButtonItem();
             this.gpMeasure = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.btnTerrainArea = new DevComponents.DotNetBar.ButtonX();
@@ -69,10 +70,14 @@
             this.btnDrawingComplete = new DevComponents.DotNetBar.ButtonItem();
             this.swbtnGPS = new DevComponents.DotNetBar.Controls.SwitchButton();
             this.labelGPS = new DevComponents.DotNetBar.LabelX();
-            this.btnProject = new DevComponents.DotNetBar.ButtonItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.StatusDatabase = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusSystem = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusGPS = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
             this.gpMeasure.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // styleManager1
@@ -89,7 +94,7 @@
             this.axTE3DWindow1.Location = new System.Drawing.Point(206, 94);
             this.axTE3DWindow1.Name = "axTE3DWindow1";
             this.axTE3DWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTE3DWindow1.OcxState")));
-            this.axTE3DWindow1.Size = new System.Drawing.Size(950, 573);
+            this.axTE3DWindow1.Size = new System.Drawing.Size(950, 596);
             this.axTE3DWindow1.TabIndex = 1;
             // 
             // axTEInformationWindow1
@@ -101,7 +106,7 @@
             this.axTEInformationWindow1.Location = new System.Drawing.Point(0, 94);
             this.axTEInformationWindow1.Name = "axTEInformationWindow1";
             this.axTEInformationWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTEInformationWindow1.OcxState")));
-            this.axTEInformationWindow1.Size = new System.Drawing.Size(219, 573);
+            this.axTEInformationWindow1.Size = new System.Drawing.Size(200, 596);
             this.axTEInformationWindow1.TabIndex = 0;
             // 
             // rbLog
@@ -352,6 +357,13 @@
             this.btnConnectDB.Text = "连数据库";
             this.btnConnectDB.Click += new System.EventHandler(this.btnConnectDB_Click);
             // 
+            // btnProject
+            // 
+            this.btnProject.Name = "btnProject";
+            this.btnProject.SubItemsExpandWidth = 14;
+            this.btnProject.Text = "选择工程";
+            this.btnProject.Click += new System.EventHandler(this.btnProject_Click);
+            // 
             // btnImport
             // 
             this.btnImport.Image = ((System.Drawing.Image)(resources.GetObject("btnImport.Image")));
@@ -372,7 +384,7 @@
             this.gpMeasure.Controls.Add(this.btnHorizonalDistance);
             this.gpMeasure.Controls.Add(this.btnAbsDistance);
             this.gpMeasure.DisabledBackColor = System.Drawing.Color.Empty;
-            this.gpMeasure.Location = new System.Drawing.Point(1162, 342);
+            this.gpMeasure.Location = new System.Drawing.Point(1162, 365);
             this.gpMeasure.Name = "gpMeasure";
             this.gpMeasure.Size = new System.Drawing.Size(71, 325);
             // 
@@ -626,12 +638,38 @@
             this.labelGPS.Text = "GPS状态";
             this.labelGPS.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
-            // btnProject
+            // statusStrip1
             // 
-            this.btnProject.Name = "btnProject";
-            this.btnProject.SubItemsExpandWidth = 14;
-            this.btnProject.Text = "选择工程";
-            this.btnProject.Click += new System.EventHandler(this.btnProject_Click);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusDatabase,
+            this.StatusSystem,
+            this.StatusGPS});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 689);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1234, 26);
+            this.statusStrip1.TabIndex = 20;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // StatusDatabase
+            // 
+            this.StatusDatabase.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.StatusDatabase.Name = "StatusDatabase";
+            this.StatusDatabase.Size = new System.Drawing.Size(144, 21);
+            this.StatusDatabase.Text = "数据库状态：【未连接】";
+            // 
+            // StatusSystem
+            // 
+            this.StatusSystem.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.StatusSystem.Name = "StatusSystem";
+            this.StatusSystem.Size = new System.Drawing.Size(120, 21);
+            this.StatusSystem.Text = "系统状态：【默认】";
+            // 
+            // StatusGPS
+            // 
+            this.StatusGPS.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.StatusGPS.Name = "StatusGPS";
+            this.StatusGPS.Size = new System.Drawing.Size(119, 21);
+            this.StatusGPS.Text = "GPS状态：【默认】";
             // 
             // FrmMain
             // 
@@ -639,7 +677,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1234, 666);
+            this.ClientSize = new System.Drawing.Size(1234, 715);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.labelGPS);
             this.Controls.Add(this.swbtnGPS);
             this.Controls.Add(this.btnTest);
@@ -659,7 +698,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).EndInit();
             this.gpMeasure.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -705,6 +747,10 @@
         private DevComponents.DotNetBar.ButtonItem btnCavity;
         private DevComponents.DotNetBar.ButtonItem btnFoundation;
         private DevComponents.DotNetBar.ButtonItem btnProject;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel StatusDatabase;
+        private System.Windows.Forms.ToolStripStatusLabel StatusSystem;
+        private System.Windows.Forms.ToolStripStatusLabel StatusGPS;
     }
 }
 
