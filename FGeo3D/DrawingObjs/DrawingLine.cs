@@ -10,12 +10,9 @@ namespace FGeo3D_TE
     {
         private ITerrainPolyline66 _line;
 
-        public string Id
-        {
-            get { return _line.ID; }
-        }
+        public string Id => _line.ID;
 
-        public DrawingLine(ITerrainPolyline66 inLine)
+        public DrawingLine(ITerrainPolyline66 inLine):base(inLine as ITerrainObject66)
         {
             Type = "Line";
             _line = inLine;
