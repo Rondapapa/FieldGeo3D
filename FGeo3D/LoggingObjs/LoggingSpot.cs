@@ -29,7 +29,7 @@ namespace FGeo3D_TE
             var SegmentDensity = -1;
             string gid = GeoHelper.CreateGroup("地质点", ref sgworld);
             IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
-            _skylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
+            SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
 
             
 
@@ -40,7 +40,7 @@ namespace FGeo3D_TE
             cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
             cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
             cLabelStyle.TextAlignment = "Bottom, Center";
-            _skylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
+            SkylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
 
             RecordLabelSkyId();
         }

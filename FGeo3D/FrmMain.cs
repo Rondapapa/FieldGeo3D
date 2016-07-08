@@ -725,7 +725,14 @@ namespace FGeo3D_TE
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
                 if (_pITerrainPolyline != null)
                 {
-                    DrawingLine cGeoLine = new DrawingLine(_pITerrainPolyline);
+                    var cLabelStyle = sgworld.Creator.CreateLabelStyle();
+                    cLabelStyle.MultilineJustification = "Center";
+                    cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
+                    cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
+                    cLabelStyle.TextAlignment = "Bottom, Center";
+                    var cLabel = sgworld.Creator.CreateTextLabel(_pITerrainPolyline.Position, _objInfo.Name, cLabelStyle,
+                        sgworld.ProjectTree.HiddenGroupID, "");
+                    var cGeoLine = new DrawingLine(_pITerrainPolyline, cLabel);
                 }
                 _pITerrainPolyline = null;
                 _objInfo = null;
@@ -743,7 +750,14 @@ namespace FGeo3D_TE
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
                 if (_pItPolygon != null)
                 {
-                    DrawingRegion cGeoRegion = new DrawingRegion(_pItPolygon);
+                    var cLabelStyle = sgworld.Creator.CreateLabelStyle();
+                    cLabelStyle.MultilineJustification = "Center";
+                    cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
+                    cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
+                    cLabelStyle.TextAlignment = "Bottom, Center";
+                    var cLabel = sgworld.Creator.CreateTextLabel(_pItPolygon.Position, _objInfo.Name, cLabelStyle,
+                        sgworld.ProjectTree.HiddenGroupID, "");
+                    var cGeoRegion = new DrawingRegion(_pItPolygon, cLabel);
                 }
                 _tempLineString = null;
                 _pItPolygon = null;
@@ -1189,6 +1203,7 @@ namespace FGeo3D_TE
         {
             IWorldPointInfo66 pIwpInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN); //真实位置信息
             IPosition66 pIPosition = sgworld.Navigate.GetPosition(AltitudeTypeCode.ATC_ON_TERRAIN); //视点位置信息（相机位置）
+            
             if (_pITerrainPolyline == null)
             {
                 var cVerticesArray = new double[] {
@@ -1506,9 +1521,17 @@ namespace FGeo3D_TE
             sgworld.OnLButtonUp -= FreehandDrawing_OnLButtonUp;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             
+            
             if (_pITerrainPolyline != null)
             {
-                DrawingLine cLine = new DrawingLine(_pITerrainPolyline);
+                var cLabelStyle = sgworld.Creator.CreateLabelStyle();
+                cLabelStyle.MultilineJustification = "Center";
+                cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
+                cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
+                cLabelStyle.TextAlignment = "Bottom, Center";
+                var cLabel = sgworld.Creator.CreateTextLabel(_pITerrainPolyline.Position, _objInfo.Name, cLabelStyle,
+                    sgworld.ProjectTree.HiddenGroupID, "");
+                var cLine = new DrawingLine(_pITerrainPolyline, cLabel);
             }
             _pITerrainPolyline = null;
             _objInfo = null; 

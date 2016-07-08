@@ -8,18 +8,13 @@ namespace FGeo3D_TE
 {
     class DrawingRegion:DrawingObject
     {
-        private ITerrainPolygon66 _region;
+        
 
-        public string Id
-        {
-          	get { return _region.ID; }
-        }
-
-        public DrawingRegion(ITerrainPolygon66 inRegion)
+        public DrawingRegion(ITerraExplorerObject66 inRegion, ITerrainLabel66 inLabel66)
         {
             Type = "Region";
-            _region = inRegion;
-            AddObj(this, Id);
+            SkylineObj = inRegion;
+            SkylineLabel = inLabel66;
         }
 
 

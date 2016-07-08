@@ -94,7 +94,6 @@
     <Compile Include="DrawingObjs\DrawingObject.cs" />
     <Compile Include="GeoObjs\GeoObject.cs" />
     <Compile Include="DrawingObjs\DrawingObjectInfo.cs" />
-    <Compile Include="DrawingObjs\DrawingLabel.cs" />
     <Compile Include="FrmObject.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -20,9 +20,9 @@ namespace FGeo3D_TE
     class LoggingObject
     {
         private readonly IObjData _dataObj; //GeoSmart对象
-        protected ITerraExplorerObject66 _skylineMouthObj;
-        protected ITerraExplorerObject66 _skylineBodyObj;
-        protected ITerraExplorerObject66 _skylineLabelObj;
+        protected ITerraExplorerObject66 SkylineMouthObj;
+        protected ITerraExplorerObject66 SkylineBodyObj;
+        protected ITerraExplorerObject66 SkylineLabelObj;
 
         public string Guid => _dataObj.Guid;
 
@@ -48,8 +48,8 @@ namespace FGeo3D_TE
         public List<IGMarker> GZD_Markers { get; set; } = new List<IGMarker>(); //构造带
 
 
-        public string SkylineId => _skylineMouthObj.ID;
-        public ObjectTypeCode SkylineType => _skylineMouthObj.ObjectType;
+        public string SkylineId => SkylineMouthObj.ID;
+        public ObjectTypeCode SkylineType => SkylineMouthObj.ObjectType;
 
         public LoggingType Type { get; set; }
 
@@ -130,8 +130,8 @@ namespace FGeo3D_TE
 
         public void RecordLabelSkyId()
         {
-            if (!DictOfSkyId_Guid.ContainsKey(_skylineLabelObj.ID))
-                DictOfSkyId_Guid.Add(_skylineLabelObj.ID, Guid);
+            if (!DictOfSkyId_Guid.ContainsKey(SkylineLabelObj.ID))
+                DictOfSkyId_Guid.Add(SkylineLabelObj.ID, Guid);
 
         }
 
@@ -146,23 +146,23 @@ namespace FGeo3D_TE
 
         public void Erase(ref SGWorld66 sgworld)
         {
-            if (_skylineMouthObj != null)
+            if (SkylineMouthObj != null)
             {
-                sgworld.Creator.DeleteObject(_skylineMouthObj.ID);
+                sgworld.Creator.DeleteObject(SkylineMouthObj.ID);
                 
-                _skylineMouthObj = null;
+                SkylineMouthObj = null;
             }
-            if (_skylineBodyObj != null)
+            if (SkylineBodyObj != null)
             {
-                sgworld.Creator.DeleteObject(_skylineBodyObj.ID);
+                sgworld.Creator.DeleteObject(SkylineBodyObj.ID);
                 
-                _skylineBodyObj = null;
+                SkylineBodyObj = null;
             }
-            if (_skylineLabelObj != null)
+            if (SkylineLabelObj != null)
             {
-                sgworld.Creator.DeleteObject(_skylineLabelObj.ID);
+                sgworld.Creator.DeleteObject(SkylineLabelObj.ID);
                 
-                _skylineLabelObj = null;
+                SkylineLabelObj = null;
             }
         }
 

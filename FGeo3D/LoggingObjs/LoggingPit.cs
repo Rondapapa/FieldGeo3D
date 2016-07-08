@@ -33,7 +33,7 @@ namespace FGeo3D_TE
             var SegmentDensity = -1;
             string gid = GeoHelper.CreateGroup("坑探", ref sgworld);
             IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
-            _skylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
+            SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
 
             //身
             var arrVertices = new double[]
@@ -42,7 +42,7 @@ namespace FGeo3D_TE
                 Bottom.X, Bottom.Y, Bottom.Z
             };
             var lineColor = sgworld.Creator.CreateColor(255, 0, 0, 128);
-            _skylineBodyObj = sgworld.Creator.CreatePolylineFromArray(arrVertices, lineColor, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
+            SkylineBodyObj = sgworld.Creator.CreatePolylineFromArray(arrVertices, lineColor, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
                 sgworld.ProjectTree.HiddenGroupID, Name);
 
             //标签
@@ -51,27 +51,27 @@ namespace FGeo3D_TE
             cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
             cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
             cLabelStyle.TextAlignment = "Bottom, Center";
-            _skylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
+            SkylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
 
             RecordLabelSkyId();
         }
 
         public void Erase(ref SGWorld66 sgworld)
         {
-            if (_skylineMouthObj != null)
+            if (SkylineMouthObj != null)
             {
-                sgworld.Creator.DeleteObject(_skylineMouthObj.ID);
-                _skylineMouthObj = null;
+                sgworld.Creator.DeleteObject(SkylineMouthObj.ID);
+                SkylineMouthObj = null;
             }
-            if (_skylineBodyObj != null)
+            if (SkylineBodyObj != null)
             {
-                sgworld.Creator.DeleteObject(_skylineBodyObj.ID);
-                _skylineBodyObj = null;
+                sgworld.Creator.DeleteObject(SkylineBodyObj.ID);
+                SkylineBodyObj = null;
             }
-            if (_skylineLabelObj != null)
+            if (SkylineLabelObj != null)
             {
-                sgworld.Creator.DeleteObject(_skylineLabelObj.ID);
-                _skylineLabelObj = null;
+                sgworld.Creator.DeleteObject(SkylineLabelObj.ID);
+                SkylineLabelObj = null;
             }
             //注意，此时没有删除dict里的字段
 

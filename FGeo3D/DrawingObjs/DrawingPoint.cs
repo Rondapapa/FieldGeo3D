@@ -29,7 +29,7 @@ namespace FGeo3D_TE
         {
             Type = "Point";
             _point = inSphere66;
-            AddObj(this, Id);
+
         }
 
         public DrawingPoint(DrawingObjectInfo geoObjInfo, ref SGWorld66 sgworld)
@@ -41,7 +41,6 @@ namespace FGeo3D_TE
             var nFillColor = 0xFF646464;
             var SegmentDensity = -1;
             _point = sgworld.Creator.CreateSphere(geoObjInfo.PointPosition, radius, Style, nLineColor, nFillColor, SegmentDensity, geoObjInfo.GroupId, geoObjInfo.Name);
-            AddObj(this, Id);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace FGeo3D_TE
             var SegmentDensity = -1;
             string gid = GeoHelper.CreateGroup("钻探", ref sgworld);
             IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
-            _skylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
+            SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
 
             //绘制孔身
             var arrVertices = new double[]
@@ -41,7 +41,7 @@ namespace FGeo3D_TE
                 Bottom.X, Bottom.Y, Bottom.Z
             };
             var lineColor = sgworld.Creator.CreateColor(255, 0, 0, 128);
-            _skylineBodyObj = sgworld.Creator.CreatePolylineFromArray(arrVertices, lineColor, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE, 
+            SkylineBodyObj = sgworld.Creator.CreatePolylineFromArray(arrVertices, lineColor, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE, 
                 sgworld.ProjectTree.HiddenGroupID, Name);
 
 
@@ -51,7 +51,7 @@ namespace FGeo3D_TE
             cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
             cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
             cLabelStyle.TextAlignment = "Bottom, Center";
-            _skylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
+            SkylineLabelObj = sgworld.Creator.CreateTextLabel(cPos, Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, Name);
 
             RecordLabelSkyId();
         }
