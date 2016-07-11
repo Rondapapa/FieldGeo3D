@@ -166,6 +166,23 @@ namespace FGeo3D_TE
             }
         }
 
+        public void HighlightLabel(ref SGWorld66 sgworld)
+        {
+            var textLabel = SkylineLabelObj as ITerrainLabel66;
+            if (textLabel == null) return;
+            var textLabelStyle = textLabel.Style;
+            textLabelStyle.TextColor = sgworld.Creator.CreateColor(255, 0, 0, 255);
+            textLabelStyle.Underline = true;
+        }
+
+        public void ResetLabel(ref SGWorld66 sgworld)
+        {
+            var textLabel = SkylineLabelObj as ITerrainLabel66;
+            if (textLabel == null) return;
+            var textLabelStyle = textLabel.Style;
+            textLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
+            textLabelStyle.Underline = false;
+        }
 
         /*
         public void AddObj(string skylineId, LoggingObject obj)

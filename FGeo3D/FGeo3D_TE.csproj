@@ -94,34 +94,34 @@
     <Compile Include="DrawingObjs\DrawingObject.cs" />
     <Compile Include="GeoObjs\GeoObject.cs" />
     <Compile Include="DrawingObjs\DrawingObjectInfo.cs" />
-    <Compile Include="FrmObject.cs">
+    <Compile Include="Frm\FrmObject.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmObject.Designer.cs">
+    <Compile Include="Frm\FrmObject.Designer.cs">
       <DependentUpon>FrmObject.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmPoint.cs">
+    <Compile Include="Frm\FrmPoint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmPoint.Designer.cs">
+    <Compile Include="Frm\FrmPoint.Designer.cs">
       <DependentUpon>FrmPoint.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmPosition.cs">
+    <Compile Include="Frm\FrmPosition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmPosition.Designer.cs">
+    <Compile Include="Frm\FrmPosition.Designer.cs">
       <DependentUpon>FrmPosition.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMain.cs">
+    <Compile Include="Frm\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMain.Designer.cs">
+    <Compile Include="Frm\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmLabel.cs">
+    <Compile Include="Frm\FrmLabel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmLabel.Designer.cs">
+    <Compile Include="Frm\FrmLabel.Designer.cs">
       <DependentUpon>FrmLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="LoggingObjs\LoggingFoundation.cs" />
@@ -136,20 +136,20 @@
     <Compile Include="LoggingObjs\LoggingSpot.cs" />
     <Compile Include="LoggingObjs\LoggingTrench.cs" />
     <Compile Include="LoggingObjs\LoggingWell.cs" />
-    <EmbeddedResource Include="FrmObject.resx">
+    <EmbeddedResource Include="Frm\FrmObject.resx">
       <DependentUpon>FrmObject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPoint.resx">
+    <EmbeddedResource Include="Frm\FrmPoint.resx">
       <DependentUpon>FrmPoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPosition.resx">
+    <EmbeddedResource Include="Frm\FrmPosition.resx">
       <DependentUpon>FrmPosition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMain.resx">
+    <EmbeddedResource Include="Frm\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmLabel.resx">
+    <EmbeddedResource Include="Frm\FrmLabel.resx">
       <DependentUpon>FrmLabel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

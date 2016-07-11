@@ -19,23 +19,26 @@ namespace FGeo3D_TE
 {
     public partial class FrmMain : Form
     {
-        //工程目录
-        private string _tProjectUrl;
 
-        //主接口
+        //Skyline
         SGWorld66 sgworld = null;
         
         //数据库
         YWCHEntEx db = null;
 
+        #region 全局变量域
+
+        //工程目录
+        private string _tProjectUrl;
+
         //数据库连接
-        private bool IsDBConnected = false;
+        private bool _isDbConnected = false;
         
         //模型路径
-        string modelPath;
+        string _modelPath;
 
-        //
-        private Dictionary<string, LoggingObject> SkyId_LogObj = new Dictionary<string, LoggingObject>();
+        //当前选定的工作对象Guid
+        private string _currWorkingObjGuid;
 
         //地形多边形
         ITerrainPolygon66 _pItPolygon = null;
@@ -43,10 +46,6 @@ namespace FGeo3D_TE
         //地形多段线
         ITerrainPolyline66 _pITerrainPolyline = null;
         
-
-        //地理地质对象管理对象-单例（还未实现）！
-        //private DrawingObject DrawingObj = new DrawingObject();
-        private LoggingObject LoggingObj = new LoggingObject();
 
         //地理地质对象信息传递对象
         private DrawingObjectInfo _objInfo;
@@ -56,7 +55,6 @@ namespace FGeo3D_TE
 
         //当前选取对象、及其监控事件
         private IWorldPointInfo66 _cWorldPointInfo;
-        
 
         //地形上下左右位置
         public double XLeft { get; private set; }
@@ -72,6 +70,8 @@ namespace FGeo3D_TE
 
         //手绘鼠标是否按下状态
         public bool IsFreehandDrawingMouseDown { get; set; }
+
+        #endregion
 
         public FrmMain()
         {
@@ -198,17 +198,17 @@ namespace FGeo3D_TE
         private void btnConnectDB_Click(object sender, EventArgs e)
         {
             //登录、选择工程阶段
-            IsDBConnected = db.SkyLogin();
-            if (!IsDBConnected) return;
+            _isDbConnected = db.SkyLogin();
+            if (!_isDbConnected) return;
             //创建模型
-            modelPath = db.SkyOpenOrNewModal();
+            _modelPath = db.SkyOpenOrNewModal();
             Text = db.GCName + @" - FieldGeo3D";
             StatusDatabase.Text = $"数据库状态：【已连接】|工程：{db.GCName}";
         }
 
         private void btnProject_Click(object sender, EventArgs e)
         {
-            if (IsDBConnected)
+            if (_isDbConnected)
             {
                 db.SkySelectProject();
             }
@@ -402,6 +402,14 @@ namespace FGeo3D_TE
         }
         */
 
+        private void btnSelectWorkingObj_Click(object sender, EventArgs e)
+        {
+            StatusSystem.Text = @"系统状态：【选择工作对象】";
+            sgworld.OnLButtonDown += OnLBtnDown_SelectWorkingObj;
+            sgworld.OnRButtonDown += OnRBtnDown_SelectWorkingObj;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+        }
+
         private void btnLine_Click(object sender, EventArgs e)
         {
             //sgworld.Command.Execute(1012, 4);
@@ -582,7 +590,6 @@ namespace FGeo3D_TE
             sgworld.Navigate.FlyTo(position);
         }
 
-
         private void swbtnGPS_ValueChanged(object sender, EventArgs e)
         {
             sgworld.Navigate.SetGPSMode(swbtnGPS.Value == false
@@ -591,7 +598,7 @@ namespace FGeo3D_TE
         }
 
         /// <summary>
-        /// 定位(？？？？)
+        /// GPS定位(？？？？)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -639,54 +646,38 @@ namespace FGeo3D_TE
             ITerrainPolygon66 itp3 = sgworld.Creator.CreatePolygon(ig);
             */
             
-            //测试geoplane
-            var p0 = new GeoPoint(415896.957085, 3269487.527959, 3157.6826);
-            var p1 = new GeoPoint(416440.844915, 3270171.110581, 3316.4351);
-            var p2 = new GeoPoint(416994.127891, 3270955.529197, 3404.8826);
-            var p3 = new GeoPoint(417134.990163, 3271563.044139, 3582.7659);
-            var p4 = new GeoPoint(417047.97109, 3272202.00806, 3525.4553);
-            var p5 = new GeoPoint(416789.154441, 3273192.007297, 3103.405);
-            var p6 = new GeoPoint(416129.200254, 3273107.372097, 2933.7236);
+            ////测试geoplane
+            //var p0 = new GeoPoint(415896.957085, 3269487.527959, 3157.6826);
+            //var p1 = new GeoPoint(416440.844915, 3270171.110581, 3316.4351);
+            //var p2 = new GeoPoint(416994.127891, 3270955.529197, 3404.8826);
+            //var p3 = new GeoPoint(417134.990163, 3271563.044139, 3582.7659);
+            //var p4 = new GeoPoint(417047.97109, 3272202.00806, 3525.4553);
+            //var p5 = new GeoPoint(416789.154441, 3273192.007297, 3103.405);
+            //var p6 = new GeoPoint(416129.200254, 3273107.372097, 2933.7236);
 
-            var pList = new List<GeoPoint> {p0, p1, p2, p3, p4, p5, p6};
+            //var pList = new List<GeoPoint> {p0, p1, p2, p3, p4, p5, p6};
 
             
 
-            //测试IsSimple
-            var arrP1 = new double[]
-            {
-                412615.291731,3269523.095953,0,
-                414177.661433,3269060.668648,0,
-                412365.834826,3268080.880464,0,
-                413435.563589,3269818.148106,0,
-                414215.54368,3269670.723062,0,
-            };
-            var arrP2 = new double[]
-            {
-                411771.724269,3269043.558136,0,
-                412294.277262,3268514.991006,0,
-                411507.287252,3268021.481417,0,
-                411150.209789,3268490.430657,0,
-            };
+            ////测试IsSimple
+            //var arrP1 = new double[]
+            //{
+            //    412615.291731,3269523.095953,0,
+            //    414177.661433,3269060.668648,0,
+            //    412365.834826,3268080.880464,0,
+            //    413435.563589,3269818.148106,0,
+            //    414215.54368,3269670.723062,0,
+            //};
+            //var arrP2 = new double[]
+            //{
+            //    411771.724269,3269043.558136,0,
+            //    412294.277262,3268514.991006,0,
+            //    411507.287252,3268021.481417,0,
+            //    411150.209789,3268490.430657,0,
+            //};
 
-            bool b1IsSimple = sgworld.Creator.GeometryCreator.CreateLinearRingGeometry(arrP1).IsSimple();
-            bool b2IsSimple = sgworld.Creator.GeometryCreator.CreateLinearRingGeometry(arrP2).IsSimple();
+            db.SkyFrmSJLYEdit("SYMX", new List<DMarker>());
 
-            //MessageBox.Show($"p1 simple:{b1IsSimple}, p2 simple:{b2IsSimple}");
-
-            var tp1 = sgworld.Creator.CreatePolygonFromArray(arrP1);
-            var tp2 = sgworld.Creator.CreatePolygonFromArray(arrP2);
-
-            //测试GetWorldPosition
-            //var item = GetWorldPointInfo();
-            //var pos = item.Position;
-            
-            sgworld.OnLButtonDown += OnLBtnDown_Query;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
-
-            //var pos = _cWorldPointInfo.Position;
-            //MessageBox.Show($"X:{pos.X},Y:{pos.Y}");
-            
         }
 
         /// <summary>
@@ -874,7 +865,6 @@ namespace FGeo3D_TE
             return true;
         }
 
-
         /// <summary>
         /// 钻探
         /// </summary>
@@ -1015,7 +1005,6 @@ namespace FGeo3D_TE
             return true;
         }
 
-
         /// <summary>
         /// 槽探
         /// </summary>
@@ -1155,8 +1144,13 @@ namespace FGeo3D_TE
             return true;
         }
 
-
-
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         private bool OnLBtnDown_Query(int flags, int x, int y)
         {
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
@@ -1173,6 +1167,65 @@ namespace FGeo3D_TE
             sgworld.OnLButtonDown -= OnLBtnDown_Query;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             StatusSystem.Text = @"系统状态：【默认】";
+            return true;
+        }
+
+        /// <summary>
+        /// 选择当前工作对象（数据来源类型）
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_SelectWorkingObj(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
+            if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+            {
+                MessageBox.Show(@"当前选择无效，请选择地质对象文字标签！", @"选择地质对象失败");
+                sgworld.OnLButtonDown -= OnLBtnDown_SelectWorkingObj;
+                sgworld.OnRButtonDown -= OnRBtnDown_SelectWorkingObj;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                StatusSystem.Text = @"系统状态：【默认】";
+                return true;
+            }
+            if (_currWorkingObjGuid != null)
+            {
+                if (LoggingObject.DictOfLoggingObjects.ContainsKey(_currWorkingObjGuid))
+                {
+                    LoggingObject.DictOfLoggingObjects[_currWorkingObjGuid].ResetLabel(ref sgworld);
+                }
+                StatusWorkingObj.Text = @"当前选定对象：【选定中】";
+                _currWorkingObjGuid = null;
+            }
+            _currWorkingObjGuid = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+            StatusWorkingObj.Text = $"当前选定对象：【类型代号：{db.SkyGetSJLYMDL(_currWorkingObjGuid).SJLYLXID}；编号：{db.SkyGetSJLYMDL(_currWorkingObjGuid).BH}】";
+            LoggingObject.DictOfLoggingObjects[_currWorkingObjGuid].HighlightLabel(ref sgworld);
+
+            sgworld.OnLButtonDown -= OnLBtnDown_SelectWorkingObj;
+            sgworld.OnRButtonDown -= OnRBtnDown_SelectWorkingObj;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            StatusSystem.Text = @"系统状态：【默认】";
+            return true;
+        }
+
+        private void ResetSelectWorkingObj()
+        {
+            StatusWorkingObj.Text = @"当前选定对象：【无】";
+            if (LoggingObject.DictOfLoggingObjects.ContainsKey(_currWorkingObjGuid))
+            {
+                LoggingObject.DictOfLoggingObjects[_currWorkingObjGuid].ResetLabel(ref sgworld);
+            }
+            _currWorkingObjGuid = null;
+            sgworld.OnLButtonDown -= OnLBtnDown_SelectWorkingObj;
+            sgworld.OnRButtonDown -= OnRBtnDown_SelectWorkingObj;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            StatusSystem.Text = @"系统状态：【默认】";
+        }
+
+        private bool OnRBtnDown_SelectWorkingObj(int flags, int x, int y)
+        {
+            ResetSelectWorkingObj();
             return true;
         }
 
@@ -1630,6 +1683,7 @@ namespace FGeo3D_TE
                 btnDrawingComplete.ForeColor = Color.Black;
             }
         }
+
 
 
 

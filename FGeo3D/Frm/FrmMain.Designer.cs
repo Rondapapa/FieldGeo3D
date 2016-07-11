@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
-            this.axTE3DWindow1 = new AxTerraExplorerX.AxTE3DWindow();
-            this.axTEInformationWindow1 = new AxTerraExplorerX.AxTEInformationWindow();
             this.rbLog = new DevComponents.DotNetBar.RibbonBar();
             this.btnSpot = new DevComponents.DotNetBar.ButtonItem();
             this.btnBore = new DevComponents.DotNetBar.ButtonItem();
@@ -64,6 +62,7 @@
             this.btnQuery = new DevComponents.DotNetBar.ButtonX();
             this.btnTest = new DevComponents.DotNetBar.ButtonX();
             this.btnChamber = new DevComponents.DotNetBar.RibbonBar();
+            this.btnSelectWorkingObj = new DevComponents.DotNetBar.ButtonItem();
             this.btnLine = new DevComponents.DotNetBar.ButtonItem();
             this.btnFreehandDrawing = new DevComponents.DotNetBar.ButtonItem();
             this.btnRegion = new DevComponents.DotNetBar.ButtonItem();
@@ -73,41 +72,20 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusSystem = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusWorkingObj = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusGPS = new System.Windows.Forms.ToolStripStatusLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
+            this.axTE3DWindow1 = new AxTerraExplorerX.AxTE3DWindow();
+            this.axTEInformationWindow1 = new AxTerraExplorerX.AxTEInformationWindow();
             this.gpMeasure.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
             this.SuspendLayout();
             // 
             // styleManager1
             // 
             this.styleManager1.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2010Blue;
             this.styleManager1.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.White, System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(87)))), ((int)(((byte)(154))))));
-            // 
-            // axTE3DWindow1
-            // 
-            this.axTE3DWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.axTE3DWindow1.Enabled = true;
-            this.axTE3DWindow1.Location = new System.Drawing.Point(206, 94);
-            this.axTE3DWindow1.Name = "axTE3DWindow1";
-            this.axTE3DWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTE3DWindow1.OcxState")));
-            this.axTE3DWindow1.Size = new System.Drawing.Size(950, 596);
-            this.axTE3DWindow1.TabIndex = 1;
-            // 
-            // axTEInformationWindow1
-            // 
-            this.axTEInformationWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.axTEInformationWindow1.Enabled = true;
-            this.axTEInformationWindow1.Location = new System.Drawing.Point(0, 94);
-            this.axTEInformationWindow1.Name = "axTEInformationWindow1";
-            this.axTEInformationWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTEInformationWindow1.OcxState")));
-            this.axTEInformationWindow1.Size = new System.Drawing.Size(200, 596);
-            this.axTEInformationWindow1.TabIndex = 0;
             // 
             // rbLog
             // 
@@ -139,7 +117,7 @@
             this.rbLog.Size = new System.Drawing.Size(349, 83);
             this.rbLog.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbLog.TabIndex = 9;
-            this.rbLog.Text = "信息编录";
+            this.rbLog.Text = "勘测编录";
             // 
             // 
             // 
@@ -232,7 +210,7 @@
             this.btnBuildSurface,
             this.btnStretchSurface,
             this.btnBlockAnalyse});
-            this.rbAnalysis.Location = new System.Drawing.Point(1030, 5);
+            this.rbAnalysis.Location = new System.Drawing.Point(1123, 5);
             this.rbAnalysis.Name = "rbAnalysis";
             this.rbAnalysis.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.rbAnalysis.Size = new System.Drawing.Size(199, 83);
@@ -305,7 +283,7 @@
             this.rbData.Size = new System.Drawing.Size(401, 83);
             this.rbData.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbData.TabIndex = 7;
-            this.rbData.Text = "数据来源";
+            this.rbData.Text = "工程设置";
             // 
             // 
             // 
@@ -384,7 +362,7 @@
             this.gpMeasure.Controls.Add(this.btnHorizonalDistance);
             this.gpMeasure.Controls.Add(this.btnAbsDistance);
             this.gpMeasure.DisabledBackColor = System.Drawing.Color.Empty;
-            this.gpMeasure.Location = new System.Drawing.Point(1162, 365);
+            this.gpMeasure.Location = new System.Drawing.Point(1262, 365);
             this.gpMeasure.Name = "gpMeasure";
             this.gpMeasure.Size = new System.Drawing.Size(71, 325);
             // 
@@ -500,7 +478,7 @@
             this.btnGPS.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnGPS.Image = ((System.Drawing.Image)(resources.GetObject("btnGPS.Image")));
             this.btnGPS.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnGPS.Location = new System.Drawing.Point(1174, 155);
+            this.btnGPS.Location = new System.Drawing.Point(1274, 155);
             this.btnGPS.Name = "btnGPS";
             this.btnGPS.Size = new System.Drawing.Size(54, 59);
             this.btnGPS.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -515,7 +493,7 @@
             this.btnQuery.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnQuery.Image = ((System.Drawing.Image)(resources.GetObject("btnQuery.Image")));
             this.btnQuery.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnQuery.Location = new System.Drawing.Point(1174, 220);
+            this.btnQuery.Location = new System.Drawing.Point(1274, 220);
             this.btnQuery.Name = "btnQuery";
             this.btnQuery.Size = new System.Drawing.Size(54, 60);
             this.btnQuery.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -528,7 +506,7 @@
             this.btnTest.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTest.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnTest.Location = new System.Drawing.Point(1174, 286);
+            this.btnTest.Location = new System.Drawing.Point(1274, 286);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(55, 50);
             this.btnTest.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -551,6 +529,7 @@
             this.btnChamber.ContainerControlProcessDialogKey = true;
             this.btnChamber.DragDropSupport = true;
             this.btnChamber.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnSelectWorkingObj,
             this.btnLine,
             this.btnFreehandDrawing,
             this.btnRegion,
@@ -558,10 +537,10 @@
             this.btnChamber.Location = new System.Drawing.Point(762, 5);
             this.btnChamber.Name = "btnChamber";
             this.btnChamber.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnChamber.Size = new System.Drawing.Size(262, 83);
+            this.btnChamber.Size = new System.Drawing.Size(338, 83);
             this.btnChamber.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnChamber.TabIndex = 8;
-            this.btnChamber.Text = "几何绘制";
+            this.btnChamber.Text = "绘制编录";
             // 
             // 
             // 
@@ -573,6 +552,13 @@
             // 
             // 
             this.btnChamber.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // btnSelectWorkingObj
+            // 
+            this.btnSelectWorkingObj.Name = "btnSelectWorkingObj";
+            this.btnSelectWorkingObj.SubItemsExpandWidth = 14;
+            this.btnSelectWorkingObj.Text = "选择对象";
+            this.btnSelectWorkingObj.Click += new System.EventHandler(this.btnSelectWorkingObj_Click);
             // 
             // btnLine
             // 
@@ -616,7 +602,7 @@
             // 
             // 
             this.swbtnGPS.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.swbtnGPS.Location = new System.Drawing.Point(1164, 121);
+            this.swbtnGPS.Location = new System.Drawing.Point(1265, 121);
             this.swbtnGPS.Name = "swbtnGPS";
             this.swbtnGPS.OffText = "指示";
             this.swbtnGPS.OnText = "跟随";
@@ -631,7 +617,7 @@
             // 
             // 
             this.labelGPS.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelGPS.Location = new System.Drawing.Point(1165, 94);
+            this.labelGPS.Location = new System.Drawing.Point(1266, 94);
             this.labelGPS.Name = "labelGPS";
             this.labelGPS.Size = new System.Drawing.Size(64, 23);
             this.labelGPS.TabIndex = 19;
@@ -643,33 +629,65 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusDatabase,
             this.StatusSystem,
+            this.StatusWorkingObj,
             this.StatusGPS});
             this.statusStrip1.Location = new System.Drawing.Point(0, 689);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1234, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(1334, 26);
             this.statusStrip1.TabIndex = 20;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // StatusDatabase
             // 
-            this.StatusDatabase.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.StatusDatabase.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.StatusDatabase.Name = "StatusDatabase";
             this.StatusDatabase.Size = new System.Drawing.Size(144, 21);
             this.StatusDatabase.Text = "数据库状态：【未连接】";
             // 
             // StatusSystem
             // 
-            this.StatusSystem.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.StatusSystem.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.StatusSystem.Name = "StatusSystem";
             this.StatusSystem.Size = new System.Drawing.Size(120, 21);
             this.StatusSystem.Text = "系统状态：【默认】";
             // 
+            // StatusWorkingObj
+            // 
+            this.StatusWorkingObj.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
+            this.StatusWorkingObj.Name = "StatusWorkingObj";
+            this.StatusWorkingObj.Size = new System.Drawing.Size(132, 21);
+            this.StatusWorkingObj.Text = "当前选定对象：【无】";
+            // 
             // StatusGPS
             // 
-            this.StatusGPS.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.StatusGPS.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.StatusGPS.Name = "StatusGPS";
             this.StatusGPS.Size = new System.Drawing.Size(119, 21);
             this.StatusGPS.Text = "GPS状态：【默认】";
+            // 
+            // axTE3DWindow1
+            // 
+            this.axTE3DWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.axTE3DWindow1.Enabled = true;
+            this.axTE3DWindow1.Location = new System.Drawing.Point(217, 94);
+            this.axTE3DWindow1.Name = "axTE3DWindow1";
+            this.axTE3DWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTE3DWindow1.OcxState")));
+            this.axTE3DWindow1.Size = new System.Drawing.Size(1039, 596);
+            this.axTE3DWindow1.TabIndex = 1;
+            // 
+            // axTEInformationWindow1
+            // 
+            this.axTEInformationWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.axTEInformationWindow1.Enabled = true;
+            this.axTEInformationWindow1.Location = new System.Drawing.Point(0, 94);
+            this.axTEInformationWindow1.Name = "axTEInformationWindow1";
+            this.axTEInformationWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTEInformationWindow1.OcxState")));
+            this.axTEInformationWindow1.Size = new System.Drawing.Size(211, 596);
+            this.axTEInformationWindow1.TabIndex = 0;
             // 
             // FrmMain
             // 
@@ -677,7 +695,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1234, 715);
+            this.ClientSize = new System.Drawing.Size(1334, 715);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.labelGPS);
             this.Controls.Add(this.swbtnGPS);
@@ -695,11 +713,11 @@
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FieldGeo3D";
-            ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).EndInit();
             this.gpMeasure.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -751,6 +769,8 @@
         private System.Windows.Forms.ToolStripStatusLabel StatusDatabase;
         private System.Windows.Forms.ToolStripStatusLabel StatusSystem;
         private System.Windows.Forms.ToolStripStatusLabel StatusGPS;
+        private DevComponents.DotNetBar.ButtonItem btnSelectWorkingObj;
+        private System.Windows.Forms.ToolStripStatusLabel StatusWorkingObj;
     }
 }
 

@@ -56,26 +56,7 @@ namespace FGeo3D_TE
             RecordLabelSkyId();
         }
 
-        public void Erase(ref SGWorld66 sgworld)
-        {
-            if (SkylineMouthObj != null)
-            {
-                sgworld.Creator.DeleteObject(SkylineMouthObj.ID);
-                SkylineMouthObj = null;
-            }
-            if (SkylineBodyObj != null)
-            {
-                sgworld.Creator.DeleteObject(SkylineBodyObj.ID);
-                SkylineBodyObj = null;
-            }
-            if (SkylineLabelObj != null)
-            {
-                sgworld.Creator.DeleteObject(SkylineLabelObj.ID);
-                SkylineLabelObj = null;
-            }
-            //注意，此时没有删除dict里的字段
-
-        }
+       
 
 
     }
