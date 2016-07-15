@@ -59,7 +59,7 @@ namespace FGeo3D_TE
         /// </summary>
         /// <param name="inGeoPoints">三维散点集</param>
         /// <returns></returns>
-        public static List<GeoPoint> FitPlane(List<GeoPoint> inGeoPoints)
+        public static List<Point> FitPlane(List<Point> inGeoPoints)
         {
             //三点以下，直接返回原点集
             if(inGeoPoints.Count <= 3)
@@ -113,7 +113,7 @@ namespace FGeo3D_TE
                     let x = point.X
                     let y = point.Y
                     let h = a0*x + a1*y + a2
-                    select new GeoPoint(x, y, h)).ToList();
+                    select new Point(x, y, h)).ToList();
 
             /*
             //获取中心点
@@ -151,7 +151,7 @@ namespace FGeo3D_TE
             var c = param[2];
 
             //返回结果点集（新点集与原点集的X、Y相同，H经过fitting重算）
-            return (from point in inGeoPoints let x = point.X let y = point.Y let h = point.Z - a/c*(x - xAve) - b/c*(y - yAve) select new GeoPoint(x, y, h, "#Fitting Point#")).ToList();
+            return (from point in inGeoPoints let x = point.X let y = point.Y let h = point.Z - a/c*(x - xAve) - b/c*(y - yAve) select new Point(x, y, h, "#Fitting Point#")).ToList();
             */
 
         }
@@ -161,7 +161,7 @@ namespace FGeo3D_TE
         /// </summary>
         /// <param name="inGeoPoints"></param>
         /// <returns></returns>
-        public static GeoPoint CentrialPoint(List<GeoPoint> inGeoPoints)
+        public static Point CentrialPoint(List<Point> inGeoPoints)
         {
             var xSum = 0.0;
             var ySum = 0.0;
@@ -175,7 +175,7 @@ namespace FGeo3D_TE
             var xAve = xSum / inGeoPoints.Count;
             var yAve = ySum / inGeoPoints.Count;
             var hAve = hSum / inGeoPoints.Count;
-            return new GeoPoint(xAve, yAve, hAve);
+            return new Point(xAve, yAve, hAve);
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace FGeo3D_TE
         /// </summary>
         /// <param name="inGeoPoints"></param>
         /// <returns></returns>
-        public static List<GeoPoint> GetHullPoints(List<GeoPoint> inGeoPoints)
+        public static List<Point> GetHullPoints(List<Point> inGeoPoints)
         {
             if (inGeoPoints.Count <= 3)
                 return inGeoPoints;

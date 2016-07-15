@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using GeoIM.CHIDI.DZ.COM;
 using GeoIM.CHIDI.DZ.COM.Common;
 using GeoIM.CHIDI.DZ.Util.Common;
@@ -30,8 +31,8 @@ namespace FGeo3D_TE
         public string Name => _dataObj.Name;
         public string sType => _dataObj.Type;
 
-        public GeoPoint Top { get; set; }
-        public GeoPoint Bottom { get; set; }
+        public IGPoint Top { get; set; }
+        public IGPoint Bottom { get; set; }
         public double Depth => Top.Z - Bottom.Z; //?
 
         public IGMarkerList Markers01 { get; set; }
@@ -70,21 +71,18 @@ namespace FGeo3D_TE
         public LoggingObject(IObjData dataObj, ref SGWorld66 sgworld)
         {
             _dataObj = dataObj;
-            Top = new GeoPoint
+            if (dataObj.Points.Count > 0)
             {
-                X = dataObj.Points.GetPoint(0).X,
-                Y = dataObj.Points.GetPoint(0).Y,
-                Z = dataObj.Points.GetPoint(0).Z
-                
-            };
-            var last = dataObj.Points.Count - 1;
-            Bottom = new GeoPoint
+                Top = dataObj.Points.GetPoint(0);
+                var last = dataObj.Points.Count - 1;
+                Bottom = dataObj.Points.GetPoint(last);
+            }
+            else
             {
-                X = dataObj.Points.GetPoint(last).X,
-                Y = dataObj.Points.GetPoint(last).Y,
-                Z = dataObj.Points.GetPoint(last).Z
-                
-            };
+                MessageBox.Show($"类型：{dataObj.Type} 编号：{dataObj.BH} 数据无效或格式错误，请到数据库后台校验",@"数据导入错误");
+                return;
+            }
+            
             Markers01 = dataObj.MarkersNO1;
             Markers02 = dataObj.MarkersNO2;
             Markers03 = dataObj.MarkersNO3;

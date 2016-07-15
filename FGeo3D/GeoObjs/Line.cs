@@ -7,12 +7,12 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class GeoLine:GeoObject
+    class Line:GeoObject
     {
         public List<IGPoint> Points { get; set; }
 
 
-        public GeoLine(IGMarker marker)
+        public Line(IGMarker marker)
         {
             for (var index = 0; index < marker.Points.Count; index++)
             {

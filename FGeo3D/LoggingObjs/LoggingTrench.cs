@@ -11,7 +11,7 @@ namespace FGeo3D_TE
     class LoggingTrench:LoggingObject
     {
 
-        public List<GeoPoint> Links { get; set; } = new List<GeoPoint>();  //控制点
+        public List<IGPoint> Links { get; set; } = new List<IGPoint>();  //控制点
         
 
         public LoggingTrench(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
@@ -21,7 +21,7 @@ namespace FGeo3D_TE
             for (var index = 0; index < dataObj.Points.Count; index++)
             {
                 var thisPoint = dataObj.Points.GetPoint(index);
-                Links.Add(new GeoPoint(thisPoint));
+                Links.Add(thisPoint);
             }
             
 

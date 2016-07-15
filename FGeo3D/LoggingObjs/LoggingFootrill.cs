@@ -10,7 +10,7 @@ namespace FGeo3D_TE
     class LoggingFootrill:LoggingObject
     {
 
-        public List<GeoPoint> Links { get; set; } = new List<GeoPoint>();  //平硐控制点
+        public List<IGPoint> Links { get; set; } = new List<IGPoint>();  //平硐控制点
 
         
 
@@ -21,7 +21,7 @@ namespace FGeo3D_TE
             for (var index = 0; index < dataObj.Points.Count; index++)
             {
                 var thisPoint = dataObj.Points.GetPoint(index);
-                Links.Add(new GeoPoint(thisPoint));
+                Links.Add(thisPoint);
             }
             Draw(ref sgworld);
         }

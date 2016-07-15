@@ -10,7 +10,7 @@ namespace FGeo3D_TE
     class GeoObject
     {
         private IGPoint _pointObj;
-        private IGMarker _markerObj;
+        private readonly IGMarker _markerObj;
         private ITerraExplorerObject66 _skylineObj;
 
         public string Guid => _markerObj.Guid;
@@ -77,12 +77,6 @@ namespace FGeo3D_TE
         /// 将该对象存入数据库
         /// </summary>
         public virtual void Store() { }
-
-        public int CompareTo(object obj)
-        {
-
-            throw new NotImplementedException();
-        }
 
         public virtual void BuildTsFile() { }
     }

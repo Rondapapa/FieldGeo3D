@@ -88,9 +88,9 @@
     <Compile Include="LoggingObjs\LoggingCavity.cs" />
     <Compile Include="LoggingObjs\LoggingFootrill.cs" />
     <Compile Include="GeoHelper.cs" />
-    <Compile Include="GeoObjs\GeoSurface.cs" />
+    <Compile Include="GeoObjs\Surface.cs" />
     <Compile Include="DrawingObjs\DrawingLine.cs" />
-    <Compile Include="GeoObjs\GeoLine.cs" />
+    <Compile Include="GeoObjs\Line.cs" />
     <Compile Include="DrawingObjs\DrawingObject.cs" />
     <Compile Include="GeoObjs\GeoObject.cs" />
     <Compile Include="DrawingObjs\DrawingObjectInfo.cs" />
@@ -128,7 +128,7 @@
     <Compile Include="LoggingObjs\LoggingObject.cs" />
     <Compile Include="LoggingObjs\LoggingPit.cs" />
     <Compile Include="DrawingObjs\DrawingPoint.cs" />
-    <Compile Include="GeoObjs\GeoPoint.cs" />
+    <Compile Include="GeoObjs\Point.cs" />
     <Compile Include="DrawingObjs\DrawingRegion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

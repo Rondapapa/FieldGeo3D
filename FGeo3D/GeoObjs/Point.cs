@@ -7,37 +7,39 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    class GeoPoint:GeoObject
+    class Point:GeoObject
     {
         public double X { get; set; }
         public double Y { get; set; }
         public double Z { get; set; }
 
 
-        public GeoPoint(double x, double y, double z)
+        public Point(double x, double y, double z)
         {
             X = x;
             Y = y;
             Z = z;
         }
 
-        public GeoPoint(IGPoint gPoint) :base(gPoint)
+        public Point(IGPoint gPoint) :base(gPoint)
         {
             X = gPoint.X;
             Y = gPoint.Y;
             Z = gPoint.Z;
         }
 
-        public GeoPoint(IGMarker marker) : base(marker)
+        public Point(IGMarker marker) : base(marker)
         {
             X = marker.X;
             Y = marker.Y;
             Z = marker.Z;
         }
 
-        public GeoPoint()
+        public Point()
         {
-            
+            X = 0;
+            Y = 0;
+            Z = 0;
         }
 
         /// <summary>
@@ -45,7 +47,7 @@ namespace FGeo3D_TE
         /// </summary>
         /// <param name="that"></param>
         /// <returns></returns>
-        public double DistanceToPoint(GeoPoint that)
+        public double DistanceToPoint(Point that)
         {
             var distanceSq = Math.Pow(X - that.Y, 2) + Math.Pow(Y - that.Y, 2) + Math.Pow(Z - that.Z, 2);
             return Math.Sqrt(distanceSq);
@@ -56,7 +58,7 @@ namespace FGeo3D_TE
         /// </summary>
         /// <param name="that"></param>
         /// <returns></returns>
-        public double YawTo(GeoPoint that)
+        public double YawTo(Point that)
         {
             var deltaX = that.X - X;
             var deltaY = that.Y - Y;
@@ -68,7 +70,7 @@ namespace FGeo3D_TE
         /// </summary>
         /// <param name="that"></param>
         /// <returns></returns>
-        public double PitchTo(GeoPoint that)
+        public double PitchTo(Point that)
         {
             var deltaX = that.X - X;
             var deltaY = that.Y - Y;

@@ -8,12 +8,16 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
-    //地质面
-    class GeoSurface:GeoObject
+    //地质曲面：仅用于拟合、延伸趋势面
+    class Surface:GeoObject
     {
+        //趋势面方程
+
+        //
+
         public List<IGPoint> Points { get; set; } //几何参照点集
 
-        public GeoSurface(IGMarker marker)
+        public Surface(IGMarker marker)
         {
             for (var index = 0; index < marker.Points.Count; index++)
             {
