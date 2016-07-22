@@ -14,7 +14,7 @@ namespace FGeo3D_TE
     {
         internal string ObjName = "地质对象#";
         internal Color SelectedColor;
-
+        internal string Type = "几何部件";
 
         public FrmObject(string pbhander)
         {
@@ -27,15 +27,15 @@ namespace FGeo3D_TE
         {
           	if(pbhander == "GeoLine")
           	{
-          	    this.Text += "地质界线";
+          	    this.Text += @"地质界线";
           	}
             if(pbhander == "GeoRegion")
             {
-                this.Text += "地质区域";
+                this.Text += @"地质区域";
             }
             if(pbhander == "FreehandDrawing")
             {
-                this.Text += "手绘地质界线";
+                this.Text += @"手绘地质界线";
             }
         }
 
@@ -53,7 +53,7 @@ namespace FGeo3D_TE
         {
             SelectedColor = colorCombControl.SelectedColor;
 
-            tbColor.Text = String.Format("红={0},绿={1},蓝={2}", SelectedColor.R, SelectedColor.G, SelectedColor.B);
+            tbColor.Text = $"红={SelectedColor.R},绿={SelectedColor.G},蓝={SelectedColor.B}";
             tbColor.BackColor = SelectedColor;
             tbColor.ForeColor = Color.FromArgb(SelectedColor.A, 255 - SelectedColor.R, 255 - SelectedColor.G, 255 - SelectedColor.B);
             btnOK.BackColor = Color.Chartreuse;
@@ -65,6 +65,19 @@ namespace FGeo3D_TE
             ObjName = tbName.Text;
         }
 
-        
+        private void radioBtnGeometryPart_CheckedChanged(object sender, EventArgs e)
+        {
+            Type = "几何部件";
+        }
+
+        private void radioBtnJX_CheckedChanged(object sender, EventArgs e)
+        {
+            Type = "界线";
+        }
+
+        private void radioBtnJGM_CheckedChanged(object sender, EventArgs e)
+        {
+            Type = "结构面";
+        }
     }
 }

@@ -7,13 +7,14 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
+    //地质点
     class Point:GeoObject
     {
         public double X { get; set; }
         public double Y { get; set; }
         public double Z { get; set; }
 
-
+        //一般构造
         public Point(double x, double y, double z)
         {
             X = x;
@@ -21,6 +22,7 @@ namespace FGeo3D_TE
             Z = z;
         }
 
+        //重构1：适用于GeoSmart的GPoint
         public Point(IGPoint gPoint) :base(gPoint)
         {
             X = gPoint.X;
@@ -28,11 +30,20 @@ namespace FGeo3D_TE
             Z = gPoint.Z;
         }
 
+        //重构2：适用于GeoSmart的GMarker
         public Point(IGMarker marker) : base(marker)
         {
             X = marker.X;
             Y = marker.Y;
             Z = marker.Z;
+        }
+
+        //重构3：适用于Skyline的IPoint
+        public Point(IPoint skyPoint)
+        {
+            X = skyPoint.X;
+            Y = skyPoint.Y;
+            Z = skyPoint.Z;
         }
 
         public Point()

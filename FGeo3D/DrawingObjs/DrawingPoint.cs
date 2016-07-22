@@ -8,22 +8,12 @@ namespace FGeo3D_TE
 {
     class DrawingPoint:DrawingObject
     {
-        private ITerrainSphere66 _point;
+        private readonly ITerrainSphere66 _point;
 
-        public string Id
-        {
-            get
-            {
-                return _point.ID;
-            }
-        }
+        public string Id => _point.ID;
 
-        public IPosition66 Position
-        {
-          	get { return _point.Position; }
-        }
+        public IPosition66 Position => _point.Position;
 
-        
 
         public DrawingPoint(ITerrainSphere66 inSphere66)
         {

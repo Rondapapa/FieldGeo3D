@@ -412,7 +412,11 @@ namespace FGeo3D_TE
 
         private void btnLine_Click(object sender, EventArgs e)
         {
-            //sgworld.Command.Execute(1012, 4);
+            if (string.IsNullOrEmpty(_currWorkingObjGuid))
+            {
+                MessageBox.Show(@"请先选择工作对象。", @"工作对象未选定");
+                return;
+            }
             try
             {
                 HighlightButton(btnLine, true);
@@ -436,7 +440,11 @@ namespace FGeo3D_TE
 
         private void btnRegion_Click(object sender, EventArgs e)
         {
-            //sgworld.Command.Execute(1012, 5);
+            if (string.IsNullOrEmpty(_currWorkingObjGuid))
+            {
+                MessageBox.Show(@"请先选择工作对象。", @"工作对象未选定");
+                return;
+            }
             try
             {
                 HighlightButton(btnRegion, true);
@@ -460,6 +468,11 @@ namespace FGeo3D_TE
 
         private void btnFreehandDrawing_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(_currWorkingObjGuid))
+            {
+                MessageBox.Show(@"请先选择工作对象。", @"工作对象未选定");
+                return;
+            }
             try
             {
                 HighlightButton(btnFreehandDrawing);
@@ -675,8 +688,7 @@ namespace FGeo3D_TE
             //    411507.287252,3268021.481417,0,
             //    411150.209789,3268490.430657,0,
             //};
-
-            db.SkyFrmSJLYEdit("SYMX", new List<DMarker>());
+            //db.SkyGetData().GetObjData(0).MarkersNO1.GetMarker(0).
 
         }
 
@@ -723,12 +735,17 @@ namespace FGeo3D_TE
                     cLabelStyle.TextAlignment = "Bottom, Center";
                     var cLabel = sgworld.Creator.CreateTextLabel(_pITerrainPolyline.Position, _objInfo.Name, cLabelStyle,
                         sgworld.ProjectTree.HiddenGroupID, "");
-                    var cGeoLine = new DrawingLine(_pITerrainPolyline, cLabel);
+                    var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.GeoType);
+                    cLine.Store(_currWorkingObjGuid, ref db);
                 }
                 _pITerrainPolyline = null;
                 _objInfo = null;
 
                 ResetButton(btnLine, true);
+                
+
+                
+                
             }
 
             #endregion
@@ -746,9 +763,13 @@ namespace FGeo3D_TE
                     cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
                     cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
                     cLabelStyle.TextAlignment = "Bottom, Center";
-                    var cLabel = sgworld.Creator.CreateTextLabel(_pItPolygon.Position, _objInfo.Name, cLabelStyle,
-                        sgworld.ProjectTree.HiddenGroupID, "");
-                    var cGeoRegion = new DrawingRegion(_pItPolygon, cLabel);
+                    if (_objInfo != null)
+                    {
+                        var cLabel = sgworld.Creator.CreateTextLabel(_pItPolygon.Position, _objInfo.Name, cLabelStyle,
+                            sgworld.ProjectTree.HiddenGroupID, "");
+                        var cRegion = new DrawingRegion(_pItPolygon, cLabel, _objInfo.GeoType);
+                        cRegion.Store(_currWorkingObjGuid, ref db);
+                    }
                 }
                 _tempLineString = null;
                 _pItPolygon = null;
@@ -1254,6 +1275,8 @@ namespace FGeo3D_TE
 
         private bool OnLBtnDown_Line(int flags, int x, int y)
         {
+            
+
             IWorldPointInfo66 pIwpInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN); //真实位置信息
             IPosition66 pIPosition = sgworld.Navigate.GetPosition(AltitudeTypeCode.ATC_ON_TERRAIN); //视点位置信息（相机位置）
             
@@ -1584,7 +1607,8 @@ namespace FGeo3D_TE
                 cLabelStyle.TextAlignment = "Bottom, Center";
                 var cLabel = sgworld.Creator.CreateTextLabel(_pITerrainPolyline.Position, _objInfo.Name, cLabelStyle,
                     sgworld.ProjectTree.HiddenGroupID, "");
-                var cLine = new DrawingLine(_pITerrainPolyline, cLabel);
+                var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.GeoType);
+                cLine.Store(_currWorkingObjGuid, ref db);
             }
             _pITerrainPolyline = null;
             _objInfo = null; 

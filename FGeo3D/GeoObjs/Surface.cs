@@ -13,7 +13,9 @@ namespace FGeo3D_TE
     {
         //趋势面方程
 
-        //
+
+        //TIN
+        public TsData TinData { get; set; }
 
         public List<IGPoint> Points { get; set; } //几何参照点集
 

@@ -19,6 +19,8 @@ namespace FGeo3D_TE
         public string ObjectId { get; set; }
         //对象类型
         public string ObjectType { get; set; }
+        //几何类型(几何部件、界线、结构面)
+        public string GeoType { get; set; }
         //分组名
         public string GroupId { get; set; }
         //描述
@@ -135,11 +137,13 @@ namespace FGeo3D_TE
                         IsDrop = true;
                         return;
                     }
-                    GroupId = CreateGroup("线");
+                    GeoType = frmLine.Type;
+                    GroupId = CreateGroup("绘制线 - " + GeoType);
                     Name = frmLine.ObjName;
                     var lineColors = frmLine.SelectedColor;
                     LineColor = sgworld.Creator.CreateColor(lineColors.R, lineColors.G, lineColors.B, lineColors.A);
                     FillColor = sgworld.Creator.CreateColor(lineColors.R, lineColors.G, lineColors.B, 128);
+                    
                     break;
 
                 case "Region":
@@ -154,7 +158,8 @@ namespace FGeo3D_TE
                         IsDrop = true;
                         return;
                     }
-                    GroupId = CreateGroup("区域");
+                    GeoType = frmRegion.Type;
+                    GroupId = CreateGroup("绘制区域 - " + GeoType);
                     Name = frmRegion.ObjName;
                     var regionColors = frmRegion.SelectedColor;
                     LineColor = sgworld.Creator.CreateColor(regionColors.R, regionColors.G, regionColors.B, regionColors.A);

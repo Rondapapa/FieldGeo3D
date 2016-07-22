@@ -57,6 +57,8 @@ namespace FGeo3D_TE
 
         public static Dictionary<string, LoggingObject> DictOfLoggingObjects = new Dictionary<string, LoggingObject>();
 
+        
+
         public static Dictionary<string, string> DictOfSkyId_Guid = new Dictionary<string, string>();
 
         /*
@@ -70,6 +72,7 @@ namespace FGeo3D_TE
 
         public LoggingObject(IObjData dataObj, ref SGWorld66 sgworld)
         {
+            
             _dataObj = dataObj;
             if (dataObj.Points.Count > 0)
             {
@@ -130,7 +133,7 @@ namespace FGeo3D_TE
         {
             if (!DictOfSkyId_Guid.ContainsKey(SkylineLabelObj.ID))
                 DictOfSkyId_Guid.Add(SkylineLabelObj.ID, Guid);
-
+            
         }
 
         /// <summary>
