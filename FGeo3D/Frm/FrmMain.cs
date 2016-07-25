@@ -690,6 +690,13 @@ namespace FGeo3D_TE
             //};
             //db.SkyGetData().GetObjData(0).MarkersNO1.GetMarker(0).
 
+            //测试TsFile
+            var testTsData = new TsData();
+
+            var testTsType = "";
+
+            var testTsFile = new TsFile(testTsData, testTsType);
+            testTsFile.WriteTsFile();
         }
 
         /// <summary>

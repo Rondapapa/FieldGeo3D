@@ -13,18 +13,14 @@ namespace FGeo3D_TE
         int VertexC;
     }
 
-    internal struct SegLink
-    {
-        int SegA;
-        int SegB;
-    }
+
 
     class TsData
     {
+        //点
         public List<Point> VerticesList = new List<Point>();
 
-        public List<SegLink> SegLinksList = new List<SegLink>();
-
+        //三角形
         public List<TriLink> TriLinksList = new List<TriLink>();
 
     }
