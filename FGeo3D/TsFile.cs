@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using stdole;
 using TerraExplorerX;
 using YWCH.CHIDI.DZ.COM.Skyline;
@@ -98,6 +99,129 @@ namespace FGeo3D_TE
             3.文件坐标信息，参考示例文件，可以照搬。
             4.思考如何进行测试。示例测试框架见主界面FrmMain的“临时测试”按钮代码，数据自己编。
             */
+            switch (Type)
+            {
+                case "Region":
+                case "Line":
+                    {
+
+                        var savets = new SaveFileDialog {Filter = @"part文件(*.part)|*.part|所有文件(*.*)|*.*"};
+                        var result = savets.ShowDialog();
+                        if (result != DialogResult.OK) return;
+                        FilePath = savets.FileName;
+                        var ts1 = new StreamWriter(FilePath, false, Encoding.Default);
+
+                        ts1.WriteLine("GOCAD PLine 1");
+                        ts1.WriteLine("HEADER {");
+                        ts1.WriteLine("name:" + Name);
+                        ts1.WriteLine("chidi_typeguid:");
+                        ts1.WriteLine("chidi_typestr:" + Type);
+                        ts1.WriteLine("chidi_objguid:");
+                        ts1.WriteLine("chidi_cnname:");
+                        ts1.WriteLine("bosl:");
+                        ts1.WriteLine("chidi_cgObjType:");
+                        ts1.WriteLine("*solid*color:");
+                        ts1.WriteLine("ivolmap:false");
+                        ts1.WriteLine("imap:false");
+                        ts1.WriteLine("chi_conobj:");
+                        ts1.WriteLine("mesh:on");//?
+                        ts1.WriteLine("cn:on");
+                        ts1.WriteLine("}");
+                        ts1.WriteLine("GOCAD_ORIGINAL_COORDINATE_SYSTEM");
+                        ts1.WriteLine("NAME Default");
+                        ts1.WriteLine("AXIS_NAME \"X\" \"Y\" \"Z\"");
+                        ts1.WriteLine("AXIS_UNIT \"m\" \"m\" \"m\"");
+                        ts1.WriteLine("ZPOSITIVE Elevation");
+                        ts1.WriteLine("END_ORIGINAL_COORDINATE_SYSTEM");
+                        ts1.WriteLine("PLine");
+
+                        for (int i = 0; i < TsData.VerticesList.Count; i++)
+                        {
+                            ts1.WriteLine("VART" + " " + (i + 1) + " " + TsData.VerticesList[i].X + " " + TsData.VerticesList[i].Y + " " + TsData.VerticesList[i].Z);
+                        }
+
+                        for (int i = 0; i < TsData.VerticesList.Count - 1; i++)
+                        {
+                            ts1.WriteLine("SEG" + " " + (i + 1) + (i + 2));
+                        }
+                        ts1.WriteLine("END");
+                        ts1.Close();
+
+
+                    }
+                    break;
+
+
+                case "Surface":
+                    {
+
+                        var savets = new SaveFileDialog {Filter = "part文件(*.part)|*.part|所有文件(*.*)|*.*"};
+                        var result = savets.ShowDialog();
+                        if (result != DialogResult.OK) return;
+                        
+                        FilePath = savets.FileName;
+                        var ts1 = new StreamWriter(FilePath, false, Encoding.Default);
+                        ts1.WriteLine("GOCAD TSurf 1");
+                        ts1.WriteLine("HEADER {");
+                        ts1.WriteLine("name:" + Name);
+                        ts1.WriteLine("chidi_typeguid:");
+                        ts1.WriteLine("chidi_typestr:" + Type);
+                        ts1.WriteLine("chidi_objguid:");
+                        ts1.WriteLine("chidi_cnname:");
+                        ts1.WriteLine("bosl:");
+                        ts1.WriteLine("chidi_cgObjType:");
+                        ts1.WriteLine("*solid*color:");
+                        ts1.WriteLine("ivolmap:false");
+                        ts1.WriteLine("imap:false");
+                        ts1.WriteLine("chi_conobj:");
+                        ts1.WriteLine("mesh:on");
+                        ts1.WriteLine("cn:on");
+                        ts1.WriteLine("}");
+                        ts1.WriteLine("GOCAD_ORIGINAL_COORDINATE_SYSTEM");
+                        ts1.WriteLine("NAME Default");
+                        ts1.WriteLine("AXIS_NAME \"X\" \"Y\" \"Z\"");
+                        ts1.WriteLine("AXIS_UNIT \"m\" \"m\" \"m\"");
+                        ts1.WriteLine("ZPOSITIVE Elevation");
+                        ts1.WriteLine("END_ORIGINAL_COORDINATE_SYSTEM");
+                        ts1.WriteLine("TFACE");
+                        for (int i = 0; i < TsData.VerticesList.Count; i++)
+                        {
+                            ts1.WriteLine("VART" + " " + (i + 1) + " " + TsData.VerticesList[i].X + " " + TsData.VerticesList[i].Y + " " + TsData.VerticesList[i].Z);
+                        }
+                        for (int i = 0; i < TsData.TriLinksList.Count; i++)
+                        {
+                            ts1.WriteLine("TRGL" + " " + TsData.TriLinksList[i].VertexA + " " + TsData.TriLinksList[i].VertexB + " " + TsData.TriLinksList[i].VertexC);
+                        }
+                        double max_vert_z = 0, max2_vert_z = 0;
+                        int num_max_vert_z = 0, num_max2_vert_z = 0;
+                        for (int i = 0; i < TsData.VerticesList.Count; i++)
+                        {
+                            if (max_vert_z < TsData.VerticesList[i].Z)
+                            {
+                                max_vert_z = TsData.VerticesList[i].Z;
+                                num_max_vert_z = i + 1;
+                            }
+
+                        }
+                        for (int i = 0; i < TsData.VerticesList.Count; i++)
+                        {
+                            if (max2_vert_z < TsData.VerticesList[i].Z && i != num_max_vert_z - 1)
+                            {
+                                max2_vert_z = TsData.VerticesList[i].Z;
+                                num_max2_vert_z = i + 1;
+                            }
+
+                        }
+
+                        ts1.WriteLine("BSTONE " + num_max_vert_z);
+                        ts1.WriteLine("BORDER " + (TsData.VerticesList.Count + 1) + " " + num_max_vert_z + " " + num_max2_vert_z);
+                        ts1.WriteLine("END");
+                        ts1.Close();
+
+                        
+                    }
+                    break;
+            }
         }
 
         public void UpdateTsFile(ref YWCHEntEx db)

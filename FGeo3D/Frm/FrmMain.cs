@@ -658,7 +658,7 @@ namespace FGeo3D_TE
             IGeometry ig = Itp1.Geometry.SpatialOperator.Intersection(Itp2.Geometry);
             ITerrainPolygon66 itp3 = sgworld.Creator.CreatePolygon(ig);
             */
-            
+
             ////测试geoplane
             //var p0 = new Point(415896.957085, 3269487.527959, 3157.6826);
             //var p1 = new Point(416440.844915, 3270171.110581, 3316.4351);
@@ -670,7 +670,7 @@ namespace FGeo3D_TE
 
             //var pList = new List<Point> {p0, p1, p2, p3, p4, p5, p6};
 
-            
+
 
             ////测试IsSimple
             //var arrP1 = new double[]
@@ -689,14 +689,28 @@ namespace FGeo3D_TE
             //    411150.209789,3268490.430657,0,
             //};
             //db.SkyGetData().GetObjData(0).MarkersNO1.GetMarker(0).
-            
+
             //测试TsFile
             var testTsData = new TsData();
-
-            var testTsType = "";
+            //   testTsData.VerticesList.Add()
+            Point p1 = new Point(100, 200, 300);
+            Point p2 = new Point(200, 300, 600);
+            Point p3 = new Point(150, 280, 500);
+            testTsData.VerticesList.Add(p1);
+            testTsData.VerticesList.Add(p2);
+            testTsData.VerticesList.Add(p3);
+            TriLink trgl1 = new TriLink();
+            trgl1.VertexA = 2;
+            trgl1.VertexB = 1;
+            trgl1.VertexC = 3;
+            testTsData.TriLinksList.Add(trgl1);
+            //   testTsData.TriLinksList.Add();
+            var testTsType = "Surface";
 
             var testTsFile = new TsFile(testTsData, testTsType);
+
             testTsFile.WriteTsFile();
+
         }
 
         /// <summary>

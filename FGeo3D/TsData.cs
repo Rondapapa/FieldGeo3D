@@ -8,9 +8,9 @@ namespace FGeo3D_TE
 {
     internal struct TriLink
     {
-        int VertexA;
-        int VertexB;
-        int VertexC;
+        public int VertexA;
+        public int VertexB;
+        public int VertexC;
     }
 
 
