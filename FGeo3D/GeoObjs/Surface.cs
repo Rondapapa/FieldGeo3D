@@ -12,7 +12,7 @@ namespace FGeo3D_TE
     class Surface:GeoObject
     {
         //趋势面方程
-
+        private CurvedFunction _curvedFunction;
 
         //TIN
         public TsData TinData { get; set; }

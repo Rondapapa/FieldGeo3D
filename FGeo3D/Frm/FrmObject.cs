@@ -14,39 +14,42 @@ namespace FGeo3D_TE
     {
         internal string ObjName = "地质对象#";
         internal Color SelectedColor;
-        internal string Type = "几何部件";
+        internal string SelectedType;
+        
+        
 
         public FrmObject(string pbhander)
         {
             InitializeComponent();
             Init(pbhander);
-
+            
         }
 
         private void Init(string pbhander)
         {
           	if(pbhander == "GeoLine")
           	{
-          	    this.Text += @"地质界线";
+          	    Text += @"地质界线";
           	}
             if(pbhander == "GeoRegion")
             {
-                this.Text += @"地质区域";
+                Text += @"地质区域";
             }
             if(pbhander == "FreehandDrawing")
             {
-                this.Text += @"手绘地质界线";
+                Text += @"手绘地质界线";
             }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
+            
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
         }
 
         private void colorCombControl_SelectedColorChanged(object sender, EventArgs e)
@@ -65,19 +68,23 @@ namespace FGeo3D_TE
             ObjName = tbName.Text;
         }
 
-        private void radioBtnGeometryPart_CheckedChanged(object sender, EventArgs e)
-        {
-            Type = "几何部件";
-        }
 
-        private void radioBtnJX_CheckedChanged(object sender, EventArgs e)
-        {
-            Type = "界线";
-        }
 
-        private void radioBtnJGM_CheckedChanged(object sender, EventArgs e)
+        private void comboBoxExType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Type = "结构面";
+            btnOK.Enabled = true;
+            SelectedType = comboBoxExType.SelectedItem.ToString();
+            comboBoxExType.Text = SelectedType;
+            if (SelectedType == "几何部件")
+            {
+                tbName.Enabled = true;
+                colorCombControl.Enabled = true;
+            }
+            else
+            {
+                tbName.Enabled = false;
+                colorCombControl.Enabled = false;
+            }
         }
     }
 }

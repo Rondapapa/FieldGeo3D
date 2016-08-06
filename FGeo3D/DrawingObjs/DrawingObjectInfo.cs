@@ -7,19 +7,20 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE
 {
+    //绘制编录信息传递类
     public class DrawingObjectInfo
     {
-        //名称
+        //
         public SGWorld66 InSgWorld;
-
+        //是否为废弃信息
         public bool IsDrop { get; set; }
-
+        //名称
         public string Name { get; set; }
         //ID:以此链接至ProjectTree中的Object
         public string ObjectId { get; set; }
         //对象类型
         public string ObjectType { get; set; }
-        //几何类型(几何部件、界线、结构面)
+        //几何类型(几何部件、界线、结构面等)
         public string GeoType { get; set; }
         //分组名
         public string GroupId { get; set; }
@@ -137,7 +138,7 @@ namespace FGeo3D_TE
                         IsDrop = true;
                         return;
                     }
-                    GeoType = frmLine.Type;
+                    GeoType = frmLine.SelectedType;
                     GroupId = CreateGroup("绘制线 - " + GeoType);
                     Name = frmLine.ObjName;
                     var lineColors = frmLine.SelectedColor;
@@ -158,7 +159,7 @@ namespace FGeo3D_TE
                         IsDrop = true;
                         return;
                     }
-                    GeoType = frmRegion.Type;
+                    GeoType = frmRegion.SelectedType;
                     GroupId = CreateGroup("绘制区域 - " + GeoType);
                     Name = frmRegion.ObjName;
                     var regionColors = frmRegion.SelectedColor;

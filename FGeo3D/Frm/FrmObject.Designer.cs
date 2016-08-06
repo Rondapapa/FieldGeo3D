@@ -40,8 +40,14 @@
             this.radioBtnGeometryPart = new System.Windows.Forms.RadioButton();
             this.radioBtnJX = new System.Windows.Forms.RadioButton();
             this.radioBtnJGM = new System.Windows.Forms.RadioButton();
-            this.groupPanelType = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.groupPanelType.SuspendLayout();
+            this.comboBoxExType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.cbItem_GeoPart = new DevComponents.Editors.ComboItem();
+            this.cbItem_DXM = new DevComponents.Editors.ComboItem();
+            this.cbItem_BT = new DevComponents.Editors.ComboItem();
+            this.cbItem_GZD = new DevComponents.Editors.ComboItem();
+            this.cbItem_HP = new DevComponents.Editors.ComboItem();
+            this.cbItem_JGM = new DevComponents.Editors.ComboItem();
+            this.cbItem_NSL = new DevComponents.Editors.ComboItem();
             this.SuspendLayout();
             // 
             // tbName
@@ -51,11 +57,12 @@
             // 
             this.tbName.Border.Class = "TextBoxBorder";
             this.tbName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbName.Enabled = false;
             this.tbName.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbName.Location = new System.Drawing.Point(70, 21);
+            this.tbName.Location = new System.Drawing.Point(70, 56);
             this.tbName.Name = "tbName";
             this.tbName.PreventEnterBeep = true;
-            this.tbName.Size = new System.Drawing.Size(486, 29);
+            this.tbName.Size = new System.Drawing.Size(487, 29);
             this.tbName.TabIndex = 0;
             this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
@@ -66,7 +73,7 @@
             // 
             this.labelName.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelName.Location = new System.Drawing.Point(12, 21);
+            this.labelName.Location = new System.Drawing.Point(12, 56);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(52, 29);
             this.labelName.TabIndex = 2;
@@ -77,6 +84,7 @@
             this.btnOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnOK.BackColor = System.Drawing.Color.Silver;
             this.btnOK.ColorTable = DevComponents.DotNetBar.eButtonColor.Magenta;
+            this.btnOK.Enabled = false;
             this.btnOK.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnOK.Location = new System.Drawing.Point(473, 91);
             this.btnOK.Name = "btnOK";
@@ -127,7 +135,7 @@
             // 
             this.labelType.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelType.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelType.Location = new System.Drawing.Point(12, 56);
+            this.labelType.Location = new System.Drawing.Point(12, 21);
             this.labelType.Name = "labelType";
             this.labelType.Size = new System.Drawing.Size(52, 29);
             this.labelType.TabIndex = 2;
@@ -135,9 +143,10 @@
             // 
             // colorCombControl
             // 
+            this.colorCombControl.Enabled = false;
             this.colorCombControl.Location = new System.Drawing.Point(13, 127);
             this.colorCombControl.Name = "colorCombControl";
-            this.colorCombControl.Size = new System.Drawing.Size(544, 490);
+            this.colorCombControl.Size = new System.Drawing.Size(544, 466);
             this.colorCombControl.TabIndex = 4;
             this.colorCombControl.Text = "colorCombControl1";
             this.colorCombControl.SelectedColorChanged += new System.EventHandler(this.colorCombControl_SelectedColorChanged);
@@ -157,85 +166,80 @@
             // 
             // radioBtnGeometryPart
             // 
-            this.radioBtnGeometryPart.AutoSize = true;
-            this.radioBtnGeometryPart.Checked = true;
-            this.radioBtnGeometryPart.Font = new System.Drawing.Font("宋体", 14.25F);
-            this.radioBtnGeometryPart.Location = new System.Drawing.Point(3, 3);
+            this.radioBtnGeometryPart.Location = new System.Drawing.Point(0, 0);
             this.radioBtnGeometryPart.Name = "radioBtnGeometryPart";
-            this.radioBtnGeometryPart.Size = new System.Drawing.Size(103, 23);
-            this.radioBtnGeometryPart.TabIndex = 5;
-            this.radioBtnGeometryPart.TabStop = true;
-            this.radioBtnGeometryPart.Text = "几何部件";
-            this.radioBtnGeometryPart.UseVisualStyleBackColor = true;
-            this.radioBtnGeometryPart.CheckedChanged += new System.EventHandler(this.radioBtnGeometryPart_CheckedChanged);
+            this.radioBtnGeometryPart.Size = new System.Drawing.Size(104, 24);
+            this.radioBtnGeometryPart.TabIndex = 0;
             // 
             // radioBtnJX
             // 
-            this.radioBtnJX.AutoSize = true;
-            this.radioBtnJX.Font = new System.Drawing.Font("宋体", 14.25F);
-            this.radioBtnJX.Location = new System.Drawing.Point(112, 3);
+            this.radioBtnJX.Location = new System.Drawing.Point(0, 0);
             this.radioBtnJX.Name = "radioBtnJX";
-            this.radioBtnJX.Size = new System.Drawing.Size(65, 23);
-            this.radioBtnJX.TabIndex = 5;
-            this.radioBtnJX.Text = "界线";
-            this.radioBtnJX.UseVisualStyleBackColor = true;
-            this.radioBtnJX.CheckedChanged += new System.EventHandler(this.radioBtnJX_CheckedChanged);
+            this.radioBtnJX.Size = new System.Drawing.Size(104, 24);
+            this.radioBtnJX.TabIndex = 0;
             // 
             // radioBtnJGM
             // 
-            this.radioBtnJGM.AutoSize = true;
-            this.radioBtnJGM.Font = new System.Drawing.Font("宋体", 14.25F);
-            this.radioBtnJGM.Location = new System.Drawing.Point(183, 3);
+            this.radioBtnJGM.Location = new System.Drawing.Point(0, 0);
             this.radioBtnJGM.Name = "radioBtnJGM";
-            this.radioBtnJGM.Size = new System.Drawing.Size(84, 23);
-            this.radioBtnJGM.TabIndex = 5;
-            this.radioBtnJGM.Text = "结构面";
-            this.radioBtnJGM.UseVisualStyleBackColor = true;
-            this.radioBtnJGM.CheckedChanged += new System.EventHandler(this.radioBtnJGM_CheckedChanged);
+            this.radioBtnJGM.Size = new System.Drawing.Size(104, 24);
+            this.radioBtnJGM.TabIndex = 0;
             // 
-            // groupPanelType
+            // comboBoxExType
             // 
-            this.groupPanelType.CanvasColor = System.Drawing.SystemColors.Control;
-            this.groupPanelType.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.groupPanelType.Controls.Add(this.radioBtnGeometryPart);
-            this.groupPanelType.Controls.Add(this.radioBtnJGM);
-            this.groupPanelType.Controls.Add(this.radioBtnJX);
-            this.groupPanelType.DisabledBackColor = System.Drawing.Color.Empty;
-            this.groupPanelType.DrawTitleBox = false;
-            this.groupPanelType.Location = new System.Drawing.Point(70, 56);
-            this.groupPanelType.Name = "groupPanelType";
-            this.groupPanelType.Size = new System.Drawing.Size(486, 28);
+            this.comboBoxExType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboBoxExType.Font = new System.Drawing.Font("宋体", 14.25F);
+            this.comboBoxExType.FormattingEnabled = true;
+            this.comboBoxExType.ItemHeight = 23;
+            this.comboBoxExType.Items.AddRange(new object[] {
+            this.cbItem_GeoPart,
+            this.cbItem_DXM,
+            this.cbItem_BT,
+            this.cbItem_GZD,
+            this.cbItem_HP,
+            this.cbItem_JGM,
+            this.cbItem_NSL});
+            this.comboBoxExType.Location = new System.Drawing.Point(71, 21);
+            this.comboBoxExType.Name = "comboBoxExType";
+            this.comboBoxExType.Size = new System.Drawing.Size(486, 29);
+            this.comboBoxExType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.comboBoxExType.TabIndex = 7;
+            this.comboBoxExType.SelectedIndexChanged += new System.EventHandler(this.comboBoxExType_SelectedIndexChanged);
             // 
+            // cbItem_GeoPart
             // 
+            this.cbItem_GeoPart.Text = "几何部件";
             // 
-            this.groupPanelType.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBackground;
-            this.groupPanelType.Style.BackColorGradientAngle = 90;
-            this.groupPanelType.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBackground;
-            this.groupPanelType.Style.BorderBottomWidth = 1;
-            this.groupPanelType.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.groupPanelType.Style.BorderLeftWidth = 1;
-            this.groupPanelType.Style.BorderRightWidth = 1;
-            this.groupPanelType.Style.BorderTopWidth = 1;
-            this.groupPanelType.Style.CornerDiameter = 4;
-            this.groupPanelType.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.groupPanelType.Style.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
-            this.groupPanelType.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            // cbItem_DXM
             // 
+            this.cbItem_DXM.Text = "界线";
             // 
+            // cbItem_BT
             // 
-            this.groupPanelType.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbItem_BT.Text = "崩塌";
             // 
+            // cbItem_GZD
             // 
+            this.cbItem_GZD.Text = "构造带";
             // 
-            this.groupPanelType.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.groupPanelType.TabIndex = 6;
+            // cbItem_HP
+            // 
+            this.cbItem_HP.Text = "滑坡";
+            // 
+            // cbItem_JGM
+            // 
+            this.cbItem_JGM.Text = "结构面";
+            // 
+            // cbItem_NSL
+            // 
+            this.cbItem_NSL.Text = "泥石流";
             // 
             // FrmObject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(569, 605);
-            this.Controls.Add(this.groupPanelType);
+            this.Controls.Add(this.comboBoxExType);
             this.Controls.Add(this.colorCombControl);
             this.Controls.Add(this.tbColor);
             this.Controls.Add(this.labelColor);
@@ -250,8 +254,6 @@
             this.Name = "FrmObject";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "新建";
-            this.groupPanelType.ResumeLayout(false);
-            this.groupPanelType.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -269,6 +271,13 @@
         private System.Windows.Forms.RadioButton radioBtnGeometryPart;
         private System.Windows.Forms.RadioButton radioBtnJX;
         private System.Windows.Forms.RadioButton radioBtnJGM;
-        private DevComponents.DotNetBar.Controls.GroupPanel groupPanelType;
+        private DevComponents.Editors.ComboItem cbItem_GeoPart;
+        private DevComponents.Editors.ComboItem cbItem_DXM;
+        private DevComponents.Editors.ComboItem cbItem_BT;
+        private DevComponents.Editors.ComboItem cbItem_GZD;
+        private DevComponents.Editors.ComboItem cbItem_HP;
+        private DevComponents.Editors.ComboItem cbItem_JGM;
+        private DevComponents.Editors.ComboItem cbItem_NSL;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExType;
     }
 }

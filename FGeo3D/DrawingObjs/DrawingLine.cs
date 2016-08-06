@@ -17,6 +17,7 @@ namespace FGeo3D_TE
             SkylineLabel = inLabel;
             DbUseType = useType;
             Ts = new TsFile(inLine, Type);
+            Ts.WriteTsFile();
         }
 
         public override void Store(string dataSourceObjGuid, ref YWCHEntEx db)

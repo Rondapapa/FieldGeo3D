@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using stdole;
 using TerraExplorerX;
+using YWCH.CHIDI.DZ.COM.Skyline;
 
 namespace FGeo3D_TE
 {
+    //Ts部件，仅用于存储部件，不用于展示（除了三维TIN面）
     class TsFile
     {
         public string Guid { get; private set; }
@@ -74,6 +77,12 @@ namespace FGeo3D_TE
             TsData = inTsData;
         }
 
+        //重构4：读取Ts文件
+        public TsFile(FileStream file)
+        {
+            
+        }
+
         //写TS文件，以FilePath路径保存。
         public void WriteTsFile()
         {
@@ -89,6 +98,11 @@ namespace FGeo3D_TE
             3.文件坐标信息，参考示例文件，可以照搬。
             4.思考如何进行测试。示例测试框架见主界面FrmMain的“临时测试”按钮代码，数据自己编。
             */
+        }
+
+        public void UpdateTsFile(ref YWCHEntEx db)
+        {
+            FilePath = db.SkyGetPartNewContent(Guid);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace FGeo3D_TE
             SkylineLabel = inLabel66;
             DbUseType = useType;
             Ts = new TsFile(inRegion, Type);
+            Ts.WriteTsFile();
         }
 
 

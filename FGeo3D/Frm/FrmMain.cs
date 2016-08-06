@@ -689,7 +689,7 @@ namespace FGeo3D_TE
             //    411150.209789,3268490.430657,0,
             //};
             //db.SkyGetData().GetObjData(0).MarkersNO1.GetMarker(0).
-
+            
             //测试TsFile
             var testTsData = new TsData();
 
@@ -1240,11 +1240,15 @@ namespace FGeo3D_TE
         private void ResetSelectWorkingObj()
         {
             StatusWorkingObj.Text = @"当前选定对象：【无】";
-            if (LoggingObject.DictOfLoggingObjects.ContainsKey(_currWorkingObjGuid))
+            if (!string.IsNullOrEmpty(_currWorkingObjGuid))
             {
-                LoggingObject.DictOfLoggingObjects[_currWorkingObjGuid].ResetLabel(ref sgworld);
+                if (LoggingObject.DictOfLoggingObjects.ContainsKey(_currWorkingObjGuid))
+                {
+                    LoggingObject.DictOfLoggingObjects[_currWorkingObjGuid].ResetLabel(ref sgworld);
+                }
+                _currWorkingObjGuid = null;
             }
-            _currWorkingObjGuid = null;
+            
             sgworld.OnLButtonDown -= OnLBtnDown_SelectWorkingObj;
             sgworld.OnRButtonDown -= OnRBtnDown_SelectWorkingObj;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);

@@ -83,6 +83,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurvedFunction.cs" />
+    <Compile Include="Frm\FrmPhoto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmPhoto.Designer.cs">
+      <DependentUpon>FrmPhoto.cs</DependentUpon>
+    </Compile>
     <Compile Include="TsData.cs" />
     <Compile Include="TsFile.cs" />
     <Compile Include="LoggingObjs\LoggingBore.cs" />
@@ -139,6 +146,9 @@
     <Compile Include="LoggingObjs\LoggingWell.cs" />
     <EmbeddedResource Include="Frm\FrmObject.resx">
       <DependentUpon>FrmObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmPhoto.resx">
+      <DependentUpon>FrmPhoto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmPoint.resx">
       <DependentUpon>FrmPoint.cs</DependentUpon>
@@ -206,6 +216,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Globe.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+using GeoIM.CHIDI.DZ.Util.Common;
 using TerraExplorerX;
 using YWCH.CHIDI.DZ.COM.Skyline;
 
@@ -25,7 +27,7 @@ namespace FGeo3D_TE
         public string Guid { get; private set; }
         
         public string Type { get; set;}
-
+        //几何类型（点、线、面）
         public string DbGeoType
         {
             get
@@ -43,10 +45,10 @@ namespace FGeo3D_TE
                 }
             }
         }
-
+        //地质对象类型（）
         public string DbUseType { get; set; }
 
-        public string connectGuid { get; set; }
+        //public string SourceGuid { get; set; }
 
         public string Name => SkylineLabel.Text;
 
@@ -96,42 +98,68 @@ namespace FGeo3D_TE
         {
             //上传TS部件文件
             db.SkyUploadPartVer(Ts.Guid, Ts.FilePath);
-            //创建地质对象（几何部件、界线、结构面）,并关联ts
+            //创建地质对象（几何部件、界线、结构面等）,并关联ts
             switch (DbUseType)
             {
                 case "几何部件":
-                    //以标识点（BSD）形式创建几何部件地质对象
-                    connectGuid = db.SkyNewObject("BSD", Guid, DbGeoType, Name, Color);
-                    db.SkyAddConnect(1, Ts.Guid, connectGuid);
+                    //以标识点（BSD）形式创建几何部件地质对象（数据来源级别?）
+                    var sourceGuid = db.SkyNewObject("BSD", Guid, DbGeoType, Name, Color);
+                    db.SkyAddConnect(1, Ts.Guid, sourceGuid);//?
                     break;
                 case "界线":
-                {
-                    connectGuid = dataSourceObjGuid;
-                    var dataSourceType = db.SkyGetSJLYMDL(dataSourceObjGuid).SJLYLXID;
-                    db.SkyFrmDzdx(dataSourceType, dataSourceObjGuid, "DXM");
-                    
-                    db.SkyAddConnect(0, Ts.Guid, connectGuid);
-                }
+                    StoreMarkerProcess(dataSourceObjGuid, "DXM", ref db);
                     break;
                 case "结构面":
-                {
-                    connectGuid = dataSourceObjGuid;
-                    var dataSourceType = db.SkyGetSJLYMDL(dataSourceObjGuid).SJLYLXID;
-                    db.SkyFrmDzdx(dataSourceType, dataSourceObjGuid, "JGM");
-                    db.SkyAddConnect(0, Ts.Guid, connectGuid);
-                }
+                    StoreMarkerProcess(dataSourceObjGuid, "JGM", ref db);
+                    break;
+                case "崩塌":
+                    StoreMarkerProcess(dataSourceObjGuid, "BT", ref db);
+                    break;
+                case "滑坡":
+                    StoreMarkerProcess(dataSourceObjGuid, "HP", ref db);
+                    break;
+                case "泥石流":
+                    StoreMarkerProcess(dataSourceObjGuid, "NSL", ref db);
+                    break;
+                case "构造带":
+                    StoreMarkerProcess(dataSourceObjGuid, "GZD", ref db);
                     break;
                 default:
-                    break;
+                    MessageBox.Show(@"Marker类型无效。", @"保存失败");
+                    return;
             }
-            
+        }
 
+        private static void StoreMarkerProcess(string dataSourceObjGuid, string markerType, ref YWCHEntEx db)
+        {
+            var dataSourceType = db.SkyGetSJLYMDL(dataSourceObjGuid).SJLYLXID;
+            //var markerGuid = db.SkyFrmDzdx(dataSourceType, dataSourceObjGuid, "DXM"); 
+            //应获取其guid
+            db.SkyFrmDzdx(dataSourceType, dataSourceObjGuid, markerType);
+
+            var pointList = new List<DMarker>();
+            var sourcePoints = db.SkyGetGeoDataList(dataSourceObjGuid).GetObjData(0).Points;
+            for (var index = 0; index < sourcePoints.Count; index++)
+            {
+                var thisPoint = sourcePoints.GetPoint(index);
+                pointList.Add(new DMarker
+                {
+                    X = thisPoint.X,
+                    Y = thisPoint.Y,
+                    Z = thisPoint.Z,
+                    DZDXLX = "KZD",
+                    SD = 0  //SD? 深度桩号需要写嘛？
+                });
+            }
+            //db.SkyAddDzdxMXZB(SourceGuid, markerGuid, pointList)
+
+            //db.SkyAddConnect(1, Ts.Guid, markerGuid);
         }
 
         //从数据库中获取模型部件TS的新版本。
-        public void GetTsFileFromDb()
+        public void GetTsFileFromDb(ref YWCHEntEx db)
         {
-            
+            Ts.UpdateTsFile(ref db);
         }
     }
 }
