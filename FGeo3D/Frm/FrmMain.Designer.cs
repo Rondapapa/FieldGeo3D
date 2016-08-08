@@ -567,7 +567,7 @@
             this.btnLine.Name = "btnLine";
             this.btnLine.SubItemsExpandWidth = 14;
             this.btnLine.Text = "点选地线";
-            this.btnLine.Click += new System.EventHandler(this.btnLine_Click);
+            this.btnLine.Click += new System.EventHandler(this.btnLineNew_Click);
             // 
             // btnFreehandDrawing
             // 

@@ -10,15 +10,18 @@ namespace FGeo3D_TE
     class DrawingLine : DrawingObject
     {
         
-        public DrawingLine(ITerraExplorerObject66 inLine, ITerrainLabel66 inLabel, string useType)
+        public DrawingLine(ITerraExplorerObject66 inLine, ITerrainLabel66 inLabel, string useType, List<string> conObjGuids )
         {
             Type = "Line";
             SkylineObj = inLine;
             SkylineLabel = inLabel;
             DbUseType = useType;
             Ts = new TsFile(inLine, Type);
-            Ts.WriteTsFile();
+            //Ts.WriteTsFile();
+            ConnObjGuids = conObjGuids;
         }
+
+
 
         public override void Store(string dataSourceObjGuid, ref YWCHEntEx db)
         {

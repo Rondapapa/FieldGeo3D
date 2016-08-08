@@ -41,13 +41,22 @@
             this.radioBtnJX = new System.Windows.Forms.RadioButton();
             this.radioBtnJGM = new System.Windows.Forms.RadioButton();
             this.comboBoxExType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
-            this.cbItem_GeoPart = new DevComponents.Editors.ComboItem();
-            this.cbItem_DXM = new DevComponents.Editors.ComboItem();
-            this.cbItem_BT = new DevComponents.Editors.ComboItem();
-            this.cbItem_GZD = new DevComponents.Editors.ComboItem();
-            this.cbItem_HP = new DevComponents.Editors.ComboItem();
+            this.cbItem_DCYX = new DevComponents.Editors.ComboItem();
+            this.cbItem_DXDM = new DevComponents.Editors.ComboItem();
+            this.cbItem_BTZH = new DevComponents.Editors.ComboItem();
+            this.cbItem_GZFD = new DevComponents.Editors.ComboItem();
+            this.cbItem_HPZH = new DevComponents.Editors.ComboItem();
             this.cbItem_JGM = new DevComponents.Editors.ComboItem();
-            this.cbItem_NSL = new DevComponents.Editors.ComboItem();
+            this.cbItem_NSLZH = new DevComponents.Editors.ComboItem();
+            this.cbItem_FH = new DevComponents.Editors.ComboItem();
+            this.cbItem_ZZ = new DevComponents.Editors.ComboItem();
+            this.cbItem_XH = new DevComponents.Editors.ComboItem();
+            this.cbItem_QZSWKT = new DevComponents.Editors.ComboItem();
+            this.cbItem_YR = new DevComponents.Editors.ComboItem();
+            this.cbItem_RBZH = new DevComponents.Editors.ComboItem();
+            this.cbItem_DXSFD = new DevComponents.Editors.ComboItem();
+            this.cbItem_TTFC = new DevComponents.Editors.ComboItem();
+            this.cbItem_YTFL = new DevComponents.Editors.ComboItem();
             this.SuspendLayout();
             // 
             // tbName
@@ -57,7 +66,6 @@
             // 
             this.tbName.Border.Class = "TextBoxBorder";
             this.tbName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbName.Enabled = false;
             this.tbName.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tbName.Location = new System.Drawing.Point(70, 56);
             this.tbName.Name = "tbName";
@@ -143,7 +151,6 @@
             // 
             // colorCombControl
             // 
-            this.colorCombControl.Enabled = false;
             this.colorCombControl.Location = new System.Drawing.Point(13, 127);
             this.colorCombControl.Name = "colorCombControl";
             this.colorCombControl.Size = new System.Drawing.Size(544, 466);
@@ -187,52 +194,95 @@
             // 
             // comboBoxExType
             // 
-            this.comboBoxExType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxExType.Font = new System.Drawing.Font("宋体", 14.25F);
-            this.comboBoxExType.FormattingEnabled = true;
-            this.comboBoxExType.ItemHeight = 23;
+            this.comboBoxExType.Font = new System.Drawing.Font("宋体", 14F);
+            this.comboBoxExType.ItemHeight = 19;
             this.comboBoxExType.Items.AddRange(new object[] {
-            this.cbItem_GeoPart,
-            this.cbItem_DXM,
-            this.cbItem_BT,
-            this.cbItem_GZD,
-            this.cbItem_HP,
+            this.cbItem_DXDM,
+            this.cbItem_DCYX,
             this.cbItem_JGM,
-            this.cbItem_NSL});
+            this.cbItem_GZFD,
+            this.cbItem_ZZ,
+            this.cbItem_FH,
+            this.cbItem_XH,
+            this.cbItem_NSLZH,
+            this.cbItem_HPZH,
+            this.cbItem_BTZH,
+            this.cbItem_RBZH,
+            this.cbItem_QZSWKT,
+            this.cbItem_YR,
+            this.cbItem_DXSFD,
+            this.cbItem_TTFC,
+            this.cbItem_YTFL});
             this.comboBoxExType.Location = new System.Drawing.Point(71, 21);
             this.comboBoxExType.Name = "comboBoxExType";
-            this.comboBoxExType.Size = new System.Drawing.Size(486, 29);
+            this.comboBoxExType.Size = new System.Drawing.Size(486, 27);
             this.comboBoxExType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.comboBoxExType.TabIndex = 7;
             this.comboBoxExType.SelectedIndexChanged += new System.EventHandler(this.comboBoxExType_SelectedIndexChanged);
             // 
-            // cbItem_GeoPart
+            // cbItem_DCYX
             // 
-            this.cbItem_GeoPart.Text = "几何部件";
+            this.cbItem_DCYX.Text = "地层岩性";
             // 
-            // cbItem_DXM
+            // cbItem_DXDM
             // 
-            this.cbItem_DXM.Text = "界线";
+            this.cbItem_DXDM.Text = "地形地貌";
             // 
-            // cbItem_BT
+            // cbItem_BTZH
             // 
-            this.cbItem_BT.Text = "崩塌";
+            this.cbItem_BTZH.Text = "崩塌";
             // 
-            // cbItem_GZD
+            // cbItem_GZFD
             // 
-            this.cbItem_GZD.Text = "构造带";
+            this.cbItem_GZFD.Text = "构造分段";
             // 
-            // cbItem_HP
+            // cbItem_HPZH
             // 
-            this.cbItem_HP.Text = "滑坡";
+            this.cbItem_HPZH.Text = "滑坡";
             // 
             // cbItem_JGM
             // 
             this.cbItem_JGM.Text = "结构面";
             // 
-            // cbItem_NSL
+            // cbItem_NSLZH
             // 
-            this.cbItem_NSL.Text = "泥石流";
+            this.cbItem_NSLZH.Text = "泥石流";
+            // 
+            // cbItem_FH
+            // 
+            this.cbItem_FH.Text = "风化";
+            // 
+            // cbItem_ZZ
+            // 
+            this.cbItem_ZZ.Text = "褶皱";
+            // 
+            // cbItem_XH
+            // 
+            this.cbItem_XH.Text = "卸荷";
+            // 
+            // cbItem_QZSWKT
+            // 
+            this.cbItem_QZSWKT.Text = "潜在失稳块体";
+            // 
+            // cbItem_YR
+            // 
+            this.cbItem_YR.Text = "岩溶";
+            // 
+            // cbItem_RBZH
+            // 
+            this.cbItem_RBZH.Text = "蠕变";
+            // 
+            // cbItem_DXSFD
+            // 
+            this.cbItem_DXSFD.Text = "地下水分段";
+            // 
+            // cbItem_TTFC
+            // 
+            this.cbItem_TTFC.Text = "土体分层";
+            // 
+            // cbItem_YTFL
+            // 
+            this.cbItem_YTFL.Text = "岩体分类";
             // 
             // FrmObject
             // 
@@ -271,13 +321,22 @@
         private System.Windows.Forms.RadioButton radioBtnGeometryPart;
         private System.Windows.Forms.RadioButton radioBtnJX;
         private System.Windows.Forms.RadioButton radioBtnJGM;
-        private DevComponents.Editors.ComboItem cbItem_GeoPart;
-        private DevComponents.Editors.ComboItem cbItem_DXM;
-        private DevComponents.Editors.ComboItem cbItem_BT;
-        private DevComponents.Editors.ComboItem cbItem_GZD;
-        private DevComponents.Editors.ComboItem cbItem_HP;
+        private DevComponents.Editors.ComboItem cbItem_DCYX;
+        private DevComponents.Editors.ComboItem cbItem_DXDM;
+        private DevComponents.Editors.ComboItem cbItem_BTZH;
+        private DevComponents.Editors.ComboItem cbItem_GZFD;
+        private DevComponents.Editors.ComboItem cbItem_HPZH;
         private DevComponents.Editors.ComboItem cbItem_JGM;
-        private DevComponents.Editors.ComboItem cbItem_NSL;
+        private DevComponents.Editors.ComboItem cbItem_NSLZH;
         private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExType;
+        private DevComponents.Editors.ComboItem cbItem_FH;
+        private DevComponents.Editors.ComboItem cbItem_ZZ;
+        private DevComponents.Editors.ComboItem cbItem_XH;
+        private DevComponents.Editors.ComboItem cbItem_QZSWKT;
+        private DevComponents.Editors.ComboItem cbItem_YR;
+        private DevComponents.Editors.ComboItem cbItem_RBZH;
+        private DevComponents.Editors.ComboItem cbItem_DXSFD;
+        private DevComponents.Editors.ComboItem cbItem_TTFC;
+        private DevComponents.Editors.ComboItem cbItem_YTFL;
     }
 }

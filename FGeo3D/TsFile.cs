@@ -24,6 +24,8 @@ namespace FGeo3D_TE
 
         public TsData TsData { get; } = new TsData();
 
+        public List<string> ConnObjGuids { get; } = new List<string>();
+
         //构造函数：
 
         //重构1：适用三维场景(线、区域)
@@ -114,16 +116,16 @@ namespace FGeo3D_TE
                         ts1.WriteLine("GOCAD PLine 1");
                         ts1.WriteLine("HEADER {");
                         ts1.WriteLine("name:" + Name);
-                        ts1.WriteLine("chidi_typeguid:");
+                        ts1.WriteLine("chidi_typeguid:");//?
                         ts1.WriteLine("chidi_typestr:" + Type);
                         ts1.WriteLine("chidi_objguid:");
                         ts1.WriteLine("chidi_cnname:");
                         ts1.WriteLine("bosl:");
-                        ts1.WriteLine("chidi_cgObjType:");
+                        ts1.WriteLine("chidi_cgObjType:");////////?????
                         ts1.WriteLine("*solid*color:");
                         ts1.WriteLine("ivolmap:false");
                         ts1.WriteLine("imap:false");
-                        ts1.WriteLine("chi_conobj:");
+                        ts1.WriteLine("chi_conobj:");//////////?????
                         ts1.WriteLine("mesh:on");//?
                         ts1.WriteLine("cn:on");
                         ts1.WriteLine("}");

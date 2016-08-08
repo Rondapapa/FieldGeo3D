@@ -27,11 +27,11 @@ namespace FGeo3D_TE
 
         private void Init(string pbhander)
         {
-          	if(pbhander == "GeoLine")
+          	if(pbhander == "Line" || pbhander == "LineNew")
           	{
           	    Text += @"地质界线";
           	}
-            if(pbhander == "GeoRegion")
+            if(pbhander == "Region")
             {
                 Text += @"地质区域";
             }
@@ -75,16 +75,18 @@ namespace FGeo3D_TE
             btnOK.Enabled = true;
             SelectedType = comboBoxExType.SelectedItem.ToString();
             comboBoxExType.Text = SelectedType;
-            if (SelectedType == "几何部件")
-            {
-                tbName.Enabled = true;
-                colorCombControl.Enabled = true;
-            }
-            else
-            {
-                tbName.Enabled = false;
-                colorCombControl.Enabled = false;
-            }
+            
+            //comboBoxExType.SelectedText = SelectedType;
+            //if (SelectedType == "几何部件")
+            //{
+            //    tbName.Enabled = true;
+            //    colorCombControl.Enabled = true;
+            //}
+            //else
+            //{
+            //    tbName.Enabled = false;
+            //    colorCombControl.Enabled = false;
+            //}
         }
     }
 }

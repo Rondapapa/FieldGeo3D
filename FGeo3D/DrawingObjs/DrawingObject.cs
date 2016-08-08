@@ -20,7 +20,8 @@ namespace FGeo3D_TE
 
         protected TsFile Ts;
 
-
+        //关联关系对应列表
+        public List<string> ConnObjGuids { get; set; } = new List<string>();
 
         public string ID => SkylineObj.ID;
 

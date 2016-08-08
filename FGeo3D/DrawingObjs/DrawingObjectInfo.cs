@@ -27,7 +27,10 @@ namespace FGeo3D_TE
         //描述
         public string Description { get; set; }
 
-#region 地质点数据
+        //关联关系列表
+        public List<string> ConnObjGuids = new List<string>();
+
+        #region 地质点数据
         public string PointId { get; set; }
 
         public bool IsPointTakenFromMap { get; set; }
@@ -145,6 +148,25 @@ namespace FGeo3D_TE
                     LineColor = sgworld.Creator.CreateColor(lineColors.R, lineColors.G, lineColors.B, lineColors.A);
                     FillColor = sgworld.Creator.CreateColor(lineColors.R, lineColors.G, lineColors.B, 128);
                     
+                    break;
+
+                case "LineNew":
+                    var frmLineNew = new FrmObject(pbHander);
+                    //若不指定边界颜色，则默认为黑色
+                    LineColor = sgworld.Creator.CreateColor(255, 255, 255, 255);
+                    //若不指定填充颜色，则默认为半透明蓝色
+                    FillColor = sgworld.Creator.CreateColor(0, 0, 255, 128);
+                    if (frmLineNew.ShowDialog() != DialogResult.OK)
+                    {
+                        IsDrop = true;
+                        return;
+                    }
+                    GeoType = frmLineNew.SelectedType;
+                    GroupId = CreateGroup("绘制线 - " + GeoType);
+                    Name = frmLineNew.ObjName;
+                    var lineNewColors = frmLineNew.SelectedColor;
+                    LineColor = sgworld.Creator.CreateColor(lineNewColors.R, lineNewColors.G, lineNewColors.B, lineNewColors.A);
+                    FillColor = sgworld.Creator.CreateColor(lineNewColors.R, lineNewColors.G, lineNewColors.B, 128);
                     break;
 
                 case "Region":
