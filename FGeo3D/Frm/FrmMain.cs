@@ -10,6 +10,7 @@ using TerraExplorerX;
 using System.IO;
 using System.Threading;
 using DevComponents.DotNetBar;
+using FGeo3D_TE.GeoImage;
 using GeoIM.CHIDI.DZ.COM;
 using GeoIM.CHIDI.DZ.Util.Common;
 using stdole;
@@ -409,6 +410,14 @@ namespace FGeo3D_TE
             sgworld.OnLButtonDown += OnLBtnDown_SelectWorkingObj;
             sgworld.OnRButtonDown += OnRBtnDown_SelectWorkingObj;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+        }
+
+        private void btnImageLogging_Click(object sender, EventArgs e)
+        {
+            StatusSystem.Text = @"系统状态：【图像编录】";
+            var frmImage = new FrmImage();
+            frmImage.Show();
+            StatusSystem.Text = @"系统状态：【默认】";
         }
 
         private void btnLine_Click(object sender, EventArgs e)

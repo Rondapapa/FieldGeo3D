@@ -84,12 +84,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CurvedFunction.cs" />
-    <Compile Include="Frm\FrmPhoto.cs">
+    <Compile Include="GeoImage\FrmCamera.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm\FrmPhoto.Designer.cs">
-      <DependentUpon>FrmPhoto.cs</DependentUpon>
+    <Compile Include="GeoImage\FrmCamera.Designer.cs">
+      <DependentUpon>FrmCamera.cs</DependentUpon>
     </Compile>
+    <Compile Include="GeoImage\FrmImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeoImage\FrmImage.Designer.cs">
+      <DependentUpon>FrmImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GeoImage\FrmImageLineType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeoImage\FrmImageLineType.Designer.cs">
+      <DependentUpon>FrmImageLineType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GeoImage\ImageLine.cs" />
     <Compile Include="TsData.cs" />
     <Compile Include="TsFile.cs" />
     <Compile Include="LoggingObjs\LoggingBore.cs" />
@@ -144,11 +157,17 @@
     <Compile Include="LoggingObjs\LoggingSpot.cs" />
     <Compile Include="LoggingObjs\LoggingTrench.cs" />
     <Compile Include="LoggingObjs\LoggingWell.cs" />
+    <EmbeddedResource Include="GeoImage\FrmCamera.resx">
+      <DependentUpon>FrmCamera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeoImage\FrmImageLineType.resx">
+      <DependentUpon>FrmImageLineType.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmObject.resx">
       <DependentUpon>FrmObject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm\FrmPhoto.resx">
-      <DependentUpon>FrmPhoto.cs</DependentUpon>
+    <EmbeddedResource Include="GeoImage\FrmImage.resx">
+      <DependentUpon>FrmImage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmPoint.resx">
       <DependentUpon>FrmPoint.cs</DependentUpon>

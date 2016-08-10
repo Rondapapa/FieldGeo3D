@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FGeo3D_TE.Frm
+namespace FGeo3D_TE.GeoImage
 {
-    public partial class FrmPhoto : Form
+    public partial class FrmCamera : Form
     {
-        public FrmPhoto()
+        public FrmCamera()
         {
             InitializeComponent();
+        }
+
+        private void FrmCamera_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

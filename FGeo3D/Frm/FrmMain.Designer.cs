@@ -62,7 +62,7 @@
             this.btnQuery = new DevComponents.DotNetBar.ButtonX();
             this.btnTest = new DevComponents.DotNetBar.ButtonX();
             this.btnChamber = new DevComponents.DotNetBar.RibbonBar();
-            this.btnSelectWorkingObj = new DevComponents.DotNetBar.ButtonItem();
+            this.btnImageLogging = new DevComponents.DotNetBar.ButtonItem();
             this.btnLine = new DevComponents.DotNetBar.ButtonItem();
             this.btnFreehandDrawing = new DevComponents.DotNetBar.ButtonItem();
             this.btnRegion = new DevComponents.DotNetBar.ButtonItem();
@@ -529,7 +529,7 @@
             this.btnChamber.ContainerControlProcessDialogKey = true;
             this.btnChamber.DragDropSupport = true;
             this.btnChamber.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnSelectWorkingObj,
+            this.btnImageLogging,
             this.btnLine,
             this.btnFreehandDrawing,
             this.btnRegion,
@@ -553,12 +553,12 @@
             // 
             this.btnChamber.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
-            // btnSelectWorkingObj
+            // btnImageLogging
             // 
-            this.btnSelectWorkingObj.Name = "btnSelectWorkingObj";
-            this.btnSelectWorkingObj.SubItemsExpandWidth = 14;
-            this.btnSelectWorkingObj.Text = "选择对象";
-            this.btnSelectWorkingObj.Click += new System.EventHandler(this.btnSelectWorkingObj_Click);
+            this.btnImageLogging.Name = "btnImageLogging";
+            this.btnImageLogging.SubItemsExpandWidth = 14;
+            this.btnImageLogging.Text = "图像编录";
+            this.btnImageLogging.Click += new System.EventHandler(this.btnImageLogging_Click);
             // 
             // btnLine
             // 
@@ -769,7 +769,7 @@
         private System.Windows.Forms.ToolStripStatusLabel StatusDatabase;
         private System.Windows.Forms.ToolStripStatusLabel StatusSystem;
         private System.Windows.Forms.ToolStripStatusLabel StatusGPS;
-        private DevComponents.DotNetBar.ButtonItem btnSelectWorkingObj;
+        private DevComponents.DotNetBar.ButtonItem btnImageLogging;
         private System.Windows.Forms.ToolStripStatusLabel StatusWorkingObj;
     }
 }

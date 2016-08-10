@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MathNet.Spatial.Euclidean;
 using stdole;
 using TerraExplorerX;
 using YWCH.CHIDI.DZ.COM.Skyline;
@@ -15,13 +16,23 @@ namespace FGeo3D_TE
     class TsFile
     {
         public string Guid { get; private set; }
+
         //几何类型：线PLine、面TSurf、区域PLine
         public string Type { get; private set; }
 
+        //几何类型：D（点）等
+        public string GeoType { get; set; }
+
+        //地质对象类型：DCYX（地层岩性）等
+        public string MarkerType { get; set; }
+
+        //保存路径
         public string FilePath { get; set; }
 
+        //名称
         public string Name { get; set; }
 
+        //
         public TsData TsData { get; } = new TsData();
 
         public List<string> ConnObjGuids { get; } = new List<string>();
@@ -67,10 +78,19 @@ namespace FGeo3D_TE
         }
 
         //重构2：适用二维图像(线、半平面)
-        public TsFile(List<Point> pointsList)
+        public TsFile(IEnumerable<Point3D> inPointsList, string type)
         {
-            Type = "Line";
-            TsData.VerticesList = pointsList;
+            Type = type;
+            foreach (var thisPoint in inPointsList)
+            {
+                TsData.VerticesList.Add(new Point(thisPoint.X, thisPoint.Y, thisPoint.Z));
+            }
+            if (Type == "TSurf")
+            {
+                TsData.TriLinksList.Add(new TriLink());
+            }
+            
+            
         }
 
         //重构3：适用任意情况（线、区域、面）
@@ -84,6 +104,13 @@ namespace FGeo3D_TE
         public TsFile(FileStream file)
         {
             
+        }
+
+        //根据几何类型和地质对象类型，获取ts文件所需的TypeGuid
+        public static string TypeGuid(string geoType, string markerType)
+        {
+            string resultGuid = "";
+            return resultGuid;
         }
 
         //写TS文件，以FilePath路径保存。
@@ -117,9 +144,9 @@ namespace FGeo3D_TE
                         ts1.WriteLine("HEADER {");
                         ts1.WriteLine("name:" + Name);
                         ts1.WriteLine("chidi_typeguid:");//?
-                        ts1.WriteLine("chidi_typestr:" + Type);
-                        ts1.WriteLine("chidi_objguid:");
-                        ts1.WriteLine("chidi_cnname:");
+                        ts1.WriteLine("chidi_typestr:" + MarkerType);
+                        ts1.WriteLine("chidi_objguid:" + Guid);
+                        ts1.WriteLine("chidi_cnname:" + Name);
                         ts1.WriteLine("bosl:");
                         ts1.WriteLine("chidi_cgObjType:");////////?????
                         ts1.WriteLine("*solid*color:");
