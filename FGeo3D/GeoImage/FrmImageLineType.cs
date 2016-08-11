@@ -31,54 +31,54 @@ namespace FGeo3D_TE.GeoImage
 
         private void comboBoxExGeoType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboBoxExGeoType.SelectedValue.ToString())
+            switch (comboBoxExGeoType.SelectedItem.ToString())
             {
-                case "DXDM":
+                case "地形地貌":
                     GeoType = GeoType.地形地貌;
                     break;
-                case "DCYX":
+                case "地层岩性":
                     GeoType = GeoType.地层岩性;
                     break;
-                case "JGM":
+                case "结构面":
                     GeoType = GeoType.结构面;
                     break;
-                case "GZFD":
+                case "构造分段":
                     GeoType = GeoType.构造分段;
                     break;
-                case "ZZ":
+                case "褶皱":
                     GeoType = GeoType.褶皱;
                     break;
-                case "FF":
+                case "风化":
                     GeoType = GeoType.风化;
                     break;
-                case "XH":
+                case "卸荷":
                     GeoType = GeoType.卸荷;
                     break;
-                case "NSLZH":
+                case "泥石流":
                     GeoType = GeoType.泥石流;
                     break;
-                case "HPZH":
+                case "滑坡":
                     GeoType = GeoType.滑坡;
                     break;
-                case "BTZH":
+                case "崩塌":
                     GeoType = GeoType.崩塌;
                     break;
-                case "RBZH":
+                case "蠕变":
                     GeoType = GeoType.蠕变;
                     break;
-                case "QZSWKT":
+                case "潜在失稳块体":
                     GeoType = GeoType.潜在失稳块体;
                     break;
-                case "YR":
+                case "岩溶":
                     GeoType = GeoType.岩溶;
                     break;
-                case "DXSFD":
+                case "地下水分段":
                     GeoType = GeoType.地下水分段;
                     break;
-                case "TTFC":
+                case "土体分层":
                     GeoType = GeoType.土体分层;
                     break;
-                case "YTFL":
+                case "岩体分类":
                     GeoType = GeoType.岩体分类;
                     break;
                 default:
@@ -88,12 +88,12 @@ namespace FGeo3D_TE.GeoImage
 
         private void comboBoxExStretchType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboBoxExStretchType.SelectedValue.ToString())
+            switch (comboBoxExStretchType.SelectedItem.ToString())
             {
-                case "None":
+                case "无":
                     StretchType = StretchType.无;
                     break;
-                case "Triangle":
+                case "三角形延伸":
                     StretchType = StretchType.三角形延伸;
                     break;
                 default:

@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             this.comboBoxExGeoType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
-            this.comboBoxExStretchType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
-            this.labelXGeoType = new DevComponents.DotNetBar.LabelX();
-            this.labelXStretchType = new DevComponents.DotNetBar.LabelX();
-            this.buttonXOK = new DevComponents.DotNetBar.ButtonX();
-            this.buttonXCancel = new DevComponents.DotNetBar.ButtonX();
             this.comboItem_DXDM = new DevComponents.Editors.ComboItem();
             this.comboItem_DCYX = new DevComponents.Editors.ComboItem();
             this.comboItem_JGM = new DevComponents.Editors.ComboItem();
@@ -50,8 +45,13 @@
             this.comboItem_DXSFD = new DevComponents.Editors.ComboItem();
             this.comboItem_TTFC = new DevComponents.Editors.ComboItem();
             this.comboItem_YTFL = new DevComponents.Editors.ComboItem();
+            this.comboBoxExStretchType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.comboItem_None = new DevComponents.Editors.ComboItem();
             this.comboItem_Triangle = new DevComponents.Editors.ComboItem();
+            this.labelXGeoType = new DevComponents.DotNetBar.LabelX();
+            this.labelXStretchType = new DevComponents.DotNetBar.LabelX();
+            this.buttonXOK = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXCancel = new DevComponents.DotNetBar.ButtonX();
             this.SuspendLayout();
             // 
             // comboBoxExGeoType
@@ -84,75 +84,6 @@
             this.comboBoxExGeoType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.comboBoxExGeoType.TabIndex = 0;
             this.comboBoxExGeoType.SelectedIndexChanged += new System.EventHandler(this.comboBoxExGeoType_SelectedIndexChanged);
-            // 
-            // comboBoxExStretchType
-            // 
-            this.comboBoxExStretchType.DisplayMember = "Text";
-            this.comboBoxExStretchType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxExStretchType.Font = new System.Drawing.Font("宋体", 12F);
-            this.comboBoxExStretchType.FormattingEnabled = true;
-            this.comboBoxExStretchType.ItemHeight = 20;
-            this.comboBoxExStretchType.Items.AddRange(new object[] {
-            this.comboItem_None,
-            this.comboItem_Triangle});
-            this.comboBoxExStretchType.Location = new System.Drawing.Point(135, 60);
-            this.comboBoxExStretchType.Name = "comboBoxExStretchType";
-            this.comboBoxExStretchType.Size = new System.Drawing.Size(264, 26);
-            this.comboBoxExStretchType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.comboBoxExStretchType.TabIndex = 0;
-            this.comboBoxExStretchType.SelectedIndexChanged += new System.EventHandler(this.comboBoxExStretchType_SelectedIndexChanged);
-            // 
-            // labelXGeoType
-            // 
-            // 
-            // 
-            // 
-            this.labelXGeoType.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelXGeoType.Font = new System.Drawing.Font("宋体", 12F);
-            this.labelXGeoType.Location = new System.Drawing.Point(12, 12);
-            this.labelXGeoType.Name = "labelXGeoType";
-            this.labelXGeoType.Size = new System.Drawing.Size(117, 26);
-            this.labelXGeoType.TabIndex = 1;
-            this.labelXGeoType.Text = "地质对象类型";
-            // 
-            // labelXStretchType
-            // 
-            // 
-            // 
-            // 
-            this.labelXStretchType.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelXStretchType.Font = new System.Drawing.Font("宋体", 12F);
-            this.labelXStretchType.Location = new System.Drawing.Point(12, 60);
-            this.labelXStretchType.Name = "labelXStretchType";
-            this.labelXStretchType.Size = new System.Drawing.Size(117, 26);
-            this.labelXStretchType.TabIndex = 2;
-            this.labelXStretchType.Text = "面内延伸方式";
-            // 
-            // buttonXOK
-            // 
-            this.buttonXOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonXOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXOK.Font = new System.Drawing.Font("宋体", 10F);
-            this.buttonXOK.Location = new System.Drawing.Point(53, 102);
-            this.buttonXOK.Name = "buttonXOK";
-            this.buttonXOK.Size = new System.Drawing.Size(118, 34);
-            this.buttonXOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonXOK.TabIndex = 3;
-            this.buttonXOK.Text = "确认";
-            this.buttonXOK.Click += new System.EventHandler(this.buttonXOK_Click);
-            // 
-            // buttonXCancel
-            // 
-            this.buttonXCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonXCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXCancel.Font = new System.Drawing.Font("宋体", 10F);
-            this.buttonXCancel.Location = new System.Drawing.Point(223, 102);
-            this.buttonXCancel.Name = "buttonXCancel";
-            this.buttonXCancel.Size = new System.Drawing.Size(118, 34);
-            this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonXCancel.TabIndex = 3;
-            this.buttonXCancel.Text = "取消";
-            this.buttonXCancel.Click += new System.EventHandler(this.buttonXCancel_Click);
             // 
             // comboItem_DXDM
             // 
@@ -234,6 +165,23 @@
             this.comboItem_YTFL.Text = "岩体分类";
             this.comboItem_YTFL.Value = "YTFL";
             // 
+            // comboBoxExStretchType
+            // 
+            this.comboBoxExStretchType.DisplayMember = "Text";
+            this.comboBoxExStretchType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboBoxExStretchType.Font = new System.Drawing.Font("宋体", 12F);
+            this.comboBoxExStretchType.FormattingEnabled = true;
+            this.comboBoxExStretchType.ItemHeight = 20;
+            this.comboBoxExStretchType.Items.AddRange(new object[] {
+            this.comboItem_None,
+            this.comboItem_Triangle});
+            this.comboBoxExStretchType.Location = new System.Drawing.Point(135, 60);
+            this.comboBoxExStretchType.Name = "comboBoxExStretchType";
+            this.comboBoxExStretchType.Size = new System.Drawing.Size(264, 26);
+            this.comboBoxExStretchType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.comboBoxExStretchType.TabIndex = 0;
+            this.comboBoxExStretchType.SelectedIndexChanged += new System.EventHandler(this.comboBoxExStretchType_SelectedIndexChanged);
+            // 
             // comboItem_None
             // 
             this.comboItem_None.Text = "无";
@@ -243,6 +191,58 @@
             // 
             this.comboItem_Triangle.Text = "三角延伸";
             this.comboItem_Triangle.Value = "Triangle";
+            // 
+            // labelXGeoType
+            // 
+            // 
+            // 
+            // 
+            this.labelXGeoType.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelXGeoType.Font = new System.Drawing.Font("宋体", 12F);
+            this.labelXGeoType.Location = new System.Drawing.Point(12, 12);
+            this.labelXGeoType.Name = "labelXGeoType";
+            this.labelXGeoType.Size = new System.Drawing.Size(117, 26);
+            this.labelXGeoType.TabIndex = 1;
+            this.labelXGeoType.Text = "地质对象类型";
+            // 
+            // labelXStretchType
+            // 
+            // 
+            // 
+            // 
+            this.labelXStretchType.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelXStretchType.Font = new System.Drawing.Font("宋体", 12F);
+            this.labelXStretchType.Location = new System.Drawing.Point(12, 60);
+            this.labelXStretchType.Name = "labelXStretchType";
+            this.labelXStretchType.Size = new System.Drawing.Size(117, 26);
+            this.labelXStretchType.TabIndex = 2;
+            this.labelXStretchType.Text = "面内延伸方式";
+            // 
+            // buttonXOK
+            // 
+            this.buttonXOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXOK.Font = new System.Drawing.Font("宋体", 10F);
+            this.buttonXOK.Location = new System.Drawing.Point(53, 102);
+            this.buttonXOK.Name = "buttonXOK";
+            this.buttonXOK.Size = new System.Drawing.Size(118, 34);
+            this.buttonXOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXOK.TabIndex = 3;
+            this.buttonXOK.Text = "确认";
+            this.buttonXOK.Click += new System.EventHandler(this.buttonXOK_Click);
+            // 
+            // buttonXCancel
+            // 
+            this.buttonXCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXCancel.Font = new System.Drawing.Font("宋体", 10F);
+            this.buttonXCancel.Location = new System.Drawing.Point(223, 102);
+            this.buttonXCancel.Name = "buttonXCancel";
+            this.buttonXCancel.Size = new System.Drawing.Size(118, 34);
+            this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXCancel.TabIndex = 3;
+            this.buttonXCancel.Text = "取消";
+            this.buttonXCancel.Click += new System.EventHandler(this.buttonXCancel_Click);
             // 
             // FrmImageLineType
             // 
@@ -256,6 +256,7 @@
             this.Controls.Add(this.comboBoxExStretchType);
             this.Controls.Add(this.comboBoxExGeoType);
             this.Name = "FrmImageLineType";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "请选择标记线的保存类型";
             this.ResumeLayout(false);
 

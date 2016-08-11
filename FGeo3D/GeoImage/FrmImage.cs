@@ -129,6 +129,7 @@ namespace FGeo3D_TE.GeoImage
 
         private void btnDrawApply_Click(object sender, EventArgs e)
         {
+            if (_currScreenLinePoints.Count == 0) return;
             var frmImageLineType = new FrmImageLineType();
             if (frmImageLineType.ShowDialog() != DialogResult.OK) return;
 

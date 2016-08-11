@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable1 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
+            DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer1 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmObject));
             this.tbName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelName = new DevComponents.DotNetBar.LabelX();
@@ -41,22 +43,24 @@
             this.radioBtnJX = new System.Windows.Forms.RadioButton();
             this.radioBtnJGM = new System.Windows.Forms.RadioButton();
             this.comboBoxExType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
-            this.cbItem_DCYX = new DevComponents.Editors.ComboItem();
             this.cbItem_DXDM = new DevComponents.Editors.ComboItem();
-            this.cbItem_BTZH = new DevComponents.Editors.ComboItem();
-            this.cbItem_GZFD = new DevComponents.Editors.ComboItem();
-            this.cbItem_HPZH = new DevComponents.Editors.ComboItem();
+            this.cbItem_DCYX = new DevComponents.Editors.ComboItem();
             this.cbItem_JGM = new DevComponents.Editors.ComboItem();
-            this.cbItem_NSLZH = new DevComponents.Editors.ComboItem();
-            this.cbItem_FH = new DevComponents.Editors.ComboItem();
+            this.cbItem_GZFD = new DevComponents.Editors.ComboItem();
             this.cbItem_ZZ = new DevComponents.Editors.ComboItem();
+            this.cbItem_FH = new DevComponents.Editors.ComboItem();
             this.cbItem_XH = new DevComponents.Editors.ComboItem();
+            this.cbItem_NSLZH = new DevComponents.Editors.ComboItem();
+            this.cbItem_HPZH = new DevComponents.Editors.ComboItem();
+            this.cbItem_BTZH = new DevComponents.Editors.ComboItem();
+            this.cbItem_RBZH = new DevComponents.Editors.ComboItem();
             this.cbItem_QZSWKT = new DevComponents.Editors.ComboItem();
             this.cbItem_YR = new DevComponents.Editors.ComboItem();
-            this.cbItem_RBZH = new DevComponents.Editors.ComboItem();
             this.cbItem_DXSFD = new DevComponents.Editors.ComboItem();
             this.cbItem_TTFC = new DevComponents.Editors.ComboItem();
             this.cbItem_YTFL = new DevComponents.Editors.ComboItem();
+            this.touchKeyboard = new DevComponents.DotNetBar.Keyboard.TouchKeyboard();
+            this.keyboardControl = new DevComponents.DotNetBar.Keyboard.KeyboardControl();
             this.SuspendLayout();
             // 
             // tbName
@@ -72,6 +76,7 @@
             this.tbName.PreventEnterBeep = true;
             this.tbName.Size = new System.Drawing.Size(487, 29);
             this.tbName.TabIndex = 0;
+            this.tbName.Click += new System.EventHandler(this.tbName_Click);
             this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // labelName
@@ -220,45 +225,49 @@
             this.comboBoxExType.TabIndex = 7;
             this.comboBoxExType.SelectedIndexChanged += new System.EventHandler(this.comboBoxExType_SelectedIndexChanged);
             // 
-            // cbItem_DCYX
-            // 
-            this.cbItem_DCYX.Text = "地层岩性";
-            // 
             // cbItem_DXDM
             // 
             this.cbItem_DXDM.Text = "地形地貌";
             // 
-            // cbItem_BTZH
+            // cbItem_DCYX
             // 
-            this.cbItem_BTZH.Text = "崩塌";
-            // 
-            // cbItem_GZFD
-            // 
-            this.cbItem_GZFD.Text = "构造分段";
-            // 
-            // cbItem_HPZH
-            // 
-            this.cbItem_HPZH.Text = "滑坡";
+            this.cbItem_DCYX.Text = "地层岩性";
             // 
             // cbItem_JGM
             // 
             this.cbItem_JGM.Text = "结构面";
             // 
-            // cbItem_NSLZH
+            // cbItem_GZFD
             // 
-            this.cbItem_NSLZH.Text = "泥石流";
-            // 
-            // cbItem_FH
-            // 
-            this.cbItem_FH.Text = "风化";
+            this.cbItem_GZFD.Text = "构造分段";
             // 
             // cbItem_ZZ
             // 
             this.cbItem_ZZ.Text = "褶皱";
             // 
+            // cbItem_FH
+            // 
+            this.cbItem_FH.Text = "风化";
+            // 
             // cbItem_XH
             // 
             this.cbItem_XH.Text = "卸荷";
+            // 
+            // cbItem_NSLZH
+            // 
+            this.cbItem_NSLZH.Text = "泥石流";
+            // 
+            // cbItem_HPZH
+            // 
+            this.cbItem_HPZH.Text = "滑坡";
+            // 
+            // cbItem_BTZH
+            // 
+            this.cbItem_BTZH.Text = "崩塌";
+            // 
+            // cbItem_RBZH
+            // 
+            this.cbItem_RBZH.Text = "蠕变";
             // 
             // cbItem_QZSWKT
             // 
@@ -267,10 +276,6 @@
             // cbItem_YR
             // 
             this.cbItem_YR.Text = "岩溶";
-            // 
-            // cbItem_RBZH
-            // 
-            this.cbItem_RBZH.Text = "蠕变";
             // 
             // cbItem_DXSFD
             // 
@@ -284,11 +289,43 @@
             // 
             this.cbItem_YTFL.Text = "岩体分类";
             // 
+            // touchKeyboard
+            // 
+            this.touchKeyboard.FloatingLocation = new System.Drawing.Point(0, 0);
+            this.touchKeyboard.FloatingSize = new System.Drawing.Size(740, 250);
+            this.touchKeyboard.Location = new System.Drawing.Point(0, 0);
+            this.touchKeyboard.Size = new System.Drawing.Size(740, 250);
+            this.touchKeyboard.Text = "";
+            // 
+            // keyboardControl
+            // 
+            virtualKeyboardColorTable1.BackgroundColor = System.Drawing.Color.Black;
+            virtualKeyboardColorTable1.DarkKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
+            virtualKeyboardColorTable1.DownKeysColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable1.DownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            virtualKeyboardColorTable1.KeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(55)))));
+            virtualKeyboardColorTable1.LightKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(68)))), ((int)(((byte)(76)))));
+            virtualKeyboardColorTable1.PressedKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(161)))), ((int)(((byte)(81)))));
+            virtualKeyboardColorTable1.TextColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable1.ToggleTextColor = System.Drawing.Color.Green;
+            virtualKeyboardColorTable1.TopBarTextColor = System.Drawing.Color.White;
+            this.keyboardControl.ColorTable = virtualKeyboardColorTable1;
+            this.keyboardControl.Location = new System.Drawing.Point(2, 400);
+            this.keyboardControl.Name = "keyboardControl";
+            flatStyleRenderer1.ColorTable = virtualKeyboardColorTable1;
+            flatStyleRenderer1.ForceAntiAlias = false;
+            this.keyboardControl.Renderer = flatStyleRenderer1;
+            this.keyboardControl.Size = new System.Drawing.Size(567, 205);
+            this.keyboardControl.TabIndex = 8;
+            this.keyboardControl.Text = "请输入名称";
+            this.keyboardControl.Visible = false;
+            // 
             // FrmObject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(569, 605);
+            this.Controls.Add(this.keyboardControl);
             this.Controls.Add(this.comboBoxExType);
             this.Controls.Add(this.colorCombControl);
             this.Controls.Add(this.tbColor);
@@ -338,5 +375,7 @@
         private DevComponents.Editors.ComboItem cbItem_DXSFD;
         private DevComponents.Editors.ComboItem cbItem_TTFC;
         private DevComponents.Editors.ComboItem cbItem_YTFL;
+        private DevComponents.DotNetBar.Keyboard.TouchKeyboard touchKeyboard;
+        private DevComponents.DotNetBar.Keyboard.KeyboardControl keyboardControl;
     }
 }

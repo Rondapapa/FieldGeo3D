@@ -47,8 +47,6 @@
             this.btnBlockAnalyse = new DevComponents.DotNetBar.ButtonItem();
             this.rbData = new DevComponents.DotNetBar.RibbonBar();
             this.btnOpen = new DevComponents.DotNetBar.ButtonItem();
-            this.btnSave = new DevComponents.DotNetBar.ButtonItem();
-            this.btnSaveAs = new DevComponents.DotNetBar.ButtonItem();
             this.btnConnectDB = new DevComponents.DotNetBar.ButtonItem();
             this.btnProject = new DevComponents.DotNetBar.ButtonItem();
             this.btnImport = new DevComponents.DotNetBar.ButtonItem();
@@ -111,7 +109,7 @@
             this.btnSlope,
             this.btnCavity,
             this.btnFoundation});
-            this.rbLog.Location = new System.Drawing.Point(407, 5);
+            this.rbLog.Location = new System.Drawing.Point(268, 5);
             this.rbLog.Name = "rbLog";
             this.rbLog.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.rbLog.Size = new System.Drawing.Size(349, 83);
@@ -210,7 +208,7 @@
             this.btnBuildSurface,
             this.btnStretchSurface,
             this.btnBlockAnalyse});
-            this.rbAnalysis.Location = new System.Drawing.Point(1123, 5);
+            this.rbAnalysis.Location = new System.Drawing.Point(950, 5);
             this.rbAnalysis.Name = "rbAnalysis";
             this.rbAnalysis.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.rbAnalysis.Size = new System.Drawing.Size(199, 83);
@@ -272,15 +270,13 @@
             this.rbData.DragDropSupport = true;
             this.rbData.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnOpen,
-            this.btnSave,
-            this.btnSaveAs,
             this.btnConnectDB,
             this.btnProject,
             this.btnImport});
             this.rbData.Location = new System.Drawing.Point(0, 5);
             this.rbData.Name = "rbData";
             this.rbData.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbData.Size = new System.Drawing.Size(401, 83);
+            this.rbData.Size = new System.Drawing.Size(262, 83);
             this.rbData.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbData.TabIndex = 7;
             this.rbData.Text = "工程设置";
@@ -307,24 +303,6 @@
             this.btnOpen.SubItemsExpandWidth = 14;
             this.btnOpen.Text = "打开场景";
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.SubItemsExpandWidth = 14;
-            this.btnSave.Text = "保存场景";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnSaveAs
-            // 
-            this.btnSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveAs.Image")));
-            this.btnSaveAs.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnSaveAs.Name = "btnSaveAs";
-            this.btnSaveAs.SubItemsExpandWidth = 14;
-            this.btnSaveAs.Text = "另存场景";
-            this.btnSaveAs.Click += new System.EventHandler(this.btnSaveAs_Click);
             // 
             // btnConnectDB
             // 
@@ -362,7 +340,7 @@
             this.gpMeasure.Controls.Add(this.btnHorizonalDistance);
             this.gpMeasure.Controls.Add(this.btnAbsDistance);
             this.gpMeasure.DisabledBackColor = System.Drawing.Color.Empty;
-            this.gpMeasure.Location = new System.Drawing.Point(1262, 365);
+            this.gpMeasure.Location = new System.Drawing.Point(1080, 365);
             this.gpMeasure.Name = "gpMeasure";
             this.gpMeasure.Size = new System.Drawing.Size(71, 325);
             // 
@@ -478,9 +456,9 @@
             this.btnGPS.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnGPS.Image = ((System.Drawing.Image)(resources.GetObject("btnGPS.Image")));
             this.btnGPS.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnGPS.Location = new System.Drawing.Point(1274, 155);
+            this.btnGPS.Location = new System.Drawing.Point(1095, 165);
             this.btnGPS.Name = "btnGPS";
-            this.btnGPS.Size = new System.Drawing.Size(54, 59);
+            this.btnGPS.Size = new System.Drawing.Size(55, 55);
             this.btnGPS.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnGPS.TabIndex = 14;
             this.btnGPS.Text = "定位";
@@ -493,9 +471,9 @@
             this.btnQuery.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnQuery.Image = ((System.Drawing.Image)(resources.GetObject("btnQuery.Image")));
             this.btnQuery.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnQuery.Location = new System.Drawing.Point(1274, 220);
+            this.btnQuery.Location = new System.Drawing.Point(1095, 230);
             this.btnQuery.Name = "btnQuery";
-            this.btnQuery.Size = new System.Drawing.Size(54, 60);
+            this.btnQuery.Size = new System.Drawing.Size(55, 55);
             this.btnQuery.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnQuery.TabIndex = 13;
             this.btnQuery.Text = "查询";
@@ -506,9 +484,9 @@
             this.btnTest.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTest.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnTest.Location = new System.Drawing.Point(1274, 286);
+            this.btnTest.Location = new System.Drawing.Point(1094, 296);
             this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(55, 50);
+            this.btnTest.Size = new System.Drawing.Size(55, 55);
             this.btnTest.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnTest.TabIndex = 17;
             this.btnTest.Text = "临时测试";
@@ -534,10 +512,10 @@
             this.btnFreehandDrawing,
             this.btnRegion,
             this.btnDrawingComplete});
-            this.btnChamber.Location = new System.Drawing.Point(762, 5);
+            this.btnChamber.Location = new System.Drawing.Point(623, 5);
             this.btnChamber.Name = "btnChamber";
             this.btnChamber.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnChamber.Size = new System.Drawing.Size(338, 83);
+            this.btnChamber.Size = new System.Drawing.Size(321, 83);
             this.btnChamber.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnChamber.TabIndex = 8;
             this.btnChamber.Text = "绘制编录";
@@ -598,11 +576,12 @@
             // 
             // swbtnGPS
             // 
+            this.swbtnGPS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
             this.swbtnGPS.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.swbtnGPS.Location = new System.Drawing.Point(1265, 121);
+            this.swbtnGPS.Location = new System.Drawing.Point(1084, 121);
             this.swbtnGPS.Name = "swbtnGPS";
             this.swbtnGPS.OffText = "指示";
             this.swbtnGPS.OnText = "跟随";
@@ -613,13 +592,14 @@
             // 
             // labelGPS
             // 
+            this.labelGPS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
             this.labelGPS.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelGPS.Location = new System.Drawing.Point(1266, 94);
+            this.labelGPS.Location = new System.Drawing.Point(1084, 94);
             this.labelGPS.Name = "labelGPS";
-            this.labelGPS.Size = new System.Drawing.Size(64, 23);
+            this.labelGPS.Size = new System.Drawing.Size(67, 23);
             this.labelGPS.TabIndex = 19;
             this.labelGPS.Text = "GPS状态";
             this.labelGPS.TextAlignment = System.Drawing.StringAlignment.Center;
@@ -633,7 +613,7 @@
             this.StatusGPS});
             this.statusStrip1.Location = new System.Drawing.Point(0, 689);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1334, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(1156, 26);
             this.statusStrip1.TabIndex = 20;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -674,14 +654,11 @@
             this.axTE3DWindow1.Location = new System.Drawing.Point(217, 94);
             this.axTE3DWindow1.Name = "axTE3DWindow1";
             this.axTE3DWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTE3DWindow1.OcxState")));
-            this.axTE3DWindow1.Size = new System.Drawing.Size(1039, 596);
+            this.axTE3DWindow1.Size = new System.Drawing.Size(858, 596);
             this.axTE3DWindow1.TabIndex = 1;
             // 
             // axTEInformationWindow1
             // 
-            this.axTEInformationWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.axTEInformationWindow1.Enabled = true;
             this.axTEInformationWindow1.Location = new System.Drawing.Point(0, 94);
             this.axTEInformationWindow1.Name = "axTEInformationWindow1";
@@ -695,7 +672,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1334, 715);
+            this.ClientSize = new System.Drawing.Size(1156, 715);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.labelGPS);
             this.Controls.Add(this.swbtnGPS);
@@ -732,8 +709,6 @@
         private DevComponents.DotNetBar.RibbonBar rbAnalysis;
         private DevComponents.DotNetBar.RibbonBar rbData;
         private DevComponents.DotNetBar.ButtonItem btnOpen;
-        private DevComponents.DotNetBar.ButtonItem btnSave;
-        private DevComponents.DotNetBar.ButtonItem btnSaveAs;
         private DevComponents.DotNetBar.Controls.GroupPanel gpMeasure;
         private DevComponents.DotNetBar.ButtonX btnTerrainArea;
         private DevComponents.DotNetBar.ButtonX btnPlaneArea;

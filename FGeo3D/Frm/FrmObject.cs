@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DevComponents.DotNetBar.Keyboard;
 using TerraExplorerX;
 
 namespace FGeo3D_TE
@@ -87,6 +88,12 @@ namespace FGeo3D_TE
             //    tbName.Enabled = false;
             //    colorCombControl.Enabled = false;
             //}
+        }
+
+        private void tbName_Click(object sender, EventArgs e)
+        {
+            
+            touchKeyboard.ShowKeyboard(keyboardControl, TouchKeyboardStyle.Inline);
         }
     }
 }
