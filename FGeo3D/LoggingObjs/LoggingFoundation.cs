@@ -26,6 +26,7 @@ namespace FGeo3D_TE
             var nFillColor = 0xFF646464;
             var SegmentDensity = -1;
             string gid = GeoHelper.CreateGroup("基础", ref sgworld);
+            sgworld.ProjectTree.ExpandGroup(gid, true);
             IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
             SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
 

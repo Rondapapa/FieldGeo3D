@@ -6,7 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Keyboard;
+using DevComponents.Editors;
 using TerraExplorerX;
 
 namespace FGeo3D_TE
@@ -15,7 +17,7 @@ namespace FGeo3D_TE
     {
         internal string ObjName = "地质对象#";
         internal Color SelectedColor;
-        internal string SelectedType;
+        internal string SelectedMarkerType;
         
         
 
@@ -32,7 +34,7 @@ namespace FGeo3D_TE
           	{
           	    Text += @"地质界线";
           	}
-            if(pbhander == "Region")
+            if(pbhander == "Region" || pbhander == "RegionNew")
             {
                 Text += @"地质区域";
             }
@@ -74,8 +76,58 @@ namespace FGeo3D_TE
         private void comboBoxExType_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnOK.Enabled = true;
-            SelectedType = comboBoxExType.SelectedItem.ToString();
-            comboBoxExType.Text = SelectedType;
+
+            comboBoxExType.Text = comboBoxExType.SelectedItem.ToString();
+            switch (comboBoxExType.Text)
+            {
+                case "地形地貌":
+                    SelectedMarkerType = "DXDM";
+                    break;
+                case "地层岩性":
+                    SelectedMarkerType = "DCYX";
+                    break;
+                case "构造分段":
+                    SelectedMarkerType = "GZFD";
+                    break;
+                case "褶皱":
+                    SelectedMarkerType = "ZZ";
+                    break;
+                case "风化":
+                    SelectedMarkerType = "FH";
+                    break;
+                case "卸荷":
+                    SelectedMarkerType = "XH";
+                    break;
+                case "泥石流":
+                    SelectedMarkerType = "NSL";
+                    break;
+                case "滑坡":
+                    SelectedMarkerType = "HP";
+                    break;
+                case "崩塌":
+                    SelectedMarkerType = "BT";
+                    break;
+                case "蠕变":
+                    SelectedMarkerType = "RB";
+                    break;
+                case "岩溶":
+                    SelectedMarkerType = "YR";
+                    break;
+                case "地下水分段":
+                    SelectedMarkerType = "DXSFD";
+                    break;
+                case "土体分层":
+                    SelectedMarkerType = "TTFC";
+                    break;
+                case "岩体分类":
+                    SelectedMarkerType = "YTFL";
+                    break;
+                case "结构面":
+                    SelectedMarkerType = "JGM";
+                    break;
+            }
+
+
             
             //comboBoxExType.SelectedText = SelectedType;
             //if (SelectedType == "几何部件")

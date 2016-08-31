@@ -10,13 +10,14 @@ namespace FGeo3D_TE
     {
         
 
-        public DrawingRegion(ITerraExplorerObject66 inRegion, ITerrainLabel66 inLabel66, string useType)
+        public DrawingRegion(ITerraExplorerObject66 inRegion, ITerrainLabel66 inLabel66, string markerType, List<string> conObjGuids )
         {
             Type = "Region";
             SkylineObj = inRegion;
             SkylineLabel = inLabel66;
-            DbUseType = useType;
-            Ts = new TsFile(inRegion, Type);
+            MarkerType = markerType;
+            ConnObjGuids = conObjGuids;
+            Ts = new TsFile(inRegion, Type, "PLine", "X", markerType, Name, ConnObjGuids);
             Ts.WriteTsFile();
         }
 

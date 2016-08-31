@@ -47,7 +47,7 @@ namespace FGeo3D_TE
             }
         }
         //地质对象类型（）
-        public string DbUseType { get; set; }
+        public string MarkerType { get; set; }
 
         //public string SourceGuid { get; set; }
 
@@ -92,7 +92,7 @@ namespace FGeo3D_TE
         {
             Guid = System.Guid.NewGuid().ToString();
             
-            DbUseType = useType;
+            MarkerType = useType;
         }
 
         public virtual void Store(string dataSourceObjGuid, ref YWCHEntEx db)
@@ -100,7 +100,7 @@ namespace FGeo3D_TE
             //上传TS部件文件
             db.SkyUploadPartVer(Ts.Guid, Ts.FilePath);
             //创建地质对象（几何部件、界线、结构面等）,并关联ts
-            switch (DbUseType)
+            switch (MarkerType)
             {
                 case "几何部件":
                     //以标识点（BSD）形式创建几何部件地质对象（数据来源级别?）
@@ -131,30 +131,31 @@ namespace FGeo3D_TE
             }
         }
 
-        private static void StoreMarkerProcess(string dataSourceObjGuid, string markerType, ref YWCHEntEx db)
+
+        private void StoreMarkerProcess(string dataSourceObjGuid, string markerType, ref YWCHEntEx db)
         {
             var dataSourceType = db.SkyGetSJLYMDL(dataSourceObjGuid).SJLYLXID;
-            //var markerGuid = db.SkyFrmDzdx(dataSourceType, dataSourceObjGuid, "DXM"); 
-            //应获取其guid
-            db.SkyFrmDzdx(dataSourceType, dataSourceObjGuid, markerType);
+            
+            var markerGuid = db.SkyFrmDzdx(dataSourceType, dataSourceObjGuid, markerType);
 
-            var pointList = new List<DMarker>();
-            var sourcePoints = db.SkyGetGeoDataList(dataSourceObjGuid).GetObjData(0).Points;
-            for (var index = 0; index < sourcePoints.Count; index++)
-            {
-                var thisPoint = sourcePoints.GetPoint(index);
-                pointList.Add(new DMarker
-                {
-                    X = thisPoint.X,
-                    Y = thisPoint.Y,
-                    Z = thisPoint.Z,
-                    DZDXLX = "KZD",
-                    SD = 0  //SD? 深度桩号需要写嘛？
-                });
-            }
-            //db.SkyAddDzdxMXZB(SourceGuid, markerGuid, pointList)
+            //var pointList = new List<DMarker>();
+            //var sourcePoints = db.SkyGetGeoDataList(dataSourceObjGuid).GetObjData(0).Points;
+            //for (var index = 0; index < sourcePoints.Count; index++)
+            //{
+            //    var thisPoint = sourcePoints.GetPoint(index);
+            //    pointList.Add(new DMarker
+            //    {
+            //        X = thisPoint.X,
+            //        Y = thisPoint.Y,
+            //        Z = thisPoint.Z,
+            //        DZDXLX = "KZD",
+            //        SD = 0  //SD? 深度桩号需要写嘛？
+            //    });
+            //}
 
-            //db.SkyAddConnect(1, Ts.Guid, markerGuid);
+            //db.SkyAddDzdxMXZB(SourceGuid, markerGuid, pointList);
+
+            db.SkyAddConnect(1, Ts.Guid, markerGuid);
         }
 
         //从数据库中获取模型部件TS的新版本。

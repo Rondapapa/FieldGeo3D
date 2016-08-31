@@ -45,13 +45,11 @@
             this.comboItem_DXSFD = new DevComponents.Editors.ComboItem();
             this.comboItem_TTFC = new DevComponents.Editors.ComboItem();
             this.comboItem_YTFL = new DevComponents.Editors.ComboItem();
-            this.comboBoxExStretchType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
-            this.comboItem_None = new DevComponents.Editors.ComboItem();
-            this.comboItem_Triangle = new DevComponents.Editors.ComboItem();
             this.labelXGeoType = new DevComponents.DotNetBar.LabelX();
-            this.labelXStretchType = new DevComponents.DotNetBar.LabelX();
+            this.labelXStretchDepth = new DevComponents.DotNetBar.LabelX();
             this.buttonXOK = new DevComponents.DotNetBar.ButtonX();
             this.buttonXCancel = new DevComponents.DotNetBar.ButtonX();
+            this.textBoxXStretchDepth = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.SuspendLayout();
             // 
             // comboBoxExGeoType
@@ -165,33 +163,6 @@
             this.comboItem_YTFL.Text = "岩体分类";
             this.comboItem_YTFL.Value = "YTFL";
             // 
-            // comboBoxExStretchType
-            // 
-            this.comboBoxExStretchType.DisplayMember = "Text";
-            this.comboBoxExStretchType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxExStretchType.Font = new System.Drawing.Font("宋体", 12F);
-            this.comboBoxExStretchType.FormattingEnabled = true;
-            this.comboBoxExStretchType.ItemHeight = 20;
-            this.comboBoxExStretchType.Items.AddRange(new object[] {
-            this.comboItem_None,
-            this.comboItem_Triangle});
-            this.comboBoxExStretchType.Location = new System.Drawing.Point(135, 60);
-            this.comboBoxExStretchType.Name = "comboBoxExStretchType";
-            this.comboBoxExStretchType.Size = new System.Drawing.Size(264, 26);
-            this.comboBoxExStretchType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.comboBoxExStretchType.TabIndex = 0;
-            this.comboBoxExStretchType.SelectedIndexChanged += new System.EventHandler(this.comboBoxExStretchType_SelectedIndexChanged);
-            // 
-            // comboItem_None
-            // 
-            this.comboItem_None.Text = "无";
-            this.comboItem_None.Value = "None";
-            // 
-            // comboItem_Triangle
-            // 
-            this.comboItem_Triangle.Text = "三角延伸";
-            this.comboItem_Triangle.Value = "Triangle";
-            // 
             // labelXGeoType
             // 
             // 
@@ -205,27 +176,27 @@
             this.labelXGeoType.TabIndex = 1;
             this.labelXGeoType.Text = "地质对象类型";
             // 
-            // labelXStretchType
+            // labelXStretchDepth
             // 
             // 
             // 
             // 
-            this.labelXStretchType.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelXStretchType.Font = new System.Drawing.Font("宋体", 12F);
-            this.labelXStretchType.Location = new System.Drawing.Point(12, 60);
-            this.labelXStretchType.Name = "labelXStretchType";
-            this.labelXStretchType.Size = new System.Drawing.Size(117, 26);
-            this.labelXStretchType.TabIndex = 2;
-            this.labelXStretchType.Text = "面内延伸方式";
+            this.labelXStretchDepth.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelXStretchDepth.Font = new System.Drawing.Font("宋体", 12F);
+            this.labelXStretchDepth.Location = new System.Drawing.Point(12, 60);
+            this.labelXStretchDepth.Name = "labelXStretchDepth";
+            this.labelXStretchDepth.Size = new System.Drawing.Size(117, 26);
+            this.labelXStretchDepth.TabIndex = 2;
+            this.labelXStretchDepth.Text = "延伸深度(米)";
             // 
             // buttonXOK
             // 
             this.buttonXOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXOK.Font = new System.Drawing.Font("宋体", 10F);
-            this.buttonXOK.Location = new System.Drawing.Point(53, 102);
+            this.buttonXOK.Font = new System.Drawing.Font("宋体", 11F);
+            this.buttonXOK.Location = new System.Drawing.Point(241, 60);
             this.buttonXOK.Name = "buttonXOK";
-            this.buttonXOK.Size = new System.Drawing.Size(118, 34);
+            this.buttonXOK.Size = new System.Drawing.Size(76, 26);
             this.buttonXOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXOK.TabIndex = 3;
             this.buttonXOK.Text = "确认";
@@ -235,25 +206,41 @@
             // 
             this.buttonXCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXCancel.Font = new System.Drawing.Font("宋体", 10F);
-            this.buttonXCancel.Location = new System.Drawing.Point(223, 102);
+            this.buttonXCancel.Font = new System.Drawing.Font("宋体", 11F);
+            this.buttonXCancel.Location = new System.Drawing.Point(323, 60);
             this.buttonXCancel.Name = "buttonXCancel";
-            this.buttonXCancel.Size = new System.Drawing.Size(118, 34);
+            this.buttonXCancel.Size = new System.Drawing.Size(76, 26);
             this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXCancel.TabIndex = 3;
             this.buttonXCancel.Text = "取消";
             this.buttonXCancel.Click += new System.EventHandler(this.buttonXCancel_Click);
             // 
+            // textBoxXStretchDepth
+            // 
+            // 
+            // 
+            // 
+            this.textBoxXStretchDepth.Border.Class = "TextBoxBorder";
+            this.textBoxXStretchDepth.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxXStretchDepth.Font = new System.Drawing.Font("宋体", 12F);
+            this.textBoxXStretchDepth.Location = new System.Drawing.Point(135, 60);
+            this.textBoxXStretchDepth.Name = "textBoxXStretchDepth";
+            this.textBoxXStretchDepth.PreventEnterBeep = true;
+            this.textBoxXStretchDepth.Size = new System.Drawing.Size(90, 26);
+            this.textBoxXStretchDepth.TabIndex = 4;
+            this.textBoxXStretchDepth.Text = "50";
+            this.textBoxXStretchDepth.TextChanged += new System.EventHandler(this.textBoxXStretchDepth_TextChanged);
+            // 
             // FrmImageLineType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 152);
+            this.ClientSize = new System.Drawing.Size(413, 102);
+            this.Controls.Add(this.textBoxXStretchDepth);
             this.Controls.Add(this.buttonXCancel);
             this.Controls.Add(this.buttonXOK);
-            this.Controls.Add(this.labelXStretchType);
+            this.Controls.Add(this.labelXStretchDepth);
             this.Controls.Add(this.labelXGeoType);
-            this.Controls.Add(this.comboBoxExStretchType);
             this.Controls.Add(this.comboBoxExGeoType);
             this.Name = "FrmImageLineType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -265,9 +252,8 @@
         #endregion
 
         private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExGeoType;
-        private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExStretchType;
         private DevComponents.DotNetBar.LabelX labelXGeoType;
-        private DevComponents.DotNetBar.LabelX labelXStretchType;
+        private DevComponents.DotNetBar.LabelX labelXStretchDepth;
         private DevComponents.DotNetBar.ButtonX buttonXOK;
         private DevComponents.DotNetBar.ButtonX buttonXCancel;
         private DevComponents.Editors.ComboItem comboItem_DXDM;
@@ -286,7 +272,6 @@
         private DevComponents.Editors.ComboItem comboItem_DXSFD;
         private DevComponents.Editors.ComboItem comboItem_TTFC;
         private DevComponents.Editors.ComboItem comboItem_YTFL;
-        private DevComponents.Editors.ComboItem comboItem_None;
-        private DevComponents.Editors.ComboItem comboItem_Triangle;
+        private DevComponents.DotNetBar.Controls.TextBoxX textBoxXStretchDepth;
     }
 }

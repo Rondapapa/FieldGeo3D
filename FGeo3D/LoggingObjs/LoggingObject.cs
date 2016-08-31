@@ -39,13 +39,22 @@ namespace FGeo3D_TE
         public IGMarkerList Markers02 { get; set; }
         public IGMarkerList Markers03 { get; set; }
 
+        public List<IGMarker> KZD_Markers { get; set; } = new List<IGMarker>(); //控制点
+        public List<IGMarker> DXDM_Markers { get; set; } = new List<IGMarker>(); //地形地貌
         public List<IGMarker> DC_Markers { get; set; } = new List<IGMarker>(); //地层岩性
         public List<IGMarker> GZ_Markers { get; set; } = new List<IGMarker>(); //构造分段
-        public List<IGMarker> DXS_Markers { get; set; } = new List<IGMarker>(); //地下水分段
+        //褶皱
+        public List<IGMarker> JGM_Markers { get; set; } = new List<IGMarker>(); //结构面
+        
         public List<IGMarker> FH_Markers { get; set; } = new List<IGMarker>(); //风化        
         public List<IGMarker> XH_Markers { get; set; } = new List<IGMarker>(); //卸荷
+
+
+        public List<IGMarker> DXS_Markers { get; set; } = new List<IGMarker>(); //地下水分段
+
+
         public List<IGMarker> SYD_Markers { get; set; } = new List<IGMarker>(); //试验点
-        public List<IGMarker> JGM_Markers { get; set; } = new List<IGMarker>(); //结构面
+        
         public List<IGMarker> GZD_Markers { get; set; } = new List<IGMarker>(); //构造带
 
 
@@ -89,36 +98,46 @@ namespace FGeo3D_TE
             Markers01 = dataObj.MarkersNO1;
             Markers02 = dataObj.MarkersNO2;
             Markers03 = dataObj.MarkersNO3;
-
+            
             for (var index = 0; index < dataObj.MarkersNO1.Count; index++)
             {
                 var thisMarker = dataObj.MarkersNO1.GetMarker(index);
                 switch (thisMarker.Type)
                 {
+                    case "控制点":
+                        KZD_Markers.Add(thisMarker);
+                        break;
+
                     case "地层岩性":
                         DC_Markers.Add(thisMarker);
                         break;
+                    
                     case "构造分段":
                         GZ_Markers.Add(thisMarker);
-                        break;
-                    case "地下水分段":
-                        DXS_Markers.Add(thisMarker);
-                        break;
-                    case "风化":
-                        FH_Markers.Add(thisMarker);
-                        break;
-                    case "卸荷":
-                        XH_Markers.Add(thisMarker);
-                        break;
-                    case "试验点":
-                        SYD_Markers.Add(thisMarker);
                         break;
                     case "结构面":
                         JGM_Markers.Add(thisMarker);
                         break;
-                    case "构造带":
-                        GZD_Markers.Add(thisMarker);
+                    
+                    case "风化":
+                        FH_Markers.Add(thisMarker);
                         break;
+
+                    case "卸荷":
+                        XH_Markers.Add(thisMarker);
+                        break;
+
+                    case "地下水分段":
+                        DXS_Markers.Add(thisMarker);
+                        break;
+
+                    case "试验点":
+                        SYD_Markers.Add(thisMarker);
+                        break;
+                    
+                    //case "构造带":
+                    //    GZD_Markers.Add(thisMarker);
+                    //    break;
                 }
             }
 
@@ -133,7 +152,9 @@ namespace FGeo3D_TE
         {
             if (!DictOfSkyId_Guid.ContainsKey(SkylineLabelObj.ID))
                 DictOfSkyId_Guid.Add(SkylineLabelObj.ID, Guid);
-            
+            if (!DictOfSkyId_Guid.ContainsKey(SkylineMouthObj.ID))
+                DictOfSkyId_Guid.Add(SkylineMouthObj.ID, Guid);
+
         }
 
         /// <summary>

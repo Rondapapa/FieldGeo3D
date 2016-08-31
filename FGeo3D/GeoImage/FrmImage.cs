@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MathNet.Spatial.Euclidean;
 using YWCH.CHIDI.DZ.COM.Skyline;
 
 namespace FGeo3D_TE.GeoImage
@@ -27,7 +28,6 @@ namespace FGeo3D_TE.GeoImage
         private SolidBrush _brush;
 
         //当前处理的图像
-        private Image _currImage;
         private Bitmap _currBitmap;
 
         //当前颜色
@@ -38,6 +38,11 @@ namespace FGeo3D_TE.GeoImage
 
         //所有已绘制的线列表
         private List<ImageLine> _lineList = new List<ImageLine>();
+
+        //校正信息，包含数据与模型。当RectifyDatas不为空时，说明校正信息有效
+        internal RectifyInfo RectifyInfo = new RectifyInfo();
+
+        private bool _isRectifying = false;
 
         public FrmImage(ref YWCHEntEx inDb)
         {
@@ -90,7 +95,9 @@ namespace FGeo3D_TE.GeoImage
 
         private void colorPickerBtn_SelectedColorChanged(object sender, EventArgs e)
         {
-            _currColor = colorPickerBtn.SelectedColor;
+            _currColor = colorPickerButton.SelectedColor;
+            colorPickerButton.SymbolColor = _currColor;
+            //colorPickerButton.Text = "";
         }
 
         private void btnDraw_Click(object sender, EventArgs e)
@@ -100,12 +107,22 @@ namespace FGeo3D_TE.GeoImage
                 MessageBox.Show(@"请先获取地质图像！", @"操作流程错误");
                 return;
             }
-            _pen = new Pen(_currColor, 2);
-            _brush = new SolidBrush(_currColor);
-            pictureBox.MouseDown += PictureBoxOnMouseDown;
+            if (btnDraw.Checked)
+            {
+                pictureBox.MouseDown -= PictureBoxOnMouseDown_DrawLine;
+                btnDraw.Checked = false;
+            }
+            else
+            {
+                _pen = new Pen(_currColor, 2);
+                _brush = new SolidBrush(_currColor);
+                pictureBox.MouseDown += PictureBoxOnMouseDown_DrawLine;
+                btnDraw.Checked = true;
+            }
+            
         }
 
-        private void PictureBoxOnMouseDown(object sender, MouseEventArgs e)
+        private void PictureBoxOnMouseDown_DrawLine(object sender, MouseEventArgs e)
         {
             _currScreenLinePoints.Add(new System.Drawing.Point(e.X, e.Y));
             
@@ -132,28 +149,78 @@ namespace FGeo3D_TE.GeoImage
             if (_currScreenLinePoints.Count == 0) return;
             var frmImageLineType = new FrmImageLineType();
             if (frmImageLineType.ShowDialog() != DialogResult.OK) return;
+            pictureBox.MouseDown -= PictureBoxOnMouseDown_DrawLine;
+            btnDraw.Checked = false;
 
+            //创建ImageLine对象，内部存储线部件和对应的面部件
             var cImageLine = new ImageLine(_currScreenLinePoints)
             {
                 Color = _currColor,
-                GeoType = frmImageLineType.GeoType,
-                StretchType = frmImageLineType.StretchType,
+                MarkerType = frmImageLineType.MarkerType,
+                StretchDepth = frmImageLineType.StretchDepth,
             };
 
-            
-
-            //此处应该根据地质对象类型弹出编录卡片，让用户填写编录信息，保存，并获得编录对象的Guid
-            //并创建线的Ts文件和面的Ts部件
+            //将ImageLine存入数据库
+            if(!cImageLine.Store(ref db))
+                MessageBox.Show(@"数据保存失败！", @"二维图像存储");
 
             _lineList.Add(cImageLine);
             _currScreenLinePoints.Clear();
             pictureBox.Refresh();
-            pictureBox.MouseDown -= PictureBoxOnMouseDown;
         }
 
         private void FrmImage_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnRectify_Click(object sender, EventArgs e)
+        {
+            //判断是否载入图片
+            if (_currBitmap == null)
+            {
+                MessageBox.Show(@"请先载入图像。", @"操作失败");
+            }
+            
+            //判断是否已存在校正信息
+            if (RectifyInfo.RectifyModelWdX != null || RectifyInfo.RectifyModelWdY != null || RectifyInfo.RectifyModelWdZ != null)
+            {
+                //弹出对话框，提示已有校正信息，询问是否清除当前校正信息并重新校正。
+
+            }
+            
+            //屏幕上画点，获取该点的屏幕坐标
+            if (_isRectifying == false)
+            {
+                //点击后进入校正状态
+                pictureBox.MouseDown += PictureBoxOnMouseDown_Rectify;
+                btnRectify.Text = @"结束校正";
+                _isRectifying = true;
+            }
+            else
+            {
+                //点击后结束校正状态
+                pictureBox.MouseDown -= PictureBoxOnMouseDown_Rectify;
+                btnRectify.Text = @"开始校正";
+                _isRectifying = false;
+                RectifyInfo.CalculateRectification();
+            }
+            
+
+
+            
+        }
+
+        private void PictureBoxOnMouseDown_Rectify(object sender, MouseEventArgs e)
+        {
+            var frmRectify = new FrmRectification(RectifyInfo.RectifyDatas.Count, e.X, e.Y);
+            var frmDlgResult = frmRectify.ShowDialog();
+            if (frmDlgResult == DialogResult.OK)
+            {
+                //记录校正点对
+                RectifyInfo.RectifyDatas.Add(frmRectify.ScPoint, frmRectify.WdPoint);
+                
+            }
         }
     }
 }

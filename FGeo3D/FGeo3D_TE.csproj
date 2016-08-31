@@ -103,7 +103,14 @@
     <Compile Include="GeoImage\FrmImageLineType.Designer.cs">
       <DependentUpon>FrmImageLineType.cs</DependentUpon>
     </Compile>
+    <Compile Include="GeoImage\FrmRectification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeoImage\FrmRectification.Designer.cs">
+      <DependentUpon>FrmRectification.cs</DependentUpon>
+    </Compile>
     <Compile Include="GeoImage\ImageLine.cs" />
+    <Compile Include="GeoImage\RectifyInfo.cs" />
     <Compile Include="TsData.cs" />
     <Compile Include="TsFile.cs" />
     <Compile Include="LoggingObjs\LoggingBore.cs" />
@@ -182,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmLabel.resx">
       <DependentUpon>FrmLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeoImage\FrmRectification.resx">
+      <DependentUpon>FrmRectification.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

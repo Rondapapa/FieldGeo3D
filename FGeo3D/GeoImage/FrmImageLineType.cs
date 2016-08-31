@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,14 +14,10 @@ namespace FGeo3D_TE.GeoImage
     public partial class FrmImageLineType : Form
     {
         //地质对象类型
-        public GeoType GeoType
-        {
-            get;
-            set;
-        }
+        public string MarkerType { get; set; } = "JGM";
 
         //面内延伸类型
-        public StretchType StretchType { get; set; }
+        public double StretchDepth { get; set; } = 50;
 
 
 
@@ -34,72 +31,56 @@ namespace FGeo3D_TE.GeoImage
             switch (comboBoxExGeoType.SelectedItem.ToString())
             {
                 case "地形地貌":
-                    GeoType = GeoType.地形地貌;
+                    MarkerType = "DXDM";
                     break;
                 case "地层岩性":
-                    GeoType = GeoType.地层岩性;
+                    MarkerType = "DCYX";
                     break;
                 case "结构面":
-                    GeoType = GeoType.结构面;
+                    MarkerType = "JGM";
                     break;
                 case "构造分段":
-                    GeoType = GeoType.构造分段;
+                    MarkerType = "GZFD";
                     break;
                 case "褶皱":
-                    GeoType = GeoType.褶皱;
+                    MarkerType = "ZZ";
                     break;
                 case "风化":
-                    GeoType = GeoType.风化;
+                    MarkerType = "FH";
                     break;
                 case "卸荷":
-                    GeoType = GeoType.卸荷;
+                    MarkerType = "XH";
                     break;
                 case "泥石流":
-                    GeoType = GeoType.泥石流;
+                    MarkerType = "NSL";
                     break;
                 case "滑坡":
-                    GeoType = GeoType.滑坡;
+                    MarkerType = "HP";
                     break;
                 case "崩塌":
-                    GeoType = GeoType.崩塌;
+                    MarkerType = "BT";
                     break;
                 case "蠕变":
-                    GeoType = GeoType.蠕变;
+                    MarkerType = "RB";
                     break;
                 case "潜在失稳块体":
-                    GeoType = GeoType.潜在失稳块体;
+                    MarkerType = "QZSWKT";
                     break;
                 case "岩溶":
-                    GeoType = GeoType.岩溶;
+                    MarkerType = "YR";
                     break;
                 case "地下水分段":
-                    GeoType = GeoType.地下水分段;
+                    MarkerType = "DXSFD";
                     break;
                 case "土体分层":
-                    GeoType = GeoType.土体分层;
+                    MarkerType = "TTFC";
                     break;
                 case "岩体分类":
-                    GeoType = GeoType.岩体分类;
+                    MarkerType = "YTFL";
                     break;
                 default:
                     break;
             }
-        }
-
-        private void comboBoxExStretchType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (comboBoxExStretchType.SelectedItem.ToString())
-            {
-                case "无":
-                    StretchType = StretchType.无;
-                    break;
-                case "三角形延伸":
-                    StretchType = StretchType.三角形延伸;
-                    break;
-                default:
-                    break;
-            }
-            
         }
 
         private void buttonXOK_Click(object sender, EventArgs e)
@@ -112,7 +93,22 @@ namespace FGeo3D_TE.GeoImage
             DialogResult = DialogResult.Cancel;
         }
 
-        
+        private void textBoxXStretchDepth_TextChanged(object sender, EventArgs e)
+        {
+            var input = textBoxXStretchDepth.Text;
+            try
+            {
+                StretchDepth = Convert.ToDouble(input);
+                buttonXOK.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                buttonXOK.Enabled = false;
+                
+            }
+            
+
+        }
     }
 
 

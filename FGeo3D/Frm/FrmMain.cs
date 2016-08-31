@@ -13,6 +13,7 @@ using DevComponents.DotNetBar;
 using FGeo3D_TE.GeoImage;
 using GeoIM.CHIDI.DZ.COM;
 using GeoIM.CHIDI.DZ.Util.Common;
+using GeoIM.CHIDI.DZ.Util.EnumHelper;
 using stdole;
 using YWCH.CHIDI.DZ.COM.Skyline;
 
@@ -37,6 +38,9 @@ namespace FGeo3D_TE
         
         //模型路径
         string _modelPath;
+
+        //模型Guid
+        private string _modelGuid;
 
         //当前选定的工作对象Guid
         private string _currWorkingObjGuid;
@@ -73,6 +77,14 @@ namespace FGeo3D_TE
         //手绘鼠标是否按下状态
         public bool IsFreehandDrawingMouseDown { get; set; }
 
+        //点
+        public string PointGroupId { get; set; }
+
+        //线
+        public string LineGroupId { get; set; }
+
+        //面
+        public string RegionGroupId { get; set; }
         #endregion
 
         public FrmMain()
@@ -121,6 +133,22 @@ namespace FGeo3D_TE
             YBottom = sgworld.Terrain.Bottom;
             //设置窗体标题
             Text = _tProjectUrl + @" - FieldGeo3D";
+
+
+            //设置地图中心为兴趣点，导航至此
+            var centerPos = sgworld.Creator.CreatePosition((XLeft + XRight)/2, (YTop + YBottom)/2, 0,
+                AltitudeTypeCode.ATC_ON_TERRAIN, 0, -75, 0, 10000);
+
+            var centerLocation = sgworld.Creator.CreateLocation(centerPos, sgworld.ProjectTree.RootID, "初始视角");
+            sgworld.Navigate.FlyTo(centerLocation, ActionCode.AC_FLYTO);
+
+            PointGroupId = sgworld.ProjectTree.CreateGroup("点");
+            LineGroupId = sgworld.ProjectTree.CreateGroup("线");
+            RegionGroupId = sgworld.ProjectTree.CreateGroup("区域");
+            sgworld.ProjectTree.ExpandGroup(PointGroupId, true);
+            sgworld.ProjectTree.ExpandGroup(LineGroupId, true);
+            sgworld.ProjectTree.ExpandGroup(RegionGroupId, true);
+
         }
 
         //保存
@@ -204,6 +232,7 @@ namespace FGeo3D_TE
             if (!_isDbConnected) return;
             //创建模型
             _modelPath = db.SkyOpenOrNewModal();
+            _modelGuid = db.SkyModelGuid;
             Text = db.GCName + @" - FieldGeo3D";
             StatusDatabase.Text = $"数据库状态：【已连接】|工程：{db.GCName}";
         }
@@ -316,12 +345,7 @@ namespace FGeo3D_TE
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
-        private void btnGeoPoint_Click(object sender, EventArgs e)
-        {
-            StatusSystem.Text = @"系统状态：【地质点编录】";
-            sgworld.OnLButtonDown += OnLBtnDown_LoggingSpot;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
-        }
+
 
         private void btnSlope_Click(object sender, EventArgs e)
         {
@@ -403,6 +427,13 @@ namespace FGeo3D_TE
             }
         }
         */
+        private void btnGeoPoint_Click(object sender, EventArgs e)
+        {
+            StatusSystem.Text = @"系统状态：【地质点编录】";
+            sgworld.OnLButtonDown += OnLBtnDown_LoggingSpot;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+        }
+
 
         private void btnSelectWorkingObj_Click(object sender, EventArgs e)
         {
@@ -415,7 +446,7 @@ namespace FGeo3D_TE
         private void btnImageLogging_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【图像编录】";
-            var frmImage = new FrmImage();
+            var frmImage = new FrmImage(ref db);
             frmImage.Show();
             StatusSystem.Text = @"系统状态：【默认】";
         }
@@ -465,61 +496,34 @@ namespace FGeo3D_TE
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
 
-        private void btnRegion_Click(object sender, EventArgs e)
+        private void btnRegionNew_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_currWorkingObjGuid))
+            HighlightButton(btnRegion, true);//仍然使用原按钮
+
+            PbHander = "RegionNew";
+            _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
+            if (_objInfo.IsDrop)
             {
-                MessageBox.Show(@"请先选择工作对象。", @"工作对象未选定");
+                ResetButton(btnRegion, true);//仍然使用原按钮
                 return;
             }
-            try
-            {
-                HighlightButton(btnRegion, true);
-                PbHander = "Region";
-                _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
-                if (_objInfo.IsDrop)
-                {
-                    ResetButton(btnRegion, true);
-                    return;
-                }
-                sgworld.OnLButtonDown += OnLBtnDown_Region;
-                sgworld.OnRButtonDown += OnRBtnDown_DrawingComplete;
-                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show($"GeometryPolygon_Click Exception: {ex.Message}");
-            }
+            StatusSystem.Text = @"系统状态：【绘制区域】";
+            sgworld.OnLButtonDown += OnLBtnDown_RegionNew;
+            sgworld.OnRButtonDown += OnRBtnDown_DrawingComplete;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
+
+
+        private void btnRegion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
 
         private void btnFreehandDrawing_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_currWorkingObjGuid))
-            {
-                MessageBox.Show(@"请先选择工作对象。", @"工作对象未选定");
-                return;
-            }
-            try
-            {
-                HighlightButton(btnFreehandDrawing);
-                PbHander = "FreehandDrawing";
-                _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
-                if (_objInfo.IsDrop)
-                {
-                    ResetButton(btnFreehandDrawing, true);
-                    return;
-                }
-                sgworld.OnLButtonDown += OnLBtnDown_FreehandDrawing;
-                sgworld.OnLButtonUp += FreehandDrawing_OnLButtonUp;
-                sgworld.OnFrame += FreehandDrawing_OnMouseMove;
-                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
-            }
 
-            catch (Exception ex)
-            {
-                MessageBox.Show($"GeometryPolygon_Click Exception: {ex.Message}");
-            }
         }
 
         private void btnDrawingComplete_Click(object sender, EventArgs e)
@@ -592,27 +596,42 @@ namespace FGeo3D_TE
         #region 测量
         private void btnAbsDistance_Click(object sender, EventArgs e)
         {
+            StatusSystem.Text = @"系统状态：【测量直线距离】";
             sgworld.Command.Execute(1035, 0);
+
         }
 
         private void btnHorizonalDistance_Click(object sender, EventArgs e)
         {
+            StatusSystem.Text = @"系统状态：【测量水平距离】";
             sgworld.Command.Execute(1034, 0);
         }
 
         private void btnVerticalDistance_Click(object sender, EventArgs e)
         {
+            StatusSystem.Text = @"系统状态：【测量垂直距离】";
             sgworld.Command.Execute(1036, 0);
         }
 
         private void btnPlaneArea_Click(object sender, EventArgs e)
         {
+            StatusSystem.Text = @"系统状态：【测量平面距离】";
             sgworld.Command.Execute(1037, 0);
         }
 
         private void btnTerrainArea_Click(object sender, EventArgs e)
         {
-            sgworld.Command.Execute(1166, 0);
+            StatusSystem.Text = @"系统状态：【测量地形面积】";
+            sgworld.Command.Execute(1165, 0);
+        }
+
+        private void btnXFinishMeasure_Click(object sender, EventArgs e)
+        {
+            StatusSystem.Text = @"系统状态：【默认】";
+            //激活右键
+            
+            sgworld.Command.Execute(1021, 0);
+            sgworld.Command.Execute(1021, 0);
         }
         #endregion
 
@@ -660,6 +679,14 @@ namespace FGeo3D_TE
             StatusSystem.Text = @"系统状态：【查询地质对象】";
         }
 
+        private void buttonXDeleteLoggingSpot_Click(object sender, EventArgs e)
+        {
+            //挂接事件
+            sgworld.OnLButtonDown += OnLBtnDown_DeleteLoggingSpot;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            StatusSystem.Text = @"系统状态：【删除地质点】";
+        }
+
         /// <summary>
         /// 测试按钮
         /// </summary>
@@ -667,6 +694,21 @@ namespace FGeo3D_TE
         /// <param name="e"></param>
         private void btnTest_Click(object sender, EventArgs e)
         {
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "DXDM");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "DCYX");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "GZFD");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "ZZ");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "FH");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "XH");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "NSL");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "HP");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "BT");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "RB");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "YR");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "DXSFD");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "TTFC");
+            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "YTFL");
+
             /*
             IPosition66 p1 = sgworld.Creator.CreatePosition(412465.396283, 3264008.200115);
             IPosition66 p2 = sgworld.Creator.CreatePosition(412019.599981, 3264057.697713);
@@ -717,26 +759,28 @@ namespace FGeo3D_TE
             //};
             //db.SkyGetData().GetObjData(0).MarkersNO1.GetMarker(0).
 
-            //测试TsFile
-            var testTsData = new TsData();
-            //   testTsData.VerticesList.Add()
-            Point p1 = new Point(100, 200, 300);
-            Point p2 = new Point(200, 300, 600);
-            Point p3 = new Point(150, 280, 500);
-            testTsData.VerticesList.Add(p1);
-            testTsData.VerticesList.Add(p2);
-            testTsData.VerticesList.Add(p3);
-            TriLink trgl1 = new TriLink();
-            trgl1.VertexA = 2;
-            trgl1.VertexB = 1;
-            trgl1.VertexC = 3;
-            testTsData.TriLinksList.Add(trgl1);
-            //   testTsData.TriLinksList.Add();
-            var testTsType = "Surface";
+            ////测试TsFile
+            //var testTsData = new TsData();
+            ////   testTsData.VerticesList.Add()
+            //Point p1 = new Point(100, 200, 300);
+            //Point p2 = new Point(200, 300, 600);
+            //Point p3 = new Point(150, 280, 500);
+            //testTsData.VerticesList.Add(p1);
+            //testTsData.VerticesList.Add(p2);
+            //testTsData.VerticesList.Add(p3);
+            //var trgl1 = new TriLink
+            //{
+            //    VertexA = 2,
+            //    VertexB = 1,
+            //    VertexC = 3
+            //};
+            //testTsData.TriLinksList.Add(trgl1);
+            ////   testTsData.TriLinksList.Add();
+            //var testTsType = "Surface";
 
-            var testTsFile = new TsFile(testTsData, testTsType);
+            //var testTsFile = new TsFile(testTsData, testTsType);
 
-            testTsFile.WriteTsFile();
+            //testTsFile.WriteTsFile();
 
         }
 
@@ -783,7 +827,7 @@ namespace FGeo3D_TE
                     cLabelStyle.TextAlignment = "Bottom, Center";
                     var cLabel = sgworld.Creator.CreateTextLabel(_pITerrainPolyline.Position, _objInfo.Name, cLabelStyle,
                         sgworld.ProjectTree.HiddenGroupID, "");
-                    var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.GeoType, new List<string>());
+                    var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.MarkerType, new List<string>());
                     //cLine.Store(_currWorkingObjGuid, ref db);
                 }
                 _pITerrainPolyline = null;
@@ -807,7 +851,16 @@ namespace FGeo3D_TE
                     cLabelStyle.TextAlignment = "Bottom, Center";
                     var cLabel = sgworld.Creator.CreateTextLabel(_pITerrainPolyline.Position, _objInfo.Name, cLabelStyle,
                         sgworld.ProjectTree.HiddenGroupID, "");
-                    var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.GeoType, _objInfo.ConnObjGuids);
+
+                    //删除冗余点
+                    var cLineString = _pITerrainPolyline.Geometry as ILineString;
+                    _pITerrainPolyline.Geometry.StartEdit();
+                    cLineString?.Points.DeletePoint(0);//?
+                    var editedGeometry = _pITerrainPolyline.Geometry.EndEdit();
+                    _pITerrainPolyline.Geometry = editedGeometry;
+
+                    //保存
+                    var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.MarkerType, _objInfo.ConnObjGuids);
                     //cLine.Store(_currWorkingObjGuid, ref db);
                 }
                 _pITerrainPolyline = null;
@@ -820,6 +873,47 @@ namespace FGeo3D_TE
             #endregion
 
             #region 区域
+
+            if (pbhander == "RegionNew")
+            {
+                sgworld.OnLButtonDown -= OnLBtnDown_RegionNew;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                StatusSystem.Text = @"系统状态：【默认】";
+                if (_pItPolygon != null)
+                {
+                    var cLabelStyle = sgworld.Creator.CreateLabelStyle();
+                    cLabelStyle.MultilineJustification = "Center";
+                    cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
+                    cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
+                    cLabelStyle.TextAlignment = "Bottom, Center";
+                    var cLabel = sgworld.Creator.CreateTextLabel(_pItPolygon.Position, _objInfo.Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, "");
+
+                    //删除两个冗余点
+                    var polygonGeometry = _pItPolygon.Geometry as IPolygon;
+                    _pItPolygon.Geometry.StartEdit();
+                    foreach (ILinearRing ring in polygonGeometry.Rings)
+                    {
+                        
+                        ring?.Points.DeletePoint(0);
+                        ring?.Points.DeletePoint(1);
+                        //ring.Points.DeletePoint(0);
+                    }
+
+                    //结束编辑，保存polygon
+                    var editedGeometry = polygonGeometry.EndEdit();
+                    _pItPolygon.Geometry = editedGeometry;
+
+                    //保存
+                    var cRegion = new DrawingLine(_pItPolygon, cLabel, _objInfo.MarkerType, _objInfo.ConnObjGuids);
+                    //cRegion.Store(_currWorkingObjGuid, ref db);
+                }
+                _pItPolygon = null;
+                _objInfo = null;
+
+                ResetButton(btnRegion, true);
+
+            }
+
 
             if (pbhander == "Region")
             {
@@ -837,7 +931,7 @@ namespace FGeo3D_TE
                     {
                         var cLabel = sgworld.Creator.CreateTextLabel(_pItPolygon.Position, _objInfo.Name, cLabelStyle,
                             sgworld.ProjectTree.HiddenGroupID, "");
-                        var cRegion = new DrawingRegion(_pItPolygon, cLabel, _objInfo.GeoType);
+                        var cRegion = new DrawingRegion(_pItPolygon, cLabel, _objInfo.MarkerType, _objInfo.ConnObjGuids);
                         cRegion.Store(_currWorkingObjGuid, ref db);
                     }
                 }
@@ -919,6 +1013,10 @@ namespace FGeo3D_TE
             {
                 sgworld.OnLButtonDown -= OnLBtnDown_LineNew;
             }
+            if (PbHander == "RegionNew")
+            {
+                sgworld.OnLButtonDown -= OnLBtnDown_RegionNew;
+            }
             StatusSystem.Text = @"系统状态：【默认】";
             sgworld.OnRButtonDown -= OnRBtnDown_DrawingComplete;
             PbHander = "";
@@ -941,6 +1039,7 @@ namespace FGeo3D_TE
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             var top = new DMarker
             {
+                
                 X = _cWorldPointInfo.Position.X,
                 Y = _cWorldPointInfo.Position.Y,
                 Z = _cWorldPointInfo.Position.Altitude,
@@ -1226,6 +1325,7 @@ namespace FGeo3D_TE
                 SD = 0,
                 DZDXLX = "KZD"
             };
+            
             var bottom = top;
             _cWorldPointInfo = null;
             var kzdList = new List<DMarker> { top, bottom };
@@ -1260,6 +1360,8 @@ namespace FGeo3D_TE
                     pointList.Add(_cWorldPointInfo.Position.Y);
                     pointList.Add(_cWorldPointInfo.Position.Altitude);
                     _pITerrainPolyline = sgworld.Creator.CreatePolylineFromArray(pointList.ToArray(), _objInfo.LineColor.ToABGRColor(), AltitudeTypeCode.ATC_ON_TERRAIN, _objInfo.GroupId, _objInfo.Name);
+                    sgworld.ProjectTree.ExpandGroup(_objInfo.GroupId, true);
+                    _pITerrainPolyline.LineStyle.Width = -3.0;
                 }
                 else
                 {
@@ -1277,10 +1379,9 @@ namespace FGeo3D_TE
                     pointList.Add(thisObjPoint.Y);
                     pointList.Add(thisObjPoint.Z);
                     _pITerrainPolyline = sgworld.Creator.CreatePolylineFromArray(pointList.ToArray(), _objInfo.LineColor.ToABGRColor(), AltitudeTypeCode.ATC_ON_TERRAIN, _objInfo.GroupId, _objInfo.Name);
-
-                    
+                    sgworld.ProjectTree.ExpandGroup(_objInfo.GroupId, true);
+                    _pITerrainPolyline.LineStyle.Width = -3.0;
                 }
-                
             }
             
             else
@@ -1316,6 +1417,81 @@ namespace FGeo3D_TE
             return false;
         }
 
+        private bool OnLBtnDown_RegionNew(int flags, int x, int y)
+        {
+            var pointList = new List<double>();
+            if (_pItPolygon == null)
+            {
+                //第一次画线
+                _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
+
+                if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+                {
+                    MessageBox.Show(@"请点击地质点的文字标签。", @"地质点捕捉失败");
+                    return false;
+                }
+                var thisGuid = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+                _objInfo.ConnObjGuids.Add(thisGuid);
+
+                var thisObjPoint = db.SkyGetGeoDataList(thisGuid).GetObjData(0).Points.GetPoint(0);
+
+                pointList.Add(thisObjPoint.X);
+                pointList.Add(thisObjPoint.Y);
+                pointList.Add(thisObjPoint.Z);
+
+                pointList.Add(thisObjPoint.X);
+                pointList.Add(thisObjPoint.Y);
+                pointList.Add(thisObjPoint.Z);
+
+                pointList.Add(thisObjPoint.X);
+                pointList.Add(thisObjPoint.Y);
+                pointList.Add(thisObjPoint.Z);
+
+                pointList.Add(thisObjPoint.X);
+                pointList.Add(thisObjPoint.Y);
+                pointList.Add(thisObjPoint.Z);
+
+                _pItPolygon = sgworld.Creator.CreatePolygonFromArray(pointList.ToArray(),
+                    _objInfo.LineColor.ToABGRColor(), _objInfo.FillColor.ToABGRColor(), AltitudeTypeCode.ATC_ON_TERRAIN,
+                    _objInfo.GroupId, _objInfo.Name);
+                sgworld.ProjectTree.ExpandGroup(_objInfo.GroupId, true);
+                _pItPolygon.LineStyle.Width = -3.0;
+            }
+            else
+            {
+                //非第一次画线
+                var polygonGeometry = _pItPolygon.Geometry as IPolygon;
+                if (polygonGeometry == null) return false;
+                
+                //捕捉地质点，获取坐标
+                _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
+                if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+                {
+                    MessageBox.Show(@"请点击地质点的文字标签。", @"地质点捕捉失败");
+                    return false;
+                }
+                var thisGuid = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+                _objInfo.ConnObjGuids.Add(thisGuid);
+                var thisObjPoint = db.SkyGetGeoDataList(thisGuid).GetObjData(0).Points.GetPoint(0);
+
+                //开始编辑polygon
+                polygonGeometry.StartEdit();
+                foreach (ILinearRing ring in polygonGeometry.Rings)
+                {
+                    var dx = thisObjPoint.X;
+                    var dy = thisObjPoint.Y;
+                    var dz = thisObjPoint.Z;
+                    ring.Points.AddPoint(dx, dy, dz);
+                    //ring.Points.DeletePoint(0);
+                }
+                
+                //结束编辑，保存polygon
+                var editedGeometry = polygonGeometry.EndEdit();
+                _pItPolygon.Geometry = editedGeometry;
+
+            }
+            return false;
+        }
 
         /// <summary>
         /// 查询
@@ -1341,6 +1517,32 @@ namespace FGeo3D_TE
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             StatusSystem.Text = @"系统状态：【默认】";
             return true;
+        }
+
+        private bool OnLBtnDown_DeleteLoggingSpot(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
+            if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+            {
+                MessageBox.Show(@"当前选择无效，请选择地质点的文字标签！", @"删除地质点失败");
+                sgworld.OnLButtonDown -= OnLBtnDown_DeleteLoggingSpot;
+ 
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                StatusSystem.Text = @"系统状态：【默认】";
+                return true;
+            }
+
+            var guidToBeDeleted = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+            db.SkyDeleteSjly(guidToBeDeleted);
+            LoggingObject.DictOfLoggingObjects[guidToBeDeleted].Erase(ref sgworld);
+
+            
+            sgworld.OnLButtonDown -= OnLBtnDown_DeleteLoggingSpot;
+
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            StatusSystem.Text = @"系统状态：【默认】";
+            return true;
+
         }
 
         /// <summary>
@@ -1763,12 +1965,12 @@ namespace FGeo3D_TE
                 cLabelStyle.TextAlignment = "Bottom, Center";
                 var cLabel = sgworld.Creator.CreateTextLabel(_pITerrainPolyline.Position, _objInfo.Name, cLabelStyle,
                     sgworld.ProjectTree.HiddenGroupID, "");
-                var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.GeoType, new List<string>());
+                var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.MarkerType, new List<string>());
                 cLine.Store(_currWorkingObjGuid, ref db);
             }
             _pITerrainPolyline = null;
             _objInfo = null; 
-            ResetButton(btnFreehandDrawing);
+            ResetButton(btnDeleteSpot);
 
             PbHander = "";
             IsSaved = false;
@@ -1863,6 +2065,7 @@ namespace FGeo3D_TE
                 btnDrawingComplete.ForeColor = Color.Black;
             }
         }
+
 
 
 

@@ -50,10 +50,10 @@
             this.cbItem_ZZ = new DevComponents.Editors.ComboItem();
             this.cbItem_FH = new DevComponents.Editors.ComboItem();
             this.cbItem_XH = new DevComponents.Editors.ComboItem();
-            this.cbItem_NSLZH = new DevComponents.Editors.ComboItem();
-            this.cbItem_HPZH = new DevComponents.Editors.ComboItem();
-            this.cbItem_BTZH = new DevComponents.Editors.ComboItem();
-            this.cbItem_RBZH = new DevComponents.Editors.ComboItem();
+            this.cbItem_NSL = new DevComponents.Editors.ComboItem();
+            this.cbItem_HP = new DevComponents.Editors.ComboItem();
+            this.cbItem_BT = new DevComponents.Editors.ComboItem();
+            this.cbItem_RB = new DevComponents.Editors.ComboItem();
             this.cbItem_QZSWKT = new DevComponents.Editors.ComboItem();
             this.cbItem_YR = new DevComponents.Editors.ComboItem();
             this.cbItem_DXSFD = new DevComponents.Editors.ComboItem();
@@ -209,10 +209,10 @@
             this.cbItem_ZZ,
             this.cbItem_FH,
             this.cbItem_XH,
-            this.cbItem_NSLZH,
-            this.cbItem_HPZH,
-            this.cbItem_BTZH,
-            this.cbItem_RBZH,
+            this.cbItem_NSL,
+            this.cbItem_HP,
+            this.cbItem_BT,
+            this.cbItem_RB,
             this.cbItem_QZSWKT,
             this.cbItem_YR,
             this.cbItem_DXSFD,
@@ -228,66 +228,82 @@
             // cbItem_DXDM
             // 
             this.cbItem_DXDM.Text = "地形地貌";
+            this.cbItem_DXDM.Value = "DXDM";
             // 
             // cbItem_DCYX
             // 
             this.cbItem_DCYX.Text = "地层岩性";
+            this.cbItem_DCYX.Value = "DCYX";
             // 
             // cbItem_JGM
             // 
             this.cbItem_JGM.Text = "结构面";
+            this.cbItem_JGM.Value = "JGM";
             // 
             // cbItem_GZFD
             // 
             this.cbItem_GZFD.Text = "构造分段";
+            this.cbItem_GZFD.Value = "GZFD";
             // 
             // cbItem_ZZ
             // 
             this.cbItem_ZZ.Text = "褶皱";
+            this.cbItem_ZZ.Value = "ZZ";
             // 
             // cbItem_FH
             // 
             this.cbItem_FH.Text = "风化";
+            this.cbItem_FH.Value = "FH";
             // 
             // cbItem_XH
             // 
             this.cbItem_XH.Text = "卸荷";
+            this.cbItem_XH.Value = "XH";
             // 
-            // cbItem_NSLZH
+            // cbItem_NSL
             // 
-            this.cbItem_NSLZH.Text = "泥石流";
+            this.cbItem_NSL.Text = "泥石流";
+            this.cbItem_NSL.Value = "NSL";
             // 
-            // cbItem_HPZH
+            // cbItem_HP
             // 
-            this.cbItem_HPZH.Text = "滑坡";
+            this.cbItem_HP.Text = "滑坡";
+            this.cbItem_HP.Value = "HP";
             // 
-            // cbItem_BTZH
+            // cbItem_BT
             // 
-            this.cbItem_BTZH.Text = "崩塌";
+            this.cbItem_BT.Text = "崩塌";
+            this.cbItem_BT.Value = "BT";
             // 
-            // cbItem_RBZH
+            // cbItem_RB
             // 
-            this.cbItem_RBZH.Text = "蠕变";
+            this.cbItem_RB.Text = "蠕变";
+            this.cbItem_RB.Value = "RB";
             // 
             // cbItem_QZSWKT
             // 
             this.cbItem_QZSWKT.Text = "潜在失稳块体";
+            this.cbItem_QZSWKT.Value = "QZSWKT";
             // 
             // cbItem_YR
             // 
             this.cbItem_YR.Text = "岩溶";
+            this.cbItem_YR.Value = "YR";
             // 
             // cbItem_DXSFD
             // 
             this.cbItem_DXSFD.Text = "地下水分段";
+            this.cbItem_DXSFD.Value = "DXSFD";
             // 
             // cbItem_TTFC
             // 
             this.cbItem_TTFC.Text = "土体分层";
+            this.cbItem_TTFC.Value = "TTFC";
             // 
             // cbItem_YTFL
             // 
             this.cbItem_YTFL.Text = "岩体分类";
+            this.cbItem_YTFL.Value = "YTFL";
             // 
             // touchKeyboard
             // 
@@ -358,24 +374,24 @@
         private System.Windows.Forms.RadioButton radioBtnGeometryPart;
         private System.Windows.Forms.RadioButton radioBtnJX;
         private System.Windows.Forms.RadioButton radioBtnJGM;
-        private DevComponents.Editors.ComboItem cbItem_DCYX;
-        private DevComponents.Editors.ComboItem cbItem_DXDM;
-        private DevComponents.Editors.ComboItem cbItem_BTZH;
-        private DevComponents.Editors.ComboItem cbItem_GZFD;
-        private DevComponents.Editors.ComboItem cbItem_HPZH;
-        private DevComponents.Editors.ComboItem cbItem_JGM;
-        private DevComponents.Editors.ComboItem cbItem_NSLZH;
         private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExType;
-        private DevComponents.Editors.ComboItem cbItem_FH;
-        private DevComponents.Editors.ComboItem cbItem_ZZ;
-        private DevComponents.Editors.ComboItem cbItem_XH;
-        private DevComponents.Editors.ComboItem cbItem_QZSWKT;
-        private DevComponents.Editors.ComboItem cbItem_YR;
-        private DevComponents.Editors.ComboItem cbItem_RBZH;
-        private DevComponents.Editors.ComboItem cbItem_DXSFD;
-        private DevComponents.Editors.ComboItem cbItem_TTFC;
-        private DevComponents.Editors.ComboItem cbItem_YTFL;
         private DevComponents.DotNetBar.Keyboard.TouchKeyboard touchKeyboard;
         private DevComponents.DotNetBar.Keyboard.KeyboardControl keyboardControl;
+        internal DevComponents.Editors.ComboItem cbItem_DCYX;
+        internal DevComponents.Editors.ComboItem cbItem_DXDM;
+        internal DevComponents.Editors.ComboItem cbItem_BT;
+        internal DevComponents.Editors.ComboItem cbItem_GZFD;
+        internal DevComponents.Editors.ComboItem cbItem_HP;
+        internal DevComponents.Editors.ComboItem cbItem_JGM;
+        internal DevComponents.Editors.ComboItem cbItem_NSL;
+        internal DevComponents.Editors.ComboItem cbItem_FH;
+        internal DevComponents.Editors.ComboItem cbItem_ZZ;
+        internal DevComponents.Editors.ComboItem cbItem_XH;
+        internal DevComponents.Editors.ComboItem cbItem_QZSWKT;
+        internal DevComponents.Editors.ComboItem cbItem_YR;
+        internal DevComponents.Editors.ComboItem cbItem_RB;
+        internal DevComponents.Editors.ComboItem cbItem_DXSFD;
+        internal DevComponents.Editors.ComboItem cbItem_TTFC;
+        internal DevComponents.Editors.ComboItem cbItem_YTFL;
     }
 }
