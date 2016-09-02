@@ -40,7 +40,7 @@ namespace FGeo3D_TE.GeoImage
         private List<ImageLine> _lineList = new List<ImageLine>();
 
         //校正信息，包含数据与模型。当RectifyDatas不为空时，说明校正信息有效
-        internal RectifyInfo RectifyInfo = new RectifyInfo();
+        internal RectifyInfo RectifyInfo;
 
         private bool _isRectifying = false;
 
@@ -84,7 +84,7 @@ namespace FGeo3D_TE.GeoImage
                     inSolidBrush.Color = thisImageLine.Color;
                     foreach (var thisScreenPoint in thisImageLine.ScreenPoints)
                     {
-                        inG.DrawEllipse(inPen, thisScreenPoint.X, thisScreenPoint.Y, 5, 5);
+                        //inG.DrawEllipse(inPen, thisScreenPoint.X, thisScreenPoint.Y, 5, 5);
                         inG.FillEllipse(inSolidBrush, thisScreenPoint.X - 5, thisScreenPoint.Y - 5 ,10, 10);
                     }
                     inG.DrawLines(inPen, thisImageLine.ScreenPoints.ToArray());
@@ -124,10 +124,15 @@ namespace FGeo3D_TE.GeoImage
 
         private void PictureBoxOnMouseDown_DrawLine(object sender, MouseEventArgs e)
         {
+            if (RectifyInfo == null)
+            {
+                MessageBox.Show(@"请先输入校正参数");
+                return;
+            }
             _currScreenLinePoints.Add(new System.Drawing.Point(e.X, e.Y));
             
             //画点
-            g.DrawEllipse(_pen, e.X, e.Y, 5, 5);
+            //g.DrawEllipse(_pen, e.X, e.Y, 5, 5);
             g.FillEllipse(_brush, e.X - 5, e.Y - 5, 10, 10);
             //连线
             if (_currScreenLinePoints.Count > 1)
@@ -146,6 +151,11 @@ namespace FGeo3D_TE.GeoImage
 
         private void btnDrawApply_Click(object sender, EventArgs e)
         {
+            if (RectifyInfo == null)
+            {
+                MessageBox.Show(@"尚未校正");
+                return;
+            }
             if (_currScreenLinePoints.Count == 0) return;
             var frmImageLineType = new FrmImageLineType();
             if (frmImageLineType.ShowDialog() != DialogResult.OK) return;
@@ -160,11 +170,19 @@ namespace FGeo3D_TE.GeoImage
                 StretchDepth = frmImageLineType.StretchDepth,
             };
 
+            cImageLine.ScreenPoints2Dto3D();
+            cImageLine.Rectify(RectifyInfo.RectifyModelWdX, RectifyInfo.RectifyModelWdY, RectifyInfo.RectifyModelWdZ, RectifyInfo.RectifyModelWdReal);
+            
             //将ImageLine存入数据库
-            if(!cImageLine.Store(ref db))
-                MessageBox.Show(@"数据保存失败！", @"二维图像存储");
-
-            _lineList.Add(cImageLine);
+            if (cImageLine.Store(ref db))
+            {
+                MessageBox.Show(@"保存成功！", @"二维图像存储");
+                _lineList.Add(cImageLine);
+            }
+            else
+            {
+                MessageBox.Show(@"保存失败！", @"二维图像存储");
+            }    
             _currScreenLinePoints.Clear();
             pictureBox.Refresh();
         }
@@ -180,19 +198,21 @@ namespace FGeo3D_TE.GeoImage
             if (_currBitmap == null)
             {
                 MessageBox.Show(@"请先载入图像。", @"操作失败");
+                return;
             }
             
-            //判断是否已存在校正信息
-            if (RectifyInfo.RectifyModelWdX != null || RectifyInfo.RectifyModelWdY != null || RectifyInfo.RectifyModelWdZ != null)
-            {
-                //弹出对话框，提示已有校正信息，询问是否清除当前校正信息并重新校正。
-
-            }
+            
             
             //屏幕上画点，获取该点的屏幕坐标
             if (_isRectifying == false)
             {
+                if (RectifyInfo != null)
+                {
+                    var dlgResult = MessageBox.Show(@"已存在校正数据，是否将其覆盖？", @"校正提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (dlgResult == DialogResult.No) return;
+                }
                 //点击后进入校正状态
+                RectifyInfo = new RectifyInfo();
                 pictureBox.MouseDown += PictureBoxOnMouseDown_Rectify;
                 btnRectify.Text = @"结束校正";
                 _isRectifying = true;
@@ -204,6 +224,9 @@ namespace FGeo3D_TE.GeoImage
                 btnRectify.Text = @"开始校正";
                 _isRectifying = false;
                 RectifyInfo.CalculateRectification();
+
+                
+                pictureBox.Refresh();
             }
             
 
@@ -213,13 +236,23 @@ namespace FGeo3D_TE.GeoImage
 
         private void PictureBoxOnMouseDown_Rectify(object sender, MouseEventArgs e)
         {
+           
+
             var frmRectify = new FrmRectification(RectifyInfo.RectifyDatas.Count, e.X, e.Y);
             var frmDlgResult = frmRectify.ShowDialog();
             if (frmDlgResult == DialogResult.OK)
             {
                 //记录校正点对
                 RectifyInfo.RectifyDatas.Add(frmRectify.ScPoint, frmRectify.WdPoint);
-                
+
+                //画图
+                Pen pen = new Pen(Color.Red);
+                Brush brush = new SolidBrush(Color.Red);
+                Font font = new Font(FontFamily.GenericMonospace, 15);
+
+                g.DrawEllipse(pen, e.X - 9, e.Y - 9, 18, 18);
+                g.FillEllipse(brush, e.X - 4, e.Y - 4, 8, 8);
+                g.DrawString((RectifyInfo.RectifyDatas.Count).ToString(), font, brush, e.X, e.Y);
             }
         }
     }

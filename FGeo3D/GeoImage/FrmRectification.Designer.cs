@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable3 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
+            DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer3 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
             this.labelXGCPNo = new DevComponents.DotNetBar.LabelX();
             this.labelXScreenPoint = new DevComponents.DotNetBar.LabelX();
             this.labelXWorldPoint = new DevComponents.DotNetBar.LabelX();
@@ -44,6 +46,7 @@
             this.buttonXSave = new DevComponents.DotNetBar.ButtonX();
             this.buttonXCancel = new DevComponents.DotNetBar.ButtonX();
             this.textBoxXGCPNo = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.keyboardControl1 = new DevComponents.DotNetBar.Keyboard.KeyboardControl();
             this.groupBoxRectifyData.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,12 +142,15 @@
             this.textBoxXWPX.Border.Class = "TextBoxBorder";
             this.textBoxXWPX.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.textBoxXWPX.Font = new System.Drawing.Font("宋体", 10.5F);
+            this.textBoxXWPX.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.textBoxXWPX.Location = new System.Drawing.Point(105, 85);
             this.textBoxXWPX.Name = "textBoxXWPX";
             this.textBoxXWPX.PreventEnterBeep = true;
             this.textBoxXWPX.Size = new System.Drawing.Size(96, 23);
             this.textBoxXWPX.TabIndex = 2;
+            this.textBoxXWPX.Click += new System.EventHandler(this.textBoxXWPX_Click);
             this.textBoxXWPX.TextChanged += new System.EventHandler(this.textBoxXWPX_TextChanged);
+            this.textBoxXWPX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxXWPX_KeyPress);
             // 
             // textBoxXWPY
             // 
@@ -154,12 +160,15 @@
             this.textBoxXWPY.Border.Class = "TextBoxBorder";
             this.textBoxXWPY.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.textBoxXWPY.Font = new System.Drawing.Font("宋体", 10.5F);
+            this.textBoxXWPY.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.textBoxXWPY.Location = new System.Drawing.Point(207, 85);
             this.textBoxXWPY.Name = "textBoxXWPY";
             this.textBoxXWPY.PreventEnterBeep = true;
             this.textBoxXWPY.Size = new System.Drawing.Size(96, 23);
             this.textBoxXWPY.TabIndex = 2;
+            this.textBoxXWPY.Click += new System.EventHandler(this.textBoxXWPY_Click);
             this.textBoxXWPY.TextChanged += new System.EventHandler(this.textBoxXWPY_TextChanged);
+            this.textBoxXWPY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxXWPY_KeyPress);
             // 
             // textBoxXWPZ
             // 
@@ -169,11 +178,13 @@
             this.textBoxXWPZ.Border.Class = "TextBoxBorder";
             this.textBoxXWPZ.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.textBoxXWPZ.Font = new System.Drawing.Font("宋体", 10.5F);
+            this.textBoxXWPZ.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.textBoxXWPZ.Location = new System.Drawing.Point(309, 85);
             this.textBoxXWPZ.Name = "textBoxXWPZ";
             this.textBoxXWPZ.PreventEnterBeep = true;
             this.textBoxXWPZ.Size = new System.Drawing.Size(96, 23);
             this.textBoxXWPZ.TabIndex = 2;
+            this.textBoxXWPZ.Click += new System.EventHandler(this.textBoxXWPZ_Click);
             this.textBoxXWPZ.TextChanged += new System.EventHandler(this.textBoxXWPZ_TextChanged);
             // 
             // groupBoxRectifyData
@@ -243,7 +254,7 @@
             this.buttonXSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.buttonXSave.Enabled = false;
-            this.buttonXSave.Location = new System.Drawing.Point(106, 177);
+            this.buttonXSave.Location = new System.Drawing.Point(219, 8);
             this.buttonXSave.Name = "buttonXSave";
             this.buttonXSave.Size = new System.Drawing.Size(85, 29);
             this.buttonXSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -255,7 +266,7 @@
             // 
             this.buttonXCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXCancel.Location = new System.Drawing.Point(261, 177);
+            this.buttonXCancel.Location = new System.Drawing.Point(337, 8);
             this.buttonXCancel.Name = "buttonXCancel";
             this.buttonXCancel.Size = new System.Drawing.Size(85, 29);
             this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -279,11 +290,34 @@
             this.textBoxXGCPNo.TabIndex = 2;
             this.textBoxXGCPNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // keyboardControl1
+            // 
+            virtualKeyboardColorTable3.BackgroundColor = System.Drawing.Color.Black;
+            virtualKeyboardColorTable3.DarkKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
+            virtualKeyboardColorTable3.DownKeysColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable3.DownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            virtualKeyboardColorTable3.KeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(55)))));
+            virtualKeyboardColorTable3.LightKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(68)))), ((int)(((byte)(76)))));
+            virtualKeyboardColorTable3.PressedKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(161)))), ((int)(((byte)(81)))));
+            virtualKeyboardColorTable3.TextColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable3.ToggleTextColor = System.Drawing.Color.Green;
+            virtualKeyboardColorTable3.TopBarTextColor = System.Drawing.Color.White;
+            this.keyboardControl1.ColorTable = virtualKeyboardColorTable3;
+            this.keyboardControl1.Location = new System.Drawing.Point(12, 169);
+            this.keyboardControl1.Name = "keyboardControl1";
+            flatStyleRenderer3.ColorTable = virtualKeyboardColorTable3;
+            flatStyleRenderer3.ForceAntiAlias = false;
+            this.keyboardControl1.Renderer = flatStyleRenderer3;
+            this.keyboardControl1.Size = new System.Drawing.Size(410, 302);
+            this.keyboardControl1.TabIndex = 5;
+            this.keyboardControl1.Text = "请输入真实坐标";
+            // 
             // FrmRectification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 218);
+            this.ClientSize = new System.Drawing.Size(436, 483);
+            this.Controls.Add(this.keyboardControl1);
             this.Controls.Add(this.textBoxXGCPNo);
             this.Controls.Add(this.buttonXCancel);
             this.Controls.Add(this.buttonXSave);
@@ -291,6 +325,7 @@
             this.Controls.Add(this.labelXGCPNo);
             this.Name = "FrmRectification";
             this.Text = "校准控制";
+            this.Activated += new System.EventHandler(this.FrmRectification_Activated);
             this.groupBoxRectifyData.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -314,5 +349,6 @@
         private DevComponents.DotNetBar.ButtonX buttonXSave;
         private DevComponents.DotNetBar.ButtonX buttonXCancel;
         private DevComponents.DotNetBar.Controls.TextBoxX textBoxXGCPNo;
+        private DevComponents.DotNetBar.Keyboard.KeyboardControl keyboardControl1;
     }
 }

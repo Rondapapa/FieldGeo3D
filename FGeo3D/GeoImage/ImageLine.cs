@@ -15,6 +15,9 @@ namespace FGeo3D_TE.GeoImage
         //平面线点集
         public List<System.Drawing.Point> ScreenPoints = new List<System.Drawing.Point>();
 
+        //延伸平面的点集
+        public List<Point3D> ScreenPoints3D = new List<Point3D>();
+
         //真实三维线点集
         public List<Point3D> WorldPoints = new List<Point3D>();
 
@@ -30,11 +33,6 @@ namespace FGeo3D_TE.GeoImage
         //面内延伸方式
         public double StretchDepth { get; set; }
 
-        //延伸平面的点集
-        public List<Point3D> StretchPoints = new List<Point3D>();
-
-        //
-        public Dictionary<System.Drawing.Point, Point3D> ScreenToWorld = new Dictionary<System.Drawing.Point, Point3D>();
 
         //关联的地质点guid
         private string GeoSpotGuid { get; }
@@ -51,35 +49,51 @@ namespace FGeo3D_TE.GeoImage
             {
                 ScreenPoints.Add(thisPoint);
             }
-            Stretch();
-            
-            
         }
 
 
         /// <summary>
-        /// 构建延伸平面， 写入StretchPoints,未校正
+        /// 将二维屏幕点转换为三维屏幕点
         /// </summary>
-        public void Stretch()
+        public void ScreenPoints2Dto3D()
         {
             foreach (var thisScreenPoint in ScreenPoints)
             {
-                StretchPoints.Add(new Point3D(thisScreenPoint.X, thisScreenPoint.Y, -StretchDepth));
+                ScreenPoints3D.Add(new Point3D(thisScreenPoint.X, thisScreenPoint.Y, 0));
             }
         }
 
         /// <summary>
-        /// 校正坐标，根据StretchPoints更新WorldPoints
+        /// 校正坐标，根据StretchPoints3D更新WorldPoints
         /// </summary>
-        public void Rectify()
+        public void Rectify(Plane xPlane, Plane yPlane, Plane zPlane, Plane realPlane)
         {
             //校正坐标
-            foreach (var thisStretchPoint in StretchPoints)
+            foreach (var thisPoint in ScreenPoints3D)
             {
-                WorldPoints.Add(new Point3D(thisStretchPoint.X, thisStretchPoint.Y, -StretchDepth));
+                //表面点
+                //wpx
+                var wpX = CalcWPCoordValueWithoutDepth(thisPoint, xPlane);
+                //wpy
+                var wpY = CalcWPCoordValueWithoutDepth(thisPoint, yPlane);
+                //wpz
+                var wpZ = CalcWPCoordValueWithoutDepth(thisPoint, zPlane);
+
+                WorldPoints.Add(new Point3D(wpX, wpY, wpZ));
             }
-            Vector3D v = new Vector3D();
-            Plane p = new Plane();
+            //延伸点
+            var unitVector = realPlane.Normal;
+            var stretchPoints = (from thisPoint in WorldPoints
+                                 let stretchX = thisPoint.X + StretchDepth*unitVector.X
+                                 let stretchY = thisPoint.Y + StretchDepth*unitVector.Y
+                                 let stretchZ = thisPoint.Z + StretchDepth*unitVector.Z
+                                 select new Point3D(stretchX, stretchY, stretchZ)).ToList();
+            WorldPoints.AddRange(stretchPoints);
+        }
+
+        private double CalcWPCoordValueWithoutDepth(Point3D stretchPoint, Plane plane)
+        {
+            return (plane.D - stretchPoint.X*plane.A - stretchPoint.Y*plane.B)/plane.C;
         }
 
 
@@ -96,7 +110,7 @@ namespace FGeo3D_TE.GeoImage
                 return false;
             var sourceSurfaceGuid = db.PublishPartVer(partSurfaceGuid);
 
-            //根据线点集构建ts文件
+            //根据面点集构建ts文件
             TsSurface = new TsFile(WorldPoints, "TSurf", "M", MarkerType, Name, new List<string>
             {
                 sourceSurfaceGuid //?
