@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using GeoIM.CHIDI.DZ.COM;
-using GeoIM.CHIDI.DZ.COM.Common;
 using GeoIM.CHIDI.DZ.Util.Common;
 using TerraExplorerX;
 using YWCH.CHIDI.DZ.COM.Skyline;
 
-namespace FGeo3D_TE
+namespace FGeo3D_TE.LoggingObjs
 {
     public enum LoggingType
     {
@@ -206,6 +200,16 @@ namespace FGeo3D_TE
             textLabelStyle.Underline = false;
         }
 
+
+        public string CreateGroup(string groupName, ref SGWorld66 sgworld)
+        {
+            var gid = sgworld.ProjectTree.FindItem(groupName);
+            if (!string.IsNullOrEmpty(gid))
+            {
+                return gid;
+            }
+            return sgworld.ProjectTree.CreateGroup(groupName);
+        }
         /*
         public void AddObj(string skylineId, LoggingObject obj)
         {

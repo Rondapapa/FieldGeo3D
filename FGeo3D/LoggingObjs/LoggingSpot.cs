@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using GeoIM.CHIDI.DZ.COM;
 using TerraExplorerX;
 
-namespace FGeo3D_TE
+namespace FGeo3D_TE.LoggingObjs
 {
     class LoggingSpot:LoggingObject
     { 
@@ -25,7 +20,7 @@ namespace FGeo3D_TE
             var nLineColor = 0xFF00FF00;
             var nFillColor = 0xFF646464;
             var SegmentDensity = -1;
-            string gid = GeoHelper.CreateGroup("地质点", ref sgworld);
+            string gid = CreateGroup("地质点", ref sgworld);
             sgworld.ProjectTree.ExpandGroup(gid, true);
             IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
             SkylineBodyObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
