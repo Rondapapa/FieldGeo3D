@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using TerraExplorerX;
 using System.IO;
-using System.Threading;
+using System.Windows.Forms;
 using DevComponents.DotNetBar;
-using FGeo3D_TE.GeoImage;
-using GeoIM.CHIDI.DZ.COM;
+using FGeo3D.GeoImage;
+using FGeo3D_TE.DrawingObjs;
+using FGeo3D_TE.LoggingObjs;
 using GeoIM.CHIDI.DZ.Util.Common;
-using GeoIM.CHIDI.DZ.Util.EnumHelper;
-using stdole;
+using TerraExplorerX;
 using YWCH.CHIDI.DZ.COM.Skyline;
 
-namespace FGeo3D_TE
+namespace FGeo3D_TE.Frm
 {
     public partial class FrmMain : Form
     {

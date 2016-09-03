@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TerraExplorerX;
+﻿using TerraExplorerX;
 
-namespace FGeo3D_TE
+namespace FGeo3D_TE.DrawingObjs
 {
     class DrawingPoint:DrawingObject
     {

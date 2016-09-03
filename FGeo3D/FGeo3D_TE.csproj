@@ -14,6 +14,21 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -43,14 +58,122 @@
     <StartupObject>FGeo3D_TE.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CHIDI.DZ.GUI.DrawPat">
+      <HintPath>..\..\comparefiles\CHIDI.DZ.GUI.DrawPat.dll</HintPath>
+    </Reference>
     <Reference Include="DevComponents.DotNetBar.Keyboard, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.BonusSkins.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.BonusSkins.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.Data.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.ExpressApp.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Win.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.ExpressApp.Win.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Office.v15.2.Core">
+      <HintPath>..\..\comparefiles\DevExpress.Office.v15.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v15.2.Core">
+      <HintPath>..\..\comparefiles\DevExpress.Printing.v15.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v15.2.Core">
+      <HintPath>..\..\comparefiles\DevExpress.RichEdit.v15.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v15.2.Core">
+      <HintPath>..\..\comparefiles\DevExpress.Sparkline.v15.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.Utils.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraBars.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraEditors.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraGrid.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraLayout.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraNavBar.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraPrinting.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraRichEdit.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraRichEdit.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraTreeList.v15.2.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.BLL.COM">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.COM.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.BLL.Common">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.BLL.DZD">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.DZD.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.BLL.Export">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.Export.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.BLL.XTGL">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.XTGL.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.BLL.YSZL">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.YSZL.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.BLL.ZBJS">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.ZBJS.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.BLL.ZK">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.ZK.dll</HintPath>
+    </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.COM.Common">
       <HintPath>..\DB\GeoIM.CHIDI.DZ.COM.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.Model.Common">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.Model.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.Model.DZD">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.Model.DZD.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.Model.XTGL">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.Model.XTGL.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Model.YSZL, Version=2.0.2.0, Culture=neutral, PublicKeyToken=2bc0b3e9af90ed3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\GeoIM.CHIDI.DZ.Model.YSZL.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.Model.ZK">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.Model.ZK.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.UI.BaseContainer">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.UI.BaseContainer.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.UI.COM">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.UI.COM.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.UI.Common">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.UI.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.UI.GCGL">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.UI.GCGL.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.UI.YSZL">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.UI.YSZL.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoIM.CHIDI.DZ.Util.ClientLogger">
+      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.Util.ClientLogger.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Util.Common, Version=2.0.2.0, Culture=neutral, PublicKeyToken=2bc0b3e9af90ed3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -59,6 +182,9 @@
     <Reference Include="GeoIM.CHIDI.DZ.Util.EnumHelper">
       <HintPath>..\DB\GeoIM.CHIDI.DZ.Util.EnumHelper.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\comparefiles\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Numerics, Version=3.11.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.3.11.1\lib\net40\MathNet.Numerics.dll</HintPath>
       <Private>True</Private>
@@ -66,6 +192,26 @@
     <Reference Include="MathNet.Spatial, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Spatial.0.2.0-alpha\lib\net40\MathNet.Spatial.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\comparefiles\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>..\..\comparefiles\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging">
+      <HintPath>..\..\comparefiles\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\comparefiles\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\comparefiles\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\..\comparefiles\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -84,44 +230,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CurvedFunction.cs" />
-    <Compile Include="GeoImage\FrmCamera.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GeoImage\FrmCamera.Designer.cs">
-      <DependentUpon>FrmCamera.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GeoImage\FrmImage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GeoImage\FrmImage.Designer.cs">
-      <DependentUpon>FrmImage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GeoImage\FrmImageLineType.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GeoImage\FrmImageLineType.Designer.cs">
-      <DependentUpon>FrmImageLineType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GeoImage\FrmRectification.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GeoImage\FrmRectification.Designer.cs">
-      <DependentUpon>FrmRectification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GeoImage\ImageLine.cs" />
-    <Compile Include="GeoImage\RectifyInfo.cs" />
-    <Compile Include="TsData.cs" />
-    <Compile Include="TsFile.cs" />
     <Compile Include="LoggingObjs\LoggingBore.cs" />
     <Compile Include="LoggingObjs\LoggingCavity.cs" />
     <Compile Include="LoggingObjs\LoggingFootrill.cs" />
-    <Compile Include="GeoHelper.cs" />
-    <Compile Include="GeoObjs\Surface.cs" />
     <Compile Include="DrawingObjs\DrawingLine.cs" />
-    <Compile Include="GeoObjs\Line.cs" />
     <Compile Include="DrawingObjs\DrawingObject.cs" />
-    <Compile Include="GeoObjs\GeoObject.cs" />
     <Compile Include="DrawingObjs\DrawingObjectInfo.cs" />
     <Compile Include="Frm\FrmObject.cs">
       <SubType>Form</SubType>
@@ -157,7 +270,6 @@
     <Compile Include="LoggingObjs\LoggingObject.cs" />
     <Compile Include="LoggingObjs\LoggingPit.cs" />
     <Compile Include="DrawingObjs\DrawingPoint.cs" />
-    <Compile Include="GeoObjs\Point.cs" />
     <Compile Include="DrawingObjs\DrawingRegion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,17 +277,8 @@
     <Compile Include="LoggingObjs\LoggingSpot.cs" />
     <Compile Include="LoggingObjs\LoggingTrench.cs" />
     <Compile Include="LoggingObjs\LoggingWell.cs" />
-    <EmbeddedResource Include="GeoImage\FrmCamera.resx">
-      <DependentUpon>FrmCamera.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GeoImage\FrmImageLineType.resx">
-      <DependentUpon>FrmImageLineType.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmObject.resx">
       <DependentUpon>FrmObject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GeoImage\FrmImage.resx">
-      <DependentUpon>FrmImage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmPoint.resx">
       <DependentUpon>FrmPoint.cs</DependentUpon>
@@ -189,9 +292,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmLabel.resx">
       <DependentUpon>FrmLabel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GeoImage\FrmRectification.resx">
-      <DependentUpon>FrmRectification.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -249,6 +349,27 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FGeo3D.GeoImage\FGeo3D.GeoImage.csproj">
+      <Project>{02ea27d2-9708-4cde-aca8-78ca5c96462f}</Project>
+      <Name>FGeo3D.GeoImage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FGeo3D.GeoObj\FGeo3D.GeoObj.csproj">
+      <Project>{1704c8d5-f047-4f2c-9f07-2d4fbf1ecd2c}</Project>
+      <Name>FGeo3D.GeoObj</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FGeo3D.GoCAD.Common\FGeo3D.GoCAD.csproj">
+      <Project>{EF26281D-A28C-4589-BA63-EF16D49159B0}</Project>
+      <Name>FGeo3D.GoCAD</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

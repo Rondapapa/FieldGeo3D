@@ -1,4 +1,4 @@
-﻿namespace FGeo3D_TE
+﻿namespace FGeo3D_TE.Frm
 {
     partial class FrmPosition
     {

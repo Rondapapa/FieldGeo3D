@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using FGeo3D_TE.Frm;
 using TerraExplorerX;
 
-namespace FGeo3D_TE
+namespace FGeo3D_TE.DrawingObjs
 {
     //绘制编录信息传递类
     public class DrawingObjectInfo

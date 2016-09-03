@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FGeo3D_TE", "FGeo3D\FGeo3D_TE.csproj", "{94F3E6D3-16DB-460B-B805-36A17D861CF3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C} = {1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FGeo3D.GoCAD", "FGeo3D.GoCAD.Common\FGeo3D.GoCAD.csproj", "{EF26281D-A28C-4589-BA63-EF16D49159B0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C} = {1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FGeo3D.GeoObj", "FGeo3D.GeoObj\FGeo3D.GeoObj.csproj", "{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FGeo3D.GeoImage", "FGeo3D.GeoImage\FGeo3D.GeoImage.csproj", "{02EA27D2-9708-4CDE-ACA8-78CA5C96462F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94F3E6D3-16DB-460B-B805-36A17D861CF3}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{94F3E6D3-16DB-460B-B805-36A17D861CF3}.Debug|Any CPU.Build.0 = Debug|x86
+		{94F3E6D3-16DB-460B-B805-36A17D861CF3}.Debug|x86.ActiveCfg = Debug|x86
+		{94F3E6D3-16DB-460B-B805-36A17D861CF3}.Debug|x86.Build.0 = Debug|x86
+		{94F3E6D3-16DB-460B-B805-36A17D861CF3}.Release|Any CPU.ActiveCfg = Release|x86
+		{94F3E6D3-16DB-460B-B805-36A17D861CF3}.Release|x86.ActiveCfg = Release|x86
+		{94F3E6D3-16DB-460B-B805-36A17D861CF3}.Release|x86.Build.0 = Release|x86
+		{EF26281D-A28C-4589-BA63-EF16D49159B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF26281D-A28C-4589-BA63-EF16D49159B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF26281D-A28C-4589-BA63-EF16D49159B0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EF26281D-A28C-4589-BA63-EF16D49159B0}.Debug|x86.Build.0 = Debug|Any CPU
+		{EF26281D-A28C-4589-BA63-EF16D49159B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF26281D-A28C-4589-BA63-EF16D49159B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF26281D-A28C-4589-BA63-EF16D49159B0}.Release|x86.ActiveCfg = Release|Any CPU
+		{EF26281D-A28C-4589-BA63-EF16D49159B0}.Release|x86.Build.0 = Release|Any CPU
+		{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}.Debug|x86.Build.0 = Debug|Any CPU
+		{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}.Release|x86.ActiveCfg = Release|Any CPU
+		{1704C8D5-F047-4F2C-9F07-2D4FBF1ECD2C}.Release|x86.Build.0 = Release|Any CPU
+		{02EA27D2-9708-4CDE-ACA8-78CA5C96462F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02EA27D2-9708-4CDE-ACA8-78CA5C96462F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02EA27D2-9708-4CDE-ACA8-78CA5C96462F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{02EA27D2-9708-4CDE-ACA8-78CA5C96462F}.Debug|x86.Build.0 = Debug|Any CPU
+		{02EA27D2-9708-4CDE-ACA8-78CA5C96462F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02EA27D2-9708-4CDE-ACA8-78CA5C96462F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02EA27D2-9708-4CDE-ACA8-78CA5C96462F}.Release|x86.ActiveCfg = Release|Any CPU
+		{02EA27D2-9708-4CDE-ACA8-78CA5C96462F}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

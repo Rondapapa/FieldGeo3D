@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using FGeo3D.GoCAD;
 using TerraExplorerX;
 
-namespace FGeo3D_TE
+namespace FGeo3D_TE.DrawingObjs
 {
     class DrawingRegion:DrawingObject
     {
