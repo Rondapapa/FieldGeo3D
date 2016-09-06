@@ -231,7 +231,10 @@ namespace FGeo3D.GoCAD
             return result.ToString();
         }
 
-        //写TS文件，以FilePath路径保存。
+
+        /// <summary>
+        /// 写TS文件，以FilePath路径保存。
+        /// </summary>
         public void WriteTsFile()
         {
             /*
@@ -246,12 +249,12 @@ namespace FGeo3D.GoCAD
             3.文件坐标信息，参考示例文件，可以照搬。
             4.思考如何进行测试。示例测试框架见主界面FrmMain的“临时测试”按钮代码，数据自己编。
             */
-            
 
             //var savets = new SaveFileDialog { Filter = @"part文件(*.part)|*.part|所有文件(*.*)|*.*" };
             //var result = savets.ShowDialog();
             //if (result != DialogResult.OK) return;
             //FilePath = savets.FileName;
+
             var currentDirectory = Directory.GetCurrentDirectory();
 
             var pathString = Path.Combine(currentDirectory, "PartsToBeUpload");
@@ -264,10 +267,8 @@ namespace FGeo3D.GoCAD
 
             var ts = new StreamWriter(FilePath, false, Encoding.Default);
 
-
-            
-
-            //头文件
+            //以下开始写Ts文件
+            //头
             ts.WriteLine("GOCAD " + TsType + " 1");
             ts.WriteLine("HEADER {");
             ts.WriteLine("name:" + Name);
@@ -284,6 +285,8 @@ namespace FGeo3D.GoCAD
             ts.WriteLine("mesh:on");
             ts.WriteLine("cn:on");
             ts.WriteLine("}");
+
+            //参考系
             ts.WriteLine("GOCAD_ORIGINAL_COORDINATE_SYSTEM");
             ts.WriteLine("NAME Default");
             ts.WriteLine("AXIS_NAME \"X\" \"Y\" \"Z\"");
@@ -300,13 +303,12 @@ namespace FGeo3D.GoCAD
                     break;
             }
             
-
-
             //点
             for (var i = 0; i < TsData.VerticesList.Count; i++)
             {
                 ts.WriteLine("VART" + " " + (i + 1) + " " + TsData.VerticesList[i].X + " " + TsData.VerticesList[i].Y + " " + TsData.VerticesList[i].Z);
             }
+
             //线
             if (TsType == "PLine")
             {
@@ -319,6 +321,7 @@ namespace FGeo3D.GoCAD
                     ts.WriteLine("SEG" + " " + (TsData.VerticesList.Count - 1) + " 1");
                 }
             }
+
             //面
             else
             {
@@ -326,25 +329,28 @@ namespace FGeo3D.GoCAD
                 {
                     ts.WriteLine("TRGL" + " " + TsData.TriLinksList[i].VertexA + " " + TsData.TriLinksList[i].VertexB + " " + TsData.TriLinksList[i].VertexC);
                 }
-                double max_vert_z = 0, max2_vert_z = 0;
-                int num_max_vert_z = 0, num_max2_vert_z = 0;
+                double maxVertZ = 0, max2VertZ = 0;
+                int numMaxVertZ = 0, numMax2VertZ = 0;
                 for (var i = 0; i < TsData.VerticesList.Count; i++)
                 {
-                    if (!(max_vert_z < TsData.VerticesList[i].Z)) continue;
-                    max_vert_z = TsData.VerticesList[i].Z;
-                    num_max_vert_z = i + 1;
+                    if (!(maxVertZ < TsData.VerticesList[i].Z)) continue;
+                    maxVertZ = TsData.VerticesList[i].Z;
+                    numMaxVertZ = i + 1;
                 }
                 for (var i = 0; i < TsData.VerticesList.Count; i++)
                 {
-                    if (!(max2_vert_z < TsData.VerticesList[i].Z) || i == num_max_vert_z - 1) continue;
-                    max2_vert_z = TsData.VerticesList[i].Z;
-                    num_max2_vert_z = i + 1;
+                    if (!(max2VertZ < TsData.VerticesList[i].Z) || i == numMaxVertZ - 1) continue;
+                    max2VertZ = TsData.VerticesList[i].Z;
+                    numMax2VertZ = i + 1;
                 }
-                ts.WriteLine("BSTONE " + num_max_vert_z);
-                ts.WriteLine("BORDER " + (TsData.VerticesList.Count + 1) + " " + num_max_vert_z + " " + num_max2_vert_z); 
+                ts.WriteLine("BSTONE " + numMaxVertZ);
+                ts.WriteLine("BORDER " + (TsData.VerticesList.Count + 1) + " " + numMaxVertZ + " " + numMax2VertZ); 
             }
 
+            //尾
             ts.WriteLine("END");
+
+            //关闭
             ts.Close();
 
         }

@@ -6,10 +6,10 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using FGeo3D.GeoImage;
 using FGeo3D_TE.DrawingObjs;
-using FGeo3D_TE.LoggingObjs;
 using GeoIM.CHIDI.DZ.Util.Common;
 using TerraExplorerX;
 using YWCH.CHIDI.DZ.COM.Skyline;
+using FGeo3D.LoggingObj;
 
 namespace FGeo3D_TE.Frm
 {
@@ -1343,7 +1343,7 @@ namespace FGeo3D_TE.Frm
                 //第一次点击
                 _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
                 
-                if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+                if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
                 {
                     //假如不捕捉地质点
                     _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
@@ -1361,7 +1361,7 @@ namespace FGeo3D_TE.Frm
                 {
                     //捕捉地质点
                     
-                    var thisGuid = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+                    var thisGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
                     _objInfo.ConnObjGuids.Add(thisGuid);
 
                     var thisObjPoint = db.SkyGetGeoDataList(thisGuid).GetObjData(0).Points.GetPoint(0);
@@ -1387,7 +1387,7 @@ namespace FGeo3D_TE.Frm
                 _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
                 
                 
-                if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+                if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
                 {
                     //不捕捉地质点
                     dx = _cWorldPointInfo.Position.X;
@@ -1397,7 +1397,7 @@ namespace FGeo3D_TE.Frm
                 else
                 {
                     //捕捉地质点
-                    var thisGuid = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+                    var thisGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
                     _objInfo.ConnObjGuids.Add(thisGuid);
                     var thisObjPoint = db.SkyGetGeoDataList(thisGuid).GetObjData(0).Points.GetPoint(0);
                     dx = thisObjPoint.X;
@@ -1419,12 +1419,12 @@ namespace FGeo3D_TE.Frm
                 //第一次画线
                 _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
 
-                if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+                if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
                 {
                     MessageBox.Show(@"请点击地质点的文字标签。", @"地质点捕捉失败");
                     return false;
                 }
-                var thisGuid = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+                var thisGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
                 _objInfo.ConnObjGuids.Add(thisGuid);
 
                 var thisObjPoint = db.SkyGetGeoDataList(thisGuid).GetObjData(0).Points.GetPoint(0);
@@ -1459,12 +1459,12 @@ namespace FGeo3D_TE.Frm
                 
                 //捕捉地质点，获取坐标
                 _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
-                if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+                if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
                 {
                     MessageBox.Show(@"请点击地质点的文字标签。", @"地质点捕捉失败");
                     return false;
                 }
-                var thisGuid = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+                var thisGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
                 _objInfo.ConnObjGuids.Add(thisGuid);
                 var thisObjPoint = db.SkyGetGeoDataList(thisGuid).GetObjData(0).Points.GetPoint(0);
 
@@ -1497,12 +1497,12 @@ namespace FGeo3D_TE.Frm
         private bool OnLBtnDown_Query(int flags, int x, int y)
         {
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
-            if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+            if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
             {
                 MessageBox.Show(@"未能查询到您所选取的地质对象。请选取地质对象的文字标签！", @"查询地质对象失败");
                 return true;
             }
-            var thisGuid = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+            var thisGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
 
             db.SkyFrmSJLYEdit(db.SkyGetSJLYMDL(thisGuid).SJLYLXID, new List<DMarker>(), thisGuid);
             
@@ -1516,7 +1516,7 @@ namespace FGeo3D_TE.Frm
         private bool OnLBtnDown_DeleteLoggingSpot(int flags, int x, int y)
         {
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
-            if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+            if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
             {
                 MessageBox.Show(@"当前选择无效，请选择地质点的文字标签！", @"删除地质点失败");
                 sgworld.OnLButtonDown -= OnLBtnDown_DeleteLoggingSpot;
@@ -1526,7 +1526,7 @@ namespace FGeo3D_TE.Frm
                 return true;
             }
 
-            var guidToBeDeleted = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+            var guidToBeDeleted = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
             db.SkyDeleteSjly(guidToBeDeleted);
             LoggingObject.DictOfLoggingObjects[guidToBeDeleted].Erase(ref sgworld);
 
@@ -1549,7 +1549,7 @@ namespace FGeo3D_TE.Frm
         private bool OnLBtnDown_SelectWorkingObj(int flags, int x, int y)
         {
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
-            if (!LoggingObject.DictOfSkyId_Guid.ContainsKey(_cWorldPointInfo.ObjectID))
+            if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
             {
                 MessageBox.Show(@"当前选择无效，请选择地质对象文字标签！", @"选择地质对象失败");
                 sgworld.OnLButtonDown -= OnLBtnDown_SelectWorkingObj;
@@ -1567,7 +1567,7 @@ namespace FGeo3D_TE.Frm
                 StatusWorkingObj.Text = @"当前选定对象：【选定中】";
                 _currWorkingObjGuid = null;
             }
-            _currWorkingObjGuid = LoggingObject.DictOfSkyId_Guid[_cWorldPointInfo.ObjectID];
+            _currWorkingObjGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
             StatusWorkingObj.Text = $"当前选定对象：【类型代号：{db.SkyGetSJLYMDL(_currWorkingObjGuid).SJLYLXID}；编号：{db.SkyGetSJLYMDL(_currWorkingObjGuid).BH}】";
             LoggingObject.DictOfLoggingObjects[_currWorkingObjGuid].HighlightLabel(ref sgworld);
 

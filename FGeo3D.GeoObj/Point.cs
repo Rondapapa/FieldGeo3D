@@ -10,13 +10,17 @@ namespace FGeo3D.GeoObj
         public double X { get; set; }
         public double Y { get; set; }
         public double Z { get; set; }
+        public double Dip { get; set; }
+        public double Angle { get; set; }
 
         //一般构造
-        public Point(double x, double y, double z)
+        public Point(double x, double y, double z, double dip = 0.0, double angle = 0.0)
         {
             X = x;
             Y = y;
             Z = z;
+            Dip = dip;
+            Angle = angle;
         }
 
         //重构1：适用于GeoSmart的GPoint
@@ -25,6 +29,7 @@ namespace FGeo3D.GeoObj
             X = gPoint.X;
             Y = gPoint.Y;
             Z = gPoint.Z;
+            InitDipAngle();
         }
 
         //重构2：适用于GeoSmart的GMarker
@@ -33,6 +38,8 @@ namespace FGeo3D.GeoObj
             X = marker.X;
             Y = marker.Y;
             Z = marker.Z;
+            Dip = marker.Dip;
+            Angle = marker.Angle;
         }
 
         //重构3：适用于Skyline的IPoint
@@ -41,6 +48,7 @@ namespace FGeo3D.GeoObj
             X = skyPoint.X;
             Y = skyPoint.Y;
             Z = skyPoint.Z;
+            InitDipAngle();
         }
 
         public Point()
@@ -48,6 +56,7 @@ namespace FGeo3D.GeoObj
             X = 0;
             Y = 0;
             Z = 0;
+            InitDipAngle();
         }
 
         /// <summary>
@@ -87,6 +96,11 @@ namespace FGeo3D.GeoObj
             return Math.Atan2(deltaH, Math.Sqrt(dHorizonSq));
         }
 
+        public void InitDipAngle()
+        {
+            Dip = 0.0;
+            Angle = 0.0;
+        }
 
         public override void Draw(ref SGWorld66 sgworld)
         {

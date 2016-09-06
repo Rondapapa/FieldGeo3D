@@ -230,9 +230,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoggingObjs\LoggingBore.cs" />
-    <Compile Include="LoggingObjs\LoggingCavity.cs" />
-    <Compile Include="LoggingObjs\LoggingFootrill.cs" />
     <Compile Include="DrawingObjs\DrawingLine.cs" />
     <Compile Include="DrawingObjs\DrawingObject.cs" />
     <Compile Include="DrawingObjs\DrawingObjectInfo.cs" />
@@ -266,17 +263,10 @@
     <Compile Include="Frm\FrmLabel.Designer.cs">
       <DependentUpon>FrmLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoggingObjs\LoggingFoundation.cs" />
-    <Compile Include="LoggingObjs\LoggingObject.cs" />
-    <Compile Include="LoggingObjs\LoggingPit.cs" />
     <Compile Include="DrawingObjs\DrawingPoint.cs" />
     <Compile Include="DrawingObjs\DrawingRegion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LoggingObjs\LoggingSlope.cs" />
-    <Compile Include="LoggingObjs\LoggingSpot.cs" />
-    <Compile Include="LoggingObjs\LoggingTrench.cs" />
-    <Compile Include="LoggingObjs\LoggingWell.cs" />
     <EmbeddedResource Include="Frm\FrmObject.resx">
       <DependentUpon>FrmObject.cs</DependentUpon>
     </EmbeddedResource>
@@ -369,6 +359,10 @@
     <ProjectReference Include="..\FGeo3D.GoCAD.Common\FGeo3D.GoCAD.csproj">
       <Project>{EF26281D-A28C-4589-BA63-EF16D49159B0}</Project>
       <Name>FGeo3D.GoCAD</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FGeo3D.LoggingObj\FGeo3D.LoggingObj.csproj">
+      <Project>{098b5732-08e2-4145-abd9-912fc8f1dbab}</Project>
+      <Name>FGeo3D.LoggingObj</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
