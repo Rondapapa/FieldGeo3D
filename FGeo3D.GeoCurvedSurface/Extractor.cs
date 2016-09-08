@@ -15,7 +15,13 @@ namespace FGeo3D.GeoCurvedSurface
     /// </summary>
     public static class Extractor
     {
-        //选定的LoggingObject集合中，按照markerType、useFor、Marker列表，一一对应，输出
+        /// <summary>
+        /// 在选定的LoggingObject组中，输出指定markerType和UseFor的所有marker点
+        /// </summary>
+        /// <param name="listOfLoggingObjects"></param>
+        /// <param name="markerType"></param>
+        /// <param name="useFor"></param>
+        /// <returns></returns>
         public static List<Point> GetPointListOf(List<LoggingObject> listOfLoggingObjects, string markerType, string useFor)
         {
             var list = new List<Point>();

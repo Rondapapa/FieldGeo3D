@@ -33,17 +33,28 @@
     <Reference Include="GeoIM.CHIDI.DZ.COM.Common">
       <HintPath>..\FGeo3D\bin\Debug\GeoIM.CHIDI.DZ.COM.Common.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extractor.cs" />
     <Compile Include="CurveAlgorithm.cs" />
+    <Compile Include="FrmCurvedSurfaceBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCurvedSurfaceBuilder.Designer.cs">
+      <DependentUpon>FrmCurvedSurfaceBuilder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +99,11 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FrmCurvedSurfaceBuilder.resx">
+      <DependentUpon>FrmCurvedSurfaceBuilder.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

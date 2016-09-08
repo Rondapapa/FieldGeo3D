@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using FGeo3D.GeoImage;
+using FGeo3D.GPS;
 using FGeo3D_TE.DrawingObjs;
 using GeoIM.CHIDI.DZ.Util.Common;
 using TerraExplorerX;
@@ -45,7 +47,7 @@ namespace FGeo3D_TE.Frm
         //地形多段线
         ITerrainPolyline66 _pITerrainPolyline = null;
         
-        
+        FGeo3D.GPS.Controller _gpsController;
 
         //地理地质对象信息传递对象
         private DrawingObjectInfo _objInfo;
@@ -92,6 +94,8 @@ namespace FGeo3D_TE.Frm
         {
             sgworld = new SGWorld66();
             db = new YWCHEntEx();
+            components = new Container();
+            _gpsController = new Controller(components);
         }
 
         #region 工程
@@ -657,7 +661,30 @@ namespace FGeo3D_TE.Frm
         /// <param name="e"></param>
         private void btnGPS_Click(object sender, EventArgs e)
         {
+            ////若GPS串口还未打开
+            //if (!_gpsController.IsComOpen)
+            //{
+            //    //搜索串口，打开
+            //    if (!_gpsController.OpenSerialPort())
+            //    {
+            //        //若没有打开串口，则提示，并返回；
+            //        ToastNotification.Show(this, "GPS设备连接失败，请检查串口。", 2500, eToastPosition.BottomCenter);
+            //        return;
+            //    }
+            //}
             
+            //_gpsController.ReadData();
+            //var curX = _gpsController.GetCoordX(); //注意坐标偏移！！！！还未修正！！！！！
+            //var curY = _gpsController.GetCoordY();
+
+            double testX = 413988.472639;
+            double testY = 3276102.503443;
+            IPosition66 gpsPos = sgworld.Creator.CreatePosition(testX, testY);
+
+            sgworld.Navigate.SetGPSMode(GPSOperationMode.GPS_MODE_SHOW_LOCATION_INDICATOR);
+            sgworld.Navigate.SetGPSPosition(gpsPos);
+            ToastNotification.Show(this, "GPS定位完成！");
+
         }
 
         /// <summary>
@@ -1047,10 +1074,12 @@ namespace FGeo3D_TE.Frm
             var thisLoggingSpotGuid = db.SkyFrmSJLYEdit("DZD", kzdList);
 
             var thisLoggingSpot = db.SkyGetGeoDataList(thisLoggingSpotGuid).GetObjData(0);
-            if (thisLoggingSpot == null)
-                return true;
-            var thisSpot = new LoggingSpot(thisLoggingSpot, ref sgworld);
             StatusSystem.Text = @"系统状态：【默认】";
+            if (thisLoggingSpot == null)
+            {
+                return true;
+            }
+            var thisSpot = new LoggingSpot(thisLoggingSpot, ref sgworld);
             return true;
         }
 
@@ -1083,9 +1112,10 @@ namespace FGeo3D_TE.Frm
             var thisLoggingBore = db.SkyGetGeoDataList(thisLoggingBoreGuid).GetObjData(0);
             StatusSystem.Text = @"系统状态：【默认】";
             if (thisLoggingBore == null)
+            {
                 return true;
+            }
             var thisBore = new LoggingBore(thisLoggingBore, ref sgworld);
-            
             return true;
         }
 
@@ -1118,9 +1148,10 @@ namespace FGeo3D_TE.Frm
             var thisLoggingFootrill = db.SkyGetGeoDataList(thisLoggingFootrillGuid).GetObjData(0);
             StatusSystem.Text = @"系统状态：【默认】";
             if (thisLoggingFootrill == null)
+            {
                 return true;
+            }  
             var thisFootrill = new LoggingFootrill(thisLoggingFootrill, ref sgworld);
-            
             return true;
         }
 
@@ -1155,7 +1186,6 @@ namespace FGeo3D_TE.Frm
             if (thisLoggingPit == null)
                 return true;
             var thisPit = new LoggingPit(thisLoggingPit, ref sgworld);
-            
             return true;
         }
 

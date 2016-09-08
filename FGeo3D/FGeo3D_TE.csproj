@@ -348,6 +348,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FGeo3D.GeoCurvedSurface\FGeo3D.GeoCurvedSurface.csproj">
+      <Project>{5b333a01-1b48-4183-a2c8-2b5d82e4fe54}</Project>
+      <Name>FGeo3D.GeoCurvedSurface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FGeo3D.GeoImage\FGeo3D.GeoImage.csproj">
       <Project>{02ea27d2-9708-4cde-aca8-78ca5c96462f}</Project>
       <Name>FGeo3D.GeoImage</Name>
@@ -359,6 +363,10 @@
     <ProjectReference Include="..\FGeo3D.GoCAD.Common\FGeo3D.GoCAD.csproj">
       <Project>{EF26281D-A28C-4589-BA63-EF16D49159B0}</Project>
       <Name>FGeo3D.GoCAD</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FGeo3D.GPS\FGeo3D.GPS.csproj">
+      <Project>{d17d3c00-e044-4700-85d1-80f41d76d16c}</Project>
+      <Name>FGeo3D.GPS</Name>
     </ProjectReference>
     <ProjectReference Include="..\FGeo3D.LoggingObj\FGeo3D.LoggingObj.csproj">
       <Project>{098b5732-08e2-4145-abd9-912fc8f1dbab}</Project>
