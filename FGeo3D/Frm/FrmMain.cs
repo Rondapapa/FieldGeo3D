@@ -59,6 +59,9 @@ namespace FGeo3D_TE.Frm
         //当前选取对象、及其监控事件
         private IWorldPointInfo66 _cWorldPointInfo;
 
+        //
+        private bool _isQueryStatus = false;
+
         //地形上下左右位置
         public double XLeft { get; private set; }
         public double XRight { get; private set; }
@@ -707,11 +710,25 @@ namespace FGeo3D_TE.Frm
         /// <param name="e"></param>
         private void btnQuery_Click(object sender, EventArgs e)
         {
-            //挂接鼠标左键事件
-            sgworld.OnLButtonDown += OnLBtnDown_Query;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
-            StatusSystem.Text = @"系统状态：【查询地质对象】";
-            ToastNotification.Show(this, "查询地质对象：请拾取地质对象的图例或标签");
+            if (!_isQueryStatus)
+            {
+                //挂接鼠标左键事件
+                sgworld.OnLButtonDown += OnLBtnDown_Query;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                StatusSystem.Text = @"系统状态：【查询地质对象】";
+                ToastNotification.Show(this, "查询地质对象：请拾取地质对象的图例或标签");
+                btnQuery.Text = @"结束查询";
+            }
+            else
+            {
+                //取消鼠标左键事件
+                sgworld.OnLButtonDown -= OnLBtnDown_Query;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                StatusSystem.Text = @"系统状态：【默认】";
+                ToastNotification.Show(this, "结束查询");
+                btnQuery.Text = @"查询";
+            }
+            
         }
 
         private void buttonXDeleteLoggingSpot_Click(object sender, EventArgs e)

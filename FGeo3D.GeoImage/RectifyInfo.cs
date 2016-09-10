@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevComponents.DotNetBar;
 using MathNet.Spatial.Euclidean;
 
 namespace FGeo3D.GeoImage
@@ -240,6 +241,7 @@ namespace FGeo3D.GeoImage
             RectifyModelWdReal = new Plane(rootPointReal, vNReal);
 
             MessageBox.Show($"{RectifyDatas.Count}个校正控制点。", @"校正完成");
+            
         }
 
         /// <summary>
