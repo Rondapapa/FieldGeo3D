@@ -50,6 +50,7 @@
             this.btnProject = new DevComponents.DotNetBar.ButtonItem();
             this.btnImport = new DevComponents.DotNetBar.ButtonItem();
             this.gpMeasure = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.btnXFinishMeasure = new DevComponents.DotNetBar.ButtonX();
             this.btnTerrainArea = new DevComponents.DotNetBar.ButtonX();
             this.btnPlaneArea = new DevComponents.DotNetBar.ButtonX();
             this.btnVerticalDistance = new DevComponents.DotNetBar.ButtonX();
@@ -65,8 +66,6 @@
             this.btnRegion = new DevComponents.DotNetBar.ButtonItem();
             this.btnDrawingComplete = new DevComponents.DotNetBar.ButtonItem();
             this.btnImageLogging = new DevComponents.DotNetBar.ButtonItem();
-            this.swbtnGPS = new DevComponents.DotNetBar.Controls.SwitchButton();
-            this.labelGPS = new DevComponents.DotNetBar.LabelX();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusSystem = new System.Windows.Forms.ToolStripStatusLabel();
@@ -74,7 +73,6 @@
             this.StatusGPS = new System.Windows.Forms.ToolStripStatusLabel();
             this.axTE3DWindow1 = new AxTerraExplorerX.AxTE3DWindow();
             this.axTEInformationWindow1 = new AxTerraExplorerX.AxTEInformationWindow();
-            this.btnXFinishMeasure = new DevComponents.DotNetBar.ButtonX();
             this.gpMeasure.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
@@ -376,6 +374,19 @@
             this.gpMeasure.TabIndex = 16;
             this.gpMeasure.Text = "测量";
             // 
+            // btnXFinishMeasure
+            // 
+            this.btnXFinishMeasure.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnXFinishMeasure.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnXFinishMeasure.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnXFinishMeasure.Location = new System.Drawing.Point(0, 183);
+            this.btnXFinishMeasure.Name = "btnXFinishMeasure";
+            this.btnXFinishMeasure.Size = new System.Drawing.Size(55, 30);
+            this.btnXFinishMeasure.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnXFinishMeasure.TabIndex = 0;
+            this.btnXFinishMeasure.Text = "结束测量";
+            this.btnXFinishMeasure.Click += new System.EventHandler(this.btnXFinishMeasure_Click);
+            // 
             // btnTerrainArea
             // 
             this.btnTerrainArea.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -576,36 +587,6 @@
             this.btnImageLogging.Text = "图像编录";
             this.btnImageLogging.Click += new System.EventHandler(this.btnImageLogging_Click);
             // 
-            // swbtnGPS
-            // 
-            this.swbtnGPS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.swbtnGPS.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.swbtnGPS.Location = new System.Drawing.Point(1200, 157);
-            this.swbtnGPS.Name = "swbtnGPS";
-            this.swbtnGPS.OffText = "指示";
-            this.swbtnGPS.OnText = "跟随";
-            this.swbtnGPS.Size = new System.Drawing.Size(65, 26);
-            this.swbtnGPS.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.swbtnGPS.TabIndex = 18;
-            this.swbtnGPS.ValueChanged += new System.EventHandler(this.swbtnGPS_ValueChanged);
-            // 
-            // labelGPS
-            // 
-            this.labelGPS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.labelGPS.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelGPS.Location = new System.Drawing.Point(1199, 128);
-            this.labelGPS.Name = "labelGPS";
-            this.labelGPS.Size = new System.Drawing.Size(67, 23);
-            this.labelGPS.TabIndex = 19;
-            this.labelGPS.Text = "GPS状态";
-            this.labelGPS.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -668,19 +649,6 @@
             this.axTEInformationWindow1.Size = new System.Drawing.Size(211, 514);
             this.axTEInformationWindow1.TabIndex = 0;
             // 
-            // btnXFinishMeasure
-            // 
-            this.btnXFinishMeasure.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnXFinishMeasure.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnXFinishMeasure.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnXFinishMeasure.Location = new System.Drawing.Point(0, 183);
-            this.btnXFinishMeasure.Name = "btnXFinishMeasure";
-            this.btnXFinishMeasure.Size = new System.Drawing.Size(55, 30);
-            this.btnXFinishMeasure.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnXFinishMeasure.TabIndex = 0;
-            this.btnXFinishMeasure.Text = "结束测量";
-            this.btnXFinishMeasure.Click += new System.EventHandler(this.btnXFinishMeasure_Click);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -689,8 +657,6 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1266, 633);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.labelGPS);
-            this.Controls.Add(this.swbtnGPS);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.gpMeasure);
             this.Controls.Add(this.btnGPS);
@@ -748,8 +714,6 @@
         private DevComponents.DotNetBar.ButtonItem btnPit;
         private DevComponents.DotNetBar.ButtonItem btnWell;
         private DevComponents.DotNetBar.ButtonItem btnTrench;
-        private DevComponents.DotNetBar.Controls.SwitchButton swbtnGPS;
-        private DevComponents.DotNetBar.LabelX labelGPS;
         private DevComponents.DotNetBar.ButtonItem btnSlope;
         private DevComponents.DotNetBar.ButtonItem btnCavity;
         private DevComponents.DotNetBar.ButtonItem btnFoundation;

@@ -255,5 +255,11 @@ namespace FGeo3D.GeoImage
                 g.DrawString((RectifyInfo.RectifyDatas.Count).ToString(), font, brush, e.X, e.Y);
             }
         }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            
+            Close();
+        }
     }
 }

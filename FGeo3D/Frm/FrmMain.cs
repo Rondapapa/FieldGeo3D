@@ -47,7 +47,8 @@ namespace FGeo3D_TE.Frm
         //地形多段线
         ITerrainPolyline66 _pITerrainPolyline = null;
         
-        FGeo3D.GPS.Controller _gpsController;
+        //GPS控制器对象
+        Controller _gpsController;
 
         //地理地质对象信息传递对象
         private DrawingObjectInfo _objInfo;
@@ -307,7 +308,9 @@ namespace FGeo3D_TE.Frm
         #region 编录
         private void btnBore_Click(object sender, EventArgs e)
         {
+            
             StatusSystem.Text = @"系统状态：【钻探编录】";
+            ToastNotification.Show(this, "开始编录钻探对象");
             sgworld.OnLButtonDown += OnLBtnDown_LoggingBore;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
@@ -315,6 +318,7 @@ namespace FGeo3D_TE.Frm
         private void btnFootrill_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【硐探编录】";
+            ToastNotification.Show(this, "开始编录硐探对象");
             sgworld.OnLButtonDown += OnLBtnDown_LoggingFootrill;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
 
@@ -325,6 +329,7 @@ namespace FGeo3D_TE.Frm
         {
             
             StatusSystem.Text = @"系统状态：【坑探编录】";
+            ToastNotification.Show(this, "开始编录坑探对象");
             sgworld.OnLButtonDown += OnLBtnDown_LoggingPit;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
@@ -332,6 +337,7 @@ namespace FGeo3D_TE.Frm
         private void btnWell_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【井探编录】";
+            ToastNotification.Show(this, "开始编录井探对象");
             sgworld.OnLButtonDown += OnLBtnDown_LoggingWell;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
@@ -339,6 +345,7 @@ namespace FGeo3D_TE.Frm
         private void btnTrench_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【槽探编录】";
+            ToastNotification.Show(this, "开始编录槽探对象");
             sgworld.OnLButtonDown += OnLBtnDown_LoggingTrench;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
@@ -348,6 +355,7 @@ namespace FGeo3D_TE.Frm
         private void btnSlope_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【边坡编录】";
+            ToastNotification.Show(this, "开始编录边坡对象");
             sgworld.OnLButtonDown += OnLBtnDown_LoggingSlope;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
@@ -355,6 +363,7 @@ namespace FGeo3D_TE.Frm
         private void btnCavity_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【洞室编录】";
+            ToastNotification.Show(this, "开始编录洞室对象");
             sgworld.OnLButtonDown += OnLBtnDown_LoggingCavity;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
@@ -362,6 +371,7 @@ namespace FGeo3D_TE.Frm
         private void btnFoundation_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【基坑编录】";
+            ToastNotification.Show(this, "开始编录基坑对象");
             sgworld.OnLButtonDown += OnLBtnDown_LoggingFoundation;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
@@ -428,6 +438,7 @@ namespace FGeo3D_TE.Frm
         private void btnGeoPoint_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【地质点编录】";
+            ToastNotification.Show(this, "开始编录地质点");
             sgworld.OnLButtonDown += OnLBtnDown_LoggingSpot;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
         }
@@ -489,6 +500,7 @@ namespace FGeo3D_TE.Frm
                 return;
             }
             StatusSystem.Text = @"系统状态：【绘制界线】";
+            ToastNotification.Show(this, "开始绘制地质界线");
             sgworld.OnLButtonDown += OnLBtnDown_LineNew;
             sgworld.OnRButtonDown += OnRBtnDown_DrawingComplete;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -506,6 +518,7 @@ namespace FGeo3D_TE.Frm
                 return;
             }
             StatusSystem.Text = @"系统状态：【绘制区域】";
+            ToastNotification.Show(this, "开始绘制地形区域");
             sgworld.OnLButtonDown += OnLBtnDown_RegionNew;
             sgworld.OnRButtonDown += OnRBtnDown_DrawingComplete;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -595,6 +608,7 @@ namespace FGeo3D_TE.Frm
         private void btnAbsDistance_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【测量直线距离】";
+            ToastNotification.Show(this, "测量直线距离");
             sgworld.Command.Execute(1035, 0);
 
         }
@@ -602,24 +616,28 @@ namespace FGeo3D_TE.Frm
         private void btnHorizonalDistance_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【测量水平距离】";
+            ToastNotification.Show(this, "测量水平距离");
             sgworld.Command.Execute(1034, 0);
         }
 
         private void btnVerticalDistance_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【测量垂直距离】";
+            ToastNotification.Show(this, "测量垂直距离");
             sgworld.Command.Execute(1036, 0);
         }
 
         private void btnPlaneArea_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【测量平面距离】";
+            ToastNotification.Show(this, "测量平面距离");
             sgworld.Command.Execute(1037, 0);
         }
 
         private void btnTerrainArea_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【测量地形面积】";
+            ToastNotification.Show(this, "测量地形面积");
             sgworld.Command.Execute(1165, 0);
         }
 
@@ -647,12 +665,7 @@ namespace FGeo3D_TE.Frm
             sgworld.Navigate.FlyTo(position);
         }
 
-        private void swbtnGPS_ValueChanged(object sender, EventArgs e)
-        {
-            sgworld.Navigate.SetGPSMode(swbtnGPS.Value == false
-                ? GPSOperationMode.GPS_MODE_FOLLOW
-                : GPSOperationMode.GPS_MODE_SHOW_LOCATION_INDICATOR);
-        }
+        
 
         /// <summary>
         /// GPS定位(？？？？)
@@ -698,6 +711,7 @@ namespace FGeo3D_TE.Frm
             sgworld.OnLButtonDown += OnLBtnDown_Query;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
             StatusSystem.Text = @"系统状态：【查询地质对象】";
+            ToastNotification.Show(this, "查询地质对象：请拾取地质对象的图例或标签");
         }
 
         private void buttonXDeleteLoggingSpot_Click(object sender, EventArgs e)
@@ -706,6 +720,7 @@ namespace FGeo3D_TE.Frm
             sgworld.OnLButtonDown += OnLBtnDown_DeleteLoggingSpot;
             sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
             StatusSystem.Text = @"系统状态：【删除地质点】";
+            ToastNotification.Show(this, "删除地质点：请拾取地质对象的图例或标签");
         }
 
         /// <summary>

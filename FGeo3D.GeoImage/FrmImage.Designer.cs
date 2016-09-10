@@ -92,13 +92,15 @@
             this.btnDrawApply.Size = new System.Drawing.Size(75, 75);
             this.btnDrawApply.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnDrawApply.TabIndex = 4;
-            this.btnDrawApply.Text = "确认绘制";
+            this.btnDrawApply.Text = "保存标记";
             this.btnDrawApply.Click += new System.EventHandler(this.btnDrawApply_Click);
             // 
             // btnRectify
             // 
             this.btnRectify.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnRectify.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnRectify.Image = ((System.Drawing.Image)(resources.GetObject("btnRectify.Image")));
+            this.btnRectify.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnRectify.Location = new System.Drawing.Point(6, 174);
             this.btnRectify.Name = "btnRectify";
             this.btnRectify.Size = new System.Drawing.Size(75, 75);
@@ -118,7 +120,8 @@
             this.btnSave.Size = new System.Drawing.Size(75, 75);
             this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnSave.TabIndex = 6;
-            this.btnSave.Text = "保存编录";
+            this.btnSave.Text = "结束编录";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnGetImageFromFile
             // 
