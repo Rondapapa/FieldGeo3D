@@ -18,26 +18,26 @@ namespace FGeo3D.GPS
         private SerialPort serialPort;
         private string _comName;
         private byte[] _recvData;
+        public TimeSpan TimeCountDown { get; set; }
 
         public bool IsComOpen => serialPort.IsOpen;
 
         /// <summary>
-        /// 构造1：创建GPS串口控制器
+        /// 构造1：在指定容器中创建GPS串口控制器，
         /// </summary>
         /// <param name="components"></param>
         public Controller(IContainer components)
         {
-            _comName = GetComNum();
+            
             serialPort = new SerialPort(components);
         }
 
         /// <summary>
-        /// 构造2：
+        /// 构造2：创建GPS串口控制器
         /// </summary>
         public Controller()
         {
-            _comName = GetComNum();
-            serialPort = new SerialPort(_comName);
+            serialPort = new SerialPort();
         }
 
 
@@ -46,13 +46,14 @@ namespace FGeo3D.GPS
         /// 打开串口，连接！
         /// </summary>
         /// <returns></returns>
-        public bool OpenSerialPort()
+        public string OpenSerialPort()
         {
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
             }
-            serialPort.PortName = _comName;
+            
+            
             serialPort.DataBits = 8;
             serialPort.StopBits = StopBits.One;
             serialPort.Parity = Parity.None;
@@ -61,19 +62,21 @@ namespace FGeo3D.GPS
             serialPort.BaudRate = 9600;
             try
             {
+                _comName = GetComNum();
+                serialPort.PortName = _comName;
                 serialPort.Open();
-                return true;
+                return "";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                return ex.Message;
             }
         }
 
         /// <summary>
         /// 读取串口数据
         /// </summary>
-        /// <returns>成功，则返回空字符串；失败，则返回完整接收数据。</returns>
+        /// <returns>若为GPS坐标数据，则返回空字符串；若为其他数据，则返回完整接收数据。</returns>
         public string ReadData()
         {
             _recvData = new byte[80];
@@ -158,7 +161,8 @@ namespace FGeo3D.GPS
                     comNum = Convert.ToInt32(s.Substring(start + 1, end - start - 1));
                 }
             }
-            return string.Concat("COM" + comNum);
+            // ReSharper disable once PossiblyMistakenUseOfParamsMethod
+            return string.Concat($"COM{comNum}");
         }
 
         /// <summary>

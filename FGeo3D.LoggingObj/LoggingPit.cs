@@ -20,6 +20,8 @@ namespace FGeo3D.LoggingObj
 
         public void Draw(ref SGWorld66 sgworld)
         {
+            string signIsInTerrain = IsLoggingObjInTerrain(ref sgworld) ? "" : "【地图以外】";
+
             //口
             double radius = 10;
             var Style = SphereStyle.SPHERE_NORMAL;
@@ -29,7 +31,7 @@ namespace FGeo3D.LoggingObj
             string gid = CreateGroup("坑探", ref sgworld);
             sgworld.ProjectTree.ExpandGroup(gid, true);
             IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
-            SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name);
+            SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name + signIsInTerrain);
 
             //身
             var arrVertices = new double[]

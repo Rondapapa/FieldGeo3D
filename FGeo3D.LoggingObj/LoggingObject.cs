@@ -29,6 +29,8 @@ namespace FGeo3D.LoggingObj
         public IGPoint Bottom { get; set; }
         public double Depth => Top.Z - Bottom.Z; //?
 
+        
+
         public IGMarkerList Markers01 { get; set; }
         public IGMarkerList Markers02 { get; set; }
         public IGMarkerList Markers03 { get; set; }
@@ -161,6 +163,19 @@ namespace FGeo3D.LoggingObj
             db.SkyFrmSJLYEdit(db.SkyGetSJLYMDL(Guid).SJSJLYID, new List<DMarker>(), Guid);
         }
 
+        public bool IsLoggingObjInTerrain(ref SGWorld66 sgworld)
+        {
+            var leftX = sgworld.Terrain.Left;
+            var rightX = sgworld.Terrain.Right;
+            var topY = sgworld.Terrain.Top;
+            var bottomY = sgworld.Terrain.Bottom;
+            if (Top.X < leftX || Top.X > rightX || Top.Y < bottomY || Top.Y > topY)
+            {
+                return false;
+            }
+            return true;
+        }
+
 
         public void Erase(ref SGWorld66 sgworld)
         {
@@ -242,6 +257,7 @@ namespace FGeo3D.LoggingObj
 
         }
 
+
         public void HighlightLabel(ref SGWorld66 sgworld)
         {
             var textLabel = SkylineLabelObj as ITerrainLabel66;
@@ -250,6 +266,7 @@ namespace FGeo3D.LoggingObj
             textLabelStyle.TextColor = sgworld.Creator.CreateColor(255, 0, 0, 255);
             textLabelStyle.Underline = true;
         }
+
 
         public void ResetLabel(ref SGWorld66 sgworld)
         {
@@ -270,6 +287,8 @@ namespace FGeo3D.LoggingObj
             }
             return sgworld.ProjectTree.CreateGroup(groupName);
         }
+
+
         /*
         public void AddObj(string skylineId, LoggingObject obj)
         {
@@ -300,6 +319,7 @@ namespace FGeo3D.LoggingObj
             }
         }
         */
+
 
         /*
         public string SkylineIdToGuId(string skylineId)

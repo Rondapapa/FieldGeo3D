@@ -59,9 +59,6 @@ namespace FGeo3D_TE.Frm
         //当前选取对象、及其监控事件
         private IWorldPointInfo66 _cWorldPointInfo;
 
-        //
-        private bool _isQueryStatus = false;
-
         //地形上下左右位置
         public double XLeft { get; private set; }
         public double XRight { get; private set; }
@@ -239,6 +236,8 @@ namespace FGeo3D_TE.Frm
             StatusDatabase.Text = $"数据库状态：【已连接】|工程：{db.GCName}";
         }
 
+
+        //选择工程
         private void btnProject_Click(object sender, EventArgs e)
         {
             if (_isDbConnected)
@@ -251,6 +250,33 @@ namespace FGeo3D_TE.Frm
             }
         }
 
+        //连接GPS
+        private void btnConnectGPS_Click(object sender, EventArgs e)
+        {
+            //若GPS串口还未打开
+            if (!_gpsController.IsComOpen)
+            {
+                //搜索串口，打开
+                string ospResult = _gpsController.OpenSerialPort();
+
+                //若打开串口失败
+                if (!string.IsNullOrEmpty(ospResult))
+                {
+                    #if DEBUG
+                    //测试专用
+                    MessageBox.Show(ospResult, @"[调试模式]GPS连接失败");
+                    #endif
+
+                    //若没有打开串口，则提示，并返回；
+                    ToastNotification.Show(this, "未找到GPS设备，请检查。", 2500, eToastPosition.BottomCenter);
+                    return;
+                }
+            }
+            ToastNotification.Show(this, "GPS设备连接成功", 2500, eToastPosition.BottomCenter);
+        }
+
+
+
         //导入
         private void btnImport_Click(object sender, EventArgs e)
         {
@@ -261,6 +287,7 @@ namespace FGeo3D_TE.Frm
             for (var index = 0; index < objs.Count; index++)
             {
                 var thisObj = objs.GetObjData(index);
+
 
                 if (LoggingObject.DictOfLoggingObjects.ContainsKey(thisObj.Guid))
                     continue;
@@ -677,25 +704,43 @@ namespace FGeo3D_TE.Frm
         /// <param name="e"></param>
         private void btnGPS_Click(object sender, EventArgs e)
         {
-            ////若GPS串口还未打开
-            //if (!_gpsController.IsComOpen)
-            //{
-            //    //搜索串口，打开
-            //    if (!_gpsController.OpenSerialPort())
-            //    {
-            //        //若没有打开串口，则提示，并返回；
-            //        ToastNotification.Show(this, "GPS设备连接失败，请检查串口。", 2500, eToastPosition.BottomCenter);
-            //        return;
-            //    }
-            //}
-            
-            //_gpsController.ReadData();
-            //var curX = _gpsController.GetCoordX(); //注意坐标偏移！！！！还未修正！！！！！
-            //var curY = _gpsController.GetCoordY();
+            //若GPS串口还未打开
+            if (!_gpsController.IsComOpen)
+            {
+                ToastNotification.Show(this, "请先连接GPS", 2500, eToastPosition.BottomCenter);
+                return;
+            }
 
+            //反复读取串口，直到获得有效坐标数据，或超时
+            string rdResult;
+            _gpsController.TimeCountDown = new TimeSpan(0, 0, 5);  //设置5秒倒计时 
+            timerGPSReader.Interval = 1000;
+            
+            timerGPSReader.Start();
+            while (!string.IsNullOrEmpty(rdResult = _gpsController.ReadData()) || _gpsController.TimeCountDown.TotalSeconds > 0)
+            {
+                
+                ToastNotification.Show(this, $"正在读取GPS串口数据...{_gpsController.TimeCountDown.TotalSeconds}", 2500, eToastPosition.BottomCenter);
+                
+            }
+            timerGPSReader.Stop();
+
+            //如果5秒后仍读到非坐标数据，则提示，退出。
+            if (!string.IsNullOrEmpty(rdResult))
+            {
+                ToastNotification.Show(this, $"GPS数据读取失败，串口返回非坐标数据:{rdResult}", 2500, eToastPosition.BottomCenter);
+                return;
+            }
+
+            var gpsX = _gpsController.GetCoordX(); //注意坐标偏移！！！！还未修正！！！！！
+            var gpsY = _gpsController.GetCoordY();
+            var gpsZ = _gpsController.GetCoordZ();
+
+            // 测试专用
             double testX = 413988.472639;
             double testY = 3276102.503443;
-            IPosition66 gpsPos = sgworld.Creator.CreatePosition(testX, testY);
+
+            IPosition66 gpsPos = sgworld.Creator.CreatePosition(gpsX, gpsY, gpsZ);
 
             sgworld.Navigate.SetGPSMode(GPSOperationMode.GPS_MODE_SHOW_LOCATION_INDICATOR);
             sgworld.Navigate.SetGPSPosition(gpsPos);
@@ -710,25 +755,11 @@ namespace FGeo3D_TE.Frm
         /// <param name="e"></param>
         private void btnQuery_Click(object sender, EventArgs e)
         {
-            if (!_isQueryStatus)
-            {
-                //挂接鼠标左键事件
-                sgworld.OnLButtonDown += OnLBtnDown_Query;
-                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
-                StatusSystem.Text = @"系统状态：【查询地质对象】";
-                ToastNotification.Show(this, "查询地质对象：请拾取地质对象的图例或标签");
-                btnQuery.Text = @"结束查询";
-            }
-            else
-            {
-                //取消鼠标左键事件
-                sgworld.OnLButtonDown -= OnLBtnDown_Query;
-                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                StatusSystem.Text = @"系统状态：【默认】";
-                ToastNotification.Show(this, "结束查询");
-                btnQuery.Text = @"查询";
-            }
-            
+            //挂接鼠标左键事件
+            sgworld.OnLButtonDown += OnLBtnDown_Query;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            StatusSystem.Text = @"系统状态：【查询地质对象】";
+            ToastNotification.Show(this, "查询地质对象：请拾取地质对象的图例或标签");
         }
 
         private void buttonXDeleteLoggingSpot_Click(object sender, EventArgs e)
@@ -1561,7 +1592,12 @@ namespace FGeo3D_TE.Frm
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
             if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
             {
-                MessageBox.Show(@"未能查询到您所选取的地质对象。请选取地质对象的文字标签！", @"查询地质对象失败");
+                ToastNotification.Show(this, "未能查询到您所选取的地质对象。请选取地质对象的文字标签！");
+                _cWorldPointInfo = null;
+                sgworld.OnLButtonDown -= OnLBtnDown_Query;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                StatusSystem.Text = @"系统状态：【默认】";
+                
                 return true;
             }
             var thisGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
@@ -2126,8 +2162,12 @@ namespace FGeo3D_TE.Frm
 
 
 
+
         #endregion
 
-
+        private void timerGPSReader_Tick(object sender, EventArgs e)
+        {
+            _gpsController.TimeCountDown = _gpsController.TimeCountDown.Subtract(new TimeSpan(0, 0, 1));
+        }
     }
 }
