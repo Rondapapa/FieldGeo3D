@@ -7,6 +7,8 @@ using YWCH.CHIDI.DZ.COM.Skyline;
 
 namespace FGeo3D.GoCAD
 {
+    using System.Linq;
+
     //Ts部件，仅用于存储部件，不用于展示（除了三维TIN面）
     public class TsFile
     {
@@ -329,22 +331,30 @@ namespace FGeo3D.GoCAD
                 {
                     ts.WriteLine("TRGL" + " " + TsData.TriLinksList[i].VertexA + " " + TsData.TriLinksList[i].VertexB + " " + TsData.TriLinksList[i].VertexC);
                 }
-                double maxVertZ = 0, max2VertZ = 0;
-                int numMaxVertZ = 0, numMax2VertZ = 0;
-                for (var i = 0; i < TsData.VerticesList.Count; i++)
-                {
-                    if (!(maxVertZ < TsData.VerticesList[i].Z)) continue;
-                    maxVertZ = TsData.VerticesList[i].Z;
-                    numMaxVertZ = i + 1;
-                }
-                for (var i = 0; i < TsData.VerticesList.Count; i++)
-                {
-                    if (!(max2VertZ < TsData.VerticesList[i].Z) || i == numMaxVertZ - 1) continue;
-                    max2VertZ = TsData.VerticesList[i].Z;
-                    numMax2VertZ = i + 1;
-                }
+
+                //double maxVertZ = 0, max2VertZ = 0;
+                //int numMaxVertZ = 0, numMax2VertZ = 0;
+                //for (var i = 0; i < TsData.VerticesList.Count; i++)
+                //{
+                //    if (!(maxVertZ < TsData.VerticesList[i].Z)) continue;
+                //    maxVertZ = TsData.VerticesList[i].Z;
+                //    numMaxVertZ = i + 1;
+                //}
+                //for (var i = 0; i < TsData.VerticesList.Count; i++)
+                //{
+                //    if (!(max2VertZ < TsData.VerticesList[i].Z) || i == numMaxVertZ - 1) continue;
+                //    max2VertZ = TsData.VerticesList[i].Z;
+                //    numMax2VertZ = i + 1;
+                //}
+                //ts.WriteLine("BSTONE " + numMaxVertZ);
+                //ts.WriteLine("BORDER " + (TsData.VerticesList.Count + 1) + " " + numMaxVertZ + " " + numMax2VertZ);
+
+
+                List<Point3D> sortedListPoint3D = new List<Point3D>(this.TsData.VerticesList.OrderBy(p => p.Z));
+                int numMaxVertZ = this.TsData.VerticesList.IndexOf(sortedListPoint3D[sortedListPoint3D.Count - 1]) + 1;
+                int numMax2VertZ = this.TsData.VerticesList.IndexOf(sortedListPoint3D[sortedListPoint3D.Count - 2]) + 1;
                 ts.WriteLine("BSTONE " + numMaxVertZ);
-                ts.WriteLine("BORDER " + (TsData.VerticesList.Count + 1) + " " + numMaxVertZ + " " + numMax2VertZ); 
+                ts.WriteLine("BORDER " + sortedListPoint3D.Count + " " + numMaxVertZ + " " + numMax2VertZ);
             }
 
             //尾

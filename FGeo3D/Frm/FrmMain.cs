@@ -183,17 +183,18 @@ namespace FGeo3D_TE.Frm
             };
 
             if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
-            //获得文件路径  
+            // 获得文件路径  
             var localFilePath = saveFileDialog.FileName;
 
-            //获取文件名，不带路径  
+            // 获取文件名，不带路径  
             var fileNameExt = localFilePath.Substring(localFilePath.LastIndexOf("\\", StringComparison.Ordinal) + 1);
 
-            //sgworld = new SGWorld66();
+            // sgworld = new SGWorld66();
             sgworld.Project.SaveAs(fileNameExt);
-            //sgworld.ProjectTree.SaveAsFly(fileNameExt, gpgid);
 
-            //string path = "C:\\Users\\lmc\\AppData\\Roaming\\Skyline\\TerraExplorer\\" + fileNameExt;
+            // sgworld.ProjectTree.SaveAsFly(fileNameExt, gpgid);
+
+            // string path = "C:\\Users\\lmc\\AppData\\Roaming\\Skyline\\TerraExplorer\\" + fileNameExt;
             var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Skyline\\TerraExplorer\\" + fileNameExt;
             try
             {
@@ -211,7 +212,7 @@ namespace FGeo3D_TE.Frm
                 // Move the file.
                 File.Move(path, localFilePath);
 
-                //打开另存后的工程文件
+                // 打开另存后的工程文件
                 _tProjectUrl = localFilePath;
                 sgworld.Project.Open(_tProjectUrl);
                 Text = _tProjectUrl + @" - FieldGeo3D";
@@ -226,10 +227,10 @@ namespace FGeo3D_TE.Frm
         //连接数据库
         private void btnConnectDB_Click(object sender, EventArgs e)
         {
-            //登录、选择工程阶段
+            // 登录、选择工程阶段
             _isDbConnected = db.SkyLogin();
             if (!_isDbConnected) return;
-            //创建模型
+            // 创建模型
             _modelPath = db.SkyOpenOrNewModal();
             _modelGuid = db.SkyModelGuid;
             Text = db.GCName + @" - FieldGeo3D";
@@ -253,21 +254,21 @@ namespace FGeo3D_TE.Frm
         //连接GPS
         private void btnConnectGPS_Click(object sender, EventArgs e)
         {
-            //若GPS串口还未打开
+            // 若GPS串口还未打开
             if (!_gpsController.IsComOpen)
             {
-                //搜索串口，打开
+                // 搜索串口，打开
                 string ospResult = _gpsController.OpenSerialPort();
 
-                //若打开串口失败
+                // 若打开串口失败
                 if (!string.IsNullOrEmpty(ospResult))
                 {
                     #if DEBUG
-                    //测试专用
+                    // 测试专用
                     MessageBox.Show(ospResult, @"[调试模式]GPS连接失败");
                     #endif
 
-                    //若没有打开串口，则提示，并返回；
+                    // 若没有打开串口，则提示，并返回；
                     ToastNotification.Show(this, "未找到GPS设备，请检查。", 2500, eToastPosition.BottomCenter);
                     return;
                 }
