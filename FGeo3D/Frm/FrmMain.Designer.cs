@@ -112,7 +112,7 @@
             this.rbLog.Location = new System.Drawing.Point(268, 5);
             this.rbLog.Name = "rbLog";
             this.rbLog.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbLog.Size = new System.Drawing.Size(311, 83);
+            this.rbLog.Size = new System.Drawing.Size(349, 83);
             this.rbLog.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbLog.TabIndex = 9;
             this.rbLog.Text = "勘测编录";
@@ -127,6 +127,7 @@
             // 
             // btnBore
             // 
+            this.btnBore.Image = ((System.Drawing.Image)(resources.GetObject("btnBore.Image")));
             this.btnBore.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnBore.Name = "btnBore";
             this.btnBore.SubItemsExpandWidth = 14;
@@ -135,6 +136,7 @@
             // 
             // btnFootrill
             // 
+            this.btnFootrill.Image = ((System.Drawing.Image)(resources.GetObject("btnFootrill.Image")));
             this.btnFootrill.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnFootrill.Name = "btnFootrill";
             this.btnFootrill.SubItemsExpandWidth = 14;
@@ -143,6 +145,7 @@
             // 
             // btnPit
             // 
+            this.btnPit.Image = ((System.Drawing.Image)(resources.GetObject("btnPit.Image")));
             this.btnPit.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnPit.Name = "btnPit";
             this.btnPit.SubItemsExpandWidth = 14;
@@ -151,6 +154,7 @@
             // 
             // btnWell
             // 
+            this.btnWell.Image = ((System.Drawing.Image)(resources.GetObject("btnWell.Image")));
             this.btnWell.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnWell.Name = "btnWell";
             this.btnWell.SubItemsExpandWidth = 14;
@@ -159,6 +163,7 @@
             // 
             // btnTrench
             // 
+            this.btnTrench.Image = ((System.Drawing.Image)(resources.GetObject("btnTrench.Image")));
             this.btnTrench.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnTrench.Name = "btnTrench";
             this.btnTrench.SubItemsExpandWidth = 14;
@@ -167,6 +172,7 @@
             // 
             // btnSlope
             // 
+            this.btnSlope.Image = ((System.Drawing.Image)(resources.GetObject("btnSlope.Image")));
             this.btnSlope.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnSlope.Name = "btnSlope";
             this.btnSlope.SubItemsExpandWidth = 14;
@@ -175,6 +181,7 @@
             // 
             // btnCavity
             // 
+            this.btnCavity.Image = ((System.Drawing.Image)(resources.GetObject("btnCavity.Image")));
             this.btnCavity.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnCavity.Name = "btnCavity";
             this.btnCavity.SubItemsExpandWidth = 14;
@@ -183,6 +190,7 @@
             // 
             // btnFoundation
             // 
+            this.btnFoundation.Image = ((System.Drawing.Image)(resources.GetObject("btnFoundation.Image")));
             this.btnFoundation.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnFoundation.Name = "btnFoundation";
             this.btnFoundation.SubItemsExpandWidth = 14;
@@ -207,10 +215,10 @@
             this.btnBuildSurface,
             this.btnStretchSurface,
             this.btnBlockAnalyse});
-            this.rbAnalysis.Location = new System.Drawing.Point(965, 5);
+            this.rbAnalysis.Location = new System.Drawing.Point(1003, 5);
             this.rbAnalysis.Name = "rbAnalysis";
             this.rbAnalysis.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbAnalysis.Size = new System.Drawing.Size(233, 83);
+            this.rbAnalysis.Size = new System.Drawing.Size(195, 83);
             this.rbAnalysis.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbAnalysis.TabIndex = 8;
             this.rbAnalysis.Text = "分析处理";
@@ -518,7 +526,7 @@
             this.btnRegion,
             this.btnDrawingComplete,
             this.btnImageLogging});
-            this.btnChamber.Location = new System.Drawing.Point(585, 5);
+            this.btnChamber.Location = new System.Drawing.Point(623, 5);
             this.btnChamber.Name = "btnChamber";
             this.btnChamber.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnChamber.Size = new System.Drawing.Size(374, 83);

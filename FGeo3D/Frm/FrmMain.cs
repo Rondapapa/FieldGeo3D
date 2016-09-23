@@ -339,72 +339,133 @@ namespace FGeo3D_TE.Frm
         #region 编录
         private void btnBore_Click(object sender, EventArgs e)
         {
-            
-            StatusSystem.Text = @"系统状态：【钻探编录】";
-            ToastNotification.Show(this, "开始编录钻探对象");
-            sgworld.OnLButtonDown += OnLBtnDown_LoggingBore;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                StatusSystem.Text = @"系统状态：【钻探编录】";
+                ToastNotification.Show(this, "开始编录钻探对象");
+                sgworld.OnLButtonDown += OnLBtnDown_LoggingBore;
+                
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
         }
 
         private void btnFootrill_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【硐探编录】";
-            ToastNotification.Show(this, "开始编录硐探对象");
-            sgworld.OnLButtonDown += OnLBtnDown_LoggingFootrill;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                StatusSystem.Text = @"系统状态：【硐探编录】";
+                ToastNotification.Show(this, "开始编录硐探对象");
+                sgworld.OnLButtonDown += OnLBtnDown_LoggingFootrill;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
 
-            
         }
 
         private void btnPit_Click(object sender, EventArgs e)
         {
-            
-            StatusSystem.Text = @"系统状态：【坑探编录】";
-            ToastNotification.Show(this, "开始编录坑探对象");
-            sgworld.OnLButtonDown += OnLBtnDown_LoggingPit;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                StatusSystem.Text = @"系统状态：【坑探编录】";
+                ToastNotification.Show(this, "开始编录坑探对象");
+                sgworld.OnLButtonDown += OnLBtnDown_LoggingPit;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
+
         }
 
         private void btnWell_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【井探编录】";
-            ToastNotification.Show(this, "开始编录井探对象");
-            sgworld.OnLButtonDown += OnLBtnDown_LoggingWell;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                StatusSystem.Text = @"系统状态：【井探编录】";
+                ToastNotification.Show(this, "开始编录井探对象");
+                sgworld.OnLButtonDown += OnLBtnDown_LoggingWell;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
+
         }
 
         private void btnTrench_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【槽探编录】";
-            ToastNotification.Show(this, "开始编录槽探对象");
-            sgworld.OnLButtonDown += OnLBtnDown_LoggingTrench;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                StatusSystem.Text = @"系统状态：【槽探编录】";
+                ToastNotification.Show(this, "开始编录槽探对象");
+                sgworld.OnLButtonDown += OnLBtnDown_LoggingTrench;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
+
         }
 
 
 
         private void btnSlope_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【边坡编录】";
-            ToastNotification.Show(this, "开始编录边坡对象");
-            sgworld.OnLButtonDown += OnLBtnDown_LoggingSlope;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                StatusSystem.Text = @"系统状态：【边坡编录】";
+                ToastNotification.Show(this, "开始编录边坡对象");
+                sgworld.OnLButtonDown += OnLBtnDown_LoggingSlope;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
+
+
         }
 
         private void btnCavity_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【洞室编录】";
-            ToastNotification.Show(this, "开始编录洞室对象");
-            sgworld.OnLButtonDown += OnLBtnDown_LoggingCavity;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                StatusSystem.Text = @"系统状态：【洞室编录】";
+                ToastNotification.Show(this, "开始编录洞室对象");
+                sgworld.OnLButtonDown += OnLBtnDown_LoggingCavity;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
+
         }
 
         private void btnFoundation_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【基坑编录】";
-            ToastNotification.Show(this, "开始编录基坑对象");
-            sgworld.OnLButtonDown += OnLBtnDown_LoggingFoundation;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                StatusSystem.Text = @"系统状态：【基坑编录】";
+                ToastNotification.Show(this, "开始编录基坑对象");
+                sgworld.OnLButtonDown += OnLBtnDown_LoggingFoundation;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
+
         }
 
 
@@ -468,10 +529,18 @@ namespace FGeo3D_TE.Frm
         */
         private void btnGeoPoint_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【地质点编录】";
-            ToastNotification.Show(this, "开始编录地质点");
-            sgworld.OnLButtonDown += OnLBtnDown_LoggingSpot;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                StatusSystem.Text = @"系统状态：【地质点编录】";
+                ToastNotification.Show(this, "开始编录地质点");
+                sgworld.OnLButtonDown += OnLBtnDown_LoggingSpot;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
+
         }
 
 
@@ -521,38 +590,54 @@ namespace FGeo3D_TE.Frm
 
         private void btnLineNew_Click(object sender, EventArgs e)
         {
-            HighlightButton(btnLine,true);//仍然使用原按钮
-            
-            PbHander = "LineNew";
-            _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
-            if (_objInfo.IsDrop)
+            try
             {
-                ResetButton(btnLine, true);//仍然使用原按钮
-                return;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                HighlightButton(btnLine, true); // 仍然使用原按钮
+
+                PbHander = "LineNew";
+                _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
+                if (_objInfo.IsDrop)
+                {
+                    ResetButton(btnLine, true); // 仍然使用原按钮
+                    return;
+                }
+                StatusSystem.Text = @"系统状态：【绘制界线】";
+                ToastNotification.Show(this, "开始绘制地质界线");
+                sgworld.OnLButtonDown += OnLBtnDown_LineNew;
+                sgworld.OnRButtonDown += OnRBtnDown_DrawingComplete;
             }
-            StatusSystem.Text = @"系统状态：【绘制界线】";
-            ToastNotification.Show(this, "开始绘制地质界线");
-            sgworld.OnLButtonDown += OnLBtnDown_LineNew;
-            sgworld.OnRButtonDown += OnRBtnDown_DrawingComplete;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
+
         }
 
         private void btnRegionNew_Click(object sender, EventArgs e)
         {
-            HighlightButton(btnRegion, true);//仍然使用原按钮
-
-            PbHander = "RegionNew";
-            _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
-            if (_objInfo.IsDrop)
+            try
             {
-                ResetButton(btnRegion, true);//仍然使用原按钮
-                return;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                HighlightButton(btnRegion, true);//仍然使用原按钮
+
+                PbHander = "RegionNew";
+                _objInfo = new DrawingObjectInfo(PbHander, ref sgworld);
+                if (_objInfo.IsDrop)
+                {
+                    ResetButton(btnRegion, true);//仍然使用原按钮
+                    return;
+                }
+                StatusSystem.Text = @"系统状态：【绘制区域】";
+                ToastNotification.Show(this, "开始绘制地形区域");
+                sgworld.OnLButtonDown += OnLBtnDown_RegionNew;
+                sgworld.OnRButtonDown += OnRBtnDown_DrawingComplete;
             }
-            StatusSystem.Text = @"系统状态：【绘制区域】";
-            ToastNotification.Show(this, "开始绘制地形区域");
-            sgworld.OnLButtonDown += OnLBtnDown_RegionNew;
-            sgworld.OnRButtonDown += OnRBtnDown_DrawingComplete;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
+
         }
 
 
@@ -570,6 +655,7 @@ namespace FGeo3D_TE.Frm
 
         private void btnDrawingComplete_Click(object sender, EventArgs e)
         {
+            
             DrawingComplete(PbHander);
             PbHander = "";
             IsSaved = false;
@@ -597,7 +683,14 @@ namespace FGeo3D_TE.Frm
 
         private void btnContourMap_Click(object sender, EventArgs e)
         {
-            sgworld.Command.Execute(1040, 0);
+            try
+            {
+                sgworld.Command.Execute(1040, 0);
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
             //string tMsg = String.Empty;
             //try
             //{
@@ -615,22 +708,50 @@ namespace FGeo3D_TE.Frm
 
         private void btnBestPath_Click(object sender, EventArgs e)
         {
-            sgworld.Command.Execute(1042, 0);
+            try
+            {
+                sgworld.Command.Execute(1042, 0);
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
         }
 
         private void btnBuildSurface_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
         }
 
         private void btnStretchSurface_Click(object sender, EventArgs e)
         {
+            try
+            {
 
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
         }
 
         private void btnBlockAnalyse_Click(object sender, EventArgs e)
         {
+            try
+            {
 
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
         }
 
         #endregion
@@ -638,47 +759,90 @@ namespace FGeo3D_TE.Frm
         #region 测量
         private void btnAbsDistance_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【测量直线距离】";
-            ToastNotification.Show(this, "测量直线距离");
-            sgworld.Command.Execute(1035, 0);
+            
+            try
+            {
+                ToastNotification.Show(this, "测量直线距离");
+                sgworld.Command.Execute(1035, 0);
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                StatusSystem.Text = @"系统状态：【就绪】";
+            }
 
         }
 
         private void btnHorizonalDistance_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【测量水平距离】";
-            ToastNotification.Show(this, "测量水平距离");
-            sgworld.Command.Execute(1034, 0);
+            try
+            {
+                ToastNotification.Show(this, "测量水平距离");
+                sgworld.Command.Execute(1034, 0);
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                StatusSystem.Text = @"系统状态：【就绪】";
+            }
         }
 
         private void btnVerticalDistance_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【测量垂直距离】";
-            ToastNotification.Show(this, "测量垂直距离");
-            sgworld.Command.Execute(1036, 0);
+            try
+            {
+                ToastNotification.Show(this, "测量垂直距离");
+                sgworld.Command.Execute(1036, 0);
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                StatusSystem.Text = @"系统状态：【就绪】";
+            }
         }
 
         private void btnPlaneArea_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【测量平面距离】";
-            ToastNotification.Show(this, "测量平面距离");
-            sgworld.Command.Execute(1037, 0);
+            try
+            {
+                ToastNotification.Show(this, "测量平面距离");
+                sgworld.Command.Execute(1037, 0);
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                StatusSystem.Text = @"系统状态：【就绪】";
+            }
         }
 
         private void btnTerrainArea_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【测量地形面积】";
-            ToastNotification.Show(this, "测量地形面积");
-            sgworld.Command.Execute(1165, 0);
+            try
+            {
+                ToastNotification.Show(this, "测量地形面积");
+                sgworld.Command.Execute(1165, 0);
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                StatusSystem.Text = @"系统状态：【就绪】";
+            }
         }
 
         private void btnXFinishMeasure_Click(object sender, EventArgs e)
         {
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             //激活右键
-            
-            sgworld.Command.Execute(1021, 0);
-            sgworld.Command.Execute(1021, 0);
+
+            try
+            {
+                sgworld.Command.Execute(1021, 0);
+                sgworld.Command.Execute(1021, 0);
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
         }
         #endregion
 
@@ -705,6 +869,8 @@ namespace FGeo3D_TE.Frm
         /// <param name="e"></param>
         private void btnGPS_Click(object sender, EventArgs e)
         {
+            
+
             //若GPS串口还未打开
             if (!_gpsController.IsComOpen)
             {
@@ -742,11 +908,17 @@ namespace FGeo3D_TE.Frm
             double testY = 3276102.503443;
 
             IPosition66 gpsPos = sgworld.Creator.CreatePosition(gpsX, gpsY, gpsZ);
-
-            sgworld.Navigate.SetGPSMode(GPSOperationMode.GPS_MODE_SHOW_LOCATION_INDICATOR);
-            sgworld.Navigate.SetGPSPosition(gpsPos);
-            ToastNotification.Show(this, "GPS定位完成！");
-
+            try
+            {
+                sgworld.Navigate.SetGPSMode(GPSOperationMode.GPS_MODE_SHOW_LOCATION_INDICATOR);
+                sgworld.Navigate.SetGPSPosition(gpsPos);
+                ToastNotification.Show(this, "GPS定位完成！");
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                StatusSystem.Text = @"系统状态：【就绪】";
+            }
         }
 
         /// <summary>
@@ -756,20 +928,41 @@ namespace FGeo3D_TE.Frm
         /// <param name="e"></param>
         private void btnQuery_Click(object sender, EventArgs e)
         {
-            //挂接鼠标左键事件
-            sgworld.OnLButtonDown += OnLBtnDown_Query;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
-            StatusSystem.Text = @"系统状态：【查询地质对象】";
-            ToastNotification.Show(this, "查询地质对象：请拾取地质对象的图例或标签");
+
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                //挂接鼠标左键事件
+                sgworld.OnLButtonDown += OnLBtnDown_Query;
+
+                StatusSystem.Text = @"系统状态：【查询地质对象】";
+                ToastNotification.Show(this, "查询地质对象：请拾取地质对象的图例或标签");
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                StatusSystem.Text = @"系统状态：【就绪】";
+            }
+
         }
 
         private void buttonXDeleteLoggingSpot_Click(object sender, EventArgs e)
         {
-            //挂接事件
-            sgworld.OnLButtonDown += OnLBtnDown_DeleteLoggingSpot;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
-            StatusSystem.Text = @"系统状态：【删除地质点】";
-            ToastNotification.Show(this, "删除地质点：请拾取地质对象的图例或标签");
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                //挂接事件
+                sgworld.OnLButtonDown += OnLBtnDown_DeleteLoggingSpot;
+
+                StatusSystem.Text = @"系统状态：【删除地质点】";
+                ToastNotification.Show(this, "删除地质点：请拾取地质对象的图例或标签");
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                StatusSystem.Text = @"系统状态：【就绪】";
+            }
+
         }
 
         /// <summary>
