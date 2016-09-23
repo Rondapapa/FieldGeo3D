@@ -280,7 +280,7 @@ namespace FGeo3D.GoCAD
             ts.WriteLine("chidi_cnname:" + Name);//中文名
             ts.WriteLine("bosl:on");
             ts.WriteLine("chidi_cgObjType:238DED4F-7093-4b15-9DFC-F9D0C63CAFA6");//地质对象C++类:默认为部件最新可用版本
-            ts.WriteLine("*solid*color:0.098039 0.8 0.87451 1");//颜色确定？
+            ts.WriteLine("*solid*color:0.854902 0.666667 0 1");//颜色确定？
             ts.WriteLine("ivolmap:false");
             ts.WriteLine("imap:false");
             ts.WriteLine("chi_conobj:" + GetConnObjGuidsString("test_pts"));//关联地质对象的guid
@@ -308,7 +308,7 @@ namespace FGeo3D.GoCAD
             //点
             for (var i = 0; i < TsData.VerticesList.Count; i++)
             {
-                ts.WriteLine("VART" + " " + (i + 1) + " " + TsData.VerticesList[i].X + " " + TsData.VerticesList[i].Y + " " + TsData.VerticesList[i].Z);
+                ts.WriteLine("VRTX" + " " + (i + 1) + " " + TsData.VerticesList[i].X + " " + TsData.VerticesList[i].Y + " " + TsData.VerticesList[i].Z);
             }
 
             //线
