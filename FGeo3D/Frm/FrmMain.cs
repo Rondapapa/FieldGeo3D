@@ -15,6 +15,19 @@ using FGeo3D.LoggingObj;
 
 namespace FGeo3D_TE.Frm
 {
+    public enum MouseEventFlags
+    {
+        Move = 0x0001,
+        LeftDown = 0x0002,
+        LeftUp = 0x0004,
+        RightDown = 0x0008,
+        RightUp = 0x0010,
+        MiddleDown = 0x0020,
+        MiddleUp = 0x0040,
+        Wheel = 0x0800,
+        Absolute = 0x8000
+    }
+
     public partial class FrmMain : Form
     {
 
@@ -269,11 +282,11 @@ namespace FGeo3D_TE.Frm
                     #endif
 
                     // 若没有打开串口，则提示，并返回；
-                    ToastNotification.Show(this, "未找到GPS设备，请检查。", 2500, eToastPosition.BottomCenter);
+                    ToastNotification.Show(this, "未找到GPS设备，请检查。", 2500, eToastPosition.MiddleCenter);
                     return;
                 }
             }
-            ToastNotification.Show(this, "GPS设备连接成功", 2500, eToastPosition.BottomCenter);
+            ToastNotification.Show(this, "GPS设备连接成功", 2500, eToastPosition.MiddleCenter);
         }
 
 
@@ -281,6 +294,12 @@ namespace FGeo3D_TE.Frm
         //导入
         private void btnImport_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+            
             //弹出数据库筛选面板
             //导入相关数据
             var objs = db.SkyGetData();
@@ -339,6 +358,12 @@ namespace FGeo3D_TE.Frm
         #region 编录
         private void btnBore_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -355,6 +380,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnFootrill_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -371,6 +402,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnPit_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -387,6 +424,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnWell_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -403,6 +446,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnTrench_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -421,6 +470,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnSlope_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -438,6 +493,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnCavity_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -454,6 +515,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnFoundation_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -529,6 +596,12 @@ namespace FGeo3D_TE.Frm
         */
         private void btnGeoPoint_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -554,6 +627,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnImageLogging_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             StatusSystem.Text = @"系统状态：【图像编录】";
             var frmImage = new FrmImage(ref db);
             frmImage.Show();
@@ -590,6 +669,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnLineNew_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -616,6 +701,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnRegionNew_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -655,7 +746,13 @@ namespace FGeo3D_TE.Frm
 
         private void btnDrawingComplete_Click(object sender, EventArgs e)
         {
-            
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
+
             DrawingComplete(PbHander);
             PbHander = "";
             IsSaved = false;
@@ -689,7 +786,7 @@ namespace FGeo3D_TE.Frm
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
             //string tMsg = String.Empty;
             //try
@@ -714,7 +811,7 @@ namespace FGeo3D_TE.Frm
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
         }
 
@@ -726,7 +823,7 @@ namespace FGeo3D_TE.Frm
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
         }
 
@@ -738,7 +835,7 @@ namespace FGeo3D_TE.Frm
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
         }
 
@@ -750,7 +847,7 @@ namespace FGeo3D_TE.Frm
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
         }
 
@@ -762,13 +859,12 @@ namespace FGeo3D_TE.Frm
             
             try
             {
-                ToastNotification.Show(this, "测量直线距离");
+                ToastNotification.Show(this, "测量直线距离, 结束测量请【单击鼠标右键】或【触控笔长按屏幕】", 2500, eToastPosition.MiddleCenter);
                 sgworld.Command.Execute(1035, 0);
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
-                StatusSystem.Text = @"系统状态：【就绪】";
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
 
         }
@@ -777,13 +873,12 @@ namespace FGeo3D_TE.Frm
         {
             try
             {
-                ToastNotification.Show(this, "测量水平距离");
+                ToastNotification.Show(this, "测量水平距离, 结束测量请【单击鼠标右键】或【触控笔长按屏幕】", 2500, eToastPosition.MiddleCenter);
                 sgworld.Command.Execute(1034, 0);
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
-                StatusSystem.Text = @"系统状态：【就绪】";
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
         }
 
@@ -791,13 +886,12 @@ namespace FGeo3D_TE.Frm
         {
             try
             {
-                ToastNotification.Show(this, "测量垂直距离");
+                ToastNotification.Show(this, "测量垂直距离, 结束测量请【单击鼠标右键】或【触控笔长按屏幕】", 2500, eToastPosition.MiddleCenter);
                 sgworld.Command.Execute(1036, 0);
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
-                StatusSystem.Text = @"系统状态：【就绪】";
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
         }
 
@@ -805,13 +899,12 @@ namespace FGeo3D_TE.Frm
         {
             try
             {
-                ToastNotification.Show(this, "测量平面距离");
+                ToastNotification.Show(this, "测量平面距离, 结束测量请【单击鼠标右键】或【触控笔长按屏幕】", 2500, eToastPosition.MiddleCenter);
                 sgworld.Command.Execute(1037, 0);
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
-                StatusSystem.Text = @"系统状态：【就绪】";
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
         }
 
@@ -819,30 +912,35 @@ namespace FGeo3D_TE.Frm
         {
             try
             {
-                ToastNotification.Show(this, "测量地形面积");
+                ToastNotification.Show(this, "测量地形面积, 结束测量请【单击鼠标右键】或【触控笔长按屏幕】", 2500, eToastPosition.MiddleCenter);
                 sgworld.Command.Execute(1165, 0);
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
-                StatusSystem.Text = @"系统状态：【就绪】";
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
         }
 
         private void btnXFinishMeasure_Click(object sender, EventArgs e)
         {
             StatusSystem.Text = @"系统状态：【就绪】";
-            //激活右键
+            ToastNotification.Show(this, "结束测量");
 
-            try
-            {
-                sgworld.Command.Execute(1021, 0);
-                sgworld.Command.Execute(1021, 0);
-            }
-            catch (Exception ex)
-            {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
-            }
+
+            //激活右键
+            mouse_event((int)(MouseEventFlags.Absolute | MouseEventFlags.RightDown | MouseEventFlags.RightUp), 
+                Screen.PrimaryScreen.WorkingArea.Width / 2, 
+                Screen.PrimaryScreen.WorkingArea.Width / 2, 0, 0);
+
+            //try
+            //{
+            //    sgworld.Command.Execute(1021, 0);
+            //    sgworld.Command.Execute(1021, 0);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            //}
         }
         #endregion
 
@@ -874,7 +972,7 @@ namespace FGeo3D_TE.Frm
             //若GPS串口还未打开
             if (!_gpsController.IsComOpen)
             {
-                ToastNotification.Show(this, "请先连接GPS", 2500, eToastPosition.BottomCenter);
+                ToastNotification.Show(this, "请先连接GPS", 2500, eToastPosition.MiddleCenter);
                 return;
             }
 
@@ -887,7 +985,7 @@ namespace FGeo3D_TE.Frm
             while (!string.IsNullOrEmpty(rdResult = _gpsController.ReadData()) || _gpsController.TimeCountDown.TotalSeconds > 0)
             {
                 
-                ToastNotification.Show(this, $"正在读取GPS串口数据...{_gpsController.TimeCountDown.TotalSeconds}", 2500, eToastPosition.BottomCenter);
+                ToastNotification.Show(this, $"正在读取GPS串口数据...{_gpsController.TimeCountDown.TotalSeconds}", 2500, eToastPosition.MiddleCenter);
                 
             }
             timerGPSReader.Stop();
@@ -895,7 +993,7 @@ namespace FGeo3D_TE.Frm
             //如果5秒后仍读到非坐标数据，则提示，退出。
             if (!string.IsNullOrEmpty(rdResult))
             {
-                ToastNotification.Show(this, $"GPS数据读取失败，串口返回非坐标数据:{rdResult}", 2500, eToastPosition.BottomCenter);
+                ToastNotification.Show(this, $"GPS数据读取失败，串口返回非坐标数据:{rdResult}", 2500, eToastPosition.MiddleCenter);
                 return;
             }
 
@@ -916,7 +1014,7 @@ namespace FGeo3D_TE.Frm
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
                 StatusSystem.Text = @"系统状态：【就绪】";
             }
         }
@@ -928,6 +1026,12 @@ namespace FGeo3D_TE.Frm
         /// <param name="e"></param>
         private void btnQuery_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
 
             try
             {
@@ -936,11 +1040,11 @@ namespace FGeo3D_TE.Frm
                 sgworld.OnLButtonDown += OnLBtnDown_Query;
 
                 StatusSystem.Text = @"系统状态：【查询地质对象】";
-                ToastNotification.Show(this, "查询地质对象：请拾取地质对象的图例或标签");
+                ToastNotification.Show(this, "查询地质对象：请拾取地质对象的图例或标签", 2500, eToastPosition.MiddleCenter);
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
                 StatusSystem.Text = @"系统状态：【就绪】";
             }
 
@@ -948,6 +1052,12 @@ namespace FGeo3D_TE.Frm
 
         private void buttonXDeleteLoggingSpot_Click(object sender, EventArgs e)
         {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
             try
             {
                 sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
@@ -955,11 +1065,11 @@ namespace FGeo3D_TE.Frm
                 sgworld.OnLButtonDown += OnLBtnDown_DeleteLoggingSpot;
 
                 StatusSystem.Text = @"系统状态：【删除地质点】";
-                ToastNotification.Show(this, "删除地质点：请拾取地质对象的图例或标签");
+                ToastNotification.Show(this, "删除地质点：请拾取地质对象的图例或标签", 2500, eToastPosition.MiddleCenter);
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
                 StatusSystem.Text = @"系统状态：【就绪】";
             }
 
@@ -1061,6 +1171,19 @@ namespace FGeo3D_TE.Frm
             //testTsFile.WriteTsFile();
 
         }
+
+        /// <summary>
+        /// WinAPI模拟鼠标事件
+        /// </summary>
+        /// <param name="dwFlags"></param>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
+        /// <param name="cButtons"></param>
+        /// <param name="dwExtraInfo"></param>
+        /// <returns></returns>
+        [System.Runtime.InteropServices.DllImport("user32")]
+        private static extern int mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
 
         /// <summary>
         /// 应用绘制命令，并释放鼠标和相关全局引用
@@ -1786,7 +1909,7 @@ namespace FGeo3D_TE.Frm
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
             if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
             {
-                ToastNotification.Show(this, "未能查询到您所选取的地质对象。请选取地质对象的文字标签！");
+                ToastNotification.Show(this, "未能查询到您所选取的地质对象。请选取地质对象的文字标签！", 2500, eToastPosition.MiddleCenter);
                 _cWorldPointInfo = null;
                 sgworld.OnLButtonDown -= OnLBtnDown_Query;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);

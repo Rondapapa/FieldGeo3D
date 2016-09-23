@@ -50,7 +50,6 @@
             this.btnConnectGPS = new DevComponents.DotNetBar.ButtonItem();
             this.btnImport = new DevComponents.DotNetBar.ButtonItem();
             this.gpMeasure = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.btnXFinishMeasure = new DevComponents.DotNetBar.ButtonX();
             this.btnTerrainArea = new DevComponents.DotNetBar.ButtonX();
             this.btnPlaneArea = new DevComponents.DotNetBar.ButtonX();
             this.btnVerticalDistance = new DevComponents.DotNetBar.ButtonX();
@@ -343,16 +342,15 @@
             this.gpMeasure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.gpMeasure.CanvasColor = System.Drawing.SystemColors.Control;
             this.gpMeasure.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2013;
-            this.gpMeasure.Controls.Add(this.btnXFinishMeasure);
             this.gpMeasure.Controls.Add(this.btnTerrainArea);
             this.gpMeasure.Controls.Add(this.btnPlaneArea);
             this.gpMeasure.Controls.Add(this.btnVerticalDistance);
             this.gpMeasure.Controls.Add(this.btnHorizonalDistance);
             this.gpMeasure.Controls.Add(this.btnAbsDistance);
             this.gpMeasure.DisabledBackColor = System.Drawing.Color.Empty;
-            this.gpMeasure.Location = new System.Drawing.Point(1205, 371);
+            this.gpMeasure.Location = new System.Drawing.Point(1204, 405);
             this.gpMeasure.Name = "gpMeasure";
-            this.gpMeasure.Size = new System.Drawing.Size(57, 233);
+            this.gpMeasure.Size = new System.Drawing.Size(57, 199);
             // 
             // 
             // 
@@ -383,19 +381,6 @@
             this.gpMeasure.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.gpMeasure.TabIndex = 16;
             this.gpMeasure.Text = "测量";
-            // 
-            // btnXFinishMeasure
-            // 
-            this.btnXFinishMeasure.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnXFinishMeasure.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnXFinishMeasure.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnXFinishMeasure.Location = new System.Drawing.Point(0, 183);
-            this.btnXFinishMeasure.Name = "btnXFinishMeasure";
-            this.btnXFinishMeasure.Size = new System.Drawing.Size(55, 30);
-            this.btnXFinishMeasure.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnXFinishMeasure.TabIndex = 0;
-            this.btnXFinishMeasure.Text = "结束测量";
-            this.btnXFinishMeasure.Click += new System.EventHandler(this.btnXFinishMeasure_Click);
             // 
             // btnTerrainArea
             // 
@@ -747,7 +732,6 @@
         private DevComponents.DotNetBar.ButtonItem btnImageLogging;
         private System.Windows.Forms.ToolStripStatusLabel StatusWorkingObj;
         private DevComponents.DotNetBar.ButtonItem btnSpot;
-        private DevComponents.DotNetBar.ButtonX btnXFinishMeasure;
         private System.Windows.Forms.Timer timerGPSReader;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
