@@ -87,10 +87,10 @@ namespace FGeo3D_TE.DrawingObjs
                     IsLabel = true;
                     
                     LabelText = "LabelText";
-                    FrmLabel frmTag = new FrmLabel();
+                    FrmPlaneViaLine frmTag = new FrmPlaneViaLine();
                     if(frmTag.ShowDialog() == DialogResult.OK)
                     {
-                        LabelText = frmTag.tbGeoLabel.Text;
+                        LabelText = frmTag.textBoxDepth.Text;
                     }
                     else
                     {

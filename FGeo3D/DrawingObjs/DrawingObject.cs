@@ -9,6 +9,8 @@ namespace FGeo3D_TE.DrawingObjs
     class DrawingObject
     {
 
+        public static Dictionary<string, DrawingObject> DictOfSkyIdDrawingObjects = new Dictionary<string, DrawingObject>();
+
         protected ITerraExplorerObject66 SkylineObj;
 
         protected ITerrainLabel66 SkylineLabel;
@@ -18,7 +20,9 @@ namespace FGeo3D_TE.DrawingObjs
         //关联关系对应列表
         public List<string> ConnObjGuids { get; set; } = new List<string>();
 
-        public string ID => SkylineObj.ID;
+        public string SkyID => SkylineObj.ID;
+
+        public string LabelID => this.SkylineLabel.ID;
 
         public string Guid { get; private set; }
         

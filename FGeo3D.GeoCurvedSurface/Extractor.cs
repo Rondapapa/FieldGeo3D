@@ -22,10 +22,10 @@ namespace FGeo3D.GeoCurvedSurface
         /// <param name="markerType"></param>
         /// <param name="useFor"></param>
         /// <returns></returns>
-        public static List<Point> GetPointListOf(List<LoggingObject> listOfLoggingObjects, string markerType, string useFor)
+        public static List<Point> GetPointListOf(HashSet<LoggingObject> setOfLoggingObjects, string markerType, string useFor)
         {
             var list = new List<Point>();
-            foreach (var loggingObj in listOfLoggingObjects)
+            foreach (var loggingObj in setOfLoggingObjects)
             {
                 var markerList = loggingObj.Markers01;
                 for (var index = 0; index < markerList.Count; ++index)

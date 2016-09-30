@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using MathNet.Numerics.LinearAlgebra.Double;
+using MathNet.Spatial;
 using TerraExplorerX;
 
 namespace FGeo3D.GeoObj
 {
+    using MathNet.Spatial.Euclidean;
+    using MathNet.Spatial.Units;
+
     internal class PolarData
     {
         public int Index { get; set;}
@@ -25,7 +29,7 @@ namespace FGeo3D.GeoObj
 
     }
 
-    static class GeoHelper
+    public static class GeoHelper
     {
         public static string CreateGroup(string groupName, ref SGWorld66 sgworld)
         {
@@ -222,6 +226,69 @@ namespace FGeo3D.GeoObj
             //返回近似平面轮廓有序点集
             return hullPolarDatas.Select(polardata => inGeoPoints[polardata.Index]).ToList();
         }
-        
+
+
+
+        /// <summary>
+        /// 在多边形内部以给定间隔插入规则格网点
+        /// </summary>
+        /// <param name="polygonHull"></param>
+        /// <param name="interval"></param>
+        /// <returns></returns>
+        public static List<Point> InsertPointsInPolygon(List<Point> vertexList, double interval)
+        {
+            List<Point> resultPointList = new List<Point>(vertexList);
+
+            // 外围最小矩形
+            var sortedListX = new List<Point>(vertexList.OrderBy(p => p.X));
+            var sortedListY = new List<Point>(vertexList.OrderBy(p => p.Y));
+            double Xmin = sortedListX[0].X;
+            double Xmax = sortedListX[sortedListX.Count - 1].X;
+            double Ymin = sortedListY[0].Y;
+            double Ymax = sortedListY[sortedListY.Count - 1].Y;
+
+            // 按照间隔值插入格网点，判断点是否在多边形内，若不在，则不插入。
+            for (double x = Xmin; x <= Xmax; x += interval)
+            {
+                for (double y = Ymin; y <= Ymax; y += interval)
+                {
+                    Point p = new Point(x, y, 0);
+                    if (IsPointInPolygon(vertexList, p))
+                    {
+                        resultPointList.Add(p);
+                    }
+                }
+            }
+            return resultPointList;
+        }
+
+
+        private static bool IsPointInPolygon(List<Point> vertexList, Point p)
+        {
+            if (vertexList.Count < 3)
+            {
+                return false;
+            }
+
+            List<Vector3D> pToVertexList = new List<Vector3D>(vertexList.Count);
+            
+            Point3D p3d = new Point3D(p.X, p.Y, 0);
+            foreach (var vertex in vertexList)
+            {
+                Vector3D vector = p3d.VectorTo(new Point3D(vertex.X, vertex.Y, 0));
+                pToVertexList.Add(vector);
+            }
+
+            var firstCrossPruduct = pToVertexList[0].CrossProduct(pToVertexList[1]);
+            for (int i = 1; i < pToVertexList.Count; ++i)
+            {
+                Vector3D crossResult = pToVertexList[i].CrossProduct(i != pToVertexList.Count - 1 ? pToVertexList[i + 1] : pToVertexList[0]);
+                if (firstCrossPruduct.AngleTo(crossResult).Degrees >= 90)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

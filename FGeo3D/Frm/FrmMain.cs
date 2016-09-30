@@ -15,6 +15,11 @@ using FGeo3D.LoggingObj;
 
 namespace FGeo3D_TE.Frm
 {
+    using FGeo3D.GeoCurvedSurface;
+    using FGeo3D.GeoObj;
+
+    using MIConvexHull;
+
     public enum MouseEventFlags
     {
         Move = 0x0001,
@@ -636,7 +641,7 @@ namespace FGeo3D_TE.Frm
             StatusSystem.Text = @"系统状态：【图像编录】";
             var frmImage = new FrmImage(ref db);
             frmImage.Show();
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
         }
 
         private void btnLine_Click(object sender, EventArgs e)
@@ -817,9 +822,13 @@ namespace FGeo3D_TE.Frm
 
         private void btnBuildSurface_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("功能尚在开发中");
+            return;
+
             try
             {
-                
+                FrmCurvedSurfaceBuilder frmSurfaceBuilder = new FrmCurvedSurfaceBuilder(LoggingObject.DictOfLoggingObjects);
+                frmSurfaceBuilder.Show();
             }
             catch (Exception ex)
             {
@@ -829,6 +838,9 @@ namespace FGeo3D_TE.Frm
 
         private void btnStretchSurface_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("功能尚在开发中");
+            return;
+
             try
             {
 
@@ -841,6 +853,10 @@ namespace FGeo3D_TE.Frm
 
         private void btnBlockAnalyse_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("功能尚在开发中");
+            return;
+
+
             try
             {
 
@@ -1082,20 +1098,45 @@ namespace FGeo3D_TE.Frm
         /// <param name="e"></param>
         private void btnTest_Click(object sender, EventArgs e)
         {
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "DXDM");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "DCYX");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "GZFD");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "ZZ");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "FH");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "XH");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "NSL");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "HP");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "BT");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "RB");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "YR");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "DXSFD");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "TTFC");
-            //db.SkyFrmDzdx("SYMX", db.SkyModelGuid, "YTFL");
+            double[] arrVertex = new double[]
+              { 414466.533102, 3260935.85838, 4172.5599,
+                413061.904645, 3260585.222671, 3710.7415,
+                412897.0397, 3259937.098646, 3813.1575,
+                414475.296055, 3259947.378596, 4534.5262
+              };
+
+
+            double[] arrVertex2 = new double[] 
+              { 413188.001354, 3261117.79563, 0,
+                414341.166902, 3258997.637746, 0,
+                414618.314284, 3260857.812753, 0
+              };
+
+            var pol1 = this.sgworld.Creator.CreatePolygonFromArray(
+                arrVertex, -16711936, -10197916,
+                AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
+                "", "TestSurface1");
+
+            var pol2 = this.sgworld.Creator.CreatePolygonFromArray(
+                arrVertex2, -16711936, -10197916,
+                AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
+                "", "TestSurface2");
+
+
+            var p1g = pol1.Geometry;
+            var p2g = pol2.Geometry;
+
+            try
+            {
+                var intersec = p1g.SpatialOperator.Intersection(p2g);
+                var line = this.sgworld.Creator.CreatePolyline(intersec);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+
 
             /*
             IPosition66 p1 = sgworld.Creator.CreatePosition(412465.396283, 3264008.200115);
@@ -1242,7 +1283,7 @@ namespace FGeo3D_TE.Frm
             {
                 sgworld.OnLButtonDown -= OnLBtnDown_LineNew;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                StatusSystem.Text = @"系统状态：【默认】";
+                StatusSystem.Text = @"系统状态：【就绪】";
                 if (_pITerrainPolyline != null)
                 {
                     var cLabelStyle = sgworld.Creator.CreateLabelStyle();
@@ -1262,6 +1303,15 @@ namespace FGeo3D_TE.Frm
 
                     //保存
                     var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.MarkerType, _objInfo.ConnObjGuids);
+                    if (!DrawingObject.DictOfSkyIdDrawingObjects.ContainsKey(cLine.SkyID))
+                    {
+                        DrawingObject.DictOfSkyIdDrawingObjects.Add(cLine.SkyID, cLine);
+                    }
+                    if (!DrawingObject.DictOfSkyIdDrawingObjects.ContainsKey(cLine.LabelID))
+                    {
+                        DrawingObject.DictOfSkyIdDrawingObjects.Add(cLine.LabelID, cLine);
+                    }
+
                     //cLine.Store(_currWorkingObjGuid, ref db);
                 }
                 _pITerrainPolyline = null;
@@ -1279,7 +1329,7 @@ namespace FGeo3D_TE.Frm
             {
                 sgworld.OnLButtonDown -= OnLBtnDown_RegionNew;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                StatusSystem.Text = @"系统状态：【默认】";
+                StatusSystem.Text = @"系统状态：【就绪】";
                 if (_pItPolygon != null)
                 {
                     var cLabelStyle = sgworld.Creator.CreateLabelStyle();
@@ -1307,6 +1357,14 @@ namespace FGeo3D_TE.Frm
                     //保存
                     var cRegion = new DrawingLine(_pItPolygon, cLabel, _objInfo.MarkerType, _objInfo.ConnObjGuids);
                     //cRegion.Store(_currWorkingObjGuid, ref db);
+                    if (!DrawingObject.DictOfSkyIdDrawingObjects.ContainsKey(cRegion.SkyID))
+                    {
+                        DrawingObject.DictOfSkyIdDrawingObjects.Add(cRegion.SkyID, cRegion);
+                    }
+                    if (!DrawingObject.DictOfSkyIdDrawingObjects.ContainsKey(cRegion.LabelID))
+                    {
+                        DrawingObject.DictOfSkyIdDrawingObjects.Add(cRegion.LabelID, cRegion);
+                    }
                 }
                 _pItPolygon = null;
                 _objInfo = null;
@@ -1320,7 +1378,7 @@ namespace FGeo3D_TE.Frm
             {
                 sgworld.OnLButtonDown -= OnLBtnDown_Region;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                StatusSystem.Text = @"系统状态：【默认】";
+                StatusSystem.Text = @"系统状态：【就绪】";
                 if (_pItPolygon != null)
                 {
                     var cLabelStyle = sgworld.Creator.CreateLabelStyle();
@@ -1418,7 +1476,7 @@ namespace FGeo3D_TE.Frm
             {
                 sgworld.OnLButtonDown -= OnLBtnDown_RegionNew;
             }
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             sgworld.OnRButtonDown -= OnRBtnDown_DrawingComplete;
             PbHander = "";
             IsSaved = false;
@@ -1454,7 +1512,7 @@ namespace FGeo3D_TE.Frm
             var thisLoggingSpotGuid = db.SkyFrmSJLYEdit("DZD", kzdList);
 
             var thisLoggingSpot = db.SkyGetGeoDataList(thisLoggingSpotGuid).GetObjData(0);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             if (thisLoggingSpot == null)
             {
                 return true;
@@ -1490,7 +1548,7 @@ namespace FGeo3D_TE.Frm
             var thisLoggingBoreGuid = db.SkyFrmSJLYEdit("ZT", kzdList);
            
             var thisLoggingBore = db.SkyGetGeoDataList(thisLoggingBoreGuid).GetObjData(0);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             if (thisLoggingBore == null)
             {
                 return true;
@@ -1526,7 +1584,7 @@ namespace FGeo3D_TE.Frm
             var thisLoggingFootrillGuid = db.SkyFrmSJLYEdit("DT", kzdList);
 
             var thisLoggingFootrill = db.SkyGetGeoDataList(thisLoggingFootrillGuid).GetObjData(0);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             if (thisLoggingFootrill == null)
             {
                 return true;
@@ -1562,7 +1620,7 @@ namespace FGeo3D_TE.Frm
             var thisLoggingPitGuid = db.SkyFrmSJLYEdit("KT", kzdList);
 
             var thisLoggingPit = db.SkyGetGeoDataList(thisLoggingPitGuid).GetObjData(0);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             if (thisLoggingPit == null)
                 return true;
             var thisPit = new LoggingPit(thisLoggingPit, ref sgworld);
@@ -1596,7 +1654,7 @@ namespace FGeo3D_TE.Frm
             var thisLoggingWellGuid = db.SkyFrmSJLYEdit("JT", kzdList);
 
             var thisLoggingWell = db.SkyGetGeoDataList(thisLoggingWellGuid).GetObjData(0);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             if (thisLoggingWell == null)
                 return true;
             var thisWell = new LoggingWell(thisLoggingWell, ref sgworld);
@@ -1631,7 +1689,7 @@ namespace FGeo3D_TE.Frm
             var thisLoggingTrenchGuid = db.SkyFrmSJLYEdit("CT", kzdList);
 
             var thisLoggingTrench = db.SkyGetGeoDataList(thisLoggingTrenchGuid).GetObjData(0);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             if (thisLoggingTrench == null)
                 return true;
             var thisTrench = new LoggingTrench(thisLoggingTrench, ref sgworld);
@@ -1666,7 +1724,7 @@ namespace FGeo3D_TE.Frm
             var thisLoggingSlopeGuid = db.SkyFrmSJLYEdit("BPBL", kzdList);
 
             var thisLoggingSlope = db.SkyGetGeoDataList(thisLoggingSlopeGuid).GetObjData(0);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             if (thisLoggingSlope == null)
                 return true;
             var thisSlope = new LoggingSlope(thisLoggingSlope, ref sgworld);
@@ -1701,7 +1759,7 @@ namespace FGeo3D_TE.Frm
             var thisLoggingCavityGuid = db.SkyFrmSJLYEdit("DSBL", kzdList);
 
             var thisLoggingCavity = db.SkyGetGeoDataList(thisLoggingCavityGuid).GetObjData(0);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             if (thisLoggingCavity == null)
                 return true;
             var thisCavity = new LoggingCavity(thisLoggingCavity, ref sgworld);
@@ -1740,7 +1798,7 @@ namespace FGeo3D_TE.Frm
             if (thisLoggingFoundation == null)
                 return true;
             var thisFoundation = new LoggingFoundation(thisLoggingFoundation, ref sgworld);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             return true;
         }
 
@@ -1774,7 +1832,9 @@ namespace FGeo3D_TE.Frm
                     var thisGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
                     _objInfo.ConnObjGuids.Add(thisGuid);
 
-                    var thisObjPoint = db.SkyGetGeoDataList(thisGuid).GetObjData(0).Points.GetPoint(0);
+                    //这个很消耗性能。
+                    //思考是否另建hash表，存储对应guid和点位置的对应关系，不通过数据库拿值。（在add DictOfSkyIdGuid同时，add几何点位置）
+                    var thisObjPoint = LoggingObject.DictOfLoggingObjects[thisGuid].Top;
                     
                     pointList.Add(thisObjPoint.X);
                     pointList.Add(thisObjPoint.Y);
@@ -1809,7 +1869,7 @@ namespace FGeo3D_TE.Frm
                     //捕捉地质点
                     var thisGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
                     _objInfo.ConnObjGuids.Add(thisGuid);
-                    var thisObjPoint = db.SkyGetGeoDataList(thisGuid).GetObjData(0).Points.GetPoint(0);
+                    var thisObjPoint = LoggingObject.DictOfLoggingObjects[thisGuid].Top;
                     dx = thisObjPoint.X;
                     dy = thisObjPoint.Y;
                     dz = thisObjPoint.Z;
@@ -1837,7 +1897,7 @@ namespace FGeo3D_TE.Frm
                 var thisGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
                 _objInfo.ConnObjGuids.Add(thisGuid);
 
-                var thisObjPoint = db.SkyGetGeoDataList(thisGuid).GetObjData(0).Points.GetPoint(0);
+                var thisObjPoint = LoggingObject.DictOfLoggingObjects[thisGuid].Top;
 
                 pointList.Add(thisObjPoint.X);
                 pointList.Add(thisObjPoint.Y);
@@ -1876,7 +1936,7 @@ namespace FGeo3D_TE.Frm
                 }
                 var thisGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
                 _objInfo.ConnObjGuids.Add(thisGuid);
-                var thisObjPoint = db.SkyGetGeoDataList(thisGuid).GetObjData(0).Points.GetPoint(0);
+                var thisObjPoint = LoggingObject.DictOfLoggingObjects[thisGuid].Top;
 
                 //开始编辑polygon
                 polygonGeometry.StartEdit();
@@ -1913,7 +1973,7 @@ namespace FGeo3D_TE.Frm
                 _cWorldPointInfo = null;
                 sgworld.OnLButtonDown -= OnLBtnDown_Query;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                StatusSystem.Text = @"系统状态：【默认】";
+                StatusSystem.Text = @"系统状态：【就绪】";
                 
                 return true;
             }
@@ -1924,7 +1984,7 @@ namespace FGeo3D_TE.Frm
             _cWorldPointInfo = null;
             sgworld.OnLButtonDown -= OnLBtnDown_Query;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             return true;
         }
 
@@ -1937,7 +1997,7 @@ namespace FGeo3D_TE.Frm
                 sgworld.OnLButtonDown -= OnLBtnDown_DeleteLoggingSpot;
  
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                StatusSystem.Text = @"系统状态：【默认】";
+                StatusSystem.Text = @"系统状态：【就绪】";
                 return true;
             }
 
@@ -1949,7 +2009,7 @@ namespace FGeo3D_TE.Frm
             sgworld.OnLButtonDown -= OnLBtnDown_DeleteLoggingSpot;
 
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             return true;
 
         }
@@ -1970,7 +2030,7 @@ namespace FGeo3D_TE.Frm
                 sgworld.OnLButtonDown -= OnLBtnDown_SelectWorkingObj;
                 sgworld.OnRButtonDown -= OnRBtnDown_SelectWorkingObj;
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                StatusSystem.Text = @"系统状态：【默认】";
+                StatusSystem.Text = @"系统状态：【就绪】";
                 return true;
             }
             if (_currWorkingObjGuid != null)
@@ -1989,7 +2049,7 @@ namespace FGeo3D_TE.Frm
             sgworld.OnLButtonDown -= OnLBtnDown_SelectWorkingObj;
             sgworld.OnRButtonDown -= OnRBtnDown_SelectWorkingObj;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
             return true;
         }
 
@@ -2008,7 +2068,7 @@ namespace FGeo3D_TE.Frm
             sgworld.OnLButtonDown -= OnLBtnDown_SelectWorkingObj;
             sgworld.OnRButtonDown -= OnRBtnDown_SelectWorkingObj;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            StatusSystem.Text = @"系统状态：【默认】";
+            StatusSystem.Text = @"系统状态：【就绪】";
         }
 
         private bool OnRBtnDown_SelectWorkingObj(int flags, int x, int y)
@@ -2485,6 +2545,96 @@ namespace FGeo3D_TE.Frm
         private void timerGPSReader_Tick(object sender, EventArgs e)
         {
             _gpsController.TimeCountDown = _gpsController.TimeCountDown.Subtract(new TimeSpan(0, 0, 1));
+        }
+
+        private void btnPlaneViaLine_Click(object sender, EventArgs e)
+        {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                HighlightButton(this.btnPlaneViaLine, true); 
+
+                StatusSystem.Text = @"系统状态：【地线推面】";
+                ToastNotification.Show(this, "请选择地质曲面的基线");
+                sgworld.OnLButtonDown += OnLBtnDown_PlaneViaLine;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+            }
+        }
+
+        private bool OnLBtnDown_PlaneViaLine(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_DEFAULT);
+
+            MessageBox.Show("功能尚在开发中");
+            return true;
+
+
+            // 若捕捉失败
+            if (!DrawingObject.DictOfSkyIdDrawingObjects.ContainsKey(_cWorldPointInfo.ObjectID))
+            {
+                ToastNotification.Show(this, "未能获取到您所选取的地质线。请选取地质对象的本体或文字标签！", 2500, eToastPosition.MiddleCenter);
+                _cWorldPointInfo = null;
+                sgworld.OnLButtonDown -= OnLBtnDown_PlaneViaLine;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                StatusSystem.Text = @"系统状态：【就绪】";
+                ResetButton(this.btnPlaneViaLine);
+                return true;
+            }
+
+            var thisDrawingObj = DrawingObject.DictOfSkyIdDrawingObjects[this._cWorldPointInfo.ObjectID];
+
+            var thisDrawingLine = thisDrawingObj as DrawingLine;
+            if (thisDrawingLine != null)
+            {
+                List<Point> vertexList = thisDrawingLine.GetPointsList();
+                List<Point> pointsList;
+                // 判断线是否闭合
+                if (thisDrawingLine.IsRing())
+                {
+                    // 若是闭合线环
+
+                    // 弹出窗口，输入中心深度和网格密度
+                    FrmPlaneViaLine frmPlaneViaLine = new FrmPlaneViaLine();
+                    var frmDialogResult = frmPlaneViaLine.ShowDialog();
+                    if (frmDialogResult != DialogResult.OK)
+                    {
+                        return true;
+                    }
+                    double depth = frmPlaneViaLine.depth;
+                    double interval = frmPlaneViaLine.interval;
+
+                    // 在线环内加密点
+                    pointsList = GeoHelper.InsertPointsInPolygon(vertexList, interval); // 注意修改inteval的值
+
+                    // 插值函数，插值得到Z
+
+
+
+                    // 三角剖分，结果保存用于写ts文件
+                }
+                else
+                {
+                    // 开放线环
+
+
+                }
+            }
+
+            _cWorldPointInfo = null;
+            sgworld.OnLButtonDown -= OnLBtnDown_PlaneViaLine;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            StatusSystem.Text = @"系统状态：【就绪】";
+            ResetButton(this.btnPlaneViaLine);
+            return true;
         }
     }
 }

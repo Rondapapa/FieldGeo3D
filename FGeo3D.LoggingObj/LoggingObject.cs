@@ -220,11 +220,30 @@ namespace FGeo3D.LoggingObj
         }
 
         /// <summary>
+        /// 返回该地质编录对象下所有的MarkerType
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetMarkerTypeList()
+        {
+            List<string> markerTypeList = new List<string>();
+            for(int i = 0; i < Markers01.Count; ++i)
+            {
+                var thisMarker = Markers01.GetMarker(i);
+                if (!markerTypeList.Contains(thisMarker.Type) && thisMarker.Type != "控制点")
+                {
+                    markerTypeList.Add(thisMarker.Type);
+                }
+            }
+            return markerTypeList;
+        }
+
+
+        /// <summary>
         /// 获得该编录对象中给定的markerType下所有的UseFor集合
         /// </summary>
         /// <param name="markerType"></param>
         /// <returns></returns>
-        public SortedSet<string> ClassifyMarkerTypeUseFor(string markerType)
+        public SortedSet<string> GetUseForSetByMarkerType(string markerType)
         {
             var set = new SortedSet<string>();
             for (var index = 0; index < Markers01.Count; index++)

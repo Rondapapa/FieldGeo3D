@@ -171,7 +171,6 @@ namespace FGeo3D.GoCAD
             {
                 TsData.VerticesList.Add(new Point3D(thisPoint.X, thisPoint.Y, thisPoint.Z));
             }
-
             if (TsData.VerticesList.Count == 0) return;
             if (TsType == "TSurf")
             {
@@ -191,8 +190,6 @@ namespace FGeo3D.GoCAD
                     });
                 }
             }
-            
-            
         }
 
         /// <summary>
