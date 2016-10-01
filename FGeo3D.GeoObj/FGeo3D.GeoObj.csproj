@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MathNet.Spatial.0.2.0-alpha\lib\net40\MathNet.Spatial.dll</HintPath>
     </Reference>
+    <Reference Include="MIConvexHull">
+      <HintPath>..\packages\MIConvexHull.1.1.16.0905\lib\portable-net45+wp8+win8\MIConvexHull.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />

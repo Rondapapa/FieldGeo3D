@@ -2547,6 +2547,8 @@ namespace FGeo3D_TE.Frm
             _gpsController.TimeCountDown = _gpsController.TimeCountDown.Subtract(new TimeSpan(0, 0, 1));
         }
 
+
+
         private void btnPlaneViaLine_Click(object sender, EventArgs e)
         {
             if (!this._isDbConnected)
@@ -2573,9 +2575,6 @@ namespace FGeo3D_TE.Frm
         private bool OnLBtnDown_PlaneViaLine(int flags, int x, int y)
         {
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_DEFAULT);
-
-            MessageBox.Show("功能尚在开发中");
-            return true;
 
 
             // 若捕捉失败
@@ -2620,6 +2619,8 @@ namespace FGeo3D_TE.Frm
 
 
                     // 三角剖分，结果保存用于写ts文件
+                    
+
                 }
                 else
                 {

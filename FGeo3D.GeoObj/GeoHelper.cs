@@ -4,6 +4,7 @@ using System.Linq;
 using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Spatial;
 using TerraExplorerX;
+using MIConvexHull;
 
 namespace FGeo3D.GeoObj
 {
@@ -290,5 +291,7 @@ namespace FGeo3D.GeoObj
             }
             return true;
         }
+
+
     }
 }
