@@ -12,20 +12,20 @@ namespace FGeo3D.GeoCurvedSurface
 
     using MathNet.Spatial.Euclidean;
 
-    class Triangle
+    public class Triangle
     {
-        private List<Vertex> Vertices;
-
+        private List<Vertex> Vertices = new List<Vertex>();
 
         private ITriangulation<Vertex, DefaultTriangulationCell<Vertex>> triangulations;
 
-        private TsData TsData { get; } = new TsData();
+        public TsData TsData {get; } = new TsData();
 
         private readonly Dictionary<Vertex, int> vertexDictionary = new Dictionary<Vertex, int>();
 
-
         public Triangle(IList<Point> pointsList)
         {
+
+
             foreach (var p in pointsList)
             {
                 this.Vertices.Add(new Vertex(p.X, p.Y));

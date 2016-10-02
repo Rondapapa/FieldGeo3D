@@ -68,7 +68,7 @@ namespace FGeo3D.GoCAD
         public string FilePath { get; set; }
 
         //Guid
-        public string Guid { get; private set; }
+        public string Guid { get; } = System.Guid.NewGuid().ToString();
 
         //名称
         public string Name { get; set; }
@@ -77,13 +77,13 @@ namespace FGeo3D.GoCAD
         public string SkylineType { get; set; }
 
         //TS类型：线PLine、面TSurf、区域PLine
-        public string TsType { get; private set; }
+        public string TsType { get; }
 
         //几何类型：D（点）等
-        public string GeoType { get; set; }
+        public string GeoType { get; }
 
         //地质对象类型：DCYX（地层岩性）等
-        public string MarkerType { get; set; }
+        public string MarkerType { get; }
 
         //关联地质对象Guid列表
         public List<string> ConnObjGuids { get; } = new List<string>();
@@ -107,8 +107,6 @@ namespace FGeo3D.GoCAD
         /// <param name="connGuids">关联地质对象Guid列表</param>
         public TsFile(ITerraExplorerObject66 inObj, string skylineType, string tsType, string geoType, string markerType, string name, List<string> connGuids)
         {
-            Guid = System.Guid.NewGuid().ToString();
-
             TsType = tsType;
             GeoType = geoType;
             MarkerType = markerType;
@@ -165,8 +163,6 @@ namespace FGeo3D.GoCAD
             Name = name;
             ConnObjGuids = connGuids;
 
-            Guid = System.Guid.NewGuid().ToString();
-
             foreach (var thisPoint in inPointsList)
             {
                 TsData.VerticesList.Add(new Point3D(thisPoint.X, thisPoint.Y, thisPoint.Z));
@@ -204,13 +200,36 @@ namespace FGeo3D.GoCAD
         }
 
         /// <summary>
-        /// 构造函数4：从文件中读取Ts信息
+        /// 构造函数4：适用于地质曲面
+        /// </summary>
+        /// <param name="tsData"></param>
+        /// <param name="tsType"></param>
+        /// <param name="geoType"></param>
+        /// <param name="markerType"></param>
+        /// <param name="name"></param>
+        /// <param name="connGuids"></param>
+        public TsFile(TsData tsData, string tsType, string geoType, string markerType, string name, List<string> connGuids)
+        {
+            TsData = tsData;
+            TsType = tsType;
+            GeoType = geoType;
+            MarkerType = markerType;
+            Name = name;
+            ConnObjGuids = connGuids;
+        }
+
+
+        /// <summary>
+        /// 构造函数5：从文件中读取Ts信息
         /// </summary>
         /// <param name="file">Ts文件流</param>
         public TsFile(FileStream file)
         {
             
         }
+
+
+        
 
 #endregion
 

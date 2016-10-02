@@ -87,7 +87,7 @@ namespace FGeo3D_TE.DrawingObjs
                     IsLabel = true;
                     
                     LabelText = "LabelText";
-                    FrmPlaneViaLine frmTag = new FrmPlaneViaLine();
+                    FrmPlaneViaRing frmTag = new FrmPlaneViaRing();
                     if(frmTag.ShowDialog() == DialogResult.OK)
                     {
                         LabelText = frmTag.textBoxDepth.Text;
@@ -169,7 +169,7 @@ namespace FGeo3D_TE.DrawingObjs
                         return;
                     }
                     MarkerType = frmRegion.SelectedMarkerType;
-                    GroupId = CreateGroup(MarkerType, sgworld.ProjectTree.FindItem("面"));
+                    GroupId = CreateGroup(MarkerType, sgworld.ProjectTree.FindItem("区域"));
                     sgworld.ProjectTree.ExpandGroup(GroupId, true);
                     Name = frmRegion.ObjName;
                     var regionColors = frmRegion.SelectedColor;

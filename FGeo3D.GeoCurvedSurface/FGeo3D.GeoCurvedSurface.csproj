@@ -70,7 +70,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Surface.cs" />
     <Compile Include="Triangle.cs" />
-    <Compile Include="vertex.cs" />
+    <Compile Include="Vertex.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FGeo3D.GeoObj\FGeo3D.GeoObj.csproj">

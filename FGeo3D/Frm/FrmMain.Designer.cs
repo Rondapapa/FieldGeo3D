@@ -62,9 +62,9 @@
             this.btnChamber = new DevComponents.DotNetBar.RibbonBar();
             this.btnSpot = new DevComponents.DotNetBar.ButtonItem();
             this.btnLine = new DevComponents.DotNetBar.ButtonItem();
-            this.btnDeleteSpot = new DevComponents.DotNetBar.ButtonItem();
             this.btnRegion = new DevComponents.DotNetBar.ButtonItem();
             this.btnDrawingComplete = new DevComponents.DotNetBar.ButtonItem();
+            this.btnDeleteSpot = new DevComponents.DotNetBar.ButtonItem();
             this.btnImageLogging = new DevComponents.DotNetBar.ButtonItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusDatabase = new System.Windows.Forms.ToolStripStatusLabel();
@@ -75,6 +75,8 @@
             this.axTEInformationWindow1 = new AxTerraExplorerX.AxTEInformationWindow();
             this.timerGPSReader = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.switchButtonUnderground = new DevComponents.DotNetBar.Controls.SwitchButton();
+            this.labelUnderGroundSwitch = new DevComponents.DotNetBar.LabelX();
             this.gpMeasure.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
@@ -242,7 +244,7 @@
             this.btnPlaneViaSpot.Name = "btnPlaneViaSpot";
             this.btnPlaneViaSpot.SubItemsExpandWidth = 14;
             this.btnPlaneViaSpot.Text = "单点求面";
-            this.btnPlaneViaSpot.Click += new System.EventHandler(this.btnStretchSurface_Click);
+            this.btnPlaneViaSpot.Click += new System.EventHandler(this.btnPlaneViaSpot_Click);
             // 
             // btnPlaneViaLine
             // 
@@ -559,15 +561,6 @@
             this.btnLine.Text = "点选地线";
             this.btnLine.Click += new System.EventHandler(this.btnLineNew_Click);
             // 
-            // btnDeleteSpot
-            // 
-            this.btnDeleteSpot.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteSpot.Image")));
-            this.btnDeleteSpot.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnDeleteSpot.Name = "btnDeleteSpot";
-            this.btnDeleteSpot.SubItemsExpandWidth = 14;
-            this.btnDeleteSpot.Text = "删除对象";
-            this.btnDeleteSpot.Click += new System.EventHandler(this.buttonXDeleteLoggingSpot_Click);
-            // 
             // btnRegion
             // 
             this.btnRegion.Image = ((System.Drawing.Image)(resources.GetObject("btnRegion.Image")));
@@ -585,6 +578,15 @@
             this.btnDrawingComplete.SubItemsExpandWidth = 14;
             this.btnDrawingComplete.Text = "变更应用";
             this.btnDrawingComplete.Click += new System.EventHandler(this.btnDrawingComplete_Click);
+            // 
+            // btnDeleteSpot
+            // 
+            this.btnDeleteSpot.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteSpot.Image")));
+            this.btnDeleteSpot.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnDeleteSpot.Name = "btnDeleteSpot";
+            this.btnDeleteSpot.SubItemsExpandWidth = 14;
+            this.btnDeleteSpot.Text = "删除对象";
+            this.btnDeleteSpot.Click += new System.EventHandler(this.buttonXDeleteLoggingSpot_Click);
             // 
             // btnImageLogging
             // 
@@ -667,6 +669,35 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // switchButtonUnderground
+            // 
+            // 
+            // 
+            // 
+            this.switchButtonUnderground.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.switchButtonUnderground.Location = new System.Drawing.Point(1209, 319);
+            this.switchButtonUnderground.Name = "switchButtonUnderground";
+            this.switchButtonUnderground.OffText = "关";
+            this.switchButtonUnderground.OnText = "开";
+            this.switchButtonUnderground.Size = new System.Drawing.Size(55, 27);
+            this.switchButtonUnderground.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.switchButtonUnderground.SwitchClickTogglesValue = true;
+            this.switchButtonUnderground.TabIndex = 21;
+            this.switchButtonUnderground.ValueChanged += new System.EventHandler(this.switchButtonUnderground_ValueChanged);
+            // 
+            // labelUnderGroundSwitch
+            // 
+            // 
+            // 
+            // 
+            this.labelUnderGroundSwitch.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelUnderGroundSwitch.Location = new System.Drawing.Point(1208, 298);
+            this.labelUnderGroundSwitch.Name = "labelUnderGroundSwitch";
+            this.labelUnderGroundSwitch.Size = new System.Drawing.Size(56, 15);
+            this.labelUnderGroundSwitch.TabIndex = 22;
+            this.labelUnderGroundSwitch.Text = "地形透明";
+            this.labelUnderGroundSwitch.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -674,6 +705,8 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1270, 633);
+            this.Controls.Add(this.labelUnderGroundSwitch);
+            this.Controls.Add(this.switchButtonUnderground);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.gpMeasure);
@@ -746,6 +779,8 @@
         private System.Windows.Forms.Timer timerGPSReader;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private DevComponents.DotNetBar.ButtonItem btnPlaneViaLine;
+        private DevComponents.DotNetBar.Controls.SwitchButton switchButtonUnderground;
+        private DevComponents.DotNetBar.LabelX labelUnderGroundSwitch;
     }
 }
 

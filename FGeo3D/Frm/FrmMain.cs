@@ -17,6 +17,7 @@ namespace FGeo3D_TE.Frm
 {
     using FGeo3D.GeoCurvedSurface;
     using FGeo3D.GeoObj;
+    using FGeo3D.GoCAD;
 
     using MIConvexHull;
 
@@ -36,69 +37,73 @@ namespace FGeo3D_TE.Frm
     public partial class FrmMain : Form
     {
 
-        //Skyline
+        // Skyline
         SGWorld66 sgworld = null;
         
-        //数据库
+        // 数据库
         YWCHEntEx db = null;
 
         #region 全局变量域
 
-        //工程目录
+        // 工程目录
         private string _tProjectUrl;
 
-        //数据库连接
+        // 数据库连接
         private bool _isDbConnected = false;
         
-        //模型路径
+        // 模型路径
         string _modelPath;
 
-        //模型Guid
+        // 模型Guid
         private string _modelGuid;
 
-        //当前选定的工作对象Guid
+        // 当前选定的工作对象Guid
         private string _currWorkingObjGuid;
 
-        //地形多边形
+        // 地形多边形
         ITerrainPolygon66 _pItPolygon = null;
 
-        //地形多段线
+        // 地形多段线
         ITerrainPolyline66 _pITerrainPolyline = null;
         
-        //GPS控制器对象
+        // GPS控制器对象
         Controller _gpsController;
 
-        //地理地质对象信息传递对象
+        // 地理地质对象信息传递对象
         private DrawingObjectInfo _objInfo;
 
-        //绘制多边形时用于判断isSimple的辅助线环
+        // 绘制多边形时用于判断isSimple的辅助线环
         ILineString _tempLineString;
 
-        //当前选取对象、及其监控事件
+        // 当前选取对象、及其监控事件
         private IWorldPointInfo66 _cWorldPointInfo;
 
-        //地形上下左右位置
+        // 地形上下左右位置
         public double XLeft { get; private set; }
         public double XRight { get; private set; }
         public double YTop { get; private set; }
         public double YBottom { get; private set; }
+
+        // 地形多边形
+        public ITerrainPolygon66 TerrainPolygon { get; private set; }
+
         
-        //鼠标状态
+        // 鼠标状态
         public string PbHander { get; private set; }
 
-        //保存状态（暂时没用到）
+        // 保存状态（暂时没用到）
         public bool IsSaved { get; set; }
 
-        //手绘鼠标是否按下状态
+        // 手绘鼠标是否按下状态
         public bool IsFreehandDrawingMouseDown { get; set; }
 
-        //点
+        // 点
         public string PointGroupId { get; set; }
 
-        //线
+        // 线
         public string LineGroupId { get; set; }
 
-        //面
+        // 面
         public string RegionGroupId { get; set; }
         #endregion
 
@@ -108,7 +113,7 @@ namespace FGeo3D_TE.Frm
             Init();
         }
 
-        //自定义构造函数
+        // 自定义构造函数
         private void Init()
         {
             sgworld = new SGWorld66();
@@ -118,10 +123,10 @@ namespace FGeo3D_TE.Frm
         }
 
         #region 工程
-        //打开
+        // 打开
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            //打开工程
+            // 打开工程
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 InitialDirectory = "D://",
@@ -137,22 +142,23 @@ namespace FGeo3D_TE.Frm
             
             sgworld.Project.Open(_tProjectUrl, bIsAsync, tUser, tPassword);
 
-            //隐藏Skyline商标
+            // 隐藏Skyline商标
             sgworld.Project.set_Settings("RemoveSkylineCopyright", 1);
             
-            //地下模式
-            sgworld.Navigate.UndergroundMode = true;
+            // 地下模式， 默认关闭
+            sgworld.Navigate.UndergroundMode = false;
 
-            //初始化地形边界
+            // 初始化地形边界
             XLeft = sgworld.Terrain.Left;
             XRight = sgworld.Terrain.Right;
             YTop = sgworld.Terrain.Top;
             YBottom = sgworld.Terrain.Bottom;
-            //设置窗体标题
+
+            // 设置窗体标题
             Text = _tProjectUrl + @" - FieldGeo3D";
 
 
-            //设置地图中心为兴趣点，导航至此
+            // 设置地图中心为兴趣点，导航至此
             var centerPos = sgworld.Creator.CreatePosition((XLeft + XRight)/2, (YTop + YBottom)/2, 0,
                 AltitudeTypeCode.ATC_ON_TERRAIN, 0, -75, 0, 10000);
 
@@ -166,6 +172,19 @@ namespace FGeo3D_TE.Frm
             sgworld.ProjectTree.ExpandGroup(LineGroupId, true);
             sgworld.ProjectTree.ExpandGroup(RegionGroupId, true);
 
+
+            // 创建地形面的多边形（用于地形面求交）
+            double[] terrainPolygonVertices = new []{XLeft, YTop, 0, XRight, YTop, 0, XRight, YBottom, 0, XLeft, YBottom, 0};
+            IColor66 lineColor = this.sgworld.Creator.CreateColor(0, 0, 0, 0);
+            IColor66 fillColor = this.sgworld.Creator.CreateColor(0, 0, 0, 0);
+            this.TerrainPolygon = this.sgworld.Creator.CreatePolygonFromArray(
+                terrainPolygonVertices,
+                lineColor,
+                fillColor,
+                AltitudeTypeCode.ATC_ON_TERRAIN,
+                this.sgworld.ProjectTree.HiddenGroupID,
+                this.sgworld.ProjectTree.HiddenGroupName);
+            
         }
 
         //保存
@@ -836,20 +855,7 @@ namespace FGeo3D_TE.Frm
             }
         }
 
-        private void btnStretchSurface_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("功能尚在开发中");
-            return;
 
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
-            }
-        }
 
         private void btnBlockAnalyse_Click(object sender, EventArgs e)
         {
@@ -2548,6 +2554,88 @@ namespace FGeo3D_TE.Frm
         }
 
 
+        private void btnPlaneViaSpot_Click(object sender, EventArgs e)
+        {
+            if (!this._isDbConnected)
+            {
+                ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
+                return;
+            }
+
+            try
+            {
+                sgworld.Window.SetInputMode(MouseInputMode.MI_COM_CLIENT);
+                HighlightButton(this.btnPlaneViaSpot, true);
+
+                StatusSystem.Text = @"系统状态：【地点推面】";
+                ToastNotification.Show(this, "请选择地质曲面的基点", 2500, eToastPosition.MiddleCenter);
+                sgworld.OnLButtonDown += OnLBtnDown_PlaneViaSpot;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
+            }
+        }
+
+
+        private bool OnLBtnDown_PlaneViaSpot(int flags, int x, int y)
+        {
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
+
+            // 
+            if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(this._cWorldPointInfo.ObjectID))
+            {
+                ToastNotification.Show(this, "未能获取到您所选取的地质点。请选取地质点的文字标签！", 2500, eToastPosition.MiddleCenter);
+                _cWorldPointInfo = null;
+                sgworld.OnLButtonDown -= OnLBtnDown_PlaneViaSpot;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                StatusSystem.Text = @"系统状态：【就绪】";
+                ResetButton(this.btnPlaneViaSpot);
+                return true;
+            }
+
+            var thisGuid = LoggingObject.DictOfSkyIdGuid[this._cWorldPointInfo.ObjectID];
+            var thisLoggingObj = LoggingObject.DictOfLoggingObjects[thisGuid];
+            Point rootPoint = new Point(thisLoggingObj.Top);
+            FrmPlaneViaSpot frmPlaneViaSpot = new FrmPlaneViaSpot(rootPoint.X, rootPoint.Y, rootPoint.Z);
+            DialogResult dlgResult = frmPlaneViaSpot.ShowDialog();
+            if (dlgResult != DialogResult.OK)
+            {
+                _cWorldPointInfo = null;
+                sgworld.OnLButtonDown -= OnLBtnDown_PlaneViaSpot;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                StatusSystem.Text = @"系统状态：【就绪】";
+                ResetButton(this.btnPlaneViaSpot);
+                return true;
+            }
+            
+            Plane plane = new Plane(rootPoint, frmPlaneViaSpot.Depth, frmPlaneViaSpot.Dip, frmPlaneViaSpot.Angle, thisLoggingObj.Name);
+            IColor66 lineColor = this.sgworld.Creator.CreateColor();
+            IColor66 fillColor = this.sgworld.Creator.CreateColor(255, 128, 128, 128);
+            plane.DrawOnSkyline(ref this.sgworld, 1000, 800, lineColor, fillColor);
+
+            IGeometry pGeo = plane.skyPlane.Geometry;
+            IGeometry tGeo = TerrainPolygon.Geometry;
+            
+            try
+            {
+                IGeometry intersecGeo = pGeo.SpatialOperator.Intersection(tGeo);
+                if (intersecGeo == null) MessageBox.Show("空");
+                var intersecPoints = this.sgworld.Creator.CreatePolygon(intersecGeo);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            _cWorldPointInfo = null;
+            sgworld.OnLButtonDown -= OnLBtnDown_PlaneViaSpot;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+            StatusSystem.Text = @"系统状态：【就绪】";
+            ResetButton(this.btnPlaneViaSpot);
+            return true;
+
+        }
 
         private void btnPlaneViaLine_Click(object sender, EventArgs e)
         {
@@ -2563,12 +2651,12 @@ namespace FGeo3D_TE.Frm
                 HighlightButton(this.btnPlaneViaLine, true); 
 
                 StatusSystem.Text = @"系统状态：【地线推面】";
-                ToastNotification.Show(this, "请选择地质曲面的基线");
+                ToastNotification.Show(this, "请选择地质曲面的基线", 2500, eToastPosition.MiddleCenter);
                 sgworld.OnLButtonDown += OnLBtnDown_PlaneViaLine;
             }
             catch (Exception ex)
             {
-                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message);
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
         }
 
@@ -2602,7 +2690,7 @@ namespace FGeo3D_TE.Frm
                     // 若是闭合线环
 
                     // 弹出窗口，输入中心深度和网格密度
-                    FrmPlaneViaLine frmPlaneViaLine = new FrmPlaneViaLine();
+                    FrmPlaneViaRing frmPlaneViaLine = new FrmPlaneViaRing();
                     var frmDialogResult = frmPlaneViaLine.ShowDialog();
                     if (frmDialogResult != DialogResult.OK)
                     {
@@ -2612,19 +2700,23 @@ namespace FGeo3D_TE.Frm
                     double interval = frmPlaneViaLine.interval;
 
                     // 在线环内加密点
-                    pointsList = GeoHelper.InsertPointsInPolygon(vertexList, interval); // 注意修改inteval的值
+                    pointsList = GeoHelper.InsertPointsInPolygon(vertexList, interval); 
 
-                    // 插值函数，插值得到Z
+                    // 划分三角网，插值函数，插值得到Z
+                    Triangle tris = new Triangle(pointsList);
+
+                    Func<double, double, double> interpolateFunc = (x0, y0) => (x0 + y0);  // 示例插值函数
+                    tris.Mesh(interpolateFunc);
 
 
-
-                    // 三角剖分，结果保存用于写ts文件
-                    
-
+                    // 保存三角网结果
+                    TsFile ts = new TsFile(tris.TsData, "TSurf", "M", thisDrawingObj.MarkerType, thisDrawingObj.Name, thisDrawingObj.ConnObjGuids);
+                    ts.WriteTsFile();
+                    ts.UpdateTsFile(ref this.db);
                 }
                 else
                 {
-                    // 开放线环
+                    // 开放线
 
 
                 }
@@ -2636,6 +2728,19 @@ namespace FGeo3D_TE.Frm
             StatusSystem.Text = @"系统状态：【就绪】";
             ResetButton(this.btnPlaneViaLine);
             return true;
+        }
+
+        private void switchButtonUnderground_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                sgworld.Navigate.UndergroundMode = this.switchButtonUnderground.Value;
+            }
+            catch (Exception ex)
+            {
+                ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
+            }
+            
         }
     }
 }

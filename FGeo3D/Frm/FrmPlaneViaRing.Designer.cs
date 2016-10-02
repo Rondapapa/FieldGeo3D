@@ -1,6 +1,6 @@
 ﻿namespace FGeo3D_TE.Frm
 {
-    partial class FrmPlaneViaLine
+    partial class FrmPlaneViaRing
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable4 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
-            DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer4 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
+            DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable1 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
+            DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer1 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
             this.btnOK = new DevComponents.DotNetBar.ButtonX();
             this.textBoxDepth = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.textBoxXInterval = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -124,26 +124,26 @@
             // 
             // keyboardControl1
             // 
-            virtualKeyboardColorTable4.BackgroundColor = System.Drawing.Color.Black;
-            virtualKeyboardColorTable4.DarkKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
-            virtualKeyboardColorTable4.DownKeysColor = System.Drawing.Color.White;
-            virtualKeyboardColorTable4.DownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            virtualKeyboardColorTable4.KeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(55)))));
-            virtualKeyboardColorTable4.LightKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(68)))), ((int)(((byte)(76)))));
-            virtualKeyboardColorTable4.PressedKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(161)))), ((int)(((byte)(81)))));
-            virtualKeyboardColorTable4.TextColor = System.Drawing.Color.White;
-            virtualKeyboardColorTable4.ToggleTextColor = System.Drawing.Color.Green;
-            virtualKeyboardColorTable4.TopBarTextColor = System.Drawing.Color.White;
-            this.keyboardControl1.ColorTable = virtualKeyboardColorTable4;
+            virtualKeyboardColorTable1.BackgroundColor = System.Drawing.Color.Black;
+            virtualKeyboardColorTable1.DarkKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
+            virtualKeyboardColorTable1.DownKeysColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable1.DownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            virtualKeyboardColorTable1.KeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(55)))));
+            virtualKeyboardColorTable1.LightKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(68)))), ((int)(((byte)(76)))));
+            virtualKeyboardColorTable1.PressedKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(161)))), ((int)(((byte)(81)))));
+            virtualKeyboardColorTable1.TextColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable1.ToggleTextColor = System.Drawing.Color.Green;
+            virtualKeyboardColorTable1.TopBarTextColor = System.Drawing.Color.White;
+            this.keyboardControl1.ColorTable = virtualKeyboardColorTable1;
             this.keyboardControl1.Location = new System.Drawing.Point(12, 86);
             this.keyboardControl1.Name = "keyboardControl1";
-            flatStyleRenderer4.ColorTable = virtualKeyboardColorTable4;
-            flatStyleRenderer4.ForceAntiAlias = false;
-            this.keyboardControl1.Renderer = flatStyleRenderer4;
+            flatStyleRenderer1.ColorTable = virtualKeyboardColorTable1;
+            flatStyleRenderer1.ForceAntiAlias = false;
+            this.keyboardControl1.Renderer = flatStyleRenderer1;
             this.keyboardControl1.Size = new System.Drawing.Size(382, 334);
             this.keyboardControl1.TabIndex = 3;
             // 
-            // FrmPlaneViaLine
+            // FrmPlaneViaRing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -157,9 +157,9 @@
             this.Controls.Add(this.btnOK);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FrmPlaneViaLine";
+            this.Name = "FrmPlaneViaRing";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "请输入曲面参数";
+            this.Text = "闭合线生成面";
             this.ResumeLayout(false);
 
         }

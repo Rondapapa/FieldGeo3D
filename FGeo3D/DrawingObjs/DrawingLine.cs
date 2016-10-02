@@ -52,7 +52,7 @@ namespace FGeo3D_TE.DrawingObjs
             var pointList = new List<Point>();
             for (int i = 0; i < lineString.NumPoints; ++i)
             {
-                var p = lineString.get_Value(i);
+                IPoint p = lineString.Points[i] as IPoint;
                 pointList.Add(new Point(p));
             }
             return pointList;

@@ -5,7 +5,7 @@ namespace FGeo3D_TE.Frm
 {
     using DevComponents.DotNetBar.Keyboard;
 
-    public partial class FrmPlaneViaLine : Form
+    public partial class FrmPlaneViaRing : Form
     {
         /// <summary>
         /// Gets the depth.
@@ -18,9 +18,9 @@ namespace FGeo3D_TE.Frm
         public double interval;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FrmPlaneViaLine"/> class.
+        /// Initializes a new instance of the <see cref="FrmPlaneViaRing"/> class.
         /// </summary>
-        public FrmPlaneViaLine()
+        public FrmPlaneViaRing()
         {
             InitializeComponent();
             keyboardControl1.Keyboard = CreateNumericKeyboard();

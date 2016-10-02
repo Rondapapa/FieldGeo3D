@@ -245,6 +245,12 @@
     <Compile Include="Frm\FrmObject.Designer.cs">
       <DependentUpon>FrmObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm\FrmPlaneViaSpot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmPlaneViaSpot.Designer.cs">
+      <DependentUpon>FrmPlaneViaSpot.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm\FrmPoint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,11 +269,11 @@
     <Compile Include="Frm\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Frm\FrmPlaneViaLine.cs">
+    <Compile Include="Frm\FrmPlaneViaRing.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm\FrmPlaneViaLine.Designer.cs">
-      <DependentUpon>FrmPlaneViaLine.cs</DependentUpon>
+    <Compile Include="Frm\FrmPlaneViaRing.Designer.cs">
+      <DependentUpon>FrmPlaneViaRing.cs</DependentUpon>
     </Compile>
     <Compile Include="DrawingObjs\DrawingPoint.cs" />
     <Compile Include="DrawingObjs\DrawingRegion.cs" />
@@ -275,6 +281,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Frm\FrmObject.resx">
       <DependentUpon>FrmObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmPlaneViaSpot.resx">
+      <DependentUpon>FrmPlaneViaSpot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmPoint.resx">
       <DependentUpon>FrmPoint.cs</DependentUpon>
@@ -286,8 +295,8 @@
       <DependentUpon>FrmMain.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm\FrmPlaneViaLine.resx">
-      <DependentUpon>FrmPlaneViaLine.cs</DependentUpon>
+    <EmbeddedResource Include="Frm\FrmPlaneViaRing.resx">
+      <DependentUpon>FrmPlaneViaRing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
