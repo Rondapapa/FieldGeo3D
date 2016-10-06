@@ -367,10 +367,14 @@ namespace FGeo3D.GoCAD
 
 
                 List<Point3D> sortedListPoint3D = new List<Point3D>(this.TsData.VerticesList.OrderBy(p => p.Z));
-                int numMaxVertZ = this.TsData.VerticesList.IndexOf(sortedListPoint3D[sortedListPoint3D.Count - 1]) + 1;
-                int numMax2VertZ = this.TsData.VerticesList.IndexOf(sortedListPoint3D[sortedListPoint3D.Count - 2]) + 1;
-                ts.WriteLine("BSTONE " + numMaxVertZ);
-                ts.WriteLine("BORDER " + sortedListPoint3D.Count + " " + numMaxVertZ + " " + numMax2VertZ);
+                if (sortedListPoint3D.Count > 0)
+                {
+                    int numMaxVertZ = this.TsData.VerticesList.IndexOf(sortedListPoint3D[sortedListPoint3D.Count - 1]) + 1;
+                    int numMax2VertZ = this.TsData.VerticesList.IndexOf(sortedListPoint3D[sortedListPoint3D.Count - 2]) + 1;
+                    ts.WriteLine("BSTONE " + numMaxVertZ);
+                    ts.WriteLine("BORDER " + sortedListPoint3D.Count + " " + numMaxVertZ + " " + numMax2VertZ);
+                }
+                
             }
 
             //尾

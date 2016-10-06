@@ -59,6 +59,17 @@ namespace FGeo3D.GeoObj
             InitDipAngle();
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Point)) return false;
+            var otherPoint = obj as Point;
+            return (this.X == otherPoint.X 
+                    && this.Y == otherPoint.Y 
+                    && this.Z == otherPoint.Z 
+                    && this.MyAngle == otherPoint.MyAngle 
+                    && this.MyDip == otherPoint.MyDip);
+        }
+
         /// <summary>
         /// 两点间距离
         /// </summary>

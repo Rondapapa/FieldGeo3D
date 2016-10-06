@@ -7,6 +7,8 @@ using MIConvexHull;
 
 namespace FGeo3D.GeoCurvedSurface
 {
+    using System.Windows.Forms;
+
     using FGeo3D.GeoObj;
     using FGeo3D.GoCAD;
 
@@ -16,15 +18,17 @@ namespace FGeo3D.GeoCurvedSurface
     {
         private List<Vertex> Vertices = new List<Vertex>();
 
+        private List<Point> verticesList;
+
         private ITriangulation<Vertex, DefaultTriangulationCell<Vertex>> triangulations;
 
         public TsData TsData {get; } = new TsData();
 
         private readonly Dictionary<Vertex, int> vertexDictionary = new Dictionary<Vertex, int>();
 
-        public Triangle(IList<Point> pointsList)
+        public Triangle(IList<Point> pointsList, IList<Point> verticesList)
         {
-
+            this.verticesList = new List<Point>(verticesList);
 
             foreach (var p in pointsList)
             {
@@ -36,11 +40,14 @@ namespace FGeo3D.GeoCurvedSurface
         /// 划分Delaunay三角网，结果保存于tsData
         /// </summary>
         /// <param name="interpolateFunc">插值函数</param>
-        public void Mesh(Func<double, double, double> interpolateFunc)
+        public void Mesh(double depth, Func<IList<Point>, MathNet.Spatial.Euclidean.Plane, double, double, double, double> interpolateFunc)
         {
             try
             {
                 triangulations = Triangulation.CreateDelaunay(this.Vertices);
+
+                
+                var verticesPlane = GeoHelper.GetPlaneViaPoints(verticesList);
 
                 this.TsData.VerticesList = new List<Point3D>(this.Vertices.Count);
                 this.TsData.TriLinksList = new List<TriLink>(this.triangulations.Cells.Count());
@@ -73,13 +80,15 @@ namespace FGeo3D.GeoCurvedSurface
                     var vPos = kv.Key.Position;
                     var x = vPos[0];
                     var y = vPos[1];
-                    var z = interpolateFunc(x, y);
+                    var z = interpolateFunc(verticesList, verticesPlane, depth, x, y);
+                    // IList<Point> verticesList, MathNet.Spatial.Euclidean.Plane verticesPlane, double depth, double x, double y
                     this.TsData.VerticesList.Add(new Point3D(x, y, z));
                 }
 
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 return;
             }
         }

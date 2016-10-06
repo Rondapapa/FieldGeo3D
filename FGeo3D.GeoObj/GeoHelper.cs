@@ -8,8 +8,13 @@ using MIConvexHull;
 
 namespace FGeo3D.GeoObj
 {
+    using System.IO;
+    using System.Text;
+
     using MathNet.Spatial.Euclidean;
     using MathNet.Spatial.Units;
+
+    using Microsoft.Win32;
 
     internal class PolarData
     {
@@ -32,6 +37,7 @@ namespace FGeo3D.GeoObj
 
     public static class GeoHelper
     {
+
         public static string CreateGroup(string groupName, ref SGWorld66 sgworld)
         {
             var gid = sgworld.ProjectTree.FindItem(groupName);
@@ -294,6 +300,261 @@ namespace FGeo3D.GeoObj
             return true;
         }
 
+        /// <summary>
+        /// 逼近指定点集的平面
+        /// </summary>
+        /// <param name="pointsList"></param>
+        /// <returns></returns>
+        public static MathNet.Spatial.Euclidean.Plane GetPlaneViaPoints(IList<Point> pointsList)
+        {
+            // 去重复
+            if (pointsList[0].Equals(pointsList[pointsList.Count - 1]))
+            {
+                pointsList.RemoveAt(pointsList.Count - 1);
+            }
+            
+            
+            //获取中心点坐标，作为RootPoint
+            double XSum = 0, YSum = 0, ZSum = 0;
+            foreach (var p in pointsList)
+            {
+                XSum += p.X; // 坐标X
+                YSum += p.Y; // 坐标Y
+                ZSum += p.Z;
+            }
+            var rootPoint = new Point3D(XSum / pointsList.Count, YSum / pointsList.Count, ZSum / pointsList.Count);
 
+            var normalVectorList = new List<Vector3D>();
+            for (var i = 0; i < pointsList.Count - 2; ++i)
+            {
+                for (var j = i + 1; j < pointsList.Count - 1; ++j)
+                {
+                    for (var k = j + 1; k < pointsList.Count; ++k)
+                    {
+                        var p1Z = new Point3D(pointsList[i].X, pointsList[i].Y, pointsList[i].Z);
+                        var p2Z = new Point3D(pointsList[j].X, pointsList[j].Y, pointsList[j].Z);
+                        var p3Z = new Point3D(pointsList[k].X, pointsList[k].Y, pointsList[k].Z);
+                        var vP12Z = p1Z.VectorTo(p2Z);
+                        var vP13Z = p1Z.VectorTo(p3Z);
+                        var normalVectorZ = vP12Z.CrossProduct(vP13Z);
+
+                        if (normalVectorList.Count == 0)
+                        {
+                            // do nothing
+                        }
+                        else if (normalVectorList.Count > 0 && normalVectorZ.AngleTo(normalVectorList[0]).Degrees > 90)
+                        {
+                            normalVectorZ = normalVectorZ.Negate();
+                        }
+                        normalVectorList.Add(normalVectorZ);
+                    }
+                }
+            }
+            double nx = 0.0, ny = 0.0, nz = 0.0;
+            foreach (var n in normalVectorList)
+            {
+                nx += n.X;
+                ny += n.Y;
+                nz += n.Z;
+            }
+            Vector3D normalVector = new Vector3D(nx/normalVectorList.Count, ny/normalVectorList.Count, nz/normalVectorList.Count);
+
+            return new MathNet.Spatial.Euclidean.Plane(rootPoint, normalVector.Normalize());
+        }
+
+
+        /// <summary>
+        /// 指定点至点集的最小距离
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="pointsList"></param>
+        /// <returns></returns>
+        public static double MinDistanceFromPtoPs(double x, double y, IList<Point> pointsList)
+        {
+            double minDist = double.MaxValue;
+            foreach (var p in pointsList)
+            {
+                double dist = Math.Sqrt(Math.Pow(x - p.X, 2) + Math.Pow(y - p.Y, 2));
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                }
+            }
+            return minDist;
+        }
+
+        /// <summary>
+        /// 获取xy平面上的点集中心点
+        /// </summary>
+        /// <param name="pointsList"></param>
+        /// <returns></returns>
+        public static Point MiddlePointOfPoints(IList<Point> pointsList)
+        {
+            if (pointsList.Count <= 0)
+            {
+                throw new Exception("PointsList has No Points At All!");
+            }
+            
+            //获取中心点坐标，作为RootPoint
+            double XSum = 0, YSum = 0, ZSum = 0;
+            foreach (var p in pointsList)
+            {
+                XSum += p.X; // 坐标X
+                YSum += p.Y; // 坐标Y
+                ZSum += p.Z;
+            }
+            return new Point(XSum / pointsList.Count, YSum / pointsList.Count, ZSum / pointsList.Count);
+        }
+
+        public static Point[] FindEdgeNearestPoint(IList<Point> verticesList, Point p)
+        {
+            if (verticesList.Count < 2)
+            {
+                throw new Exception("No Enough Points In VerticesList");
+            }
+            double minD = double.MaxValue;
+            Point pA = null;
+            Point pB = null;
+
+            for (int i = 0; i < verticesList.Count - 2; ++i)
+            {
+                Point pStart = verticesList[i];
+                Point pEnd = verticesList[i + 1];
+                // 线方程
+                DenseMatrix ma = DenseMatrix.OfArray(new[,] { { pStart.X, 1 }, { pEnd.X, 1 } });
+                DenseVector vb = DenseVector.OfArray(new[] { pStart.Y, pEnd.Y });
+                var result = ma.LU().Solve(vb);
+                double k = result[0];
+                double b = result[1];
+                double d = Math.Abs(k * p.X - p.Y + b) / Math.Sqrt(k * k + 1);
+                if (d < minD)
+                {
+                    minD = d;
+                    pA = pStart;
+                    pB = pEnd;
+                }
+            }
+
+            return new[] { pA, pB };
+        }
+
+
+
+        /// <summary>
+        /// 闭合曲线生成曲面的插值算法
+        /// </summary>
+        /// <param name="verticesList"></param>
+        /// <param name="verticesPlane"></param>
+        /// <param name="depth"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static double CalcZinPlaneViaRing(IList<Point> verticesList, MathNet.Spatial.Euclidean.Plane verticesPlane, double depth, double x, double y)
+        {
+            
+            double zPlane = (-verticesPlane.A * x - verticesPlane.B * y - verticesPlane.D) / verticesPlane.C;
+
+            Point middlePoint = MiddlePointOfPoints(verticesList);
+
+            
+            
+
+            Point[] nearestEdge = FindEdgeNearestPoint(verticesList, new Point(x, y, 0));
+
+            Point pVertexA = nearestEdge[0];
+            Point pVertexB = nearestEdge[1];
+
+            
+
+
+            Point2D pA = new Point2D(pVertexA.X, pVertexA.Y);
+            Point2D pB = new Point2D(pVertexB.X, pVertexB.Y);
+            Point2D pM = new Point2D(middlePoint.X, middlePoint.Y);
+            Point2D pX = new Point2D(x, y);
+            
+            // MX线方程
+            DenseMatrix maMX = DenseMatrix.OfArray(new[,] { { pM.X, 1 }, { pX.X, 1 } });
+            DenseVector vbMX = DenseVector.OfArray(new []{ pM.Y, pX.Y});
+            var resultMX = maMX.LU().Solve(vbMX);
+            double kMX = resultMX[0];
+            double bMX = resultMX[1];
+
+            // AB线方程
+            DenseMatrix maAB = DenseMatrix.OfArray(new[,] { { pA.X, 1 }, { pB.X, 1 } });
+            DenseVector vbAB = DenseVector.OfArray(new[] { pA.Y, pB.Y });
+            var resultAB = maAB.LU().Solve(vbAB);
+            double kAB = resultAB[0];
+            double bAB = resultAB[1];
+
+            // MX与AB线交点O坐标
+            DenseMatrix maO = DenseMatrix.OfArray(new[,] { { kAB, -1 }, { kMX, -1 } });
+            DenseVector vbO = DenseVector.OfArray(new[] { -bAB, -bMX });
+            var resultO = maO.LU().Solve(vbO);
+            double xO = resultO[0];
+            double yO = resultO[1];
+            Point2D pO = new Point2D(xO, yO);
+
+            //Angle aMAB = vAM.AngleTo(vAB);
+            //if (aMAB.Radians > Math.PI)
+            //{
+            //    aMAB = new Angle(2 * Math.PI - aMAB.Radians, new Radians());
+            //}
+            //else if (aMAB.Radians < 0)
+            //{
+            //    aMAB = new Angle(-aMAB.Radians, new Radians());
+            //}
+
+            //Angle aAoM = vMX.AngleTo(vAB);
+            //if (aAoM.Radians > Math.PI)
+            //{
+            //    aAoM = new Angle(2 * Math.PI - aAoM.Radians, new Radians());
+            //}
+            //else if (aAoM.Radians < 0)
+            //{
+            //    aAoM = new Angle(-aAoM.Radians, new Radians());
+            //}
+
+
+            double dist = pM.DistanceTo(pX);
+            double maxDist = pM.DistanceTo(pO);
+
+            // double distAM = pM.DistanceTo(pA);
+            // 正弦定理
+            // double maxDist = distAM * Math.Abs(Math.Sin(aMAB.Radians) / Math.Sin(aAoM.Radians));
+
+            if (dist >= maxDist)
+            {
+                //var currentDirectory = Directory.GetCurrentDirectory();
+                //var pathString = Path.Combine(currentDirectory, "errLog");
+                
+                //if (!Directory.Exists(pathString))
+                //{
+                //    Directory.CreateDirectory(pathString);
+                //}
+                //var fileName = "errLog" + ".part";
+                //var filePath = Path.Combine(pathString, fileName);
+
+                //StreamWriter sr = new StreamWriter(filePath, false, Encoding.Default);
+
+
+
+                //foreach (var v in verticesList)
+                //{
+                //    sr.WriteLine($"x = {v.X}; y = {v.Y}; z = {v.Z}");
+                //}
+                //sr.WriteLine($"A: x = {pVertexA.X}; y = {pVertexA.Y}; z = {pVertexA.Z}");
+                //sr.WriteLine($"B: x = {pVertexB.X}; y = {pVertexB.Y}; z = {pVertexB.Z}");
+                //sr.WriteLine($"X: x = {pX.X}; y = {pX.Y}");
+                //sr.WriteLine($"maxDist = {maxDist}");
+                //sr.WriteLine($"dist = {dist}");
+                //sr.Close();
+                //throw new Exception("dist > maxDist");
+                dist = maxDist;
+            }
+
+            return zPlane - Math.Sqrt(depth * (1 - dist / maxDist));
+
+        }
     }
 }

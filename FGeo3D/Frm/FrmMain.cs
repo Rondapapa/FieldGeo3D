@@ -2621,6 +2621,9 @@ namespace FGeo3D_TE.Frm
             {
                 IGeometry intersecGeo = pGeo.SpatialOperator.Intersection(tGeo);
                 if (intersecGeo == null) MessageBox.Show("空");
+                MessageBox.Show(intersecGeo.GeometryTypeStr);
+                string s = intersecGeo.Wks.ExportToWKT();
+                MessageBox.Show(s);
                 var intersecPoints = this.sgworld.Creator.CreatePolygon(intersecGeo);
             }
             catch (Exception ex)
@@ -2703,10 +2706,9 @@ namespace FGeo3D_TE.Frm
                     pointsList = GeoHelper.InsertPointsInPolygon(vertexList, interval); 
 
                     // 划分三角网，插值函数，插值得到Z
-                    Triangle tris = new Triangle(pointsList);
+                    Triangle tris = new Triangle(pointsList, vertexList);
 
-                    Func<double, double, double> interpolateFunc = (x0, y0) => (x0 + y0);  // 示例插值函数
-                    tris.Mesh(interpolateFunc);
+                    tris.Mesh(depth, GeoHelper.CalcZinPlaneViaRing);
 
 
                     // 保存三角网结果
