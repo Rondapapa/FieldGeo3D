@@ -179,6 +179,14 @@ namespace FGeo3D.LoggingObj
 
         public void Erase(ref SGWorld66 sgworld)
         {
+            if (LoggingObject.DictOfLoggingObjects.ContainsKey(this.Guid))
+            {
+                LoggingObject.DictOfLoggingObjects.Remove(this.Guid);
+            }
+            if (LoggingObject.DictOfSkyIdGuid.ContainsKey(this.SkylineLabelObj.ID))
+            {
+                LoggingObject.DictOfSkyIdGuid.Remove(this.SkylineLabelObj.ID);
+            }
             if (SkylineMouthObj != null)
             {
                 sgworld.Creator.DeleteObject(SkylineMouthObj.ID);
@@ -197,6 +205,7 @@ namespace FGeo3D.LoggingObj
                 
                 SkylineLabelObj = null;
             }
+            
         }
         
         /// <summary>

@@ -1997,26 +1997,39 @@ namespace FGeo3D_TE.Frm
         private bool OnLBtnDown_DeleteLoggingSpot(int flags, int x, int y)
         {
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
-            if (!LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
+            if (LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
             {
-                MessageBox.Show(@"当前选择无效，请选择地质点的文字标签！", @"删除地质点失败");
-                sgworld.OnLButtonDown -= OnLBtnDown_DeleteLoggingSpot;
- 
-                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                StatusSystem.Text = @"系统状态：【就绪】";
-                return true;
+
+                var guidToBeDeleted = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
+                
+                LoggingObject.DictOfLoggingObjects[guidToBeDeleted].Erase(ref sgworld);
+                // 询问是否删除数据库中对应记录？
+                var dlgResult = MessageBoxEx.Show("是否删除数据库对应记录？", "警告", MessageBoxButtons.YesNo);
+                if (dlgResult == DialogResult.Yes)
+                {
+                    db.SkyDeleteSjly(guidToBeDeleted);
+                }
+                
+            }
+            else if (DrawingObject.DictOfSkyIdDrawingObjects.ContainsKey(this._cWorldPointInfo.ObjectID))
+            {
+                var guidToBeDeleted = DrawingObject.DictOfSkyIdDrawingObjects[_cWorldPointInfo.ObjectID].Guid;
+
+                DrawingObject.DictOfSkyIdDrawingObjects[_cWorldPointInfo.ObjectID].Erase(ref this.sgworld);
+
+                
+            }
+            else
+            {
+                MessageBoxEx.Show(@"当前选择无效，请选择地质点的文字标签！", @"删除地质对象失败");
             }
 
-            var guidToBeDeleted = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
-            db.SkyDeleteSjly(guidToBeDeleted);
-            LoggingObject.DictOfLoggingObjects[guidToBeDeleted].Erase(ref sgworld);
-
-            
             sgworld.OnLButtonDown -= OnLBtnDown_DeleteLoggingSpot;
-
+            this._cWorldPointInfo = null;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             StatusSystem.Text = @"系统状态：【就绪】";
             return true;
+
 
         }
 
@@ -2706,10 +2719,18 @@ namespace FGeo3D_TE.Frm
                     pointsList = GeoHelper.InsertPointsInPolygon(vertexList, interval); 
 
                     // 划分三角网，插值函数，插值得到Z
-                    Triangle tris = new Triangle(pointsList, vertexList);
+                    Triangulations tris = new Triangulations(pointsList, vertexList);
 
                     tris.Mesh(depth, GeoHelper.CalcZinPlaneViaRing);
 
+                    try
+                    {
+                        tris.Draw(ref this.sgworld);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBoxEx.Show(ex.Message);
+                    }
 
                     // 保存三角网结果
                     TsFile ts = new TsFile(tris.TsData, "TSurf", "M", thisDrawingObj.MarkerType, thisDrawingObj.Name, thisDrawingObj.ConnObjGuids);

@@ -70,7 +70,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Surface.cs" />
-    <Compile Include="Triangle.cs" />
+    <Compile Include="Triangulations.cs" />
     <Compile Include="Vertex.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -162,5 +162,27 @@ namespace FGeo3D_TE.DrawingObjs
         {
             Ts.UpdateTsFile(ref db);
         }
+
+
+        public void Erase(ref SGWorld66 sgworld)
+        {
+            
+            if (DictOfSkyIdDrawingObjects.ContainsKey(SkyID))
+            {
+                DictOfSkyIdDrawingObjects.Remove(SkyID);
+            }
+            if (DictOfSkyIdDrawingObjects.ContainsKey(LabelID))
+            {
+                DictOfSkyIdDrawingObjects.Remove(LabelID);
+            }
+            if (this.SkylineObj != null)
+            {
+                sgworld.Creator.DeleteObject(this.SkylineObj.ID);
+            }
+            if (this.SkylineLabel != null)
+            {
+                sgworld.Creator.DeleteObject(this.SkylineLabel.ID);
+            }
+        }
     }
 }

@@ -407,6 +407,12 @@ namespace FGeo3D.GeoObj
             return new Point(XSum / pointsList.Count, YSum / pointsList.Count, ZSum / pointsList.Count);
         }
 
+        /// <summary>
+        /// 寻找距离点p最近的边
+        /// </summary>
+        /// <param name="verticesList"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public static Point[] FindEdgeNearestPoint(IList<Point> verticesList, Point p)
         {
             if (verticesList.Count < 2)
@@ -417,10 +423,10 @@ namespace FGeo3D.GeoObj
             Point pA = null;
             Point pB = null;
 
-            for (int i = 0; i < verticesList.Count - 2; ++i)
+            for (int i = 0; i < verticesList.Count - 1; ++i)
             {
                 Point pStart = verticesList[i];
-                Point pEnd = verticesList[i + 1];
+                Point pEnd = verticesList[(i != verticesList.Count - 1) ? (i + 1) : 0];
                 // 线方程
                 DenseMatrix ma = DenseMatrix.OfArray(new[,] { { pStart.X, 1 }, { pEnd.X, 1 } });
                 DenseVector vb = DenseVector.OfArray(new[] { pStart.Y, pEnd.Y });
@@ -452,21 +458,16 @@ namespace FGeo3D.GeoObj
         /// <returns></returns>
         public static double CalcZinPlaneViaRing(IList<Point> verticesList, MathNet.Spatial.Euclidean.Plane verticesPlane, double depth, double x, double y)
         {
-            
+            // 基平面Z值
             double zPlane = (-verticesPlane.A * x - verticesPlane.B * y - verticesPlane.D) / verticesPlane.C;
 
+            //
             Point middlePoint = MiddlePointOfPoints(verticesList);
-
-            
-            
 
             Point[] nearestEdge = FindEdgeNearestPoint(verticesList, new Point(x, y, 0));
 
             Point pVertexA = nearestEdge[0];
             Point pVertexB = nearestEdge[1];
-
-            
-
 
             Point2D pA = new Point2D(pVertexA.X, pVertexA.Y);
             Point2D pB = new Point2D(pVertexB.X, pVertexB.Y);
@@ -553,7 +554,7 @@ namespace FGeo3D.GeoObj
                 dist = maxDist;
             }
 
-            return zPlane - Math.Sqrt(depth * (1 - dist / maxDist));
+            return zPlane - Math.Sqrt(1 - dist / maxDist) * depth;
 
         }
     }
