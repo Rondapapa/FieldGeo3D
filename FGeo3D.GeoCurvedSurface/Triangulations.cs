@@ -47,7 +47,7 @@ namespace FGeo3D.GeoCurvedSurface
         /// 划分Delaunay三角网，结果保存于tsData
         /// </summary>
         /// <param name="interpolateFunc">插值函数</param>
-        public void Mesh(double depth, Func<IList<Point>, MathNet.Spatial.Euclidean.Plane, double, double, double, double> interpolateFunc)
+        public void Mesh(double depth, Func<IList<Point>, double, double, double, double> interpolateFunc)
         {
             try
             {
@@ -87,8 +87,8 @@ namespace FGeo3D.GeoCurvedSurface
                     var vPos = kv.Key.Position;
                     var x = vPos[0];
                     var y = vPos[1];
-                    var z = interpolateFunc(verticesList, verticesPlane, depth, x, y);
-                    // IList<Point> verticesList, MathNet.Spatial.Euclidean.Plane verticesPlane, double depth, double x, double y
+                    var z = interpolateFunc(verticesList, depth, x, y);
+                    
                     this.TsData.VerticesList.Add(new Point3D(x, y, z));
                 }
 
@@ -111,62 +111,6 @@ namespace FGeo3D.GeoCurvedSurface
             }
         }
 
-        /// <summary>
-        /// Skyline中绘制该三角网面片
-        /// </summary>
-        /// <param name="sgworld"></param>
-        public void Draw(ref SGWorld66 sgworld)
-        {
 
-
-            List<ILinearRing> ringsList = new List<ILinearRing>(this.triangulations.Cells.Count());
-            foreach (var facet in this.TsData.TriLinksList)
-            {
-                int intA = facet.VertexA - 1;
-                int intB = facet.VertexB - 1;
-                int intC = facet.VertexC - 1;
-
-                List<double> vList = new List<double>();
-
-                // 三角面片的三个顶点坐标列表
-                vList.Add(TsData.VerticesList[intA].X);
-                vList.Add(TsData.VerticesList[intA].Y);
-                vList.Add(TsData.VerticesList[intA].Z);
-                vList.Add(TsData.VerticesList[intB].X);
-                vList.Add(TsData.VerticesList[intB].Y);
-                vList.Add(TsData.VerticesList[intB].Z);
-                vList.Add(TsData.VerticesList[intC].X);
-                vList.Add(TsData.VerticesList[intC].Y);
-                vList.Add(TsData.VerticesList[intC].Z);
-                vList.Add(TsData.VerticesList[intA].X);
-                vList.Add(TsData.VerticesList[intA].Y);
-                vList.Add(TsData.VerticesList[intA].Z);
-                var ring = sgworld.Creator.GeometryCreator.CreateLinearRingGeometry(vList.ToArray());
-                ringsList.Add(ring);
-            }
-
-
-
-            IMultiPolygon multiPolygonGeo = sgworld.Creator.GeometryCreator.CreateMultiPolygonGeometry(ringsList.ToArray());
-            IColor66 lineColor = sgworld.Creator.CreateColor(128, 0, 0, 128);
-            IColor66 fillColor = sgworld.Creator.CreateColor(128, 128, 128, 128);
-
-            // throw new Exception(multiPolygonGeo.GeometryTypeStr);
-
-            for (int i = 0; i < multiPolygonGeo.NumGeometries; ++i)
-            {
-                IPolygon iP = multiPolygonGeo[i] as IPolygon;
-
-                sgworld.Creator.CreatePolygon(
-                    iP,
-                    lineColor,
-                    fillColor,
-                    AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
-                    GeoHelper.CreateGroup("TestMultiPolygon", ref sgworld));
-            }
-            
-            
-            
-        }
     }
 }

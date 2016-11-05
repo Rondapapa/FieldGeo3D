@@ -6,6 +6,8 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE.DrawingObjs
 {
+    using FGeo3D.GeoObj;
+
     //绘制编录信息传递类
     public class DrawingObjectInfo
     {
@@ -148,8 +150,8 @@ namespace FGeo3D_TE.DrawingObjs
                         return;
                     }
                     MarkerType = frmLineNew.SelectedMarkerType;
-                    GroupId = CreateGroup(MarkerType, sgworld.ProjectTree.FindItem("线"));
-                    sgworld.ProjectTree.ExpandGroup(GroupId, true);
+                    GroupId = GeoHelper.CreateGroup("线", ref sgworld);
+                    //sgworld.ProjectTree.ExpandGroup(GroupId, true);
                     Name = frmLineNew.ObjName;
                     var lineNewColors = frmLineNew.SelectedColor;
                     LineColor = sgworld.Creator.CreateColor(lineNewColors.R, lineNewColors.G, lineNewColors.B, lineNewColors.A);
@@ -168,9 +170,11 @@ namespace FGeo3D_TE.DrawingObjs
                         IsDrop = true;
                         return;
                     }
+
                     MarkerType = frmRegion.SelectedMarkerType;
-                    GroupId = CreateGroup(MarkerType, sgworld.ProjectTree.FindItem("区域"));
-                    sgworld.ProjectTree.ExpandGroup(GroupId, true);
+                    
+                    GroupId = GeoHelper.CreateGroup("区域", ref sgworld);
+                    //sgworld.ProjectTree.ExpandGroup(GroupId, true);
                     Name = frmRegion.ObjName;
                     var regionColors = frmRegion.SelectedColor;
                     LineColor = sgworld.Creator.CreateColor(regionColors.R, regionColors.G, regionColors.B, regionColors.A);
@@ -199,15 +203,15 @@ namespace FGeo3D_TE.DrawingObjs
 
         }
 
-        private string CreateGroup(string groupName, string parentGroupId)
+        private string CreateGroup(string groupName, string parentGroupName)
         {
-            var gid = InSgWorld.ProjectTree.FindItem(parentGroupId + "\\" + groupName);
+            var gid = InSgWorld.ProjectTree.FindItem(parentGroupName + "\\" + groupName);
             if (!string.IsNullOrEmpty(gid))
             {
                 return gid;
             }
             
-            return InSgWorld.ProjectTree.CreateGroup(groupName, parentGroupId);
+            return InSgWorld.ProjectTree.CreateGroup(groupName, parentGroupName);
         }
 
     }

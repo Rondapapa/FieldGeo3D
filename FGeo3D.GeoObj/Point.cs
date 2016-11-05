@@ -70,6 +70,11 @@ namespace FGeo3D.GeoObj
                     && this.MyDip == otherPoint.MyDip);
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         /// <summary>
         /// 两点间距离
         /// </summary>

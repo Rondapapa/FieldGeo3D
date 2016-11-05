@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable1 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
-            DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer1 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
+            DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable2 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
+            DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer2 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
             this.btnOK = new DevComponents.DotNetBar.ButtonX();
             this.textBoxDepth = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.textBoxXInterval = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -37,6 +37,8 @@
             this.labelXDepth = new DevComponents.DotNetBar.LabelX();
             this.labelXInterval = new DevComponents.DotNetBar.LabelX();
             this.keyboardControl1 = new DevComponents.DotNetBar.Keyboard.KeyboardControl();
+            this.btnColorPicker = new DevComponents.DotNetBar.ButtonX();
+            this.labelXColor = new DevComponents.DotNetBar.LabelX();
             this.SuspendLayout();
             // 
             // btnOK
@@ -45,7 +47,7 @@
             this.btnOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnOK.Enabled = false;
             this.btnOK.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOK.Location = new System.Drawing.Point(308, 12);
+            this.btnOK.Location = new System.Drawing.Point(216, 49);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(86, 31);
             this.btnOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -55,31 +57,37 @@
             // 
             // textBoxDepth
             // 
+            this.textBoxDepth.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
             this.textBoxDepth.Border.Class = "TextBoxBorder";
             this.textBoxDepth.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxDepth.DisabledBackColor = System.Drawing.Color.White;
             this.textBoxDepth.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxDepth.ForeColor = System.Drawing.Color.Black;
             this.textBoxDepth.Location = new System.Drawing.Point(98, 12);
             this.textBoxDepth.Name = "textBoxDepth";
             this.textBoxDepth.PreventEnterBeep = true;
-            this.textBoxDepth.Size = new System.Drawing.Size(192, 31);
+            this.textBoxDepth.Size = new System.Drawing.Size(112, 31);
             this.textBoxDepth.TabIndex = 1;
             this.textBoxDepth.TextChanged += new System.EventHandler(this.textBoxDepth_TextChanged);
             // 
             // textBoxXInterval
             // 
+            this.textBoxXInterval.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
             this.textBoxXInterval.Border.Class = "TextBoxBorder";
             this.textBoxXInterval.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxXInterval.DisabledBackColor = System.Drawing.Color.White;
             this.textBoxXInterval.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxXInterval.ForeColor = System.Drawing.Color.Black;
             this.textBoxXInterval.Location = new System.Drawing.Point(98, 49);
             this.textBoxXInterval.Name = "textBoxXInterval";
             this.textBoxXInterval.PreventEnterBeep = true;
-            this.textBoxXInterval.Size = new System.Drawing.Size(192, 31);
+            this.textBoxXInterval.Size = new System.Drawing.Size(112, 31);
             this.textBoxXInterval.TabIndex = 1;
             this.textBoxXInterval.TextChanged += new System.EventHandler(this.textBoxXInterval_TextChanged);
             // 
@@ -124,30 +132,61 @@
             // 
             // keyboardControl1
             // 
-            virtualKeyboardColorTable1.BackgroundColor = System.Drawing.Color.Black;
-            virtualKeyboardColorTable1.DarkKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
-            virtualKeyboardColorTable1.DownKeysColor = System.Drawing.Color.White;
-            virtualKeyboardColorTable1.DownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            virtualKeyboardColorTable1.KeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(55)))));
-            virtualKeyboardColorTable1.LightKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(68)))), ((int)(((byte)(76)))));
-            virtualKeyboardColorTable1.PressedKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(161)))), ((int)(((byte)(81)))));
-            virtualKeyboardColorTable1.TextColor = System.Drawing.Color.White;
-            virtualKeyboardColorTable1.ToggleTextColor = System.Drawing.Color.Green;
-            virtualKeyboardColorTable1.TopBarTextColor = System.Drawing.Color.White;
-            this.keyboardControl1.ColorTable = virtualKeyboardColorTable1;
+            virtualKeyboardColorTable2.BackgroundColor = System.Drawing.Color.Black;
+            virtualKeyboardColorTable2.DarkKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
+            virtualKeyboardColorTable2.DownKeysColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable2.DownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            virtualKeyboardColorTable2.KeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(55)))));
+            virtualKeyboardColorTable2.LightKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(68)))), ((int)(((byte)(76)))));
+            virtualKeyboardColorTable2.PressedKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(161)))), ((int)(((byte)(81)))));
+            virtualKeyboardColorTable2.TextColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable2.ToggleTextColor = System.Drawing.Color.Green;
+            virtualKeyboardColorTable2.TopBarTextColor = System.Drawing.Color.White;
+            this.keyboardControl1.ColorTable = virtualKeyboardColorTable2;
             this.keyboardControl1.Location = new System.Drawing.Point(12, 86);
             this.keyboardControl1.Name = "keyboardControl1";
-            flatStyleRenderer1.ColorTable = virtualKeyboardColorTable1;
-            flatStyleRenderer1.ForceAntiAlias = false;
-            this.keyboardControl1.Renderer = flatStyleRenderer1;
+            flatStyleRenderer2.ColorTable = virtualKeyboardColorTable2;
+            flatStyleRenderer2.ForceAntiAlias = false;
+            this.keyboardControl1.Renderer = flatStyleRenderer2;
             this.keyboardControl1.Size = new System.Drawing.Size(382, 334);
             this.keyboardControl1.TabIndex = 3;
+            // 
+            // btnColorPicker
+            // 
+            this.btnColorPicker.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnColorPicker.BackColor = System.Drawing.SystemColors.Control;
+            this.btnColorPicker.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnColorPicker.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold);
+            this.btnColorPicker.Location = new System.Drawing.Point(216, 12);
+            this.btnColorPicker.Name = "btnColorPicker";
+            this.btnColorPicker.Size = new System.Drawing.Size(86, 31);
+            this.btnColorPicker.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnColorPicker.TabIndex = 6;
+            this.btnColorPicker.Text = "选取颜色";
+            this.btnColorPicker.Click += new System.EventHandler(this.btnColorPicker_Click);
+            // 
+            // labelXColor
+            // 
+            this.labelXColor.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelXColor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelXColor.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelXColor.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelXColor.Location = new System.Drawing.Point(308, 12);
+            this.labelXColor.Name = "labelXColor";
+            this.labelXColor.Size = new System.Drawing.Size(86, 31);
+            this.labelXColor.TabIndex = 5;
+            this.labelXColor.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // FrmPlaneViaRing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 432);
+            this.Controls.Add(this.btnColorPicker);
+            this.Controls.Add(this.labelXColor);
             this.Controls.Add(this.keyboardControl1);
             this.Controls.Add(this.labelXInterval);
             this.Controls.Add(this.labelXDepth);
@@ -173,5 +212,7 @@
         private DevComponents.DotNetBar.LabelX labelXDepth;
         private DevComponents.DotNetBar.LabelX labelXInterval;
         private DevComponents.DotNetBar.Keyboard.KeyboardControl keyboardControl1;
+        private DevComponents.DotNetBar.ButtonX btnColorPicker;
+        private DevComponents.DotNetBar.LabelX labelXColor;
     }
 }

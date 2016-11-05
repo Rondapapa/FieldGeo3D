@@ -3,6 +3,8 @@ using System.Windows.Forms;
 
 namespace FGeo3D_TE.Frm
 {
+    using System.Drawing;
+
     using DevComponents.DotNetBar.Keyboard;
 
     public partial class FrmPlaneViaRing : Form
@@ -16,6 +18,10 @@ namespace FGeo3D_TE.Frm
         /// Gets the interval.
         /// </summary>
         public double interval;
+
+
+        public Color PickedColor { get; private set; }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FrmPlaneViaRing"/> class.
@@ -89,6 +95,15 @@ namespace FGeo3D_TE.Frm
             var isTxtBoxValueValid = double.TryParse(this.textBoxDepth.Text, out this.depth)
                 && double.TryParse(this.textBoxXInterval.Text, out this.interval);
             this.btnOK.Enabled = isTxtBoxValueValid;
+        }
+
+        private void btnColorPicker_Click(object sender, EventArgs e)
+        {
+            FrmColorPicker frmColorPicker = new FrmColorPicker();
+            var dlgResult = frmColorPicker.ShowDialog();
+            if (dlgResult != DialogResult.OK) return;
+            this.PickedColor = frmColorPicker.PickedColor;
+            this.labelXColor.BackColor = this.PickedColor;
         }
     }
 }

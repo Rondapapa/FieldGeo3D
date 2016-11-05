@@ -778,7 +778,7 @@ namespace FGeo3D_TE.Frm
 
 
             DrawingComplete(PbHander);
-            PbHander = "";
+            PbHander = string.Empty;
             IsSaved = false;
             Text = _tProjectUrl + @"* - FieldGeo3D";
         }
@@ -1024,8 +1024,8 @@ namespace FGeo3D_TE.Frm
             var gpsZ = _gpsController.GetCoordZ();
 
             // 测试专用
-            double testX = 413988.472639;
-            double testY = 3276102.503443;
+            //double testX = 413988.472639;
+            //double testY = 3276102.503443;
 
             IPosition66 gpsPos = sgworld.Creator.CreatePosition(gpsX, gpsY, gpsZ);
             try
@@ -1121,12 +1121,12 @@ namespace FGeo3D_TE.Frm
             var pol1 = this.sgworld.Creator.CreatePolygonFromArray(
                 arrVertex, -16711936, -10197916,
                 AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
-                "", "TestSurface1");
+                string.Empty, "TestSurface1");
 
             var pol2 = this.sgworld.Creator.CreatePolygonFromArray(
                 arrVertex2, -16711936, -10197916,
                 AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
-                "", "TestSurface2");
+                string.Empty, "TestSurface2");
 
 
             var p1g = pol1.Geometry;
@@ -1274,7 +1274,7 @@ namespace FGeo3D_TE.Frm
                     cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
                     cLabelStyle.TextAlignment = "Bottom, Center";
                     var cLabel = sgworld.Creator.CreateTextLabel(_pITerrainPolyline.Position, _objInfo.Name, cLabelStyle,
-                        sgworld.ProjectTree.HiddenGroupID, "");
+                        sgworld.ProjectTree.HiddenGroupID, string.Empty);
                     var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.MarkerType, new List<string>());
                     //cLine.Store(_currWorkingObjGuid, ref db);
                 }
@@ -1298,7 +1298,7 @@ namespace FGeo3D_TE.Frm
                     cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
                     cLabelStyle.TextAlignment = "Bottom, Center";
                     var cLabel = sgworld.Creator.CreateTextLabel(_pITerrainPolyline.Position, _objInfo.Name, cLabelStyle,
-                        sgworld.ProjectTree.HiddenGroupID, "");
+                        sgworld.ProjectTree.HiddenGroupID, string.Empty);
 
                     //删除冗余点
                     var cLineString = _pITerrainPolyline.Geometry as ILineString;
@@ -1343,7 +1343,7 @@ namespace FGeo3D_TE.Frm
                     cLabelStyle.LineColor = sgworld.Creator.CreateColor(0, 0, 0, 255);
                     cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
                     cLabelStyle.TextAlignment = "Bottom, Center";
-                    var cLabel = sgworld.Creator.CreateTextLabel(_pItPolygon.Position, _objInfo.Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, "");
+                    var cLabel = sgworld.Creator.CreateTextLabel(_pItPolygon.Position, _objInfo.Name, cLabelStyle, sgworld.ProjectTree.HiddenGroupID, string.Empty);
 
                     //删除两个冗余点
                     var polygonGeometry = _pItPolygon.Geometry as IPolygon;
@@ -1395,7 +1395,7 @@ namespace FGeo3D_TE.Frm
                     if (_objInfo != null)
                     {
                         var cLabel = sgworld.Creator.CreateTextLabel(_pItPolygon.Position, _objInfo.Name, cLabelStyle,
-                            sgworld.ProjectTree.HiddenGroupID, "");
+                            sgworld.ProjectTree.HiddenGroupID, string.Empty);
                         var cRegion = new DrawingRegion(_pItPolygon, cLabel, _objInfo.MarkerType, _objInfo.ConnObjGuids);
                         cRegion.Store(_currWorkingObjGuid, ref db);
                     }
@@ -1484,7 +1484,7 @@ namespace FGeo3D_TE.Frm
             }
             StatusSystem.Text = @"系统状态：【就绪】";
             sgworld.OnRButtonDown -= OnRBtnDown_DrawingComplete;
-            PbHander = "";
+            PbHander = string.Empty;
             IsSaved = false;
             Text = db.GCName + @"* - FieldGeo3D" ;
             return true;
@@ -1848,7 +1848,12 @@ namespace FGeo3D_TE.Frm
                     pointList.Add(thisObjPoint.X);
                     pointList.Add(thisObjPoint.Y);
                     pointList.Add(thisObjPoint.Z);
-                    _pITerrainPolyline = sgworld.Creator.CreatePolylineFromArray(pointList.ToArray(), _objInfo.LineColor.ToABGRColor(), AltitudeTypeCode.ATC_ON_TERRAIN, _objInfo.GroupId, _objInfo.Name);
+                    _pITerrainPolyline = sgworld.Creator.CreatePolylineFromArray(
+                        pointList.ToArray(),
+                        _objInfo.LineColor.ToABGRColor(),
+                        AltitudeTypeCode.ATC_ON_TERRAIN,
+                        _objInfo.GroupId,
+                        this._objInfo.MarkerType + _objInfo.Name);
                     sgworld.ProjectTree.ExpandGroup(_objInfo.GroupId, true);
                     _pITerrainPolyline.LineStyle.Width = -3.0;
                 }
@@ -1921,9 +1926,13 @@ namespace FGeo3D_TE.Frm
                 pointList.Add(thisObjPoint.Y);
                 pointList.Add(thisObjPoint.Z);
 
-                _pItPolygon = sgworld.Creator.CreatePolygonFromArray(pointList.ToArray(),
-                    _objInfo.LineColor.ToABGRColor(), _objInfo.FillColor.ToABGRColor(), AltitudeTypeCode.ATC_ON_TERRAIN,
-                    _objInfo.GroupId, _objInfo.Name);
+                _pItPolygon = sgworld.Creator.CreatePolygonFromArray(
+                    pointList.ToArray(),
+                    _objInfo.LineColor.ToABGRColor(),
+                    _objInfo.FillColor.ToABGRColor(),
+                    AltitudeTypeCode.ATC_ON_TERRAIN,
+                    _objInfo.GroupId,
+                    this._objInfo.MarkerType + _objInfo.Name);
                 sgworld.ProjectTree.ExpandGroup(_objInfo.GroupId, true);
                 _pItPolygon.LineStyle.Width = -3.0;
             }
@@ -2452,7 +2461,7 @@ namespace FGeo3D_TE.Frm
                 cLabelStyle.TextColor = sgworld.Creator.CreateColor(0, 0, 0, 0);
                 cLabelStyle.TextAlignment = "Bottom, Center";
                 var cLabel = sgworld.Creator.CreateTextLabel(_pITerrainPolyline.Position, _objInfo.Name, cLabelStyle,
-                    sgworld.ProjectTree.HiddenGroupID, "");
+                    sgworld.ProjectTree.HiddenGroupID, string.Empty);
                 var cLine = new DrawingLine(_pITerrainPolyline, cLabel, _objInfo.MarkerType, new List<string>());
                 cLine.Store(_currWorkingObjGuid, ref db);
             }
@@ -2460,7 +2469,7 @@ namespace FGeo3D_TE.Frm
             _objInfo = null; 
             ResetButton(btnDeleteSpot);
 
-            PbHander = "";
+            PbHander = string.Empty;
             IsSaved = false;
             Text = _tProjectUrl + @"* - FieldGeo3D";
 
@@ -2610,7 +2619,7 @@ namespace FGeo3D_TE.Frm
             var thisGuid = LoggingObject.DictOfSkyIdGuid[this._cWorldPointInfo.ObjectID];
             var thisLoggingObj = LoggingObject.DictOfLoggingObjects[thisGuid];
             Point rootPoint = new Point(thisLoggingObj.Top);
-            FrmPlaneViaSpot frmPlaneViaSpot = new FrmPlaneViaSpot(rootPoint.X, rootPoint.Y, rootPoint.Z);
+            FrmPlaneViaSpotOrLine frmPlaneViaSpot = new FrmPlaneViaSpotOrLine("Spot", rootPoint.X, rootPoint.Y, rootPoint.Z);
             DialogResult dlgResult = frmPlaneViaSpot.ShowDialog();
             if (dlgResult != DialogResult.OK)
             {
@@ -2622,27 +2631,40 @@ namespace FGeo3D_TE.Frm
                 return true;
             }
             
-            Plane plane = new Plane(rootPoint, frmPlaneViaSpot.Depth, frmPlaneViaSpot.Dip, frmPlaneViaSpot.Angle, thisLoggingObj.Name);
-            IColor66 lineColor = this.sgworld.Creator.CreateColor();
-            IColor66 fillColor = this.sgworld.Creator.CreateColor(255, 128, 128, 128);
-            plane.DrawOnSkyline(ref this.sgworld, 1000, 800, lineColor, fillColor);
+            Plane plane = new Plane(rootPoint, 0, frmPlaneViaSpot.Dip, frmPlaneViaSpot.Angle, thisLoggingObj.Name); // 默认深度为0
 
-            IGeometry pGeo = plane.skyPlane.Geometry;
-            IGeometry tGeo = TerrainPolygon.Geometry;
+            IColor66 lineColor = this.sgworld.Creator.CreateColor();
+            IColor66 fillColor = this.sgworld.Creator.CreateColor(
+                frmPlaneViaSpot.PickedColor.R,
+                frmPlaneViaSpot.PickedColor.G,
+                frmPlaneViaSpot.PickedColor.B,
+                frmPlaneViaSpot.PickedColor.A);
+
+            // 需要做投影圆的判断！？！？
+
+            plane.DrawOnSkyline(
+                ref this.sgworld,
+                frmPlaneViaSpot.Length * Math.Sqrt(2),
+                frmPlaneViaSpot.Length * Math.Sqrt(2),
+                lineColor,
+                fillColor);
+
+            //IGeometry pGeo = plane.skyPlane.Geometry;
+            //IGeometry tGeo = TerrainPolygon.Geometry;
             
-            try
-            {
-                IGeometry intersecGeo = pGeo.SpatialOperator.Intersection(tGeo);
-                if (intersecGeo == null) MessageBox.Show("空");
-                MessageBox.Show(intersecGeo.GeometryTypeStr);
-                string s = intersecGeo.Wks.ExportToWKT();
-                MessageBox.Show(s);
-                var intersecPoints = this.sgworld.Creator.CreatePolygon(intersecGeo);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //try
+            //{
+            //    IGeometry intersecGeo = pGeo.SpatialOperator.Intersection(tGeo);
+            //    if (intersecGeo == null) MessageBox.Show("空");
+            //    MessageBox.Show(intersecGeo.GeometryTypeStr);
+            //    string s = intersecGeo.Wks.ExportToWKT();
+            //    MessageBox.Show(s);
+            //    var intersecPoints = this.sgworld.Creator.CreatePolygon(intersecGeo);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
 
             _cWorldPointInfo = null;
             sgworld.OnLButtonDown -= OnLBtnDown_PlaneViaSpot;
@@ -2721,26 +2743,77 @@ namespace FGeo3D_TE.Frm
                     // 划分三角网，插值函数，插值得到Z
                     Triangulations tris = new Triangulations(pointsList, vertexList);
 
-                    tris.Mesh(depth, GeoHelper.CalcZinPlaneViaRing);
+                    CurveAlgorithm.sgworld = this.sgworld;
+                    tris.Mesh(depth, CurveAlgorithm.CalcZinPlaneViaRing);
 
-                    try
-                    {
-                        tris.Draw(ref this.sgworld);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBoxEx.Show(ex.Message);
-                    }
+                    IColor66 fillColor = this.sgworld.Creator.CreateColor(
+                        frmPlaneViaLine.PickedColor.R,
+                        frmPlaneViaLine.PickedColor.G,
+                        frmPlaneViaLine.PickedColor.B,
+                        196);
+                    IColor66 lineColor = this.sgworld.Creator.CreateColor(255, 255, 255, 0);
+
+                    var parentGid = GeoHelper.CreateGroup("闭合地质曲面", ref sgworld);
+
+                    Facet facet = new Facet(ref this.sgworld, tris.TsData, thisDrawingObj.Name, parentGid, lineColor, fillColor);
+                    facet.DrawFacet();
 
                     // 保存三角网结果
                     TsFile ts = new TsFile(tris.TsData, "TSurf", "M", thisDrawingObj.MarkerType, thisDrawingObj.Name, thisDrawingObj.ConnObjGuids);
                     ts.WriteTsFile();
                     ts.UpdateTsFile(ref this.db);
+
+                    ToastNotification.Show(this, "曲面模型已保存为模型部件", 2500, eToastPosition.MiddleCenter);
                 }
                 else
                 {
                     // 开放线
+                    Point midPoint = thisDrawingLine.MidPoint();
+                    List<Point> terrainPointsList = thisDrawingLine.GetPointsList();
+                    FrmPlaneViaSpotOrLine frmPlaneViaLine = new FrmPlaneViaSpotOrLine("Line", midPoint.X, midPoint.Y, midPoint.Z);
+                    var frmDialogResult = frmPlaneViaLine.ShowDialog();
+                    if (frmDialogResult != DialogResult.OK)
+                    {
+                        return true;
+                    }
 
+                    double length = frmPlaneViaLine.Length;
+                    double dip = frmPlaneViaLine.Dip;
+                    double angle = frmPlaneViaLine.Angle;
+                    double deltaX = length * Math.Sin(dip * Math.PI / 180);
+                    double deltaY = length * Math.Cos(dip * Math.PI / 180);
+                    double deltaZ = -length * Math.Tan(angle * Math.PI / 180);
+
+                    List<Point> undergroundPointsList = new List<Point>(terrainPointsList.Capacity);
+                    foreach (var tp in terrainPointsList)
+                    {
+                        Point up = new Point(tp.X + deltaX, tp.Y + deltaY, tp.Z + deltaZ);
+                        undergroundPointsList.Add(up);
+                    }
+
+                    IColor66 color = this.sgworld.Creator.CreateColor(
+                        frmPlaneViaLine.PickedColor.R,
+                        frmPlaneViaLine.PickedColor.G,
+                        frmPlaneViaLine.PickedColor.B,
+                        128);
+
+                    var parentGid = GeoHelper.CreateGroup("产状平面", ref sgworld);
+                    var gid = this.sgworld.ProjectTree.CreateLockedGroup(thisDrawingLine.Name, parentGid);
+
+                    for (int i = 0; i < terrainPointsList.Count - 1; ++i)
+                    {
+                        List<double> verticesList = new List<double>();
+                        verticesList.AddRange(
+                            new[] { terrainPointsList[i].X, terrainPointsList[i].Y, terrainPointsList[i].Z });
+                        verticesList.AddRange(
+                            new[] { terrainPointsList[i + 1].X, terrainPointsList[i + 1].Y, terrainPointsList[i + 1].Z });
+                        verticesList.AddRange(
+                            new[] { undergroundPointsList[i + 1].X, undergroundPointsList[i + 1].Y, undergroundPointsList[i + 1].Z });
+                        verticesList.AddRange(
+                            new[] { undergroundPointsList[i].X, undergroundPointsList[i].Y, undergroundPointsList[i].Z });
+
+                        this.sgworld.Creator.CreatePolygonFromArray(verticesList.ToArray(), color, color, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE, gid, "产状面#" + i);
+                    }
 
                 }
             }

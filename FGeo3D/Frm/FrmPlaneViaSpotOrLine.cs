@@ -12,15 +12,17 @@ namespace FGeo3D_TE.Frm
 {
     using DevComponents.DotNetBar.Keyboard;
 
-    public partial class FrmPlaneViaSpot : Form
+    public partial class FrmPlaneViaSpotOrLine : Form
     {
-        public double Depth;
+        public double Length;
 
         public double Dip;
 
         public double Angle;
 
         private double X, Y, Z;
+
+        public Color PickedColor { get; private set; }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
@@ -37,7 +39,7 @@ namespace FGeo3D_TE.Frm
             CheckTextBoxAndEnableSave();
         }
 
-        public FrmPlaneViaSpot(double x, double y, double z)
+        public FrmPlaneViaSpotOrLine(string strSpotOrLine ,double x, double y, double z)
         {
             InitializeComponent();
             this.X = x;
@@ -48,6 +50,11 @@ namespace FGeo3D_TE.Frm
             this.textBoxZ.Text = this.Z.ToString();
             keyboardControl1.Keyboard = CreateNumericKeyboard();
             keyboardControl1.Invalidate();
+            if (strSpotOrLine == "Line")
+            {
+                this.Text = @"地质线推求地质面";
+                
+            }
         }
 
         private void textBoxDip_TextChanged(object sender, EventArgs e)
@@ -58,6 +65,15 @@ namespace FGeo3D_TE.Frm
         private void textBoxAngle_TextChanged(object sender, EventArgs e)
         {
             CheckTextBoxAndEnableSave();
+        }
+
+        private void btnColorPicker_Click(object sender, EventArgs e)
+        {
+            FrmColorPicker frmColorPicker = new FrmColorPicker();
+            var dlgResult = frmColorPicker.ShowDialog();
+            if (dlgResult != DialogResult.OK) return;
+            this.PickedColor = frmColorPicker.PickedColor;
+            this.labelXColor.BackColor = this.PickedColor;
         }
 
         /// <summary>
@@ -97,7 +113,7 @@ namespace FGeo3D_TE.Frm
 
         private void CheckTextBoxAndEnableSave()
         {
-            var isTxtBoxValueValid = double.TryParse(this.textBoxDepth.Text, out this.Depth)
+            var isTxtBoxValueValid = double.TryParse(this.textBoxDepth.Text, out this.Length)
                 && double.TryParse(this.textBoxDip.Text, out this.Dip)
                 && double.TryParse(this.textBoxAngle.Text, out this.Angle);
             this.buttonOK.Enabled = isTxtBoxValueValid;

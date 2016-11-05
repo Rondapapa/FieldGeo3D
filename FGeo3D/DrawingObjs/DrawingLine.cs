@@ -26,6 +26,24 @@ namespace FGeo3D_TE.DrawingObjs
         }
 
         /// <summary>
+        /// 获取线段点集的中点
+        /// </summary>
+        /// <returns></returns>
+        public Point MidPoint()
+        {
+            List<Point> pointsList = this.GetPointsList();
+            double xSum = 0.0, ySum = 0.0, zSum = 0.0;
+            foreach (var p in pointsList)
+            {
+                xSum += p.X;
+                ySum += p.Y;
+                zSum += p.Z;
+            }
+            return new Point(xSum / pointsList.Count, ySum / pointsList.Count, zSum / pointsList.Count);
+        }
+
+
+        /// <summary>
         /// 判断该线是否成环
         /// </summary>
         /// <returns></returns>
@@ -45,6 +63,10 @@ namespace FGeo3D_TE.DrawingObjs
             return isClosed;
         }
 
+        /// <summary>
+        /// 线的点集列表
+        /// </summary>
+        /// <returns></returns>
         public List<Point> GetPointsList()
         {
             var tePolyline = this.SkylineObj as ITerrainPolyline66;

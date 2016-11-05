@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable1 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
+            DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer1 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
             this.comboBoxExGeoType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.comboItem_DXDM = new DevComponents.Editors.ComboItem();
             this.comboItem_DCYX = new DevComponents.Editors.ComboItem();
@@ -50,6 +52,7 @@
             this.buttonXOK = new DevComponents.DotNetBar.ButtonX();
             this.buttonXCancel = new DevComponents.DotNetBar.ButtonX();
             this.textBoxXStretchDepth = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.keyboardControl1 = new DevComponents.DotNetBar.Keyboard.KeyboardControl();
             this.SuspendLayout();
             // 
             // comboBoxExGeoType
@@ -57,6 +60,7 @@
             this.comboBoxExGeoType.DisplayMember = "Text";
             this.comboBoxExGeoType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxExGeoType.Font = new System.Drawing.Font("宋体", 12F);
+            this.comboBoxExGeoType.ForeColor = System.Drawing.Color.Black;
             this.comboBoxExGeoType.FormattingEnabled = true;
             this.comboBoxExGeoType.ItemHeight = 20;
             this.comboBoxExGeoType.Items.AddRange(new object[] {
@@ -76,11 +80,12 @@
             this.comboItem_DXSFD,
             this.comboItem_TTFC,
             this.comboItem_YTFL});
-            this.comboBoxExGeoType.Location = new System.Drawing.Point(135, 12);
+            this.comboBoxExGeoType.Location = new System.Drawing.Point(127, 12);
             this.comboBoxExGeoType.Name = "comboBoxExGeoType";
-            this.comboBoxExGeoType.Size = new System.Drawing.Size(264, 26);
+            this.comboBoxExGeoType.Size = new System.Drawing.Size(231, 26);
             this.comboBoxExGeoType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.comboBoxExGeoType.TabIndex = 0;
+            this.comboBoxExGeoType.Text = "请选择";
             this.comboBoxExGeoType.SelectedIndexChanged += new System.EventHandler(this.comboBoxExGeoType_SelectedIndexChanged);
             // 
             // comboItem_DXDM
@@ -172,7 +177,7 @@
             this.labelXGeoType.Font = new System.Drawing.Font("宋体", 12F);
             this.labelXGeoType.Location = new System.Drawing.Point(12, 12);
             this.labelXGeoType.Name = "labelXGeoType";
-            this.labelXGeoType.Size = new System.Drawing.Size(117, 26);
+            this.labelXGeoType.Size = new System.Drawing.Size(109, 26);
             this.labelXGeoType.TabIndex = 1;
             this.labelXGeoType.Text = "地质对象类型";
             // 
@@ -183,20 +188,21 @@
             // 
             this.labelXStretchDepth.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelXStretchDepth.Font = new System.Drawing.Font("宋体", 12F);
-            this.labelXStretchDepth.Location = new System.Drawing.Point(12, 60);
+            this.labelXStretchDepth.Location = new System.Drawing.Point(12, 44);
             this.labelXStretchDepth.Name = "labelXStretchDepth";
-            this.labelXStretchDepth.Size = new System.Drawing.Size(117, 26);
+            this.labelXStretchDepth.Size = new System.Drawing.Size(109, 26);
             this.labelXStretchDepth.TabIndex = 2;
             this.labelXStretchDepth.Text = "延伸深度(米)";
+            this.labelXStretchDepth.Click += new System.EventHandler(this.labelXStretchDepth_Click);
             // 
             // buttonXOK
             // 
             this.buttonXOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.buttonXOK.Font = new System.Drawing.Font("宋体", 11F);
-            this.buttonXOK.Location = new System.Drawing.Point(241, 60);
+            this.buttonXOK.Location = new System.Drawing.Point(204, 44);
             this.buttonXOK.Name = "buttonXOK";
-            this.buttonXOK.Size = new System.Drawing.Size(76, 26);
+            this.buttonXOK.Size = new System.Drawing.Size(75, 26);
             this.buttonXOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXOK.TabIndex = 3;
             this.buttonXOK.Text = "确认";
@@ -207,9 +213,9 @@
             this.buttonXCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.buttonXCancel.Font = new System.Drawing.Font("宋体", 11F);
-            this.buttonXCancel.Location = new System.Drawing.Point(323, 60);
+            this.buttonXCancel.Location = new System.Drawing.Point(285, 44);
             this.buttonXCancel.Name = "buttonXCancel";
-            this.buttonXCancel.Size = new System.Drawing.Size(76, 26);
+            this.buttonXCancel.Size = new System.Drawing.Size(73, 26);
             this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXCancel.TabIndex = 3;
             this.buttonXCancel.Text = "取消";
@@ -217,31 +223,58 @@
             // 
             // textBoxXStretchDepth
             // 
+            this.textBoxXStretchDepth.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
             this.textBoxXStretchDepth.Border.Class = "TextBoxBorder";
             this.textBoxXStretchDepth.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxXStretchDepth.DisabledBackColor = System.Drawing.Color.White;
             this.textBoxXStretchDepth.Font = new System.Drawing.Font("宋体", 12F);
-            this.textBoxXStretchDepth.Location = new System.Drawing.Point(135, 60);
+            this.textBoxXStretchDepth.ForeColor = System.Drawing.Color.Black;
+            this.textBoxXStretchDepth.Location = new System.Drawing.Point(127, 44);
             this.textBoxXStretchDepth.Name = "textBoxXStretchDepth";
             this.textBoxXStretchDepth.PreventEnterBeep = true;
-            this.textBoxXStretchDepth.Size = new System.Drawing.Size(90, 26);
+            this.textBoxXStretchDepth.Size = new System.Drawing.Size(71, 26);
             this.textBoxXStretchDepth.TabIndex = 4;
             this.textBoxXStretchDepth.Text = "50";
             this.textBoxXStretchDepth.TextChanged += new System.EventHandler(this.textBoxXStretchDepth_TextChanged);
+            // 
+            // keyboardControl1
+            // 
+            virtualKeyboardColorTable1.BackgroundColor = System.Drawing.Color.Black;
+            virtualKeyboardColorTable1.DarkKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
+            virtualKeyboardColorTable1.DownKeysColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable1.DownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            virtualKeyboardColorTable1.KeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(55)))));
+            virtualKeyboardColorTable1.LightKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(68)))), ((int)(((byte)(76)))));
+            virtualKeyboardColorTable1.PressedKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(161)))), ((int)(((byte)(81)))));
+            virtualKeyboardColorTable1.TextColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable1.ToggleTextColor = System.Drawing.Color.Green;
+            virtualKeyboardColorTable1.TopBarTextColor = System.Drawing.Color.White;
+            this.keyboardControl1.ColorTable = virtualKeyboardColorTable1;
+            this.keyboardControl1.Location = new System.Drawing.Point(10, 76);
+            this.keyboardControl1.Name = "keyboardControl1";
+            flatStyleRenderer1.ColorTable = virtualKeyboardColorTable1;
+            flatStyleRenderer1.ForceAntiAlias = false;
+            this.keyboardControl1.Renderer = flatStyleRenderer1;
+            this.keyboardControl1.Size = new System.Drawing.Size(348, 374);
+            this.keyboardControl1.TabIndex = 5;
             // 
             // FrmImageLineType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 102);
+            this.ClientSize = new System.Drawing.Size(365, 458);
+            this.Controls.Add(this.keyboardControl1);
             this.Controls.Add(this.textBoxXStretchDepth);
             this.Controls.Add(this.buttonXCancel);
             this.Controls.Add(this.buttonXOK);
             this.Controls.Add(this.labelXStretchDepth);
             this.Controls.Add(this.labelXGeoType);
             this.Controls.Add(this.comboBoxExGeoType);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmImageLineType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "请选择标记线的保存类型";
@@ -273,5 +306,6 @@
         private DevComponents.Editors.ComboItem comboItem_TTFC;
         private DevComponents.Editors.ComboItem comboItem_YTFL;
         private DevComponents.DotNetBar.Controls.TextBoxX textBoxXStretchDepth;
+        private DevComponents.DotNetBar.Keyboard.KeyboardControl keyboardControl1;
     }
 }

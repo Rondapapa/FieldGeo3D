@@ -11,6 +11,8 @@ using System.Windows.Forms;
 
 namespace FGeo3D.GeoImage
 {
+    using DevComponents.DotNetBar.Keyboard;
+
     public partial class FrmImageLineType : Form
     {
         //地质对象类型
@@ -24,6 +26,8 @@ namespace FGeo3D.GeoImage
         public FrmImageLineType()
         {
             InitializeComponent();
+            keyboardControl1.Keyboard = CreateNumericKeyboard();
+            keyboardControl1.Invalidate();
         }
 
         private void comboBoxExGeoType_SelectedIndexChanged(object sender, EventArgs e)
@@ -79,8 +83,10 @@ namespace FGeo3D.GeoImage
                     MarkerType = "YTFL";
                     break;
                 default:
+                    MarkerType = "";
                     break;
             }
+            this.buttonXOK.Enabled = !string.IsNullOrEmpty(this.MarkerType);
         }
 
         private void buttonXOK_Click(object sender, EventArgs e)
@@ -107,6 +113,47 @@ namespace FGeo3D.GeoImage
                 
             }
             
+
+        }
+
+
+        /// <summary>
+        /// 数字小键盘
+        /// </summary>
+        /// <returns></returns>
+        private Keyboard CreateNumericKeyboard()
+        {
+            Keyboard keyboard = new Keyboard();
+
+            LinearKeyboardLayout kl = new LinearKeyboardLayout();
+
+            kl.AddKey("7");
+            kl.AddKey("8");
+            kl.AddKey("9");
+            kl.AddKey("退格", "{BACKSPACE}");
+            kl.AddLine();
+
+            kl.AddKey("4");
+            kl.AddKey("5");
+            kl.AddKey("6");
+            kl.AddKey("-", "{SUBTRACT}");
+            kl.AddLine();
+
+            kl.AddKey("1");
+            kl.AddKey("2");
+            kl.AddKey("3");
+            kl.AddKey("Enter", "{ENTER}", height: 21);
+            kl.AddLine();
+
+            kl.AddKey("0", width: 21);
+            kl.AddKey(".");
+
+            keyboard.Layouts.Add(kl);
+            return keyboard;
+        }
+
+        private void labelXStretchDepth_Click(object sender, EventArgs e)
+        {
 
         }
     }

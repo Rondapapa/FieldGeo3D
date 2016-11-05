@@ -245,17 +245,23 @@
     <Compile Include="DrawingObjs\DrawingLine.cs" />
     <Compile Include="DrawingObjs\DrawingObject.cs" />
     <Compile Include="DrawingObjs\DrawingObjectInfo.cs" />
+    <Compile Include="Frm\FrmColorPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmColorPicker.Designer.cs">
+      <DependentUpon>FrmColorPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm\FrmObject.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm\FrmObject.Designer.cs">
       <DependentUpon>FrmObject.cs</DependentUpon>
     </Compile>
-    <Compile Include="Frm\FrmPlaneViaSpot.cs">
+    <Compile Include="Frm\FrmPlaneViaSpotOrLine.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm\FrmPlaneViaSpot.Designer.cs">
-      <DependentUpon>FrmPlaneViaSpot.cs</DependentUpon>
+    <Compile Include="Frm\FrmPlaneViaSpotOrLine.Designer.cs">
+      <DependentUpon>FrmPlaneViaSpotOrLine.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm\FrmPoint.cs">
       <SubType>Form</SubType>
@@ -285,11 +291,14 @@
     <Compile Include="DrawingObjs\DrawingRegion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Frm\FrmColorPicker.resx">
+      <DependentUpon>FrmColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmObject.resx">
       <DependentUpon>FrmObject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm\FrmPlaneViaSpot.resx">
-      <DependentUpon>FrmPlaneViaSpot.cs</DependentUpon>
+    <EmbeddedResource Include="Frm\FrmPlaneViaSpotOrLine.resx">
+      <DependentUpon>FrmPlaneViaSpotOrLine.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmPoint.resx">
       <DependentUpon>FrmPoint.cs</DependentUpon>

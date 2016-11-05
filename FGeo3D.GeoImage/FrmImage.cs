@@ -14,6 +14,8 @@ using YWCH.CHIDI.DZ.COM.Skyline;
 
 namespace FGeo3D.GeoImage
 {
+    using FGeo3D_TE.Frm;
+
     public partial class FrmImage : Form
     {
         //数据库对象
@@ -93,12 +95,7 @@ namespace FGeo3D.GeoImage
             };
         }
 
-        private void colorPickerBtn_SelectedColorChanged(object sender, EventArgs e)
-        {
-            _currColor = colorPickerButton.SelectedColor;
-            colorPickerButton.SymbolColor = _currColor;
-            //colorPickerButton.Text = "";
-        }
+
 
         private void btnDraw_Click(object sender, EventArgs e)
         {
@@ -260,6 +257,15 @@ namespace FGeo3D.GeoImage
         {
             
             Close();
+        }
+
+        private void buttonXColor_Click(object sender, EventArgs e)
+        {
+            FrmColorPickerInGeoImage frmColorPickerInGeoImage = new FrmColorPickerInGeoImage();
+            var dlgResult = frmColorPickerInGeoImage.ShowDialog();
+            if (dlgResult != DialogResult.OK) return;
+            this._currColor = frmColorPickerInGeoImage.PickedColor;
+            this.labelXColor.BackColor = _currColor;
         }
     }
 }

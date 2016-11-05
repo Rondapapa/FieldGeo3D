@@ -54,9 +54,9 @@ namespace FGeo3D.GeoObj
 
         public void DrawOnSkyline(ref SGWorld66 sgworld, double height, double width, object lineColor, object fillColor)
         {
-
-
             var gid = GeoHelper.CreateGroup("产状平面", ref sgworld);
+
+
 
             double[] vertices =
                 {

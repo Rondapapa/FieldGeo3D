@@ -50,6 +50,10 @@
     <Reference Include="MIConvexHull">
       <HintPath>..\packages\MIConvexHull.1.1.16.0905\lib\portable-net45+wp8+win8\MIConvexHull.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino3dmIO, Version=5.1.30000.14, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rhino3dmIO.dll-AnyCPU-Windows.5.1.30000.25\lib\net40\Rhino3dmIO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -72,6 +76,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+xcopy /s /y "$(SolutionDir)packages\Rhino3dmIO.dll-AnyCPU-Windows.5.1.30000.25\NativeBinaries\x86\*.*" "$(TargetDir)x86\"
+xcopy /s /y "$(SolutionDir)packages\Rhino3dmIO.dll-AnyCPU-Windows.5.1.30000.25\NativeBinaries\x64\*.*" "$(TargetDir)x64\"
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

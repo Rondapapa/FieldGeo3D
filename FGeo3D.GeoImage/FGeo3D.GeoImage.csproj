@@ -69,6 +69,12 @@
     <Compile Include="FrmCamera.Designer.cs">
       <DependentUpon>FrmCamera.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmColorPickerInGeoImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmColorPickerInGeoImage.designer.cs">
+      <DependentUpon>FrmColorPickerInGeoImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmImage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FrmCamera.resx">
       <DependentUpon>FrmCamera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmColorPickerInGeoImage.resx">
+      <DependentUpon>FrmColorPickerInGeoImage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmImage.resx">
       <DependentUpon>FrmImage.cs</DependentUpon>
