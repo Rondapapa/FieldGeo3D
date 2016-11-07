@@ -37,13 +37,16 @@
             this.groupPanelUseFor = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.listBoxAdvUseFor = new DevComponents.DotNetBar.ListBoxAdv();
             this.groupPanelSurfacePars = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.doubleInputGridDensity = new DevComponents.Editors.DoubleInput();
-            this.doubleInputShapeFactor = new DevComponents.Editors.DoubleInput();
+            this.doubleInputGridEdgeLength = new DevComponents.Editors.DoubleInput();
+            this.doubleInputAttitudeLength = new DevComponents.Editors.DoubleInput();
+            this.doubleInputShapeRadium = new DevComponents.Editors.DoubleInput();
             this.textBoxSurfaceBorder = new DevComponents.DotNetBar.Controls.TextBoxDropDown();
-            this.buttonXCalculate = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXCalculateParam = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXBuild = new DevComponents.DotNetBar.ButtonX();
             this.textBoxXCPCount = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelXGridDensity = new DevComponents.DotNetBar.LabelX();
-            this.labelXShapeFactor = new DevComponents.DotNetBar.LabelX();
+            this.labelXGridEdgeLength = new DevComponents.DotNetBar.LabelX();
+            this.labelXAttitudeLength = new DevComponents.DotNetBar.LabelX();
+            this.labelXShapeRadium = new DevComponents.DotNetBar.LabelX();
             this.labelXSurfaceBorder = new DevComponents.DotNetBar.LabelX();
             this.labelXCPCount = new DevComponents.DotNetBar.LabelX();
             this.buttonXSave = new DevComponents.DotNetBar.ButtonX();
@@ -52,21 +55,23 @@
             this.groupPanelMarkerType.SuspendLayout();
             this.groupPanelUseFor.SuspendLayout();
             this.groupPanelSurfacePars.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.doubleInputGridDensity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.doubleInputShapeFactor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.doubleInputGridEdgeLength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.doubleInputAttitudeLength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.doubleInputShapeRadium)).BeginInit();
             this.SuspendLayout();
             // 
             // groupPanelGeoObjs
             // 
+            this.groupPanelGeoObjs.BackColor = System.Drawing.Color.White;
             this.groupPanelGeoObjs.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanelGeoObjs.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014;
             this.groupPanelGeoObjs.Controls.Add(this.buttonXGeoObjAllDesel);
             this.groupPanelGeoObjs.Controls.Add(this.buttonXGeoObjAllSel);
             this.groupPanelGeoObjs.Controls.Add(this.listBoxAdvGeoObjs);
             this.groupPanelGeoObjs.DisabledBackColor = System.Drawing.Color.Empty;
-            this.groupPanelGeoObjs.Location = new System.Drawing.Point(1, 12);
+            this.groupPanelGeoObjs.Location = new System.Drawing.Point(1, 0);
             this.groupPanelGeoObjs.Name = "groupPanelGeoObjs";
-            this.groupPanelGeoObjs.Size = new System.Drawing.Size(199, 203);
+            this.groupPanelGeoObjs.Size = new System.Drawing.Size(199, 215);
             // 
             // 
             // 
@@ -131,7 +136,6 @@
             this.listBoxAdvGeoObjs.BackgroundStyle.Class = "ListBoxAdv";
             this.listBoxAdvGeoObjs.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.listBoxAdvGeoObjs.CheckBoxesVisible = true;
-            this.listBoxAdvGeoObjs.CheckStateMember = null;
             this.listBoxAdvGeoObjs.ContainerControlProcessDialogKey = true;
             this.listBoxAdvGeoObjs.DragDropSupport = true;
             this.listBoxAdvGeoObjs.Location = new System.Drawing.Point(3, 3);
@@ -143,13 +147,14 @@
             // 
             // groupPanelMarkerType
             // 
+            this.groupPanelMarkerType.BackColor = System.Drawing.Color.White;
             this.groupPanelMarkerType.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanelMarkerType.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
             this.groupPanelMarkerType.Controls.Add(this.listBoxAdvMarkerType);
             this.groupPanelMarkerType.DisabledBackColor = System.Drawing.Color.Empty;
-            this.groupPanelMarkerType.Location = new System.Drawing.Point(6, 225);
+            this.groupPanelMarkerType.Location = new System.Drawing.Point(4, 215);
             this.groupPanelMarkerType.Name = "groupPanelMarkerType";
-            this.groupPanelMarkerType.Size = new System.Drawing.Size(91, 139);
+            this.groupPanelMarkerType.Size = new System.Drawing.Size(96, 152);
             // 
             // 
             // 
@@ -189,12 +194,11 @@
             // 
             this.listBoxAdvMarkerType.BackgroundStyle.Class = "ListBoxAdv";
             this.listBoxAdvMarkerType.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.listBoxAdvMarkerType.CheckStateMember = null;
             this.listBoxAdvMarkerType.ContainerControlProcessDialogKey = true;
             this.listBoxAdvMarkerType.DragDropSupport = true;
-            this.listBoxAdvMarkerType.Location = new System.Drawing.Point(3, 6);
+            this.listBoxAdvMarkerType.Location = new System.Drawing.Point(2, 6);
             this.listBoxAdvMarkerType.Name = "listBoxAdvMarkerType";
-            this.listBoxAdvMarkerType.Size = new System.Drawing.Size(79, 106);
+            this.listBoxAdvMarkerType.Size = new System.Drawing.Size(80, 106);
             this.listBoxAdvMarkerType.TabIndex = 0;
             this.listBoxAdvMarkerType.Text = "listBoxAdv1";
             this.listBoxAdvMarkerType.ItemClick += new System.EventHandler(this.listBoxAdvMarkerType_ItemClick);
@@ -202,13 +206,14 @@
             // 
             // groupPanelUseFor
             // 
+            this.groupPanelUseFor.BackColor = System.Drawing.Color.White;
             this.groupPanelUseFor.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanelUseFor.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
             this.groupPanelUseFor.Controls.Add(this.listBoxAdvUseFor);
             this.groupPanelUseFor.DisabledBackColor = System.Drawing.Color.Empty;
-            this.groupPanelUseFor.Location = new System.Drawing.Point(103, 225);
+            this.groupPanelUseFor.Location = new System.Drawing.Point(100, 215);
             this.groupPanelUseFor.Name = "groupPanelUseFor";
-            this.groupPanelUseFor.Size = new System.Drawing.Size(91, 139);
+            this.groupPanelUseFor.Size = new System.Drawing.Size(100, 152);
             // 
             // 
             // 
@@ -248,32 +253,37 @@
             // 
             this.listBoxAdvUseFor.BackgroundStyle.Class = "ListBoxAdv";
             this.listBoxAdvUseFor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.listBoxAdvUseFor.CheckStateMember = null;
             this.listBoxAdvUseFor.ContainerControlProcessDialogKey = true;
             this.listBoxAdvUseFor.DragDropSupport = true;
             this.listBoxAdvUseFor.Location = new System.Drawing.Point(3, 6);
             this.listBoxAdvUseFor.Name = "listBoxAdvUseFor";
-            this.listBoxAdvUseFor.Size = new System.Drawing.Size(79, 106);
+            this.listBoxAdvUseFor.Size = new System.Drawing.Size(85, 106);
             this.listBoxAdvUseFor.TabIndex = 0;
             this.listBoxAdvUseFor.Text = "listBoxAdv1";
             this.listBoxAdvUseFor.ItemClick += new System.EventHandler(this.listBoxAdvUseFor_ItemClick);
             // 
             // groupPanelSurfacePars
             // 
+            this.groupPanelSurfacePars.BackColor = System.Drawing.Color.White;
             this.groupPanelSurfacePars.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanelSurfacePars.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.groupPanelSurfacePars.Controls.Add(this.doubleInputGridDensity);
-            this.groupPanelSurfacePars.Controls.Add(this.doubleInputShapeFactor);
+            this.groupPanelSurfacePars.Controls.Add(this.doubleInputGridEdgeLength);
+            this.groupPanelSurfacePars.Controls.Add(this.doubleInputAttitudeLength);
+            this.groupPanelSurfacePars.Controls.Add(this.doubleInputShapeRadium);
             this.groupPanelSurfacePars.Controls.Add(this.textBoxSurfaceBorder);
-            this.groupPanelSurfacePars.Controls.Add(this.buttonXCalculate);
+            this.groupPanelSurfacePars.Controls.Add(this.buttonXCalculateParam);
+            this.groupPanelSurfacePars.Controls.Add(this.buttonXBuild);
             this.groupPanelSurfacePars.Controls.Add(this.textBoxXCPCount);
-            this.groupPanelSurfacePars.Controls.Add(this.labelXGridDensity);
-            this.groupPanelSurfacePars.Controls.Add(this.labelXShapeFactor);
+            this.groupPanelSurfacePars.Controls.Add(this.labelXGridEdgeLength);
+            this.groupPanelSurfacePars.Controls.Add(this.labelXAttitudeLength);
+            this.groupPanelSurfacePars.Controls.Add(this.labelXShapeRadium);
             this.groupPanelSurfacePars.Controls.Add(this.labelXSurfaceBorder);
             this.groupPanelSurfacePars.Controls.Add(this.labelXCPCount);
             this.groupPanelSurfacePars.DisabledBackColor = System.Drawing.Color.Empty;
-            this.groupPanelSurfacePars.Location = new System.Drawing.Point(11, 373);
+            this.groupPanelSurfacePars.Location = new System.Drawing.Point(1, 366);
             this.groupPanelSurfacePars.Name = "groupPanelSurfacePars";
-            this.groupPanelSurfacePars.Size = new System.Drawing.Size(182, 166);
+            this.groupPanelSurfacePars.Size = new System.Drawing.Size(199, 197);
             // 
             // 
             // 
@@ -305,37 +315,56 @@
             this.groupPanelSurfacePars.TabIndex = 2;
             this.groupPanelSurfacePars.Text = "地质曲面参数";
             // 
-            // doubleInputGridDensity
+            // doubleInputGridEdgeLength
             // 
             // 
             // 
             // 
-            this.doubleInputGridDensity.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.doubleInputGridDensity.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.doubleInputGridDensity.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.doubleInputGridDensity.Increment = 1D;
-            this.doubleInputGridDensity.Location = new System.Drawing.Point(103, 84);
-            this.doubleInputGridDensity.MinValue = 0D;
-            this.doubleInputGridDensity.Name = "doubleInputGridDensity";
-            this.doubleInputGridDensity.ShowUpDown = true;
-            this.doubleInputGridDensity.Size = new System.Drawing.Size(70, 21);
-            this.doubleInputGridDensity.TabIndex = 4;
+            this.doubleInputGridEdgeLength.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.doubleInputGridEdgeLength.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.doubleInputGridEdgeLength.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.doubleInputGridEdgeLength.Increment = 1D;
+            this.doubleInputGridEdgeLength.Location = new System.Drawing.Point(103, 58);
+            this.doubleInputGridEdgeLength.MinValue = 0D;
+            this.doubleInputGridEdgeLength.Name = "doubleInputGridEdgeLength";
+            this.doubleInputGridEdgeLength.ShowUpDown = true;
+            this.doubleInputGridEdgeLength.Size = new System.Drawing.Size(87, 21);
+            this.doubleInputGridEdgeLength.TabIndex = 4;
+            this.doubleInputGridEdgeLength.ValueChanged += new System.EventHandler(this.doubleInputGridEdgeLength_ValueChanged);
             // 
-            // doubleInputShapeFactor
+            // doubleInputAttitudeLength
             // 
             // 
             // 
             // 
-            this.doubleInputShapeFactor.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.doubleInputShapeFactor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.doubleInputShapeFactor.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.doubleInputShapeFactor.Increment = 1D;
-            this.doubleInputShapeFactor.Location = new System.Drawing.Point(103, 59);
-            this.doubleInputShapeFactor.MinValue = 0D;
-            this.doubleInputShapeFactor.Name = "doubleInputShapeFactor";
-            this.doubleInputShapeFactor.ShowUpDown = true;
-            this.doubleInputShapeFactor.Size = new System.Drawing.Size(70, 21);
-            this.doubleInputShapeFactor.TabIndex = 4;
+            this.doubleInputAttitudeLength.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.doubleInputAttitudeLength.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.doubleInputAttitudeLength.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.doubleInputAttitudeLength.Increment = 1D;
+            this.doubleInputAttitudeLength.Location = new System.Drawing.Point(103, 85);
+            this.doubleInputAttitudeLength.MinValue = 0D;
+            this.doubleInputAttitudeLength.Name = "doubleInputAttitudeLength";
+            this.doubleInputAttitudeLength.ShowUpDown = true;
+            this.doubleInputAttitudeLength.Size = new System.Drawing.Size(87, 21);
+            this.doubleInputAttitudeLength.TabIndex = 4;
+            this.doubleInputAttitudeLength.ValueChanged += new System.EventHandler(this.doubleInputAttitudeLength_ValueChanged);
+            // 
+            // doubleInputShapeRadium
+            // 
+            // 
+            // 
+            // 
+            this.doubleInputShapeRadium.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.doubleInputShapeRadium.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.doubleInputShapeRadium.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.doubleInputShapeRadium.Increment = 1D;
+            this.doubleInputShapeRadium.Location = new System.Drawing.Point(102, 112);
+            this.doubleInputShapeRadium.MinValue = 0D;
+            this.doubleInputShapeRadium.Name = "doubleInputShapeRadium";
+            this.doubleInputShapeRadium.ShowUpDown = true;
+            this.doubleInputShapeRadium.Size = new System.Drawing.Size(87, 21);
+            this.doubleInputShapeRadium.TabIndex = 4;
+            this.doubleInputShapeRadium.ValueChanged += new System.EventHandler(this.doubleInputShapeRadium_ValueChanged);
             // 
             // textBoxSurfaceBorder
             // 
@@ -347,61 +376,90 @@
             this.textBoxSurfaceBorder.ButtonDropDown.Visible = true;
             this.textBoxSurfaceBorder.Location = new System.Drawing.Point(103, 33);
             this.textBoxSurfaceBorder.Name = "textBoxSurfaceBorder";
-            this.textBoxSurfaceBorder.Size = new System.Drawing.Size(70, 20);
+            this.textBoxSurfaceBorder.Size = new System.Drawing.Size(87, 20);
             this.textBoxSurfaceBorder.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.textBoxSurfaceBorder.TabIndex = 3;
             this.textBoxSurfaceBorder.Text = "";
             // 
-            // buttonXCalculate
+            // buttonXCalculateParam
             // 
-            this.buttonXCalculate.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonXCalculate.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXCalculate.Location = new System.Drawing.Point(3, 112);
-            this.buttonXCalculate.Name = "buttonXCalculate";
-            this.buttonXCalculate.Size = new System.Drawing.Size(169, 23);
-            this.buttonXCalculate.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonXCalculate.TabIndex = 2;
-            this.buttonXCalculate.Text = "计算并生成曲面";
+            this.buttonXCalculateParam.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXCalculateParam.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXCalculateParam.Location = new System.Drawing.Point(3, 139);
+            this.buttonXCalculateParam.Name = "buttonXCalculateParam";
+            this.buttonXCalculateParam.Size = new System.Drawing.Size(85, 26);
+            this.buttonXCalculateParam.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXCalculateParam.TabIndex = 2;
+            this.buttonXCalculateParam.Text = "计算默认参数";
+            this.buttonXCalculateParam.Click += new System.EventHandler(this.buttonXCalculate_Click);
+            // 
+            // buttonXBuild
+            // 
+            this.buttonXBuild.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXBuild.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXBuild.Location = new System.Drawing.Point(102, 139);
+            this.buttonXBuild.Name = "buttonXBuild";
+            this.buttonXBuild.Size = new System.Drawing.Size(86, 26);
+            this.buttonXBuild.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXBuild.TabIndex = 2;
+            this.buttonXBuild.Text = "生成曲面";
+            this.buttonXBuild.Click += new System.EventHandler(this.buttonXBuild_Click);
             // 
             // textBoxXCPCount
             // 
+            this.textBoxXCPCount.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
             this.textBoxXCPCount.Border.Class = "TextBoxBorder";
             this.textBoxXCPCount.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxXCPCount.DisabledBackColor = System.Drawing.Color.White;
+            this.textBoxXCPCount.ForeColor = System.Drawing.Color.Black;
             this.textBoxXCPCount.Location = new System.Drawing.Point(103, 7);
             this.textBoxXCPCount.Name = "textBoxXCPCount";
             this.textBoxXCPCount.PreventEnterBeep = true;
             this.textBoxXCPCount.ReadOnly = true;
-            this.textBoxXCPCount.Size = new System.Drawing.Size(70, 21);
+            this.textBoxXCPCount.Size = new System.Drawing.Size(87, 21);
             this.textBoxXCPCount.TabIndex = 1;
             // 
-            // labelXGridDensity
+            // labelXGridEdgeLength
             // 
-            this.labelXGridDensity.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelXGridDensity.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelXGridDensity.Location = new System.Drawing.Point(6, 85);
-            this.labelXGridDensity.Name = "labelXGridDensity";
-            this.labelXGridDensity.Size = new System.Drawing.Size(80, 20);
-            this.labelXGridDensity.TabIndex = 0;
-            this.labelXGridDensity.Text = "格网密度";
-            // 
-            // labelXShapeFactor
-            // 
-            this.labelXShapeFactor.BackColor = System.Drawing.Color.Transparent;
+            this.labelXGridEdgeLength.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
-            this.labelXShapeFactor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelXShapeFactor.Location = new System.Drawing.Point(6, 59);
-            this.labelXShapeFactor.Name = "labelXShapeFactor";
-            this.labelXShapeFactor.Size = new System.Drawing.Size(80, 20);
-            this.labelXShapeFactor.TabIndex = 0;
-            this.labelXShapeFactor.Text = "局部形状系数";
+            this.labelXGridEdgeLength.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelXGridEdgeLength.Location = new System.Drawing.Point(6, 59);
+            this.labelXGridEdgeLength.Name = "labelXGridEdgeLength";
+            this.labelXGridEdgeLength.Size = new System.Drawing.Size(80, 20);
+            this.labelXGridEdgeLength.TabIndex = 0;
+            this.labelXGridEdgeLength.Text = "网格长度";
+            // 
+            // labelXAttitudeLength
+            // 
+            this.labelXAttitudeLength.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelXAttitudeLength.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelXAttitudeLength.Location = new System.Drawing.Point(6, 85);
+            this.labelXAttitudeLength.Name = "labelXAttitudeLength";
+            this.labelXAttitudeLength.Size = new System.Drawing.Size(80, 20);
+            this.labelXAttitudeLength.TabIndex = 0;
+            this.labelXAttitudeLength.Text = "产状影响半径";
+            // 
+            // labelXShapeRadium
+            // 
+            this.labelXShapeRadium.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelXShapeRadium.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelXShapeRadium.Location = new System.Drawing.Point(6, 111);
+            this.labelXShapeRadium.Name = "labelXShapeRadium";
+            this.labelXShapeRadium.Size = new System.Drawing.Size(80, 20);
+            this.labelXShapeRadium.TabIndex = 0;
+            this.labelXShapeRadium.Text = "局部影响半径";
             // 
             // labelXSurfaceBorder
             // 
@@ -433,9 +491,9 @@
             // 
             this.buttonXSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXSave.Location = new System.Drawing.Point(12, 545);
+            this.buttonXSave.Location = new System.Drawing.Point(4, 569);
             this.buttonXSave.Name = "buttonXSave";
-            this.buttonXSave.Size = new System.Drawing.Size(85, 30);
+            this.buttonXSave.Size = new System.Drawing.Size(96, 30);
             this.buttonXSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXSave.TabIndex = 3;
             this.buttonXSave.Text = "保存";
@@ -445,9 +503,9 @@
             // 
             this.buttonXCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXCancel.Location = new System.Drawing.Point(108, 545);
+            this.buttonXCancel.Location = new System.Drawing.Point(104, 569);
             this.buttonXCancel.Name = "buttonXCancel";
-            this.buttonXCancel.Size = new System.Drawing.Size(85, 30);
+            this.buttonXCancel.Size = new System.Drawing.Size(96, 30);
             this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXCancel.TabIndex = 3;
             this.buttonXCancel.Text = "取消";
@@ -456,7 +514,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(201, 587);
+            this.ClientSize = new System.Drawing.Size(201, 600);
             this.Controls.Add(this.buttonXCancel);
             this.Controls.Add(this.buttonXSave);
             this.Controls.Add(this.groupPanelSurfacePars);
@@ -475,8 +533,9 @@
             this.groupPanelMarkerType.ResumeLayout(false);
             this.groupPanelUseFor.ResumeLayout(false);
             this.groupPanelSurfacePars.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.doubleInputGridDensity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.doubleInputShapeFactor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.doubleInputGridEdgeLength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.doubleInputAttitudeLength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.doubleInputShapeRadium)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -493,15 +552,18 @@
         private DevComponents.DotNetBar.ListBoxAdv listBoxAdvUseFor;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanelSurfacePars;
         private DevComponents.DotNetBar.Controls.TextBoxX textBoxXCPCount;
-        private DevComponents.DotNetBar.LabelX labelXGridDensity;
-        private DevComponents.DotNetBar.LabelX labelXShapeFactor;
+        private DevComponents.DotNetBar.LabelX labelXGridEdgeLength;
+        private DevComponents.DotNetBar.LabelX labelXShapeRadium;
         private DevComponents.DotNetBar.LabelX labelXSurfaceBorder;
         private DevComponents.DotNetBar.LabelX labelXCPCount;
-        private DevComponents.DotNetBar.ButtonX buttonXCalculate;
+        private DevComponents.DotNetBar.ButtonX buttonXBuild;
         private DevComponents.DotNetBar.ButtonX buttonXSave;
         private DevComponents.DotNetBar.ButtonX buttonXCancel;
-        private DevComponents.Editors.DoubleInput doubleInputGridDensity;
-        private DevComponents.Editors.DoubleInput doubleInputShapeFactor;
+        private DevComponents.Editors.DoubleInput doubleInputGridEdgeLength;
+        private DevComponents.Editors.DoubleInput doubleInputShapeRadium;
         private DevComponents.DotNetBar.Controls.TextBoxDropDown textBoxSurfaceBorder;
+        private DevComponents.DotNetBar.ButtonX buttonXCalculateParam;
+        private DevComponents.Editors.DoubleInput doubleInputAttitudeLength;
+        private DevComponents.DotNetBar.LabelX labelXAttitudeLength;
     }
 }

@@ -841,12 +841,12 @@ namespace FGeo3D_TE.Frm
 
         private void btnBuildSurface_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("功能尚在开发中");
-            return;
+            //MessageBox.Show("功能尚在开发中");
+            //return;
 
             try
             {
-                FrmCurvedSurfaceBuilder frmSurfaceBuilder = new FrmCurvedSurfaceBuilder(LoggingObject.DictOfLoggingObjects);
+                FrmCurvedSurfaceBuilder frmSurfaceBuilder = new FrmCurvedSurfaceBuilder(LoggingObject.DictOfLoggingObjects, ref this.sgworld);
                 frmSurfaceBuilder.Show();
             }
             catch (Exception ex)
@@ -2744,8 +2744,9 @@ namespace FGeo3D_TE.Frm
                     Triangulations tris = new Triangulations(pointsList, vertexList);
 
                     CurveAlgorithm.sgworld = this.sgworld;
-                    tris.Mesh(depth, CurveAlgorithm.CalcZinPlaneViaRing);
+                    tris.MeshRing(depth, CurveAlgorithm.CalcZinPlaneViaRing);
 
+                    // 绘制曲面
                     IColor66 fillColor = this.sgworld.Creator.CreateColor(
                         frmPlaneViaLine.PickedColor.R,
                         frmPlaneViaLine.PickedColor.G,
@@ -2753,7 +2754,7 @@ namespace FGeo3D_TE.Frm
                         196);
                     IColor66 lineColor = this.sgworld.Creator.CreateColor(255, 255, 255, 0);
 
-                    var parentGid = GeoHelper.CreateGroup("闭合地质曲面", ref sgworld);
+                    var parentGid = GeoHelper.CreateGroup("闭合地质曲面", ref this.sgworld);
 
                     Facet facet = new Facet(ref this.sgworld, tris.TsData, thisDrawingObj.Name, parentGid, lineColor, fillColor);
                     facet.DrawFacet();

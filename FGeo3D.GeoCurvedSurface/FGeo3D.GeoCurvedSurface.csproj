@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Facet.cs" />
+    <Compile Include="SurfaceEquation.cs" />
     <Compile Include="Triangulations.cs" />
     <Compile Include="Vertex.cs" />
   </ItemGroup>

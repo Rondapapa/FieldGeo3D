@@ -24,6 +24,33 @@ namespace FGeo3D.GeoCurvedSurface
     {
         public static SGWorld66 sgworld;
 
+        /// <summary>
+        /// 获取一组点集的四个包络顶点（平面XY）
+        /// </summary>
+        /// <param name="pointsList"></param>
+        /// <returns></returns>
+        public static List<Point> GetEdgePoints(IList<Point> pointsList)
+        {
+            double minX = pointsList[0].X;
+            double maxX = pointsList[0].X;
+            double minY = pointsList[0].Y;
+            double maxY = pointsList[0].Y;
+
+            foreach (var p in pointsList)
+            {
+                if (p.X < minX) minX = p.X;
+                if (p.X > maxX) maxX = p.X;
+                if (p.Y < minY) minY = p.Y;
+                if (p.Y > maxY) maxY = p.Y;
+            }
+
+            Point one = new Point(maxX, maxY, 0);
+            Point two = new Point(minX, maxY, 0);
+            Point three = new Point(minX, minY, 0);
+            Point four = new Point(maxX, minY, 0);
+
+            return new List<Point>(new[] { one, two, three, four });
+        }
 
         /// <summary>
         /// 闭合曲线生成曲面的插值算法
@@ -88,7 +115,7 @@ namespace FGeo3D.GeoCurvedSurface
 
 
         /// <summary>
-        /// 获取xy平面上的点集中心点
+        /// 获取点集中心点
         /// </summary>
         /// <param name="pointsList"></param>
         /// <returns></returns>
@@ -147,6 +174,41 @@ namespace FGeo3D.GeoCurvedSurface
             }
 
             return new[] { pA, pB };
+        }
+
+        /// <summary>
+        /// 获取点集之间的平均距离
+        /// </summary>
+        /// <param name="pointLists"></param>
+        /// <returns></returns>
+        public static double MeanDistanceOfPoints(IList<Point> pointLists)
+        {
+            if (pointLists.Count <= 0)
+            {
+                throw new Exception("点集为空！");
+            }
+
+            int distCount = pointLists.Count * pointLists.Count / 2;
+
+            List<double> distances = new List<double>(distCount);
+            for (int i = 0; i < pointLists.Count; ++i)
+            {
+                for (int j = i + 1; j < pointLists.Count; ++j)
+                {
+                    distances.Add(pointLists[i].DistanceToPoint(pointLists[j]));
+                }
+            }
+
+            distances.Sort();
+
+            double distSum = 0.0;
+            foreach (var d in distances)
+            {
+                distSum += d;
+            }
+
+            return distSum / distCount;
+
         }
     }
 }
