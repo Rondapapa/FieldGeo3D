@@ -353,6 +353,7 @@
             // gpMeasure
             // 
             this.gpMeasure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.gpMeasure.BackColor = System.Drawing.Color.White;
             this.gpMeasure.CanvasColor = System.Drawing.SystemColors.Control;
             this.gpMeasure.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2013;
             this.gpMeasure.Controls.Add(this.btnTerrainArea);
@@ -666,7 +667,7 @@
             // 
             // 
             this.switchButtonUnderground.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.switchButtonUnderground.Location = new System.Drawing.Point(1175, 115);
+            this.switchButtonUnderground.Location = new System.Drawing.Point(1176, 115);
             this.switchButtonUnderground.Name = "switchButtonUnderground";
             this.switchButtonUnderground.OffText = "关";
             this.switchButtonUnderground.OnText = "开";
@@ -682,7 +683,7 @@
             // 
             // 
             this.labelUnderGroundSwitch.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelUnderGroundSwitch.Location = new System.Drawing.Point(1174, 94);
+            this.labelUnderGroundSwitch.Location = new System.Drawing.Point(1175, 94);
             this.labelUnderGroundSwitch.Name = "labelUnderGroundSwitch";
             this.labelUnderGroundSwitch.Size = new System.Drawing.Size(56, 15);
             this.labelUnderGroundSwitch.TabIndex = 22;

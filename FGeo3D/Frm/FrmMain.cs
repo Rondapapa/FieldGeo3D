@@ -9,9 +9,9 @@ using FGeo3D.GeoImage;
 using FGeo3D.GPS;
 using FGeo3D_TE.DrawingObjs;
 using GeoIM.CHIDI.DZ.Util.Common;
-using TerraExplorerX;
 using YWCH.CHIDI.DZ.COM.Skyline;
 using FGeo3D.LoggingObj;
+using TerraExplorerX;
 
 namespace FGeo3D_TE.Frm
 {
@@ -657,10 +657,10 @@ namespace FGeo3D_TE.Frm
                 return;
             }
 
-            StatusSystem.Text = @"系统状态：【图像编录】";
-            var frmImage = new FrmImage(ref db);
-            frmImage.Show();
-            StatusSystem.Text = @"系统状态：【就绪】";
+            this.StatusSystem.Text = @"系统状态：【图像编录】";
+            var frmImage = new FrmImage(ref this.db);
+            frmImage.ShowDialog();
+            this.StatusSystem.Text = @"系统状态：【就绪】";
         }
 
         private void btnLine_Click(object sender, EventArgs e)

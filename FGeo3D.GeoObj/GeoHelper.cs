@@ -259,11 +259,12 @@ namespace FGeo3D.GeoObj
         /// <summary>
         /// 在多边形内部以给定间隔插入规则格网点
         /// </summary>
-        /// <param name="polygonHull"></param>
+        /// <param name="vertexList"></param>
         /// <param name="interval"></param>
         /// <returns></returns>
         public static List<Point> InsertPointsInPolygon(List<Point> vertexList, double interval)
         {
+            if(vertexList.Count<3) throw new Exception("包络点小于3个，无法实现加密");
             List<Point> resultPointList = new List<Point>(vertexList);
 
             // 外围最小矩形

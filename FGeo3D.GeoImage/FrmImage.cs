@@ -99,22 +99,35 @@ namespace FGeo3D.GeoImage
 
         private void btnDraw_Click(object sender, EventArgs e)
         {
-            if (_currBitmap == null)
+            if (this._currBitmap == null)
             {
                 MessageBox.Show(@"请先获取地质图像！", @"操作流程错误");
                 return;
             }
-            if (btnDraw.Checked)
+            if (this.RectifyInfo == null || !this.RectifyInfo.IsValid)
             {
-                pictureBox.MouseDown -= PictureBoxOnMouseDown_DrawLine;
-                btnDraw.Checked = false;
+                MessageBox.Show(@"请先输入校正参数");
+                return;
+            }
+            if (this._isRectifying)
+            {
+                MessageBox.Show(@"请先结束校正");
+                return;
+            }
+            if (this.btnDraw.Checked)
+            {
+                // 如果绘制按钮处于“按下”状态
+                this.pictureBox.MouseDown -= this.PictureBoxOnMouseDown_DrawLine;
+                this.btnDraw.Checked = false;
             }
             else
             {
-                _pen = new Pen(_currColor, 2);
-                _brush = new SolidBrush(_currColor);
-                pictureBox.MouseDown += PictureBoxOnMouseDown_DrawLine;
-                btnDraw.Checked = true;
+                this._pen = new Pen(this._currColor, 2);
+                this._brush = new SolidBrush(this._currColor);
+                this.pictureBox.MouseDown += this.PictureBoxOnMouseDown_DrawLine;
+                this.btnDraw.Checked = true;
+                this._currScreenLinePoints.Clear();
+                this.pictureBox.Refresh();
             }
             
         }
@@ -129,7 +142,6 @@ namespace FGeo3D.GeoImage
             _currScreenLinePoints.Add(new System.Drawing.Point(e.X, e.Y));
             
             //画点
-            //g.DrawEllipse(_pen, e.X, e.Y, 5, 5);
             g.FillEllipse(_brush, e.X - 5, e.Y - 5, 10, 10);
             //连线
             if (_currScreenLinePoints.Count > 1)
@@ -140,8 +152,8 @@ namespace FGeo3D.GeoImage
 
         private void btnErase_Click(object sender, EventArgs e)
         {
-            _currScreenLinePoints.Clear();
-            pictureBox.Refresh();
+            this._currScreenLinePoints.Clear();
+            this.pictureBox.Refresh();
         }
 
 
@@ -199,7 +211,6 @@ namespace FGeo3D.GeoImage
             }
             
             
-            
             //屏幕上画点，获取该点的屏幕坐标
             if (_isRectifying == false)
             {
@@ -212,14 +223,14 @@ namespace FGeo3D.GeoImage
                 RectifyInfo = new RectifyInfo();
                 pictureBox.MouseDown += PictureBoxOnMouseDown_Rectify;
                 btnRectify.Text = @"结束校正";
-                _isRectifying = true;
+                this._isRectifying = true;
             }
             else
             {
                 //点击后结束校正状态
                 pictureBox.MouseDown -= PictureBoxOnMouseDown_Rectify;
                 btnRectify.Text = @"开始校正";
-                _isRectifying = false;
+                this._isRectifying = false;
                 RectifyInfo.CalculateRectification();
 
                 
@@ -253,11 +264,7 @@ namespace FGeo3D.GeoImage
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            
-            Close();
-        }
+
 
         private void buttonXColor_Click(object sender, EventArgs e)
         {
@@ -266,6 +273,28 @@ namespace FGeo3D.GeoImage
             if (dlgResult != DialogResult.OK) return;
             this._currColor = frmColorPickerInGeoImage.PickedColor;
             this.labelXColor.BackColor = _currColor;
+        }
+
+        
+        private void buttonXClosetRing_Click(object sender, EventArgs e)
+        {
+            if (this._currScreenLinePoints.Count < 3)
+            {
+                MessageBox.Show(@"无标记线或当前标记线数目小于2，无法形成闭合线环。");
+                return;
+            }
+            var firstP = this._currScreenLinePoints[0];
+            var lastP = this._currScreenLinePoints[this._currScreenLinePoints.Count - 1];
+            double dist = Math.Sqrt(Math.Pow(firstP.X - lastP.X, 2) + Math.Pow(firstP.Y - lastP.Y, 2));
+            if (dist < 0.01)
+            {
+                MessageBox.Show(@"当前绘制点与起点距离太小，无法形成闭合线环。");
+                return;
+            }
+            g.DrawLine(this._pen, this._currScreenLinePoints[this._currScreenLinePoints.Count - 1], this._currScreenLinePoints[0]);
+
+            this.pictureBox.MouseDown -= this.PictureBoxOnMouseDown_DrawLine;
+            this.btnDraw.Checked = false;
         }
     }
 }

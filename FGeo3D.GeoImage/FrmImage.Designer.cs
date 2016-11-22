@@ -34,12 +34,12 @@
             this.btnDraw = new DevComponents.DotNetBar.ButtonX();
             this.btnDrawApply = new DevComponents.DotNetBar.ButtonX();
             this.btnRectify = new DevComponents.DotNetBar.ButtonX();
-            this.btnSave = new DevComponents.DotNetBar.ButtonX();
             this.btnGetImageFromFile = new DevComponents.DotNetBar.ButtonX();
             this.btnErase = new DevComponents.DotNetBar.ButtonX();
             this.labelXColor = new DevComponents.DotNetBar.LabelX();
             this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
             this.buttonXColor = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXClosetRing = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,9 +47,9 @@
             // 
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pictureBox.Location = new System.Drawing.Point(91, 12);
+            this.pictureBox.Location = new System.Drawing.Point(87, 12);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(924, 597);
+            this.pictureBox.Size = new System.Drawing.Size(924, 591);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -60,7 +60,7 @@
             this.btnDraw.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnDraw.Image = ((System.Drawing.Image)(resources.GetObject("btnDraw.Image")));
             this.btnDraw.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnDraw.Location = new System.Drawing.Point(6, 286);
+            this.btnDraw.Location = new System.Drawing.Point(6, 285);
             this.btnDraw.Name = "btnDraw";
             this.btnDraw.Size = new System.Drawing.Size(75, 75);
             this.btnDraw.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -74,7 +74,7 @@
             this.btnDrawApply.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnDrawApply.Image = ((System.Drawing.Image)(resources.GetObject("btnDrawApply.Image")));
             this.btnDrawApply.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnDrawApply.Location = new System.Drawing.Point(6, 453);
+            this.btnDrawApply.Location = new System.Drawing.Point(6, 528);
             this.btnDrawApply.Name = "btnDrawApply";
             this.btnDrawApply.Size = new System.Drawing.Size(75, 75);
             this.btnDrawApply.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -96,20 +96,6 @@
             this.btnRectify.Text = "开始校正";
             this.btnRectify.Click += new System.EventHandler(this.btnRectify_Click);
             // 
-            // btnSave
-            // 
-            this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnSave.Location = new System.Drawing.Point(6, 534);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 75);
-            this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSave.TabIndex = 6;
-            this.btnSave.Text = "结束编录";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
             // btnGetImageFromFile
             // 
             this.btnGetImageFromFile.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -130,7 +116,7 @@
             this.btnErase.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnErase.Image = ((System.Drawing.Image)(resources.GetObject("btnErase.Image")));
             this.btnErase.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnErase.Location = new System.Drawing.Point(6, 368);
+            this.btnErase.Location = new System.Drawing.Point(6, 366);
             this.btnErase.Name = "btnErase";
             this.btnErase.Size = new System.Drawing.Size(75, 75);
             this.btnErase.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -146,7 +132,7 @@
             this.labelXColor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelXColor.Location = new System.Drawing.Point(6, 256);
             this.labelXColor.Name = "labelXColor";
-            this.labelXColor.Size = new System.Drawing.Size(75, 24);
+            this.labelXColor.Size = new System.Drawing.Size(75, 23);
             this.labelXColor.TabIndex = 9;
             this.labelXColor.Text = "当前颜色";
             this.labelXColor.TextAlignment = System.Drawing.StringAlignment.Center;
@@ -170,15 +156,28 @@
             this.buttonXColor.Text = "选择颜色";
             this.buttonXColor.Click += new System.EventHandler(this.buttonXColor_Click);
             // 
+            // buttonXClosetRing
+            // 
+            this.buttonXClosetRing.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXClosetRing.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXClosetRing.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.buttonXClosetRing.Location = new System.Drawing.Point(6, 447);
+            this.buttonXClosetRing.Name = "buttonXClosetRing";
+            this.buttonXClosetRing.Size = new System.Drawing.Size(75, 75);
+            this.buttonXClosetRing.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXClosetRing.TabIndex = 7;
+            this.buttonXClosetRing.Text = "封闭标记";
+            this.buttonXClosetRing.Click += new System.EventHandler(this.buttonXClosetRing_Click);
+            // 
             // FrmImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 616);
+            this.ClientSize = new System.Drawing.Size(1022, 610);
             this.Controls.Add(this.buttonXColor);
             this.Controls.Add(this.labelXColor);
+            this.Controls.Add(this.buttonXClosetRing);
             this.Controls.Add(this.btnErase);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnRectify);
             this.Controls.Add(this.btnDrawApply);
             this.Controls.Add(this.btnDraw);
@@ -198,11 +197,11 @@
         private DevComponents.DotNetBar.ButtonX btnDraw;
         private DevComponents.DotNetBar.ButtonX btnDrawApply;
         private DevComponents.DotNetBar.ButtonX btnRectify;
-        private DevComponents.DotNetBar.ButtonX btnSave;
         private DevComponents.DotNetBar.ButtonX btnGetImageFromFile;
         private DevComponents.DotNetBar.ButtonX btnErase;
         private DevComponents.DotNetBar.LabelX labelXColor;
         private DevComponents.DotNetBar.StyleManager styleManager1;
         private DevComponents.DotNetBar.ButtonX buttonXColor;
+        private DevComponents.DotNetBar.ButtonX buttonXClosetRing;
     }
 }

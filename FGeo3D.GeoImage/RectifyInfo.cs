@@ -25,6 +25,8 @@ namespace FGeo3D.GeoImage
         public Plane RectifyModelWdZ;
         public Plane RectifyModelWdReal; //真实坐标点所构成平面
 
+        public bool IsValid => this.RectifyDatas.Count >= 3;
+
         public RectifyInfo()
         {
             
