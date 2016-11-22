@@ -57,6 +57,57 @@ namespace FGeo3D.GeoImage
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// 显示所有标记线
+        /// </summary>
+        private void RedrawImageLines(Graphics inG)
+        {
+            
+            var color = this._currColor.IsEmpty ? Color.Black : this._currColor;
+            var inPen = new Pen(color, 2);
+            var inSolidBrush = new SolidBrush(color);
+            foreach (var thisImageLine in this._lineList)
+            {
+                inPen.Color = thisImageLine.Color;
+                inSolidBrush.Color = thisImageLine.Color;
+                foreach (var thisScreenPoint in thisImageLine.ScreenPoints)
+                {
+                    inG.FillEllipse(inSolidBrush, thisScreenPoint.X - 5, thisScreenPoint.Y - 5, 10, 10);
+                }
+
+                inG.DrawLines(inPen, thisImageLine.ScreenPoints.ToArray());
+            }
+        }
+
+        /// <summary>
+        /// 绘制当前所操作的标记线
+        /// </summary>
+        private void RedrawCurrLine(Graphics inG)
+        {
+            var color = this._currColor.IsEmpty ? Color.Black : this._currColor;
+            var inPen = new Pen(color, 2);
+            var inSolidBrush = new SolidBrush(color);
+
+            foreach (var thisScreenPoint in this._currScreenLinePoints)
+            {
+                inG.FillEllipse(inSolidBrush, thisScreenPoint.X - 5, thisScreenPoint.Y - 5, 10, 10);
+            }
+            if (this._currScreenLinePoints.Count > 1)
+            {
+                inG.DrawLines(inPen, this._currScreenLinePoints.ToArray());
+            }
+
+
+        }
+
+
+        private void OnPaint(object sender, PaintEventArgs e)
+        {
+            this.RedrawImageLines(e.Graphics);
+            this.RedrawCurrLine(e.Graphics);
+        }
+
         private void btnGetImageFromCamera_Click(object sender, EventArgs e)
         {
             var frmCamera = new FrmCamera();
@@ -75,10 +126,7 @@ namespace FGeo3D.GeoImage
             pictureBox.Image = _currBitmap;
 
             this.g = this.pictureBox.CreateGraphics();
-            this.pictureBox.Paint += (o, args) =>
-            {
-                this.RedrawImageLines();
-            };
+            this.pictureBox.Paint += this.OnPaint;
 
         }
 
@@ -126,15 +174,8 @@ namespace FGeo3D.GeoImage
                 MessageBox.Show(@"请先输入校正参数");
                 return;
             }
-            _currScreenLinePoints.Add(new System.Drawing.Point(e.X, e.Y));
-            
-            //画点
-            g.FillEllipse(_brush, e.X - 5, e.Y - 5, 10, 10);
-            //连线
-            if (_currScreenLinePoints.Count > 1)
-            {
-                g.DrawLine(_pen, _currScreenLinePoints[_currScreenLinePoints.Count - 2], _currScreenLinePoints[_currScreenLinePoints.Count - 1]);
-            }
+            this._currScreenLinePoints.Add(new System.Drawing.Point(e.X, e.Y));
+            this.pictureBox.Refresh();
         }
 
         private void btnErase_Click(object sender, EventArgs e)
@@ -291,32 +332,5 @@ namespace FGeo3D.GeoImage
 
         }
 
-        /// <summary>
-        /// 显示所有标记线
-        /// </summary>
-        private void RedrawImageLines()
-        {
-            if (this.g == null)
-            {
-                MessageBox.Show(@"no g"); // test
-                return;
-            }
-            var inG = this.g;
-            var color = this._currColor.IsEmpty ? Color.Black : this._currColor;
-            var inPen = new Pen(color, 2);
-            var inSolidBrush = new SolidBrush(color);
-            foreach (var thisImageLine in _lineList)
-            {
-                inPen.Color = thisImageLine.Color;
-                inSolidBrush.Color = thisImageLine.Color;
-                foreach (var thisScreenPoint in thisImageLine.ScreenPoints)
-                {
-
-                    inG.FillEllipse(inSolidBrush, thisScreenPoint.X - 5, thisScreenPoint.Y - 5, 10, 10);
-                }
-
-                inG.DrawLines(inPen, thisImageLine.ScreenPoints.ToArray());
-            }
-        }
     }
 }
