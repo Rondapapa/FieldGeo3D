@@ -183,9 +183,12 @@
             this.Controls.Add(this.btnDraw);
             this.Controls.Add(this.btnGetImageFromFile);
             this.Controls.Add(this.pictureBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FrmImage";
             this.Text = "地质图像编录";
             this.Load += new System.EventHandler(this.FrmImage_Load);
+            this.Resize += new System.EventHandler(this.FrmImageResize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 

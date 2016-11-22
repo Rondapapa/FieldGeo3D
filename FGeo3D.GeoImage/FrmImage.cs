@@ -74,25 +74,12 @@ namespace FGeo3D.GeoImage
             _currBitmap = new Bitmap(ofd.FileName);
             pictureBox.Image = _currBitmap;
 
-            g = pictureBox.CreateGraphics();
-            pictureBox.Paint += (o, args) =>
+            this.g = this.pictureBox.CreateGraphics();
+            this.pictureBox.Paint += (o, args) =>
             {
-                var inG = args.Graphics;
-                var inPen = new Pen(Color.Black, 2);
-                var inSolidBrush = new SolidBrush(Color.Black);
-                foreach (var thisImageLine in _lineList)
-                {
-                    inPen.Color = thisImageLine.Color;
-                    inSolidBrush.Color = thisImageLine.Color;
-                    foreach (var thisScreenPoint in thisImageLine.ScreenPoints)
-                    {
-                        //inG.DrawEllipse(inPen, thisScreenPoint.X, thisScreenPoint.Y, 5, 5);
-                        inG.FillEllipse(inSolidBrush, thisScreenPoint.X - 5, thisScreenPoint.Y - 5 ,10, 10);
-                    }
-                    inG.DrawLines(inPen, thisImageLine.ScreenPoints.ToArray());
-                    
-                }
+                this.RedrawImageLines();
             };
+
         }
 
 
@@ -292,9 +279,44 @@ namespace FGeo3D.GeoImage
                 return;
             }
             g.DrawLine(this._pen, this._currScreenLinePoints[this._currScreenLinePoints.Count - 1], this._currScreenLinePoints[0]);
-
+            this._currScreenLinePoints.Add(new Point(firstP.X, firstP.Y));
             this.pictureBox.MouseDown -= this.PictureBoxOnMouseDown_DrawLine;
             this.btnDraw.Checked = false;
+        }
+
+
+        private void FrmImageResize(object sender, EventArgs e)
+        {
+            this.pictureBox.Refresh();
+
+        }
+
+        /// <summary>
+        /// 显示所有标记线
+        /// </summary>
+        private void RedrawImageLines()
+        {
+            if (this.g == null)
+            {
+                MessageBox.Show(@"no g"); // test
+                return;
+            }
+            var inG = this.g;
+            var color = this._currColor.IsEmpty ? Color.Black : this._currColor;
+            var inPen = new Pen(color, 2);
+            var inSolidBrush = new SolidBrush(color);
+            foreach (var thisImageLine in _lineList)
+            {
+                inPen.Color = thisImageLine.Color;
+                inSolidBrush.Color = thisImageLine.Color;
+                foreach (var thisScreenPoint in thisImageLine.ScreenPoints)
+                {
+
+                    inG.FillEllipse(inSolidBrush, thisScreenPoint.X - 5, thisScreenPoint.Y - 5, 10, 10);
+                }
+
+                inG.DrawLines(inPen, thisImageLine.ScreenPoints.ToArray());
+            }
         }
     }
 }
