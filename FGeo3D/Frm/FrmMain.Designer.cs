@@ -77,6 +77,9 @@
             this.switchButtonUnderground = new DevComponents.DotNetBar.Controls.SwitchButton();
             this.labelUnderGroundSwitch = new DevComponents.DotNetBar.LabelX();
             this.buttonXImageLogging = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXSlopeDrawing = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXCavityDrawing = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXFoundationDrawing = new DevComponents.DotNetBar.ButtonX();
             this.gpMeasure.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
@@ -362,7 +365,7 @@
             this.gpMeasure.Controls.Add(this.btnHorizonalDistance);
             this.gpMeasure.Controls.Add(this.btnAbsDistance);
             this.gpMeasure.DisabledBackColor = System.Drawing.Color.Empty;
-            this.gpMeasure.Location = new System.Drawing.Point(1173, 405);
+            this.gpMeasure.Location = new System.Drawing.Point(1237, 480);
             this.gpMeasure.Name = "gpMeasure";
             this.gpMeasure.Size = new System.Drawing.Size(57, 199);
             // 
@@ -468,7 +471,7 @@
             this.btnGPS.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnGPS.Image = ((System.Drawing.Image)(resources.GetObject("btnGPS.Image")));
             this.btnGPS.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnGPS.Location = new System.Drawing.Point(1175, 144);
+            this.btnGPS.Location = new System.Drawing.Point(1239, 66);
             this.btnGPS.Name = "btnGPS";
             this.btnGPS.Size = new System.Drawing.Size(55, 55);
             this.btnGPS.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -483,7 +486,7 @@
             this.btnQuery.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnQuery.Image = ((System.Drawing.Image)(resources.GetObject("btnQuery.Image")));
             this.btnQuery.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnQuery.Location = new System.Drawing.Point(1174, 205);
+            this.btnQuery.Location = new System.Drawing.Point(1239, 127);
             this.btnQuery.Name = "btnQuery";
             this.btnQuery.Size = new System.Drawing.Size(55, 55);
             this.btnQuery.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -496,9 +499,9 @@
             this.btnTest.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTest.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnTest.Location = new System.Drawing.Point(1173, 344);
+            this.btnTest.Location = new System.Drawing.Point(1238, 434);
             this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(55, 55);
+            this.btnTest.Size = new System.Drawing.Size(55, 26);
             this.btnTest.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnTest.TabIndex = 17;
             this.btnTest.Text = "临时测试";
@@ -596,9 +599,9 @@
             this.StatusSystem,
             this.StatusWorkingObj,
             this.StatusGPS});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 607);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 682);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1235, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(1299, 26);
             this.statusStrip1.TabIndex = 20;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -639,7 +642,7 @@
             this.axTE3DWindow1.Location = new System.Drawing.Point(217, 94);
             this.axTE3DWindow1.Name = "axTE3DWindow1";
             this.axTE3DWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTE3DWindow1.OcxState")));
-            this.axTE3DWindow1.Size = new System.Drawing.Size(950, 514);
+            this.axTE3DWindow1.Size = new System.Drawing.Size(1014, 589);
             this.axTE3DWindow1.TabIndex = 1;
             // 
             // axTEInformationWindow1
@@ -648,7 +651,7 @@
             this.axTEInformationWindow1.Location = new System.Drawing.Point(0, 94);
             this.axTEInformationWindow1.Name = "axTEInformationWindow1";
             this.axTEInformationWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTEInformationWindow1.OcxState")));
-            this.axTEInformationWindow1.Size = new System.Drawing.Size(211, 514);
+            this.axTEInformationWindow1.Size = new System.Drawing.Size(211, 589);
             this.axTEInformationWindow1.TabIndex = 0;
             // 
             // timerGPSReader
@@ -667,7 +670,7 @@
             // 
             // 
             this.switchButtonUnderground.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.switchButtonUnderground.Location = new System.Drawing.Point(1176, 115);
+            this.switchButtonUnderground.Location = new System.Drawing.Point(1238, 33);
             this.switchButtonUnderground.Name = "switchButtonUnderground";
             this.switchButtonUnderground.OffText = "关";
             this.switchButtonUnderground.OnText = "开";
@@ -683,7 +686,7 @@
             // 
             // 
             this.labelUnderGroundSwitch.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelUnderGroundSwitch.Location = new System.Drawing.Point(1175, 94);
+            this.labelUnderGroundSwitch.Location = new System.Drawing.Point(1237, 12);
             this.labelUnderGroundSwitch.Name = "labelUnderGroundSwitch";
             this.labelUnderGroundSwitch.Size = new System.Drawing.Size(56, 15);
             this.labelUnderGroundSwitch.TabIndex = 22;
@@ -697,7 +700,7 @@
             this.buttonXImageLogging.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.buttonXImageLogging.Image = ((System.Drawing.Image)(resources.GetObject("buttonXImageLogging.Image")));
             this.buttonXImageLogging.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.buttonXImageLogging.Location = new System.Drawing.Point(1173, 266);
+            this.buttonXImageLogging.Location = new System.Drawing.Point(1239, 188);
             this.buttonXImageLogging.Name = "buttonXImageLogging";
             this.buttonXImageLogging.Size = new System.Drawing.Size(55, 57);
             this.buttonXImageLogging.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -705,16 +708,61 @@
             this.buttonXImageLogging.Text = "图录";
             this.buttonXImageLogging.Click += new System.EventHandler(this.btnImageLogging_Click);
             // 
+            // buttonXSlopeDrawing
+            // 
+            this.buttonXSlopeDrawing.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXSlopeDrawing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonXSlopeDrawing.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXSlopeDrawing.Location = new System.Drawing.Point(1239, 251);
+            this.buttonXSlopeDrawing.Name = "buttonXSlopeDrawing";
+            this.buttonXSlopeDrawing.Size = new System.Drawing.Size(55, 55);
+            this.buttonXSlopeDrawing.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXSlopeDrawing.TabIndex = 17;
+            this.buttonXSlopeDrawing.Text = "边坡测绘";
+            this.buttonXSlopeDrawing.Visible = false;
+            this.buttonXSlopeDrawing.Click += new System.EventHandler(this.btnTest_Click);
+            // 
+            // buttonXCavityDrawing
+            // 
+            this.buttonXCavityDrawing.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXCavityDrawing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonXCavityDrawing.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXCavityDrawing.Location = new System.Drawing.Point(1239, 312);
+            this.buttonXCavityDrawing.Name = "buttonXCavityDrawing";
+            this.buttonXCavityDrawing.Size = new System.Drawing.Size(55, 55);
+            this.buttonXCavityDrawing.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXCavityDrawing.TabIndex = 17;
+            this.buttonXCavityDrawing.Text = "洞室测绘";
+            this.buttonXCavityDrawing.Visible = false;
+            this.buttonXCavityDrawing.Click += new System.EventHandler(this.btnTest_Click);
+            // 
+            // buttonXFoundationDrawing
+            // 
+            this.buttonXFoundationDrawing.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXFoundationDrawing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonXFoundationDrawing.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXFoundationDrawing.Location = new System.Drawing.Point(1239, 373);
+            this.buttonXFoundationDrawing.Name = "buttonXFoundationDrawing";
+            this.buttonXFoundationDrawing.Size = new System.Drawing.Size(55, 55);
+            this.buttonXFoundationDrawing.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXFoundationDrawing.TabIndex = 17;
+            this.buttonXFoundationDrawing.Text = "基础测绘";
+            this.buttonXFoundationDrawing.Visible = false;
+            this.buttonXFoundationDrawing.Click += new System.EventHandler(this.btnTest_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1235, 633);
+            this.ClientSize = new System.Drawing.Size(1299, 708);
             this.Controls.Add(this.labelUnderGroundSwitch);
             this.Controls.Add(this.switchButtonUnderground);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.buttonXFoundationDrawing);
+            this.Controls.Add(this.buttonXCavityDrawing);
+            this.Controls.Add(this.buttonXSlopeDrawing);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.gpMeasure);
             this.Controls.Add(this.btnGPS);
@@ -727,6 +775,7 @@
             this.Controls.Add(this.axTE3DWindow1);
             this.Controls.Add(this.axTEInformationWindow1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FieldGeo3D";
@@ -789,6 +838,9 @@
         private DevComponents.DotNetBar.Controls.SwitchButton switchButtonUnderground;
         private DevComponents.DotNetBar.LabelX labelUnderGroundSwitch;
         private DevComponents.DotNetBar.ButtonX buttonXImageLogging;
+        private DevComponents.DotNetBar.ButtonX buttonXSlopeDrawing;
+        private DevComponents.DotNetBar.ButtonX buttonXCavityDrawing;
+        private DevComponents.DotNetBar.ButtonX buttonXFoundationDrawing;
     }
 }
 
