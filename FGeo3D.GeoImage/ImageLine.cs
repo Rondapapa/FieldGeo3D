@@ -14,35 +14,35 @@ namespace FGeo3D.GeoImage
 
     class ImageLine
     {
-        //平面线点集
+        // 平面线点集
         public List<System.Drawing.Point> ScreenPoints = new List<System.Drawing.Point>();
 
-        //延伸平面的点集
+        // 延伸平面的点集
         public List<Point3D> ScreenPoints3D = new List<Point3D>();
 
-        //真实三维线点集
+        // 真实三维线点集
         public List<Point3D> WorldPoints = new List<Point3D>();
 
-        //颜色(默认黑色)
+        // 颜色(默认黑色)
         public Color Color = Color.Black;
 
-        //名称
+        // 名称
         public string Name { get; set; }
 
-        //地质对象类型
+        // 地质对象类型
         public string MarkerType { get; set; }
 
-        //面内延伸方式
+        // 面内延伸方式
         public double StretchDepth { get; set; }
 
 
-        //关联的地质点guid
+        // 关联的地质点guid
         private string GeoSpotGuid { get; }
 
-        //关联的TS部件--线
+        // 关联的TS部件--线
         public TsFile TsLine { get; set; }  
 
-        //关联的TS部件--面
+        // 关联的TS部件--面
         public TsFile TsSurface { get; set; }
 
         public ImageLine(IEnumerable<System.Drawing.Point> inPoints)
@@ -70,20 +70,20 @@ namespace FGeo3D.GeoImage
         /// </summary>
         public void Rectify(Plane xPlane, Plane yPlane, Plane zPlane, Plane realPlane)
         {
-            //校正坐标
+            // 校正坐标
             foreach (var thisPoint in ScreenPoints3D)
             {
-                //表面点
-                //wpx
+                // 表面点
+                // wpx
                 var wpX = CalcWPCoordValueWithoutDepth(thisPoint, xPlane);
-                //wpy
+                // wpy
                 var wpY = CalcWPCoordValueWithoutDepth(thisPoint, yPlane);
-                //wpz
+                // wpz
                 var wpZ = CalcWPCoordValueWithoutDepth(thisPoint, zPlane);
 
                 WorldPoints.Add(new Point3D(wpX, wpY, wpZ));
             }
-            //延伸点
+            // 延伸点
             var unitVector = realPlane.Normal;
             var stretchPoints = (from thisPoint in WorldPoints
                                  let stretchX = thisPoint.X + StretchDepth*unitVector.X
@@ -105,48 +105,48 @@ namespace FGeo3D.GeoImage
         /// </summary>
         public bool Store(ref YWCHEntEx db)
         {
-            //面
-            //根据地质对象类型，弹出数据库编录卡，保存信息（数据来源:私有模型），记录地质点guid
+            // 面
+            // 根据地质对象类型，弹出数据库编录卡，保存信息（数据来源:私有模型），记录地质点guid
             var partSurfaceGuid = db.SkyFrmSymxDzdx(MarkerType);
             if (string.IsNullOrEmpty(partSurfaceGuid))
                 return false;
             var sourceSurfaceGuid = db.PublishPartVer(partSurfaceGuid);
 
-            //根据面点集构建ts文件
+            // 根据面点集构建ts文件
             TsSurface = new TsFile(WorldPoints, "TSurf", "M", MarkerType, Name, new List<string>
             {
-                sourceSurfaceGuid //?
+                sourceSurfaceGuid // ?
             });
             TsSurface.WriteTsFile();
             
-            //上传面TS文件
+            // 上传面TS文件
             var isSurfacePartUploaded = db.SkyUploadPartVer(partSurfaceGuid, TsSurface.FilePath);
 
             ////线
             ////创建
-            //var newLineGuid = Guid.NewGuid().ToString();
-            //var partLineGuid = db.SkyNewObject(MarkerType, newLineGuid, "X", Name, GetColorRGB());
-            //if (string.IsNullOrEmpty(partLineGuid))
-            //    return false;
-            //var sourceLineGuid = db.PublishPartVer(partLineGuid);
+            // var newLineGuid = Guid.NewGuid().ToString();
+            // var partLineGuid = db.SkyNewObject(MarkerType, newLineGuid, "X", Name, GetColorRGB());
+            // if (string.IsNullOrEmpty(partLineGuid))
+            // return false;
+            // var sourceLineGuid = db.PublishPartVer(partLineGuid);
 
             ////根据面点集构建ts文件
-            //TsLine = new TsFile(WorldPoints, "PLine", "X", MarkerType, Name, new List<string>
-            //{
-            //    sourceLineGuid //??
-            //});
-            //TsLine.WriteTsFile();
+            // TsLine = new TsFile(WorldPoints, "PLine", "X", MarkerType, Name, new List<string>
+            // {
+            // sourceLineGuid //??
+            // });
+            // TsLine.WriteTsFile();
 
             ////上传面TS文件
-            //var isLinePartUploaded = db.SkyUploadPartVer(partLineGuid, TsLine.FilePath);
+            // var isLinePartUploaded = db.SkyUploadPartVer(partLineGuid, TsLine.FilePath);
 
             
             return isSurfacePartUploaded;
             
             
 
-            //将ts文件与地质点关联
-            //db.SkyAddConnect(1, TsLine.Guid, markerGuid);
+            // 将ts文件与地质点关联
+            // db.SkyAddConnect(1, TsLine.Guid, markerGuid);
         }
 
 
