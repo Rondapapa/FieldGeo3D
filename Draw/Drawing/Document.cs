@@ -128,7 +128,7 @@ namespace Draw.Drawing
             set;
         }
 
-        public Document(drawingParameter para)
+        public Document(drawParameter para)
         {
             SJLYID = para.SJLYID;
             SJLYLXID = para.SJLYLXID;
