@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v15.2, Version=15.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v15.2, Version=15.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v15.2, Version=15.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="GeoIM.CHIDI.DZ.BLL.Common">
       <HintPath>..\FGeo3D\bin\Debug\GeoIM.CHIDI.DZ.BLL.Common.dll</HintPath>
     </Reference>
@@ -66,6 +70,36 @@
     <Compile Include="Drawing\line.cs" />
     <Compile Include="Drawing\ShapeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\bkColor.png" />
+    <Content Include="Resources\cancel.png" />
+    <Content Include="Resources\clear.png" />
+    <Content Include="Resources\close.png" />
+    <Content Include="Resources\delete.png" />
+    <Content Include="Resources\edit.png" />
+    <Content Include="Resources\end.png" />
+    <Content Include="Resources\line.png" />
+    <Content Include="Resources\loadpic.png" />
+    <Content Include="Resources\mgz.png" />
+    <Content Include="Resources\ok.png" />
+    <Content Include="Resources\save.png" />
+    <Content Include="Resources\saveas.png" />
+    <Content Include="Resources\shouqi.png" />
+    <Content Include="Resources\zoom_in.png" />
+    <Content Include="Resources\zoom_out.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
