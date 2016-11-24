@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4B2F27C6-085F-4BE9-A79F-C53AF4C932E5}</ProjectGuid>
+    <ProjectGuid>{CF503600-7EA7-4F36-8CBE-5854040F4DE7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Draw</RootNamespace>
-    <AssemblyName>Draw</AssemblyName>
+    <RootNamespace>FGeo3D.GeoSketch</RootNamespace>
+    <AssemblyName>FGeo3D.GeoSketch</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,28 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraBars.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraEditors.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="GeoIM.CHIDI.DZ.BLL.Common">
-      <HintPath>..\FGeo3D\bin\Debug\GeoIM.CHIDI.DZ.BLL.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="GeoIM.CHIDI.DZ.BLL.XTGL">
-      <HintPath>..\FGeo3D\bin\Debug\GeoIM.CHIDI.DZ.BLL.XTGL.dll</HintPath>
-    </Reference>
-    <Reference Include="GeoIM.CHIDI.DZ.BLL.YSZL">
-      <HintPath>..\FGeo3D\bin\Debug\GeoIM.CHIDI.DZ.BLL.YSZL.dll</HintPath>
-    </Reference>
-    <Reference Include="GeoIM.CHIDI.DZ.BLL.ZBJS">
-      <HintPath>..\FGeo3D\bin\Debug\GeoIM.CHIDI.DZ.BLL.ZBJS.dll</HintPath>
-    </Reference>
-    <Reference Include="GeoIM.CHIDI.DZ.Model.XTGL">
-      <HintPath>..\FGeo3D\bin\Debug\GeoIM.CHIDI.DZ.Model.XTGL.dll</HintPath>
-    </Reference>
-    <Reference Include="GeoIM.CHIDI.DZ.Util.Common">
-      <HintPath>..\FGeo3D\bin\Debug\GeoIM.CHIDI.DZ.Util.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -64,24 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoordSys\CoordHelp.cs" />
-    <Compile Include="CoordSys\M1.cs" />
-    <Compile Include="Drawing\Document.cs" />
-    <Compile Include="Drawing\line.cs" />
-    <Compile Include="Drawing\ShapeBase.cs" />
-    <Compile Include="FrmDraw.cs">
+    <Compile Include="FrmGeoSketch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmDraw.Designer.cs">
-      <DependentUpon>FrmDraw.cs</DependentUpon>
+    <Compile Include="FrmGeoSketch.Designer.cs">
+      <DependentUpon>FrmGeoSketch.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FrmDraw.resx">
-      <DependentUpon>FrmDraw.cs</DependentUpon>
+    <EmbeddedResource Include="FrmGeoSketch.resx">
+      <DependentUpon>FrmGeoSketch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
