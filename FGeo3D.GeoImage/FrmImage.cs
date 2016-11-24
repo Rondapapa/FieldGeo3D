@@ -26,6 +26,7 @@ namespace FGeo3D.GeoImage
 
         //画笔
         private Pen _pen;
+
         //画刷
         private SolidBrush _brush;
 
@@ -83,6 +84,9 @@ namespace FGeo3D.GeoImage
         /// <summary>
         /// 绘制当前所操作的标记线
         /// </summary>
+        /// <param name="inG">
+        /// Graphics
+        /// </param>
         private void RedrawCurrLine(Graphics inG)
         {
             var color = this._currColor.IsEmpty ? Color.Black : this._currColor;
