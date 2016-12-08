@@ -29,7 +29,7 @@ namespace FGeo3D.GeoCurvedSurface
         /// </summary>
         /// <param name="pointsList"></param>
         /// <returns></returns>
-        public static List<Point> GetEdgePoints(IList<Point> pointsList)
+        public static List<Point> GetEdgePoints(IList<Point> pointsList, double edgeLength)
         {
             double minX = pointsList[0].X;
             double maxX = pointsList[0].X;
@@ -44,10 +44,10 @@ namespace FGeo3D.GeoCurvedSurface
                 if (p.Y > maxY) maxY = p.Y;
             }
 
-            Point one = new Point(maxX, maxY, 0);
-            Point two = new Point(minX, maxY, 0);
-            Point three = new Point(minX, minY, 0);
-            Point four = new Point(maxX, minY, 0);
+            Point one = new Point(maxX + edgeLength * 3, maxY + edgeLength * 3, 0);
+            Point two = new Point(minX - edgeLength * 3, maxY + edgeLength * 3, 0);
+            Point three = new Point(minX - edgeLength * 3, minY - edgeLength * 3, 0);
+            Point four = new Point(maxX + edgeLength * 3, minY - edgeLength * 3, 0);
 
             return new List<Point>(new[] { one, two, three, four });
         }
@@ -64,7 +64,7 @@ namespace FGeo3D.GeoCurvedSurface
         public static double CalcZinPlaneViaRing(IList<Point> verticesList, double depth, double x, double y)
         {
             double zTerrain =
-                sgworld.Terrain.GetGroundHeightInfo(x, y, AccuracyLevel.ACCURACY_BEST_FROM_MEMORY).Position.Altitude;
+                sgworld.Terrain.GetGroundHeightInfo(x, y, AccuracyLevel.ACCURACY_NORMAL).Position.Altitude;
             //
             Point middlePoint = MiddlePointOfPoints(verticesList);
 

@@ -77,6 +77,8 @@ namespace FGeo3D.GeoCurvedSurface
             foreach (var ring in this.ringsList)
             {
                 var polygonGeo = this.sgworld.Creator.GeometryCreator.CreatePolygonGeometry(ring);
+                
+                // 是否选择线形
                 var face = this.sgworld.Creator.CreatePolygon(
                     polygonGeo,
                     LineColor,

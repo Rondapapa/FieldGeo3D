@@ -55,8 +55,21 @@ namespace FGeo3D.GeoCurvedSurface
             {
                 double f = point.Z - zPlane;
                 double r2 = Math.Pow(x - point.X, 2) + Math.Pow(y - point.Y, 2);
-                double ratio = r2 / this.ShapeRadium / this.ShapeRadium;
-                double w = ratio * Math.Log(ratio) - ratio + 1;
+                double w;
+                if (r2 < 0.1)
+                {
+                    w = 1;
+                }
+                else if (r2 >= Math.Pow(this.ShapeRadium, 2))
+                {
+                    w = 0;
+                }
+                else
+                {
+                    double ratio = r2 / this.ShapeRadium / this.ShapeRadium;
+                    w = ratio * Math.Log(ratio) - ratio + 1;
+                }
+
                 zSpline += f * w;
             }
             return zPlane + zSpline;

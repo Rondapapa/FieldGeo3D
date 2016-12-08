@@ -31,14 +31,16 @@
             DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable1 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
             DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer1 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.labelXColor = new DevComponents.DotNetBar.LabelX();
+            this.btnColorPicker = new DevComponents.DotNetBar.ButtonX();
             this.textBoxZ = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelZ = new DevComponents.DotNetBar.LabelX();
             this.textBoxY = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelY = new DevComponents.DotNetBar.LabelX();
-            this.textBoxDepth = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.textBoxX = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.labelLength = new DevComponents.DotNetBar.LabelX();
             this.labelX = new DevComponents.DotNetBar.LabelX();
+            this.textBoxDepth = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.labelLength = new DevComponents.DotNetBar.LabelX();
             this.groupPanel2 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.textBoxAngle = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelAngle = new DevComponents.DotNetBar.LabelX();
@@ -47,8 +49,6 @@
             this.buttonOK = new DevComponents.DotNetBar.ButtonX();
             this.buttonCancel = new DevComponents.DotNetBar.ButtonX();
             this.keyboardControl1 = new DevComponents.DotNetBar.Keyboard.KeyboardControl();
-            this.btnColorPicker = new DevComponents.DotNetBar.ButtonX();
-            this.labelXColor = new DevComponents.DotNetBar.LabelX();
             this.groupPanel1.SuspendLayout();
             this.groupPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -58,13 +58,13 @@
             this.groupPanel1.BackColor = System.Drawing.SystemColors.Control;
             this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.groupPanel1.Controls.Add(this.labelXColor);
+            this.groupPanel1.Controls.Add(this.btnColorPicker);
             this.groupPanel1.Controls.Add(this.textBoxZ);
             this.groupPanel1.Controls.Add(this.labelZ);
             this.groupPanel1.Controls.Add(this.textBoxY);
             this.groupPanel1.Controls.Add(this.labelY);
-            this.groupPanel1.Controls.Add(this.textBoxDepth);
             this.groupPanel1.Controls.Add(this.textBoxX);
-            this.groupPanel1.Controls.Add(this.labelLength);
             this.groupPanel1.Controls.Add(this.labelX);
             this.groupPanel1.DisabledBackColor = System.Drawing.Color.Empty;
             this.groupPanel1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -100,7 +100,35 @@
             // 
             this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.groupPanel1.TabIndex = 0;
-            this.groupPanel1.Text = "地质点";
+            this.groupPanel1.Text = "地质点信息";
+            // 
+            // labelXColor
+            // 
+            this.labelXColor.BackColor = System.Drawing.Color.Blue;
+            // 
+            // 
+            // 
+            this.labelXColor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelXColor.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelXColor.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelXColor.Location = new System.Drawing.Point(82, 99);
+            this.labelXColor.Name = "labelXColor";
+            this.labelXColor.Size = new System.Drawing.Size(56, 26);
+            this.labelXColor.TabIndex = 0;
+            this.labelXColor.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // btnColorPicker
+            // 
+            this.btnColorPicker.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnColorPicker.BackColor = System.Drawing.SystemColors.Control;
+            this.btnColorPicker.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnColorPicker.Location = new System.Drawing.Point(7, 99);
+            this.btnColorPicker.Name = "btnColorPicker";
+            this.btnColorPicker.Size = new System.Drawing.Size(69, 26);
+            this.btnColorPicker.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnColorPicker.TabIndex = 4;
+            this.btnColorPicker.Text = "选取颜色";
+            this.btnColorPicker.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
             // textBoxZ
             // 
@@ -166,25 +194,6 @@
             this.labelY.Text = "Y";
             this.labelY.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
-            // textBoxDepth
-            // 
-            this.textBoxDepth.BackColor = System.Drawing.Color.White;
-            // 
-            // 
-            // 
-            this.textBoxDepth.Border.Class = "TextBoxBorder";
-            this.textBoxDepth.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.textBoxDepth.DisabledBackColor = System.Drawing.Color.White;
-            this.textBoxDepth.ForeColor = System.Drawing.Color.Black;
-            this.textBoxDepth.Location = new System.Drawing.Point(61, 99);
-            this.textBoxDepth.Name = "textBoxDepth";
-            this.textBoxDepth.PreventEnterBeep = true;
-            this.textBoxDepth.Size = new System.Drawing.Size(77, 23);
-            this.textBoxDepth.TabIndex = 1;
-            this.textBoxDepth.Text = "0";
-            this.textBoxDepth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textBoxDepth.TextChanged += new System.EventHandler(this.textBoxDepth_TextChanged);
-            // 
             // textBoxX
             // 
             this.textBoxX.BackColor = System.Drawing.Color.White;
@@ -202,21 +211,6 @@
             this.textBoxX.Size = new System.Drawing.Size(104, 23);
             this.textBoxX.TabIndex = 1;
             // 
-            // labelLength
-            // 
-            this.labelLength.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelLength.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelLength.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelLength.Location = new System.Drawing.Point(7, 99);
-            this.labelLength.Name = "labelLength";
-            this.labelLength.Size = new System.Drawing.Size(48, 23);
-            this.labelLength.TabIndex = 0;
-            this.labelLength.Text = "长度";
-            this.labelLength.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
             // labelX
             // 
             this.labelX.BackColor = System.Drawing.Color.Transparent;
@@ -232,19 +226,57 @@
             this.labelX.Text = "X";
             this.labelX.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
+            // textBoxDepth
+            // 
+            this.textBoxDepth.BackColor = System.Drawing.Color.White;
+            // 
+            // 
+            // 
+            this.textBoxDepth.Border.Class = "TextBoxBorder";
+            this.textBoxDepth.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.textBoxDepth.DisabledBackColor = System.Drawing.Color.White;
+            this.textBoxDepth.ForeColor = System.Drawing.Color.Black;
+            this.textBoxDepth.Location = new System.Drawing.Point(61, 70);
+            this.textBoxDepth.Name = "textBoxDepth";
+            this.textBoxDepth.PreventEnterBeep = true;
+            this.textBoxDepth.Size = new System.Drawing.Size(104, 23);
+            this.textBoxDepth.TabIndex = 1;
+            this.textBoxDepth.Text = "0";
+            this.textBoxDepth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxDepth.Click += new System.EventHandler(this.textBoxDepth_Click);
+            this.textBoxDepth.TextChanged += new System.EventHandler(this.textBoxDepth_TextChanged);
+            // 
+            // labelLength
+            // 
+            this.labelLength.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelLength.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelLength.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelLength.Location = new System.Drawing.Point(7, 70);
+            this.labelLength.Name = "labelLength";
+            this.labelLength.Size = new System.Drawing.Size(48, 23);
+            this.labelLength.TabIndex = 0;
+            this.labelLength.Text = "长度";
+            this.labelLength.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
             // groupPanel2
             // 
+            this.groupPanel2.BackColor = System.Drawing.Color.White;
             this.groupPanel2.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
             this.groupPanel2.Controls.Add(this.textBoxAngle);
             this.groupPanel2.Controls.Add(this.labelAngle);
             this.groupPanel2.Controls.Add(this.textBoxDip);
             this.groupPanel2.Controls.Add(this.labelDip);
+            this.groupPanel2.Controls.Add(this.labelLength);
+            this.groupPanel2.Controls.Add(this.textBoxDepth);
             this.groupPanel2.DisabledBackColor = System.Drawing.Color.Empty;
             this.groupPanel2.Font = new System.Drawing.Font("宋体", 10.5F);
             this.groupPanel2.Location = new System.Drawing.Point(171, 12);
             this.groupPanel2.Name = "groupPanel2";
-            this.groupPanel2.Size = new System.Drawing.Size(192, 95);
+            this.groupPanel2.Size = new System.Drawing.Size(192, 127);
             // 
             // 
             // 
@@ -274,7 +306,7 @@
             // 
             this.groupPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.groupPanel2.TabIndex = 1;
-            this.groupPanel2.Text = "产状";
+            this.groupPanel2.Text = "产状信息";
             // 
             // textBoxAngle
             // 
@@ -293,6 +325,7 @@
             this.textBoxAngle.TabIndex = 1;
             this.textBoxAngle.Text = "0";
             this.textBoxAngle.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxAngle.Click += new System.EventHandler(this.textBoxAngle_Click);
             this.textBoxAngle.TextChanged += new System.EventHandler(this.textBoxAngle_TextChanged);
             // 
             // labelAngle
@@ -327,6 +360,7 @@
             this.textBoxDip.TabIndex = 1;
             this.textBoxDip.Text = "0";
             this.textBoxDip.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxDip.Click += new System.EventHandler(this.textBoxDip_Click);
             this.textBoxDip.TextChanged += new System.EventHandler(this.textBoxDip_TextChanged);
             // 
             // labelDip
@@ -382,6 +416,7 @@
             virtualKeyboardColorTable1.ToggleTextColor = System.Drawing.Color.Green;
             virtualKeyboardColorTable1.TopBarTextColor = System.Drawing.Color.White;
             this.keyboardControl1.ColorTable = virtualKeyboardColorTable1;
+            this.keyboardControl1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.keyboardControl1.Location = new System.Drawing.Point(5, 177);
             this.keyboardControl1.Name = "keyboardControl1";
             flatStyleRenderer1.ColorTable = virtualKeyboardColorTable1;
@@ -390,41 +425,11 @@
             this.keyboardControl1.Size = new System.Drawing.Size(358, 330);
             this.keyboardControl1.TabIndex = 3;
             // 
-            // btnColorPicker
-            // 
-            this.btnColorPicker.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnColorPicker.BackColor = System.Drawing.SystemColors.Control;
-            this.btnColorPicker.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnColorPicker.Location = new System.Drawing.Point(171, 113);
-            this.btnColorPicker.Name = "btnColorPicker";
-            this.btnColorPicker.Size = new System.Drawing.Size(90, 26);
-            this.btnColorPicker.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnColorPicker.TabIndex = 4;
-            this.btnColorPicker.Text = "选取颜色";
-            this.btnColorPicker.Click += new System.EventHandler(this.btnColorPicker_Click);
-            // 
-            // labelXColor
-            // 
-            this.labelXColor.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelXColor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelXColor.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelXColor.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelXColor.Location = new System.Drawing.Point(273, 113);
-            this.labelXColor.Name = "labelXColor";
-            this.labelXColor.Size = new System.Drawing.Size(90, 26);
-            this.labelXColor.TabIndex = 0;
-            this.labelXColor.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
             // FrmPlaneViaSpotOrLine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 513);
-            this.Controls.Add(this.btnColorPicker);
-            this.Controls.Add(this.labelXColor);
             this.Controls.Add(this.keyboardControl1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);

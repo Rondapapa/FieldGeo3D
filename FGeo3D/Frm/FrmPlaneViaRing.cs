@@ -20,7 +20,7 @@ namespace FGeo3D_TE.Frm
         public double interval;
 
 
-        public Color PickedColor { get; private set; }
+        public Color PickedColor { get; private set; } = Color.Blue;
 
 
         /// <summary>
@@ -104,6 +104,16 @@ namespace FGeo3D_TE.Frm
             if (dlgResult != DialogResult.OK) return;
             this.PickedColor = frmColorPicker.PickedColor;
             this.labelXColor.BackColor = this.PickedColor;
+        }
+
+        private void textBoxDepth_Click(object sender, EventArgs e)
+        {
+            keyboardControl1.Invalidate();
+        }
+
+        private void textBoxXInterval_Click(object sender, EventArgs e)
+        {
+            keyboardControl1.Invalidate();
         }
     }
 }

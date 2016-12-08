@@ -380,6 +380,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Draw\Draw.csproj">
+      <Project>{4b2f27c6-085f-4be9-a79f-c53af4c932e5}</Project>
+      <Name>Draw</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FGeo3D.GeoCurvedSurface\FGeo3D.GeoCurvedSurface.csproj">
       <Project>{5b333a01-1b48-4183-a2c8-2b5d82e4fe54}</Project>
       <Name>FGeo3D.GeoCurvedSurface</Name>

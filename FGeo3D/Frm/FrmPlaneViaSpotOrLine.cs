@@ -22,7 +22,7 @@ namespace FGeo3D_TE.Frm
 
         private double X, Y, Z;
 
-        public Color PickedColor { get; private set; }
+        public Color PickedColor { get; private set; } = Color.Blue;
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
@@ -48,6 +48,7 @@ namespace FGeo3D_TE.Frm
             this.textBoxX.Text = this.X.ToString();
             this.textBoxY.Text = this.Y.ToString();
             this.textBoxZ.Text = this.Z.ToString();
+
             keyboardControl1.Keyboard = CreateNumericKeyboard();
             keyboardControl1.Invalidate();
             if (strSpotOrLine == "Line")
@@ -74,6 +75,21 @@ namespace FGeo3D_TE.Frm
             if (dlgResult != DialogResult.OK) return;
             this.PickedColor = frmColorPicker.PickedColor;
             this.labelXColor.BackColor = this.PickedColor;
+        }
+
+        private void textBoxDip_Click(object sender, EventArgs e)
+        {
+            keyboardControl1.Invalidate();
+        }
+
+        private void textBoxAngle_Click(object sender, EventArgs e)
+        {
+            keyboardControl1.Invalidate();
+        }
+
+        private void textBoxDepth_Click(object sender, EventArgs e)
+        {
+            keyboardControl1.Invalidate();
         }
 
         /// <summary>

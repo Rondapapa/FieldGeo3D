@@ -66,6 +66,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="YWCH.CHIDI.DZ.COM.Skyline, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2bc0b3e9af90ed3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FGeo3D\bin\Debug\YWCH.CHIDI.DZ.COM.Skyline.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cell.cs" />

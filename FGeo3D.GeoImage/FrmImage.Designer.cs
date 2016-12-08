@@ -40,16 +40,22 @@
             this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
             this.buttonXColor = new DevComponents.DotNetBar.ButtonX();
             this.buttonXClosetRing = new DevComponents.DotNetBar.ButtonX();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox
             // 
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pictureBox.Location = new System.Drawing.Point(87, 12);
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(924, 591);
+            this.pictureBox.Size = new System.Drawing.Size(937, 610);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -60,7 +66,7 @@
             this.btnDraw.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnDraw.Image = ((System.Drawing.Image)(resources.GetObject("btnDraw.Image")));
             this.btnDraw.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnDraw.Location = new System.Drawing.Point(6, 285);
+            this.btnDraw.Location = new System.Drawing.Point(3, 276);
             this.btnDraw.Name = "btnDraw";
             this.btnDraw.Size = new System.Drawing.Size(75, 75);
             this.btnDraw.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -74,7 +80,7 @@
             this.btnDrawApply.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnDrawApply.Image = ((System.Drawing.Image)(resources.GetObject("btnDrawApply.Image")));
             this.btnDrawApply.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnDrawApply.Location = new System.Drawing.Point(6, 528);
+            this.btnDrawApply.Location = new System.Drawing.Point(3, 519);
             this.btnDrawApply.Name = "btnDrawApply";
             this.btnDrawApply.Size = new System.Drawing.Size(75, 75);
             this.btnDrawApply.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -88,7 +94,7 @@
             this.btnRectify.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnRectify.Image = ((System.Drawing.Image)(resources.GetObject("btnRectify.Image")));
             this.btnRectify.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnRectify.Location = new System.Drawing.Point(6, 93);
+            this.btnRectify.Location = new System.Drawing.Point(3, 84);
             this.btnRectify.Name = "btnRectify";
             this.btnRectify.Size = new System.Drawing.Size(75, 75);
             this.btnRectify.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeMobile2014;
@@ -102,7 +108,7 @@
             this.btnGetImageFromFile.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnGetImageFromFile.Image = ((System.Drawing.Image)(resources.GetObject("btnGetImageFromFile.Image")));
             this.btnGetImageFromFile.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnGetImageFromFile.Location = new System.Drawing.Point(6, 12);
+            this.btnGetImageFromFile.Location = new System.Drawing.Point(3, 3);
             this.btnGetImageFromFile.Name = "btnGetImageFromFile";
             this.btnGetImageFromFile.Size = new System.Drawing.Size(75, 75);
             this.btnGetImageFromFile.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -116,7 +122,7 @@
             this.btnErase.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnErase.Image = ((System.Drawing.Image)(resources.GetObject("btnErase.Image")));
             this.btnErase.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnErase.Location = new System.Drawing.Point(6, 366);
+            this.btnErase.Location = new System.Drawing.Point(3, 357);
             this.btnErase.Name = "btnErase";
             this.btnErase.Size = new System.Drawing.Size(75, 75);
             this.btnErase.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -130,7 +136,7 @@
             // 
             // 
             this.labelXColor.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelXColor.Location = new System.Drawing.Point(6, 256);
+            this.labelXColor.Location = new System.Drawing.Point(3, 247);
             this.labelXColor.Name = "labelXColor";
             this.labelXColor.Size = new System.Drawing.Size(75, 23);
             this.labelXColor.TabIndex = 9;
@@ -148,7 +154,7 @@
             this.buttonXColor.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.buttonXColor.Image = ((System.Drawing.Image)(resources.GetObject("buttonXColor.Image")));
             this.buttonXColor.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.buttonXColor.Location = new System.Drawing.Point(6, 174);
+            this.buttonXColor.Location = new System.Drawing.Point(3, 165);
             this.buttonXColor.Name = "buttonXColor";
             this.buttonXColor.Size = new System.Drawing.Size(75, 76);
             this.buttonXColor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -161,7 +167,7 @@
             this.buttonXClosetRing.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXClosetRing.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.buttonXClosetRing.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.buttonXClosetRing.Location = new System.Drawing.Point(6, 447);
+            this.buttonXClosetRing.Location = new System.Drawing.Point(3, 438);
             this.buttonXClosetRing.Name = "buttonXClosetRing";
             this.buttonXClosetRing.Size = new System.Drawing.Size(75, 75);
             this.buttonXClosetRing.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -169,27 +175,48 @@
             this.buttonXClosetRing.Text = "封闭标记";
             this.buttonXClosetRing.Click += new System.EventHandler(this.buttonXClosetRing_Click);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.buttonXColor);
+            this.splitContainer1.Panel1.Controls.Add(this.btnGetImageFromFile);
+            this.splitContainer1.Panel1.Controls.Add(this.labelXColor);
+            this.splitContainer1.Panel1.Controls.Add(this.btnDraw);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonXClosetRing);
+            this.splitContainer1.Panel1.Controls.Add(this.btnDrawApply);
+            this.splitContainer1.Panel1.Controls.Add(this.btnErase);
+            this.splitContainer1.Panel1.Controls.Add(this.btnRectify);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBox);
+            this.splitContainer1.Size = new System.Drawing.Size(1022, 610);
+            this.splitContainer1.SplitterDistance = 81;
+            this.splitContainer1.TabIndex = 11;
+            // 
             // FrmImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1022, 610);
-            this.Controls.Add(this.buttonXColor);
-            this.Controls.Add(this.labelXColor);
-            this.Controls.Add(this.buttonXClosetRing);
-            this.Controls.Add(this.btnErase);
-            this.Controls.Add(this.btnRectify);
-            this.Controls.Add(this.btnDrawApply);
-            this.Controls.Add(this.btnDraw);
-            this.Controls.Add(this.btnGetImageFromFile);
-            this.Controls.Add(this.pictureBox);
+            this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.Name = "FrmImage";
             this.Text = "地质图像编录";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmImage_Load);
             this.Resize += new System.EventHandler(this.FrmImageResize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -206,5 +233,6 @@
         private DevComponents.DotNetBar.StyleManager styleManager1;
         private DevComponents.DotNetBar.ButtonX buttonXColor;
         private DevComponents.DotNetBar.ButtonX buttonXClosetRing;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

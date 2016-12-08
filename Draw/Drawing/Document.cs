@@ -164,7 +164,7 @@ namespace Draw.Drawing
         }
 
         /// <summary>
-        /// 由点集计算平面法向量
+        /// 由点集计算平面法向量 //？？？
         /// </summary>
         /// <returns></returns>
         private bool CacNormalVector(sg_Vector3[] pts)
