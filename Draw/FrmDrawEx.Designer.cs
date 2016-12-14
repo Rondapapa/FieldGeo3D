@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.barManager = new DevExpress.XtraBars.BarManager(this.components);
+            this.barManager = new DevExpress.XtraBars.BarManager();
             this.toolbar = new DevExpress.XtraBars.Bar();
             this.btnAddLine = new DevExpress.XtraBars.BarLargeButtonItem();
             this.btnBkColor = new DevExpress.XtraBars.BarLargeButtonItem();
@@ -44,9 +43,7 @@
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // barManager
@@ -186,23 +183,11 @@
             this.barDockControlRight.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.barDockControlRight.Size = new System.Drawing.Size(0, 395);
             // 
-            // pictureEdit1
-            // 
-            this.pictureEdit1.Location = new System.Drawing.Point(0, 88);
-            this.pictureEdit1.MenuManager = this.barManager;
-            this.pictureEdit1.Name = "pictureEdit1";
-            this.pictureEdit1.Properties.Appearance.BackColor = System.Drawing.Color.Black;
-            this.pictureEdit1.Properties.Appearance.Options.UseBackColor = true;
-            this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureEdit1.Size = new System.Drawing.Size(946, 390);
-            this.pictureEdit1.TabIndex = 4;
-            // 
             // FrmDrawEx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(947, 501);
-            this.Controls.Add(this.pictureEdit1);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
@@ -213,7 +198,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmDrawEx_FormClosing);
             this.Resize += new System.EventHandler(this.FrmDrawEx_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,6 +220,5 @@
         private DevExpress.XtraBars.BarLargeButtonItem btnZoomOut;
         private DevExpress.XtraBars.BarLargeButtonItem btnOK;
         private DevExpress.XtraBars.BarLargeButtonItem btnCancel;
-        private DevExpress.XtraEditors.PictureEdit pictureEdit1;
     }
 }

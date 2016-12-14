@@ -88,12 +88,6 @@
     <Compile Include="Drawing\line.cs" />
     <Compile Include="Drawing\ShapeBase.cs" />
     <Compile Include="drawParameter.cs" />
-    <Compile Include="FrmDraw.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmDraw.Designer.cs">
-      <DependentUpon>FrmDraw.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmDrawEx.cs">
       <SubType>Form</SubType>
     </Compile>

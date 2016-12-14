@@ -372,7 +372,8 @@ namespace FGeo3D.GoCAD
                     ts.WriteLine("SEG" + " " + (i + 1) + " " + (i + 2));
                 }
                 // 判断是否为闭合线，或是否为区域边界
-                double dist = TsData.VerticesList[0].DistanceTo(TsData.VerticesList[TsData.VerticesList.Count - 1]);
+                // double dist = TsData.VerticesList[0].DistanceTo(TsData.VerticesList[TsData.VerticesList.Count - 1]);
+                double dist = 0;
                 if (SkylineType == "Region" || dist < 0.01)
                 {
                     ts.WriteLine("SEG" + " " + (TsData.VerticesList.Count - 1) + " 1");

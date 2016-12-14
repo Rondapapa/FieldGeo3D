@@ -1835,7 +1835,7 @@ namespace FGeo3D_TE.Frm
                     pointList.Add(_cWorldPointInfo.Position.Altitude);
                     _pITerrainPolyline = sgworld.Creator.CreatePolylineFromArray(pointList.ToArray(), _objInfo.LineColor.ToABGRColor(), AltitudeTypeCode.ATC_ON_TERRAIN, _objInfo.GroupId, _objInfo.Name);
                     sgworld.ProjectTree.ExpandGroup(_objInfo.GroupId, true);
-                    _pITerrainPolyline.LineStyle.Width = -3.0;
+                    _pITerrainPolyline.LineStyle.Width = 7.0;
                 }
                 else
                 {
@@ -1940,7 +1940,7 @@ namespace FGeo3D_TE.Frm
                     _objInfo.GroupId,
                     this._objInfo.MarkerType + _objInfo.Name);
                 sgworld.ProjectTree.ExpandGroup(_objInfo.GroupId, true);
-                _pItPolygon.LineStyle.Width = -3.0;
+                _pItPolygon.LineStyle.Width = 7.0;
             }
             else
             {
