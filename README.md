@@ -1,4 +1,4 @@
-# A **GIS Platform** for Geological Documentation intergrated with visual module and simple analysis module.
+Part codes of **Geological Recording System** intergrated with visual display and analysis module，**Without** Core Codes！ 
 
 Do **NOT** Star or Watch!
 
