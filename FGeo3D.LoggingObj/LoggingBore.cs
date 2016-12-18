@@ -5,11 +5,11 @@ namespace FGeo3D.LoggingObj
 {
     public class LoggingBore:LoggingObject
     {
-        public LoggingBore(IObjData dataObj, ref SGWorld66 sgworld)
+        public LoggingBore(IObjData dataObj, ref SGWorld66 sgworld, double xOffset = 0.0, double yOffset = 0.0)
             :base(dataObj, ref sgworld)
         {
             Type = LoggingType.Bore;
-            Draw(ref sgworld);
+            Draw(ref sgworld, xOffset, yOffset);
         }
 
         
@@ -18,7 +18,7 @@ namespace FGeo3D.LoggingObj
         /// 绘制钻孔孔口(需要用钻孔口模型)
         /// </summary>
         /// <param name="sgworld"></param>
-        public void Draw(ref SGWorld66 sgworld)
+        public void Draw(ref SGWorld66 sgworld, double xOffset = 0.0, double yOffset = 0.0)
         {
             string signIsInTerrain = IsLoggingObjInTerrain(ref sgworld) ? "" : "【地图以外】";
 
@@ -30,8 +30,20 @@ namespace FGeo3D.LoggingObj
             var SegmentDensity = -1;
             string gid = CreateGroup("钻探", ref sgworld);
             sgworld.ProjectTree.ExpandGroup(gid, true);
-            IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
-            SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name + signIsInTerrain);
+            IPosition66 cPos = sgworld.Creator.CreatePosition(
+                Top.X + xOffset,
+                Top.Y + yOffset,
+                Top.Z,
+                AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
+            SkylineMouthObj = sgworld.Creator.CreateSphere(
+                cPos,
+                radius,
+                Style,
+                nLineColor,
+                nFillColor,
+                SegmentDensity,
+                gid,
+                Name + signIsInTerrain);
 
             //绘制孔身
             var arrVertices = new double[]

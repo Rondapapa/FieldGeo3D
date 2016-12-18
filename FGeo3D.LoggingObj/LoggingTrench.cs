@@ -10,7 +10,7 @@ namespace FGeo3D.LoggingObj
         public List<IGPoint> Links { get; set; } = new List<IGPoint>();  //控制点
         
 
-        public LoggingTrench(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
+        public LoggingTrench(IObjData dataObj, ref SGWorld66 sgworld, double xOffset = 0.0, double yOffset = 0.0) : base(dataObj, ref sgworld)
         {
             Type = LoggingType.Trench;
             //控制点
@@ -21,14 +21,14 @@ namespace FGeo3D.LoggingObj
             }
             
 
-            Draw(ref sgworld);
+            Draw(ref sgworld, xOffset, yOffset);
         }
 
-        public void Draw(ref SGWorld66 sgworld)
+        public void Draw(ref SGWorld66 sgworld, double xOffset = 0.0, double yOffset = 0.0)
         {
             string signIsInTerrain = IsLoggingObjInTerrain(ref sgworld) ? "" : "【地图以外】";
 
-            //口
+            // 口
             double radius = 10;
             var Style = SphereStyle.SPHERE_NORMAL;
             var nLineColor = 0xFF00FF00;
@@ -36,8 +36,20 @@ namespace FGeo3D.LoggingObj
             var SegmentDensity = -1;
             string gid = CreateGroup("槽探", ref sgworld);
             sgworld.ProjectTree.ExpandGroup(gid, true);
-            IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
-            SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name + signIsInTerrain);
+            IPosition66 cPos = sgworld.Creator.CreatePosition(
+                Top.X + xOffset,
+                Top.Y + yOffset,
+                Top.Z,
+                AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
+            SkylineMouthObj = sgworld.Creator.CreateSphere(
+                cPos,
+                radius,
+                Style,
+                nLineColor,
+                nFillColor,
+                SegmentDensity,
+                gid,
+                Name + signIsInTerrain);
 
             //身
             List<double> ListVertices = new List<double>();

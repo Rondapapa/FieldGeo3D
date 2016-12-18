@@ -5,18 +5,18 @@ namespace FGeo3D.LoggingObj
 {
     public class LoggingWell:LoggingObject
     {
-        public LoggingWell(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
+        public LoggingWell(IObjData dataObj, ref SGWorld66 sgworld, double xOffset = 0.0, double yOffset = 0.0) : base(dataObj, ref sgworld)
         {
             Type = LoggingType.Well;
             
 
-            Draw(ref sgworld);
+            Draw(ref sgworld, xOffset, yOffset);
         }
 
 
 
 
-        public void Draw(ref SGWorld66 sgworld)
+        public void Draw(ref SGWorld66 sgworld, double xOffset = 0.0, double yOffset = 0.0)
         {
             string signIsInTerrain = IsLoggingObjInTerrain(ref sgworld) ? "" : "【地图以外】";
             //绘制口：暂时用小圆点替代钻孔口模型
@@ -27,8 +27,20 @@ namespace FGeo3D.LoggingObj
             var SegmentDensity = -1;
             string gid = CreateGroup("井探", ref sgworld);
             sgworld.ProjectTree.ExpandGroup(gid, true);
-            IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
-            SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name + signIsInTerrain);
+            IPosition66 cPos = sgworld.Creator.CreatePosition(
+                Top.X + xOffset,
+                Top.Y + yOffset,
+                Top.Z,
+                AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
+            SkylineMouthObj = sgworld.Creator.CreateSphere(
+                cPos,
+                radius,
+                Style,
+                nLineColor,
+                nFillColor,
+                SegmentDensity,
+                gid,
+                Name + signIsInTerrain);
 
             //身
             var arrVertices = new double[]

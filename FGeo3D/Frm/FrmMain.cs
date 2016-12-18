@@ -329,7 +329,10 @@ namespace FGeo3D_TE.Frm
                 ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.MiddleCenter);
                 return;
             }
-            
+
+            double xOffset = double.Parse(this.db.SkyXZBPYL);
+            double yOffset = double.Parse(this.db.SkyYZBPYL);
+
             //弹出数据库筛选面板
             //导入相关数据
             var objs = db.SkyGetData();
@@ -337,6 +340,7 @@ namespace FGeo3D_TE.Frm
             for (var index = 0; index < objs.Count; index++)
             {
                 var thisObj = objs.GetObjData(index);
+                
 
 
                 if (LoggingObject.DictOfLoggingObjects.ContainsKey(thisObj.Guid))
@@ -345,23 +349,23 @@ namespace FGeo3D_TE.Frm
                 switch (cType)
                 {
                     case "钻探编录":
-                        var thisBore = new LoggingBore(thisObj, ref sgworld);
+                        var thisBore = new LoggingBore(thisObj, ref sgworld, xOffset, yOffset);
                         
                         break;
                     case "硐探编录":
-                        var thisFootrill = new LoggingFootrill(thisObj, ref sgworld);
+                        var thisFootrill = new LoggingFootrill(thisObj, ref sgworld, xOffset, yOffset);
                         
                         break;
                     case "坑探编录":
-                        var thisPit = new LoggingPit(thisObj, ref sgworld);
+                        var thisPit = new LoggingPit(thisObj, ref sgworld, xOffset, yOffset);
                         
                         break;
                     case "井探编录":
-                        var thisWell = new LoggingWell(thisObj, ref sgworld);
+                        var thisWell = new LoggingWell(thisObj, ref sgworld, xOffset, yOffset);
                         
                         break;
                     case "槽探编录":
-                        var thisTrench = new LoggingTrench(thisObj, ref sgworld);
+                        var thisTrench = new LoggingTrench(thisObj, ref sgworld, xOffset, yOffset);
                         
                         break;
                     case "边坡编录":

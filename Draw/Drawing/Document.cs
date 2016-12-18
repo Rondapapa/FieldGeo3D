@@ -116,7 +116,7 @@ namespace Draw.Drawing
             private set;
         }
 
-        Dictionary<int, ShapeBase> items = new Dictionary<int, ShapeBase>();
+        Dictionary<int, ShapeBase> items = new Dictionary<int, ShapeBase>();  // 存的是什么坐标？屏幕坐标？
         private CoordSys.M1 m1 = null;
         private DataSet EditDataSet;
         private DataTable dt;
@@ -167,7 +167,7 @@ namespace Draw.Drawing
         /// 由点集计算平面法向量 //？？？
         /// </summary>
         /// <returns></returns>
-        private bool CacNormalVector(sg_Vector3[] pts)
+        private bool CalcNormalVector(sg_Vector3[] pts)
         {
             NormalVector = new sg_Vector3(0, 0, 0);
             return true;

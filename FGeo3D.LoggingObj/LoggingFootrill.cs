@@ -11,7 +11,7 @@ namespace FGeo3D.LoggingObj
 
         
 
-        public LoggingFootrill(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
+        public LoggingFootrill(IObjData dataObj, ref SGWorld66 sgworld, double xOffset = 0.0, double yOffset = 0.0) : base(dataObj, ref sgworld)
         {
             Type = LoggingType.Footrill;
             //控制点
@@ -20,7 +20,7 @@ namespace FGeo3D.LoggingObj
                 var thisPoint = dataObj.Points.GetPoint(index);
                 Links.Add(thisPoint);
             }
-            Draw(ref sgworld);
+            Draw(ref sgworld, xOffset, yOffset);
         }
 
 
@@ -28,7 +28,7 @@ namespace FGeo3D.LoggingObj
         /// 绘制平硐洞口
         /// </summary>
         /// <param name="sgworld"></param>
-        public void Draw(ref SGWorld66 sgworld)
+        public void Draw(ref SGWorld66 sgworld, double xOffset = 0.0, double yOffset = 0.0)
         {
             string signIsInTerrain = IsLoggingObjInTerrain(ref sgworld) ? "" : "【地图以外】";
             //硐口
@@ -39,8 +39,20 @@ namespace FGeo3D.LoggingObj
             var SegmentDensity = -1;
             string gid = CreateGroup("硐探", ref sgworld);
             sgworld.ProjectTree.ExpandGroup(gid, true);
-            IPosition66 cPos = sgworld.Creator.CreatePosition(Top.X, Top.Y, Top.Z, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
-            SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name + signIsInTerrain);
+            IPosition66 cPos = sgworld.Creator.CreatePosition(
+                Top.X + xOffset,
+                Top.Y + yOffset,
+                Top.Z,
+                AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE);
+            SkylineMouthObj = sgworld.Creator.CreateSphere(
+                cPos,
+                radius,
+                Style,
+                nLineColor,
+                nFillColor,
+                SegmentDensity,
+                gid,
+                Name + signIsInTerrain);
 
             //硐身
             List<double> ListVertices = new List<double>();

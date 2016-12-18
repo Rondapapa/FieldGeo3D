@@ -76,7 +76,7 @@ namespace FGeo3D.LoggingObj
         public static Hashtable Spots = new Hashtable();
         */
 
-        public LoggingObject(IObjData dataObj, ref SGWorld66 sgworld)
+        public LoggingObject(IObjData dataObj, ref SGWorld66 sgworld, double xOffset = 0.0, double yOffset = 0.0)
         {
             
             _dataObj = dataObj;
