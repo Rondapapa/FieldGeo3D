@@ -264,8 +264,8 @@ namespace FGeo3D.GeoObj
         /// <returns></returns>
         public static List<Point> InsertPointsInPolygon(List<Point> vertexList, double interval)
         {
-            if(vertexList.Count<3) throw new Exception("包络点小于3个，无法实现加密");
-            List<Point> resultPointList = new List<Point>(vertexList);
+            if(vertexList.Count < 3) throw new Exception("包络点小于3个，无法实现加密");
+            List<Point> resultPointList = new List<Point>();
 
             // 外围最小矩形
             var sortedListX = new List<Point>(vertexList.OrderBy(p => p.X));
@@ -303,8 +303,11 @@ namespace FGeo3D.GeoObj
             
 
             Point3D p3d = new Point3D(p.X, p.Y, 0);
+            
             foreach (var vertex in vertexList)
             {
+                double dist = p3d.DistanceTo(new Point3D(vertex.X, vertex.Y, 0));
+                if (dist < 0.01) continue;
                 UnitVector3D vector = p3d.VectorTo(new Point3D(vertex.X, vertex.Y, 0)).Normalize();
                 pToVertexList.Add(vector);
             }

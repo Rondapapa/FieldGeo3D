@@ -15,6 +15,8 @@ using TerraExplorerX;
 
 namespace FGeo3D_TE.Frm
 {
+    using Draw;
+
     using FGeo3D.GeoCurvedSurface;
     using FGeo3D.GeoObj;
     using FGeo3D.GoCAD;
@@ -157,6 +159,7 @@ namespace FGeo3D_TE.Frm
             // 设置窗体标题
             Text = _tProjectUrl + @" - FieldGeo3D";
 
+            
 
             // 设置地图中心为兴趣点，导航至此
             var centerPos = sgworld.Creator.CreatePosition((XLeft + XRight)/2, (YTop + YBottom)/2, 0,
@@ -184,7 +187,10 @@ namespace FGeo3D_TE.Frm
                 AltitudeTypeCode.ATC_ON_TERRAIN,
                 this.sgworld.ProjectTree.HiddenGroupID,
                 this.sgworld.ProjectTree.HiddenGroupName);
-            
+
+
+            // 设置CPU节能
+            // this.sgworld.Application.CPUSaveMode = true;
         }
 
         //保存
@@ -846,7 +852,7 @@ namespace FGeo3D_TE.Frm
 
             try
             {
-                FrmCurvedSurfaceBuilder frmSurfaceBuilder = new FrmCurvedSurfaceBuilder(LoggingObject.DictOfLoggingObjects, ref this.sgworld);
+                FrmCurvedSurfaceBuilder frmSurfaceBuilder = new FrmCurvedSurfaceBuilder(LoggingObject.DictOfLoggingObjects, ref this.sgworld, ref this.db);
                 frmSurfaceBuilder.Show();
             }
             catch (Exception ex)
@@ -1829,7 +1835,7 @@ namespace FGeo3D_TE.Frm
                     pointList.Add(_cWorldPointInfo.Position.Altitude);
                     _pITerrainPolyline = sgworld.Creator.CreatePolylineFromArray(pointList.ToArray(), _objInfo.LineColor.ToABGRColor(), AltitudeTypeCode.ATC_ON_TERRAIN, _objInfo.GroupId, _objInfo.Name);
                     sgworld.ProjectTree.ExpandGroup(_objInfo.GroupId, true);
-                    _pITerrainPolyline.LineStyle.Width = -3.0;
+                    _pITerrainPolyline.LineStyle.Width = 7.0;
                 }
                 else
                 {
@@ -1934,7 +1940,7 @@ namespace FGeo3D_TE.Frm
                     _objInfo.GroupId,
                     this._objInfo.MarkerType + _objInfo.Name);
                 sgworld.ProjectTree.ExpandGroup(_objInfo.GroupId, true);
-                _pItPolygon.LineStyle.Width = -3.0;
+                _pItPolygon.LineStyle.Width = 7.0;
             }
             else
             {
@@ -2638,7 +2644,7 @@ namespace FGeo3D_TE.Frm
                 frmPlaneViaSpot.PickedColor.R,
                 frmPlaneViaSpot.PickedColor.G,
                 frmPlaneViaSpot.PickedColor.B,
-                frmPlaneViaSpot.PickedColor.A);
+                128);
 
             // 需要做投影圆的判断！？！？
 
@@ -2743,21 +2749,31 @@ namespace FGeo3D_TE.Frm
                     // 划分三角网，插值函数，插值得到Z
                     Triangulations tris = new Triangulations(pointsList, vertexList);
 
+
                     CurveAlgorithm.sgworld = this.sgworld;
+
+
+                    StatusSystem.Text = @"系统状态：【计算曲面中...】";
+
+                    
                     tris.MeshRing(depth, CurveAlgorithm.CalcZinPlaneViaRing);
+
+                    StatusSystem.Text = @"系统状态：【绘制曲面中...】";
 
                     // 绘制曲面
                     IColor66 fillColor = this.sgworld.Creator.CreateColor(
                         frmPlaneViaLine.PickedColor.R,
                         frmPlaneViaLine.PickedColor.G,
                         frmPlaneViaLine.PickedColor.B,
-                        196);
+                        128);
                     IColor66 lineColor = this.sgworld.Creator.CreateColor(255, 255, 255, 0);
 
                     var parentGid = GeoHelper.CreateGroup("闭合地质曲面", ref this.sgworld);
 
                     Facet facet = new Facet(ref this.sgworld, tris.TsData, thisDrawingObj.Name, parentGid, lineColor, fillColor);
-                    facet.DrawFacet();
+                    facet.DrawFacet(); // 优化速度！
+
+                    StatusSystem.Text = @"系统状态：【曲面绘制完毕】";
 
                     // 保存三角网结果
                     TsFile ts = new TsFile(tris.TsData, "TSurf", "M", thisDrawingObj.MarkerType, thisDrawingObj.Name, thisDrawingObj.ConnObjGuids);
@@ -2838,6 +2854,12 @@ namespace FGeo3D_TE.Frm
                 ToastNotification.Show(this, ex.Message == "MPT not loaded" ? "请先打开三维地形场景" : ex.Message, 2500, eToastPosition.MiddleCenter);
             }
             
+        }
+
+        private void buttonXSlopeDrawing_Click(object sender, EventArgs e)
+        {
+            Draw.FrmDrawEx frmDrawEx = new FrmDrawEx();
+            var drawDlg = frmDrawEx.ShowDialog();
         }
     }
 }

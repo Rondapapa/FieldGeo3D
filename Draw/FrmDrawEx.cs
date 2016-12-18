@@ -132,16 +132,20 @@ namespace Draw
 
         private void FrmDrawEx_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (drawCmd == DrawCmd.DrawLine)
+            if (this.drawCmd != null&&this.doc!=null)
             {
-                MessageBox.Show("现在还不能关闭");
-                e.Cancel = true;
-                return;
+                if (drawCmd == DrawCmd.DrawLine)
+                {
+                    MessageBox.Show("现在还不能关闭");
+                    e.Cancel = true;
+                    return;
+                }
+                if (doc.IsChanged)
+                {
+                    MessageBox.Show("有未保存的修改，是否保存");
+                }
             }
-            if (doc.IsChanged)
-            {
-                MessageBox.Show("有未保存的修改，是否保存");
-            }
+
         }
 
         private void btnCancel_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

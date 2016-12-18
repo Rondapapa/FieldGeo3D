@@ -28,13 +28,14 @@ namespace Draw.CoordSys
             // 坐标系ID
             pts = new sg_Vector3[3];
 
-            string zbxtid = ColumnType.ConvertStringNotDBNull(BaseBll.GetSingleValue(string.Format("SELECT ZBXTID FROM SJLYK WHERE ID='{0}'", id)));
+            string zbxtid = ColumnType.ConvertStringNotDBNull(BaseBll.GetSingleValue(
+                $"SELECT ZBXTID FROM SJLYK WHERE ID='{id}'"));
             if (string.IsNullOrEmpty(zbxtid))
             {
                 //没有坐标系不计算
                 return false;
             }
-            //获取标系的控制控制点坐标  //cl 2016/09/21 这里应是获取开挖坐标系
+            //获取坐标系的控制控制点坐标  //cl 2016/09/21 这里应是获取开挖坐标系
             DataSet ds = GCKWZBXTKBLL.GetKZDZBByZTXTID(zbxtid);
             if (ds.Tables[GCKWZBXTKModel.TableName].Rows.Count == 0)
             {
@@ -94,11 +95,10 @@ namespace Draw.CoordSys
         public static bool CacNormalVector(sg_Vector3[] pts, out sg_Vector3 n)
         {
             n = null;
-            int iCount = pts.Count();
+            int iCount = pts.Length;
             if (iCount < 3) return false;
             sg_Vector3 pt1 = pts[0];
             sg_Vector3 pt2 = null;
-            sg_Vector3 pt3 = null;
             for (int i = 1; i < iCount; i++)
             {
                 pt2 = pts[i];
@@ -113,10 +113,10 @@ namespace Draw.CoordSys
             }
             if (pt2 == null) return false;
             sg_Vector3 v1 = pt2 - pt1;
-            sg_Vector3 v2 = null; ;
+            sg_Vector3 v2 = null;
             for (int i = 1; i < iCount; i++)
             {
-                pt3 = pts[i];
+                var pt3 = pts[i];
                 if (sg_math.isZero(pt3.DistTo(pt1))
                     || sg_math.isZero(pt3.DistTo(pt2)))
                 {

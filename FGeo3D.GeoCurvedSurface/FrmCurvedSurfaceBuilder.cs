@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YWCH.CHIDI.DZ.COM.Skyline;
 
 namespace FGeo3D.GeoCurvedSurface
 {
@@ -41,7 +42,7 @@ namespace FGeo3D.GeoCurvedSurface
         //目标marker点集！！！！！
         private List<Point> targetMarkersList;
 
-
+        private YWCHEntEx db;
         private SGWorld66 sgworld;
         
         /// <summary>
@@ -69,7 +70,7 @@ namespace FGeo3D.GeoCurvedSurface
         /// <param name="sgworld">
         /// The sgworld.
         /// </param>
-        public FrmCurvedSurfaceBuilder(Dictionary<string, LoggingObject> objsDict, ref SGWorld66 sgworld)
+        public FrmCurvedSurfaceBuilder(Dictionary<string, LoggingObject> objsDict, ref SGWorld66 sgworld, ref YWCHEntEx db)
         {
             this.InitializeComponent();
             this.loggingObjectsDict = objsDict;
@@ -80,6 +81,7 @@ namespace FGeo3D.GeoCurvedSurface
             }
             this.sgworld = sgworld;
             CurveAlgorithm.sgworld = sgworld;
+            this.db = db;
         }
 
 
@@ -292,11 +294,10 @@ namespace FGeo3D.GeoCurvedSurface
             List<Point> sourcePoints = new List<Point>(this.targetMarkersList);
             sourcePoints.AddRange(sourceAttitudePoints);
             
-
             SurfaceEquation surfaceEquation = new SurfaceEquation(a0, a1, a2, sourcePoints, shapeR);
 
             // 确定曲面区域
-            List<Point> edgePoints = CurveAlgorithm.GetEdgePoints(sourcePoints);
+            List<Point> edgePoints = CurveAlgorithm.GetEdgePoints(sourcePoints, this.GridEdgeLength);
 
             // 区域内插加密点 GeoHelper.InsertPointsInPolygon
             List<Point> pointsList = GeoHelper.InsertPointsInPolygon(edgePoints, this.GridEdgeLength);
@@ -313,11 +314,24 @@ namespace FGeo3D.GeoCurvedSurface
 
             var parentGid = GeoHelper.CreateGroup("产状地质曲面", ref this.sgworld);
 
+            
+
             Facet facet = new Facet(ref this.sgworld, tris.TsData, "Test", parentGid, lineColor, fillColor);
-            facet.DrawFacet();
+            
+            // facet.DrawFacet();
 
             // 保存三角网结果
+            TsFile ts = new TsFile(
+                tris.TsData,
+                "TSurf",
+                "M",
+                "JGM",
+                "Name",
+                new List<string>());
+            ts.WriteTsFile();
+            ts.UpdateTsFile(ref this.db);
 
+            ToastNotification.Show(this, "曲面模型已保存为模型部件", 2500, eToastPosition.MiddleCenter);
         }
 
         private void doubleInputAttitudeLength_ValueChanged(object sender, EventArgs e)
@@ -333,6 +347,11 @@ namespace FGeo3D.GeoCurvedSurface
         private void doubleInputGridEdgeLength_ValueChanged(object sender, EventArgs e)
         {
             this.GridEdgeLength = this.doubleInputGridEdgeLength.Value;
+        }
+
+        private void buttonXCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

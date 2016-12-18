@@ -379,7 +379,7 @@
             this.textBoxSurfaceBorder.Size = new System.Drawing.Size(87, 20);
             this.textBoxSurfaceBorder.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.textBoxSurfaceBorder.TabIndex = 3;
-            this.textBoxSurfaceBorder.Text = "";
+            this.textBoxSurfaceBorder.Text = "自动";
             // 
             // buttonXCalculateParam
             // 
@@ -509,6 +509,7 @@
             this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXCancel.TabIndex = 3;
             this.buttonXCancel.Text = "取消";
+            this.buttonXCancel.Click += new System.EventHandler(this.buttonXCancel_Click);
             // 
             // FrmCurvedSurfaceBuilder
             // 

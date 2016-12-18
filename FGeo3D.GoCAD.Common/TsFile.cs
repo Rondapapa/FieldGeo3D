@@ -170,7 +170,7 @@ namespace FGeo3D.GoCAD
             if (TsData.VerticesList.Count == 0) return;
             if (TsType == "TSurf")
             {
-                for (int index = 1; index < TsData.VerticesList.Count / 2; ++index)
+                for (int index = 1; index < TsData.VerticesList.Count / 2 - 1; ++index)
                 {
                     TsData.TriLinksList.Add(new TriLink
                     {
@@ -185,6 +185,43 @@ namespace FGeo3D.GoCAD
                         VertexC = index + TsData.VerticesList.Count / 2 + 1
                     });
                 }
+
+                // 判断是否闭合环
+                int lastIndex = this.TsData.VerticesList.Count / 2 - 1;
+                double dist = this.TsData.VerticesList[0].DistanceTo(this.TsData.VerticesList[lastIndex]);
+                if (dist < 0.01)
+                {
+                    // 闭合环
+                    TsData.TriLinksList.Add(new TriLink
+                    {
+                        VertexA = lastIndex,
+                        VertexB = 1,
+                        VertexC = lastIndex + TsData.VerticesList.Count / 2
+                    });
+                    TsData.TriLinksList.Add(new TriLink
+                    {
+                        VertexA = 1,
+                        VertexB = lastIndex + TsData.VerticesList.Count / 2,
+                        VertexC = 1 + TsData.VerticesList.Count / 2
+                    });
+                }
+                else
+                {
+                    // 非闭合环
+                    TsData.TriLinksList.Add(new TriLink
+                    {
+                        VertexA = lastIndex,
+                        VertexB = lastIndex + 1,
+                        VertexC = lastIndex+ TsData.VerticesList.Count / 2
+                    });
+                    TsData.TriLinksList.Add(new TriLink
+                    {
+                        VertexA = lastIndex + 1,
+                        VertexB = lastIndex + TsData.VerticesList.Count / 2,
+                        VertexC = lastIndex + TsData.VerticesList.Count / 2 + 1
+                    });
+                }
+
             }
         }
 
@@ -334,10 +371,14 @@ namespace FGeo3D.GoCAD
                 {
                     ts.WriteLine("SEG" + " " + (i + 1) + " " + (i + 2));
                 }
-                if (SkylineType == "Region")
+                // 判断是否为闭合线，或是否为区域边界
+                // double dist = TsData.VerticesList[0].DistanceTo(TsData.VerticesList[TsData.VerticesList.Count - 1]);
+                double dist = 0;
+                if (SkylineType == "Region" || dist < 0.01)
                 {
                     ts.WriteLine("SEG" + " " + (TsData.VerticesList.Count - 1) + " 1");
                 }
+                
             }
 
             //面

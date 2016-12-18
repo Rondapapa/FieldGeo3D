@@ -37,10 +37,13 @@ namespace FGeo3D.GeoImage
         private Color _currColor = Color.Black;
 
         //当前绘制的点集（线）
-        private List<System.Drawing.Point> _currScreenLinePoints = new List<System.Drawing.Point>();
+        private readonly List<System.Drawing.Point> _currScreenLinePoints = new List<System.Drawing.Point>();
 
         //所有已绘制的线列表
-        private List<ImageLine> _lineList = new List<ImageLine>();
+        private readonly List<ImageLine> _lineList = new List<ImageLine>();
+
+        //所有校正点列表
+        private List<System.Drawing.Point> _rectifyScreenPoints = new List<Point>();
 
         //校正信息，包含数据与模型。当RectifyDatas不为空时，说明校正信息有效
         internal RectifyInfo RectifyInfo;
@@ -105,11 +108,70 @@ namespace FGeo3D.GeoImage
 
         }
 
+        /// <summary>
+        /// 重绘校正点
+        /// </summary>
+        /// <param name="inG"></param>
+        private void RedrawRectifyPoint(Graphics inG)
+        {
+            //画图
+            Pen pen = new Pen(Color.Red);
+            Brush brush = new SolidBrush(Color.Red);
+            Font font = new Font(FontFamily.GenericMonospace, 15);
+            int count = 1;
+            foreach (var rectScPoint in this._rectifyScreenPoints)
+            {
+                
+                inG.DrawEllipse(pen, rectScPoint.X - 9, rectScPoint.Y - 9, 18, 18);
+                inG.FillEllipse(brush, rectScPoint.X - 4, rectScPoint.Y - 4, 8, 8);
+                inG.DrawString((count++).ToString(), font, brush, rectScPoint.X, rectScPoint.Y);
+            }
+        }
+
+        /// <summary>
+        /// 绘制像素网格，以表明已经校正过
+        /// </summary>
+        /// <param name="inG"></param>
+        private void RedrawPixelGrid(Graphics inG, int width, int height, int w, int h)
+        {
+            var gridPen = new Pen(Color.FromArgb(100, 176, 196, 222)) { Width = (float)0.5 };
+
+            Point p1 = new Point();
+            Point p2 = new Point();
+
+            p1.X = 0;
+            p2.X = width;
+            for (int y = 0; y <= height; y += h)
+            {
+                p1.Y = y;
+                p2.Y = y;
+                inG.DrawLine(gridPen, p1, p2);
+            }
+
+            p1.Y = 0;
+            p2.Y = height;
+            for (int x = 0; x <= width; x += w)
+            {
+                p1.X = x;
+                p2.X = x;
+                inG.DrawLine(gridPen, p1, p2);
+            }
+        }
+
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
             this.RedrawImageLines(e.Graphics);
             this.RedrawCurrLine(e.Graphics);
+            this.RedrawRectifyPoint(e.Graphics);
+            if (this._currBitmap != null && !this._isRectifying && this.RectifyInfo != null && this.RectifyInfo.IsValid)
+            {
+                int width = this.pictureBox.Width;
+                int height = this.pictureBox.Height;
+                int w = 10;
+                int h = 10;
+                this.RedrawPixelGrid(e.Graphics, width, height, w, h);
+            }
         }
 
         private void btnGetImageFromCamera_Click(object sender, EventArgs e)
@@ -248,25 +310,40 @@ namespace FGeo3D.GeoImage
             {
                 if (RectifyInfo != null)
                 {
-                    var dlgResult = MessageBox.Show(@"已存在校正数据，是否将其覆盖？", @"校正提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    var dlgResult = MessageBox.Show(
+                        @"已存在校正数据，是否将其覆盖？",
+                        @"校正提示",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
                     if (dlgResult == DialogResult.No) return;
                 }
                 //点击后进入校正状态
                 RectifyInfo = new RectifyInfo();
                 pictureBox.MouseDown += PictureBoxOnMouseDown_Rectify;
-                btnRectify.Text = @"结束校正";
+                this.btnRectify.Text = @"校正中，点击此处结束校正";
                 this._isRectifying = true;
             }
             else
             {
                 //点击后结束校正状态
-                pictureBox.MouseDown -= PictureBoxOnMouseDown_Rectify;
-                btnRectify.Text = @"开始校正";
-                this._isRectifying = false;
-                RectifyInfo.CalculateRectification();
-
                 
-                pictureBox.Refresh();
+                
+                bool isRectified = this.RectifyInfo.CalculateRectification();
+                if (isRectified)
+                {
+                    // 校正成功
+                    this._isRectifying = false;
+                    this.pictureBox.MouseDown -= PictureBoxOnMouseDown_Rectify;
+                    this.btnRectify.Text = @"开始校正";
+                    this._rectifyScreenPoints.Clear();
+                }
+                else
+                {
+                    // 校正失败（不足三个点）
+
+                }
+
+                this.pictureBox.Refresh();
             }
             
 
@@ -278,21 +355,14 @@ namespace FGeo3D.GeoImage
         {
            
 
-            var frmRectify = new FrmRectification(RectifyInfo.RectifyDatas.Count, e.X, e.Y);
+            var frmRectify = new FrmRectification(this.RectifyInfo.RectifyDatas.Count, e.X, e.Y);
             var frmDlgResult = frmRectify.ShowDialog();
             if (frmDlgResult == DialogResult.OK)
             {
-                //记录校正点对
-                RectifyInfo.RectifyDatas.Add(frmRectify.ScPoint, frmRectify.WdPoint);
-
-                //画图
-                Pen pen = new Pen(Color.Red);
-                Brush brush = new SolidBrush(Color.Red);
-                Font font = new Font(FontFamily.GenericMonospace, 15);
-
-                g.DrawEllipse(pen, e.X - 9, e.Y - 9, 18, 18);
-                g.FillEllipse(brush, e.X - 4, e.Y - 4, 8, 8);
-                g.DrawString((RectifyInfo.RectifyDatas.Count).ToString(), font, brush, e.X, e.Y);
+                // 记录校正点对
+                this.RectifyInfo.RectifyDatas.Add(frmRectify.ScPoint, frmRectify.WdPoint);
+                this._rectifyScreenPoints.Add(frmRectify.ScPoint);
+                this.pictureBox.Refresh();
             }
         }
 
@@ -323,8 +393,10 @@ namespace FGeo3D.GeoImage
                 MessageBox.Show(@"当前绘制点与起点距离太小，无法形成闭合线环。");
                 return;
             }
-            g.DrawLine(this._pen, this._currScreenLinePoints[this._currScreenLinePoints.Count - 1], this._currScreenLinePoints[0]);
+
+            // g.DrawLine(this._pen, this._currScreenLinePoints[this._currScreenLinePoints.Count - 1], this._currScreenLinePoints[0]);
             this._currScreenLinePoints.Add(new Point(firstP.X, firstP.Y));
+            pictureBox.Refresh();
             this.pictureBox.MouseDown -= this.PictureBoxOnMouseDown_DrawLine;
             this.btnDraw.Checked = false;
         }

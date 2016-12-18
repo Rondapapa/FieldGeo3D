@@ -18,6 +18,7 @@ namespace Draw.CoordSys
         {
 
         }
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -36,7 +37,7 @@ namespace Draw.CoordSys
             {
                 newY.reverse();
             }
-
+            
             mTrans = new sg_Transformation(newZ, newX, newY, orgin);
         }
 

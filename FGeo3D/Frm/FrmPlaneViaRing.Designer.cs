@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable2 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
-            DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer2 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
+            DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable3 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
+            DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer3 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
             this.btnOK = new DevComponents.DotNetBar.ButtonX();
             this.textBoxDepth = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.textBoxXInterval = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -71,6 +71,7 @@
             this.textBoxDepth.PreventEnterBeep = true;
             this.textBoxDepth.Size = new System.Drawing.Size(112, 31);
             this.textBoxDepth.TabIndex = 1;
+            this.textBoxDepth.Click += new System.EventHandler(this.textBoxDepth_Click);
             this.textBoxDepth.TextChanged += new System.EventHandler(this.textBoxDepth_TextChanged);
             // 
             // textBoxXInterval
@@ -89,6 +90,7 @@
             this.textBoxXInterval.PreventEnterBeep = true;
             this.textBoxXInterval.Size = new System.Drawing.Size(112, 31);
             this.textBoxXInterval.TabIndex = 1;
+            this.textBoxXInterval.Click += new System.EventHandler(this.textBoxXInterval_Click);
             this.textBoxXInterval.TextChanged += new System.EventHandler(this.textBoxXInterval_TextChanged);
             // 
             // buttonXCancel
@@ -132,22 +134,22 @@
             // 
             // keyboardControl1
             // 
-            virtualKeyboardColorTable2.BackgroundColor = System.Drawing.Color.Black;
-            virtualKeyboardColorTable2.DarkKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
-            virtualKeyboardColorTable2.DownKeysColor = System.Drawing.Color.White;
-            virtualKeyboardColorTable2.DownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            virtualKeyboardColorTable2.KeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(55)))));
-            virtualKeyboardColorTable2.LightKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(68)))), ((int)(((byte)(76)))));
-            virtualKeyboardColorTable2.PressedKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(161)))), ((int)(((byte)(81)))));
-            virtualKeyboardColorTable2.TextColor = System.Drawing.Color.White;
-            virtualKeyboardColorTable2.ToggleTextColor = System.Drawing.Color.Green;
-            virtualKeyboardColorTable2.TopBarTextColor = System.Drawing.Color.White;
-            this.keyboardControl1.ColorTable = virtualKeyboardColorTable2;
+            virtualKeyboardColorTable3.BackgroundColor = System.Drawing.Color.Black;
+            virtualKeyboardColorTable3.DarkKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
+            virtualKeyboardColorTable3.DownKeysColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable3.DownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            virtualKeyboardColorTable3.KeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(55)))));
+            virtualKeyboardColorTable3.LightKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(68)))), ((int)(((byte)(76)))));
+            virtualKeyboardColorTable3.PressedKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(161)))), ((int)(((byte)(81)))));
+            virtualKeyboardColorTable3.TextColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable3.ToggleTextColor = System.Drawing.Color.Green;
+            virtualKeyboardColorTable3.TopBarTextColor = System.Drawing.Color.White;
+            this.keyboardControl1.ColorTable = virtualKeyboardColorTable3;
             this.keyboardControl1.Location = new System.Drawing.Point(12, 86);
             this.keyboardControl1.Name = "keyboardControl1";
-            flatStyleRenderer2.ColorTable = virtualKeyboardColorTable2;
-            flatStyleRenderer2.ForceAntiAlias = false;
-            this.keyboardControl1.Renderer = flatStyleRenderer2;
+            flatStyleRenderer3.ColorTable = virtualKeyboardColorTable3;
+            flatStyleRenderer3.ForceAntiAlias = false;
+            this.keyboardControl1.Renderer = flatStyleRenderer3;
             this.keyboardControl1.Size = new System.Drawing.Size(382, 334);
             this.keyboardControl1.TabIndex = 3;
             // 
@@ -167,7 +169,7 @@
             // 
             // labelXColor
             // 
-            this.labelXColor.BackColor = System.Drawing.Color.Transparent;
+            this.labelXColor.BackColor = System.Drawing.Color.Blue;
             // 
             // 
             // 

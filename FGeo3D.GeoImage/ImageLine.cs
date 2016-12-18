@@ -107,13 +107,12 @@ namespace FGeo3D.GeoImage
         {
             // 面
             // 根据地质对象类型，弹出数据库编录卡，保存信息（数据来源:私有模型），记录地质点guid
-            var partSurfaceGuid = db.SkyFrmSymxDzdx(MarkerType);
-            if (string.IsNullOrEmpty(partSurfaceGuid))
-                return false;
+            var partSurfaceGuid = db.SkyFrmSymxDzdx(this.MarkerType);
+            if (string.IsNullOrEmpty(partSurfaceGuid)) return false;
             var sourceSurfaceGuid = db.PublishPartVer(partSurfaceGuid);
 
             // 根据面点集构建ts文件
-            TsSurface = new TsFile(WorldPoints, "TSurf", "M", MarkerType, Name, new List<string>
+            this.TsSurface = new TsFile(WorldPoints, "TSurf", "M", MarkerType, Name, new List<string>
             {
                 sourceSurfaceGuid // ?
             });

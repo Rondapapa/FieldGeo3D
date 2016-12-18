@@ -20,9 +20,9 @@ namespace FGeo3D.GeoCurvedSurface
 
     public class Triangulations
     {
-        private List<Vertex> Vertices = new List<Vertex>();
+        private List<Vertex> allVerticesList = new List<Vertex>(); // 数据点集
 
-        private readonly List<Point> verticesList;
+        private readonly List<Point> edgeVerticesList; //边界点集
 
         private ITriangulation<Vertex, DefaultTriangulationCell<Vertex>> triangulations;
 
@@ -37,15 +37,15 @@ namespace FGeo3D.GeoCurvedSurface
         /// <summary>
         /// 构造Delaunay三角网
         /// </summary>
-        /// <param name="pointsList">数据点集</param>
-        /// <param name="verticesList">边界点（Surface无需此项，可给空）</param>
-        public Triangulations(IList<Point> pointsList, IList<Point> verticesList)
+        /// <param name="allVerticesList">数据点集</param>
+        /// <param name="edgeVerticesList">边界点（Surface无需此项，可给空）</param>
+        public Triangulations(IList<Point> allVerticesList, IList<Point> edgeVerticesList)
         {
-            this.verticesList = new List<Point>(verticesList);
+            this.edgeVerticesList = new List<Point>(edgeVerticesList);
 
-            foreach (var p in pointsList)
+            foreach (var p in allVerticesList)
             {
-                this.Vertices.Add(new Vertex(p.X, p.Y));
+                this.allVerticesList.Add(new Vertex(p.X, p.Y));
             }
         }
 
@@ -60,10 +60,10 @@ namespace FGeo3D.GeoCurvedSurface
         {
             try
             {
-                triangulations = Triangulation.CreateDelaunay(this.Vertices);
+                triangulations = Triangulation.CreateDelaunay(this.allVerticesList);
 
 
-                this.TsData.VerticesList = new List<Point3D>(this.Vertices.Count);
+                this.TsData.VerticesList = new List<Point3D>(this.allVerticesList.Count);
                 this.TsData.TriLinksList = new List<TriLink>(this.triangulations.Cells.Count());
 
                 // 以Dict记录三角形的编号
@@ -94,7 +94,7 @@ namespace FGeo3D.GeoCurvedSurface
                     var vPos = kv.Key.Position;
                     var x = vPos[0];
                     var y = vPos[1];
-                    var z = interpolateFunc(this.verticesList, depth, x, y);
+                    var z = interpolateFunc(this.edgeVerticesList, depth, x, y);
                     
                     this.TsData.VerticesList.Add(new Point3D(x, y, z));
                 }
@@ -115,10 +115,10 @@ namespace FGeo3D.GeoCurvedSurface
         {
             try
             {
-                triangulations = Triangulation.CreateDelaunay(this.Vertices);
+                triangulations = Triangulation.CreateDelaunay(this.allVerticesList);
 
 
-                this.TsData.VerticesList = new List<Point3D>(this.Vertices.Count);
+                this.TsData.VerticesList = new List<Point3D>(this.allVerticesList.Count);
                 this.TsData.TriLinksList = new List<TriLink>(this.triangulations.Cells.Count());
 
                 // 以Dict记录三角形的编号

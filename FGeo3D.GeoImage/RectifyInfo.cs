@@ -81,14 +81,14 @@ namespace FGeo3D.GeoImage
         /// <summary>
         /// 计算并创建校正模型
         /// </summary>
-        public void CalculateRectification()
+        public bool CalculateRectification()
         {
             
 
             if (RectifyDatas.Count < 3)
             {
                 MessageBox.Show(@"至少需要3个校正控制点。", @"校正未完成");
-                return;
+                return false;
             }
 
 
@@ -243,7 +243,7 @@ namespace FGeo3D.GeoImage
             RectifyModelWdReal = new Plane(rootPointReal, vNReal);
 
             MessageBox.Show($"{RectifyDatas.Count}个校正控制点。", @"校正完成");
-            
+            return true;
         }
 
         /// <summary>
