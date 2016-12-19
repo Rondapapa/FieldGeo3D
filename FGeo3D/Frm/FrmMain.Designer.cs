@@ -724,7 +724,6 @@
             this.buttonXSlopeDrawing.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXSlopeDrawing.TabIndex = 17;
             this.buttonXSlopeDrawing.Text = "边坡测绘";
-            this.buttonXSlopeDrawing.Visible = false;
             this.buttonXSlopeDrawing.Click += new System.EventHandler(this.buttonXSlopeDrawing_Click);
             // 
             // buttonXCavityDrawing

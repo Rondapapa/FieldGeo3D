@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="CoordSys\CoordHelp.cs" />
     <Compile Include="CoordSys\M1.cs" />
+    <Compile Include="CoordSys\M3.cs" />
     <Compile Include="Drawing\Document.cs" />
     <Compile Include="Drawing\line.cs" />
     <Compile Include="Drawing\ShapeBase.cs" />

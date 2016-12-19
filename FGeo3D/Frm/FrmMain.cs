@@ -2862,7 +2862,9 @@ namespace FGeo3D_TE.Frm
 
         private void buttonXSlopeDrawing_Click(object sender, EventArgs e)
         {
-            Draw.FrmDrawEx frmDrawEx = new FrmDrawEx();
+            drawParameter para = new drawParameter();
+
+            FrmDrawEx frmDrawEx = new FrmDrawEx();
             var drawDlg = frmDrawEx.ShowDialog();
         }
     }

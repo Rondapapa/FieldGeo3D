@@ -15,6 +15,8 @@ using GeoIM.CHIDI.DZ.Model.XTGL;
 
 namespace Draw.CoordSys
 {
+    using GeoIM.CHIDI.DZ.BLL.YSZL;
+
     public class CoordHelp
     {
         /// <summary>
@@ -88,11 +90,74 @@ namespace Draw.CoordSys
         }
 
         /// <summary>
+        /// 得到数据来源的局部编录坐标系 （还未实现）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pts"></param>
+        /// <returns></returns>
+        public static bool get_JBBLZBPt3(string id, out sg_Vector3[] pts)
+        {
+            pts = new sg_Vector3[3];
+
+            DataTable dt = BLHTBLL.GetXDMXJDZB(id);
+            if (dt.Rows.Count == 0)
+            {
+                return false;
+            }
+
+            // 待实现
+            return true;
+        }
+
+        /// <summary>
+        /// 判断点集是否共线
+        /// </summary>
+        /// <param name="pts">点集</param>
+        /// <returns></returns>
+        public static bool IsPtsCollinear(sg_Vector3[] pts)
+        {
+            int iCount = pts.Length;
+
+            // 若点集中的点数小于3个，判定共线
+            if (iCount < 3) return true;
+
+            // 获取第一个非零辅助向量
+            sg_Vector3 v1 = pts[1] - pts[0];
+            if (v1.isZero())
+            {
+                for (int i = 2; i < iCount; ++i)
+                {
+                    v1 = pts[i] - pts[0];
+                    if (!v1.isZero()) break;
+                }
+            }
+
+            // 获取第二个非零辅助向量
+            for (int j = 1; j < iCount; ++j)
+            {
+                var v2 = pts[j] - pts[0];
+                if (v2.isZero())
+                {
+                    continue;
+                }
+                
+                // 若两个非零辅助向量不平行，则判定不共线
+                if (!v1.isParallel(v2))
+                {
+                    return false;
+                }
+            }
+
+            // 若两个非零辅助向量始终平行，则判定共线
+            return true;
+        }
+
+        /// <summary>
         /// 由点集计算平面法向量
         /// </summary>
         /// <param name="pts">点集</param>
         /// <returns></returns>
-        public static bool CacNormalVector(sg_Vector3[] pts, out sg_Vector3 n)
+        public static bool CalcNormalVector(sg_Vector3[] pts, out sg_Vector3 n)
         {
             n = null;
             int iCount = pts.Length;

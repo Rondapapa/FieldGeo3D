@@ -12,6 +12,8 @@ using GeoIM.CHIDI.DZ.Util.Common;
 
 namespace Draw.Drawing
 {
+    using Draw.CoordSys;
+
     public struct drawingParameter
     {
         /// <summary>
@@ -142,24 +144,39 @@ namespace Draw.Drawing
             Init();
         }
 
+        /// <summary>
+        /// 设定初始数据
+        /// </summary>
         private void Init()
         {
-            sg_Vector3[] pts;
-            if (!CoordSys.CoordHelp.get_KWZBPt3(SJLYID, out pts))
+            // 获取地质对象的三个控制点，若找不到控制点，则退出
+            sg_Vector3[] ptsForM1;
+            if (!CoordSys.CoordHelp.get_KWZBPt3(SJLYID, out ptsForM1))
             {
-
                 return;
             }
-            if (pts.Count() > 2)
+
+            // 根据三个控制点，建立M1
+            if (ptsForM1.Count() > 2)
             {
-                m1 = new CoordSys.M1(pts);
+                m1 = new CoordSys.M1(ptsForM1);
             }
 
             string DXID = string.Empty;
             string OperateID = GUIDGenerator.NewGUID;
 
-            EditDataSet = GLDXMDXKBLL.GetEditDataSet(SJLYID, OperateID, DXID, string.Empty);
-            dt = BLHTBLL.GetXDMXJDZB(SJLYID);
+            EditDataSet = GLDXMDXKBLL.GetEditDataSet(SJLYID, OperateID, DXID, string.Empty); // ?
+
+            sg_Vector3[] ptsForM3; // 用于求M3的控制点
+            dt = BLHTBLL.GetXDMXJDZB(SJLYID); // 用于求M3（可能重构进入CoordHelp相关函数中）
+            if (!CoordHelp.get_JBBLZBPt3(SJLYID, out ptsForM3))
+            {
+                return;
+            }
+
+            // 根据三个控制点，建立M3
+            
+
 
         }
 
