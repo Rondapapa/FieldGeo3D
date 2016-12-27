@@ -90,7 +90,7 @@ namespace Draw.CoordSys
         }
 
         /// <summary>
-        /// 得到数据来源的局部编录坐标系 （还未实现）
+        /// 得到数据来源的局部编录坐标系 （待测试）
         /// </summary>
         /// <param name="id"></param>
         /// <param name="pts"></param>
@@ -105,7 +105,27 @@ namespace Draw.CoordSys
                 return false;
             }
 
-            // 待实现
+            // 控制点1
+            DataRow pt1DataRow = dt.DataSet.Tables["ZBK"].Rows[0];
+            double x1 = double.Parse(pt1DataRow["X"].ToString());
+            double y1 = double.Parse(pt1DataRow["Y"].ToString());
+            double z1 = double.Parse(pt1DataRow["Z"].ToString());
+            pts[0] = new sg_Vector3(x1, y1, z1);
+
+            // 控制点2
+            DataRow pt2DataRow = dt.DataSet.Tables["ZBK"].Rows[0];
+            double x2 = double.Parse(pt2DataRow["X"].ToString());
+            double y2 = double.Parse(pt2DataRow["Y"].ToString());
+            double z2 = double.Parse(pt2DataRow["Z"].ToString());
+            pts[1] = new sg_Vector3(x2, y2, z2);
+
+            // 控制点3
+            DataRow pt3DataRow = dt.DataSet.Tables["ZBK"].Rows[0];
+            double x3 = double.Parse(pt3DataRow["X"].ToString());
+            double y3 = double.Parse(pt3DataRow["Y"].ToString());
+            double z3 = double.Parse(pt3DataRow["Z"].ToString());
+            pts[2] = new sg_Vector3(x3, y3, z3);
+
             return true;
         }
 

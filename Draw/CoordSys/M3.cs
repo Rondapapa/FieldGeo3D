@@ -13,6 +13,10 @@ namespace Draw.CoordSys
     public class M3
     {
         private sg_Transformation mTrans;
+
+        public bool IsValid { get; private set; }
+
+
         public M3(sg_Vector3[] pts) : this(pts[0], pts[1], pts[2])
         {
 
@@ -28,26 +32,26 @@ namespace Draw.CoordSys
         {
             sg_Vector3 v12 = pt2 - pt1;
             sg_Vector3 v13 = pt3 - pt1;
+
             if (v12.isParallel(v13))
             {
-                
-            }
-            else
-            {
-                
-            }
-            sg_Vector3 newZ = new sg_Vector3(0, 0, 1);
-            sg_Vector3 newX = pt2 - pt1;
-
-            sg_Vector3 YR1 = pt3 - pt1;
-            sg_Vector3 newY = newZ.crossMul(newX);
-            double angle = Math.Abs(YR1.getInterAngle(newY)); // 两向量夹角
-            if (angle > 90)
-            {
-                newY.reverse();
+                // 若三点共线 
+                // 怎么办？
+                IsValid = false;
+                return; 
             }
 
-            mTrans = new sg_Transformation(newZ, newX, newY, pt1);
+            sg_Vector3 nLocalXoY = v12.crossMul(v13);  // 局部编录面法向量
+            sg_Vector3 nGeodeticXoY = new sg_Vector3(0,0,1); // 大地坐标XoY面法向量
+            sg_Vector3 nx = nLocalXoY.isParallel(nGeodeticXoY)
+                                ? new sg_Vector3(1, 0, 0)
+                                : nLocalXoY.crossMul(nGeodeticXoY);
+            sg_Vector3 ny = nLocalXoY.isParallel(nGeodeticXoY)
+                                ? new sg_Vector3(0, 1, 0)
+                                : nLocalXoY.crossMul(nx);
+            sg_Vector3 nz = nx.crossMul(ny);
+            this.mTrans = new sg_Transformation(nz, nx, ny, pt1);
+            IsValid = true;
         }
 
         /// <summary>

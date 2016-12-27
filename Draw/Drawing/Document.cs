@@ -119,7 +119,10 @@ namespace Draw.Drawing
         }
 
         Dictionary<int, ShapeBase> items = new Dictionary<int, ShapeBase>();  // 存的是什么坐标？屏幕坐标？
+
         private CoordSys.M1 m1 = null;
+
+        private CoordSys.M3 m3 = null;
         private DataSet EditDataSet;
         private DataTable dt;
         private sg_Vector3 NormalVector;
@@ -175,7 +178,16 @@ namespace Draw.Drawing
             }
 
             // 根据三个控制点，建立M3
+            if (!CoordHelp.IsPtsCollinear(ptsForM3))
+            {
+                this.m3 = new M3(ptsForM3);
+            }
             
+            // 根据M1、M3算M2  （需要吗？）
+
+            // 确定矩形参数
+            // 绘制矩形
+
 
 
         }
