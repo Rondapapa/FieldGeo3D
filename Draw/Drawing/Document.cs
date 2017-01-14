@@ -31,12 +31,10 @@ namespace Draw.Drawing
         /// </summary>
         public string SJLYLXMC;
 
-
         /// <summary>
         /// 地质对象ID
         /// </summary>
         public string DZDXID;
-
 
         /// <summary>
         /// 地质对象类型
@@ -47,7 +45,6 @@ namespace Draw.Drawing
         /// 编号
         /// </summary>
         public string BH;
-
 
         /// <summary>
         /// 名称
@@ -125,6 +122,7 @@ namespace Draw.Drawing
         private CoordSys.M3 m3Raw = null;
 
         private CoordSys.M3 m3Screen = null;
+
         private DataSet EditDataSet;
         private DataTable dt;
         private sg_Vector3 NormalVector;
@@ -156,6 +154,7 @@ namespace Draw.Drawing
         {
             // 获取地质对象的三个控制点，若找不到控制点，则退出
             sg_Vector3[] ptsForM1;
+
             if (!CoordSys.CoordHelp.get_KWZBPt3(SJLYID, out ptsForM1))
             {
                 return;
@@ -198,7 +197,7 @@ namespace Draw.Drawing
             // 获取新的原点
             double xNewO = Math.Min(Math.Min(pts1InM3.x, pts2InM3.x), pts3InM3.x);
             double yNewO = Math.Min(Math.Min(pts1InM3.y, pts2InM3.y), pts3InM3.y);
-            
+
             // 获取新原点下的坐标偏移值
             double xOffset = xNewO - pts1InM3.x;
             double yOffset = yNewO - pts1InM3.y;
@@ -216,11 +215,7 @@ namespace Draw.Drawing
             sg_Vector3 recRightLow = new sg_Vector3(recWidth, 0);
             sg_Vector3 recRightHigh = new sg_Vector3(recWidth, recHeight);
 
-
-
             // 绘制矩形
-
-
 
         }
 

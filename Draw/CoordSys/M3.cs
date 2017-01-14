@@ -13,13 +13,11 @@ namespace Draw.CoordSys
     public class M3
     {
         private sg_Transformation mTrans;
-
         public bool IsValid { get; private set; }
 
-
         public M3(sg_Vector3[] pts, double xOffset = 0.0, double yOffset = 0.0) : this(pts[0], pts[1], pts[2], xOffset, yOffset)
-        {
 
+        {
         }
 
         /// <summary>
@@ -38,11 +36,11 @@ namespace Draw.CoordSys
                 // 若三点共线 
                 // 怎么办？
                 IsValid = false;
-                return; 
+                return;
             }
 
             sg_Vector3 nLocalXoY = v12.crossMul(v13);  // 局部编录面法向量
-            sg_Vector3 nGeodeticXoY = new sg_Vector3(0,0,1); // 大地坐标XoY面法向量
+            sg_Vector3 nGeodeticXoY = new sg_Vector3(0, 0, 1); // 大地坐标XoY面法向量
             sg_Vector3 nx = nLocalXoY.isParallel(nGeodeticXoY)
                                 ? new sg_Vector3(1, 0, 0)
                                 : nLocalXoY.crossMul(nGeodeticXoY);
@@ -53,10 +51,9 @@ namespace Draw.CoordSys
 
             sg_Vector3 origin = new sg_Vector3(pt1.x + xOffset, pt1.y + yOffset, pt1.z);
             this.mTrans = new sg_Transformation(nz, nx, ny, origin);
+
             IsValid = true;
         }
-
-
 
         /// <summary>
         /// 根据已有的M3，平移形成新的M3
@@ -66,9 +63,7 @@ namespace Draw.CoordSys
         /// <param name="offSetY">原点Y偏移</param>
         public M3(M3 inM3, double offSetX, double offSetY)
         {
-            
         }
-
 
         /// <summary>
         /// 由局部编录坐标计算大地坐标
