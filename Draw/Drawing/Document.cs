@@ -119,7 +119,12 @@ namespace Draw.Drawing
         }
 
         Dictionary<int, ShapeBase> items = new Dictionary<int, ShapeBase>();  // 存的是什么坐标？屏幕坐标？
+
         private CoordSys.M1 m1 = null;
+
+        private CoordSys.M3 m3Raw = null;
+
+        private CoordSys.M3 m3Screen = null;
         private DataSet EditDataSet;
         private DataTable dt;
         private sg_Vector3 NormalVector;
@@ -175,7 +180,46 @@ namespace Draw.Drawing
             }
 
             // 根据三个控制点，建立M3
+            if (!CoordHelp.IsPtsCollinear(ptsForM3))
+            {
+                this.m3Raw = new M3(ptsForM3);
+            }
+
+            if (!this.m3Raw.IsValid)
+            {
+                throw new Exception("M3创建失败，请检查控制点坐标。");
+            }
+
+            // 大地控制点在M3下的坐标
+            sg_Vector3 pts1InM3 = this.m3Raw.getLocCoord(ptsForM3[0]);
+            sg_Vector3 pts2InM3 = this.m3Raw.getLocCoord(ptsForM3[1]);
+            sg_Vector3 pts3InM3 = this.m3Raw.getLocCoord(ptsForM3[2]);
+
+            // 获取新的原点
+            double xNewO = Math.Min(Math.Min(pts1InM3.x, pts2InM3.x), pts3InM3.x);
+            double yNewO = Math.Min(Math.Min(pts1InM3.y, pts2InM3.y), pts3InM3.y);
             
+            // 获取新原点下的坐标偏移值
+            double xOffset = xNewO - pts1InM3.x;
+            double yOffset = yNewO - pts1InM3.y;
+
+            // 建立M3Screen （M3与M3Screen）
+            this.m3Screen = new M3(ptsForM3, xOffset, yOffset);
+
+            // 确定矩形参数 //矩形的四个顶点作为屏幕坐标的基准点
+            double recWidth = Math.Max(Math.Max(pts1InM3.x, pts2InM3.x), pts3InM3.x)
+                               - Math.Min(Math.Min(pts1InM3.x, pts2InM3.x), pts3InM3.x);
+            double recHeight = Math.Max(Math.Max(pts1InM3.y, pts2InM3.y), pts3InM3.y)
+                               - Math.Min(Math.Min(pts1InM3.y, pts2InM3.y), pts3InM3.y);
+            sg_Vector3 recLeftLow = new sg_Vector3(0, 0);
+            sg_Vector3 recLeftHigh = new sg_Vector3(0, recHeight);
+            sg_Vector3 recRightLow = new sg_Vector3(recWidth, 0);
+            sg_Vector3 recRightHigh = new sg_Vector3(recWidth, recHeight);
+
+
+
+            // 绘制矩形
+
 
 
         }
