@@ -199,6 +199,7 @@ namespace Draw.Drawing
             double xNewO = Math.Min(Math.Min(pts1InM3.x, pts2InM3.x), pts3InM3.x);
             double yNewO = Math.Min(Math.Min(pts1InM3.y, pts2InM3.y), pts3InM3.y);
             
+
             // 获取新原点下的坐标偏移值
             double xOffset = xNewO - pts1InM3.x;
             double yOffset = yNewO - pts1InM3.y;
@@ -219,6 +220,7 @@ namespace Draw.Drawing
 
 
             // 绘制矩形
+
 
 
 
