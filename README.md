@@ -2,4 +2,4 @@ Part codes of **Geological Recording System** intergrated with visual display an
 
 Do **NOT** Star or Watch!
 
-Under Heavy Development! !
+Under Heavy Development! 

@@ -66,7 +66,7 @@ namespace Draw
                 g_bmp = Graphics.FromImage(bmp);
                 g_bmp.Clear(DrawBackColor);
 
-                this.doc?.Draw(this.g_bmp);
+                if (doc != null) doc.Draw(g_bmp);
             }
         }
 

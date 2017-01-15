@@ -333,7 +333,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -407,6 +409,10 @@
     <ProjectReference Include="..\FGeo3D.LoggingObj\FGeo3D.LoggingObj.csproj">
       <Project>{098b5732-08e2-4145-abd9-912fc8f1dbab}</Project>
       <Name>FGeo3D.LoggingObj</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stereonet\Stereonet\Stereonet.csproj">
+      <Project>{b2558702-0179-492a-a623-74be9233787d}</Project>
+      <Name>Stereonet</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

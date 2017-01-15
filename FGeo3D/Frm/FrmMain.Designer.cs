@@ -44,6 +44,7 @@
             this.btnPlaneViaSpot = new DevComponents.DotNetBar.ButtonItem();
             this.btnPlaneViaLine = new DevComponents.DotNetBar.ButtonItem();
             this.btnBuildSurface = new DevComponents.DotNetBar.ButtonItem();
+            this.btnStereonet = new DevComponents.DotNetBar.ButtonItem();
             this.rbData = new DevComponents.DotNetBar.RibbonBar();
             this.btnOpen = new DevComponents.DotNetBar.ButtonItem();
             this.btnConnectDB = new DevComponents.DotNetBar.ButtonItem();
@@ -226,11 +227,12 @@
             this.rbAnalysis.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnPlaneViaSpot,
             this.btnPlaneViaLine,
-            this.btnBuildSurface});
+            this.btnBuildSurface,
+            this.btnStereonet});
             this.rbAnalysis.Location = new System.Drawing.Point(1010, 1);
             this.rbAnalysis.Name = "rbAnalysis";
             this.rbAnalysis.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rbAnalysis.Size = new System.Drawing.Size(199, 75);
+            this.rbAnalysis.Size = new System.Drawing.Size(261, 75);
             this.rbAnalysis.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.rbAnalysis.TabIndex = 8;
             this.rbAnalysis.Text = "分析处理";
@@ -273,6 +275,15 @@
             this.btnBuildSurface.SubItemsExpandWidth = 14;
             this.btnBuildSurface.Text = "拟合界面";
             this.btnBuildSurface.Click += new System.EventHandler(this.btnBuildSurface_Click);
+            // 
+            // btnStereonet
+            // 
+            this.btnStereonet.Image = ((System.Drawing.Image)(resources.GetObject("btnStereonet.Image")));
+            this.btnStereonet.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnStereonet.Name = "btnStereonet";
+            this.btnStereonet.SubItemsExpandWidth = 14;
+            this.btnStereonet.Text = "块体分析";
+            this.btnStereonet.Click += new System.EventHandler(this.btnStereonet_Click);
             // 
             // rbData
             // 
@@ -601,7 +612,7 @@
             this.StatusGPS});
             this.statusStrip1.Location = new System.Drawing.Point(0, 603);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1234, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(1270, 26);
             this.statusStrip1.TabIndex = 20;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -642,7 +653,7 @@
             this.axTE3DWindow1.Location = new System.Drawing.Point(0, 0);
             this.axTE3DWindow1.Name = "axTE3DWindow1";
             this.axTE3DWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTE3DWindow1.OcxState")));
-            this.axTE3DWindow1.Size = new System.Drawing.Size(935, 521);
+            this.axTE3DWindow1.Size = new System.Drawing.Size(965, 521);
             this.axTE3DWindow1.TabIndex = 1;
             // 
             // axTEInformationWindow1
@@ -654,7 +665,7 @@
             this.axTEInformationWindow1.Location = new System.Drawing.Point(0, 0);
             this.axTEInformationWindow1.Name = "axTEInformationWindow1";
             this.axTEInformationWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTEInformationWindow1.OcxState")));
-            this.axTEInformationWindow1.Size = new System.Drawing.Size(225, 521);
+            this.axTEInformationWindow1.Size = new System.Drawing.Size(231, 521);
             this.axTEInformationWindow1.TabIndex = 0;
             // 
             // timerGPSReader
@@ -769,7 +780,7 @@
             this.panelEx2.Controls.Add(this.btnTest);
             this.panelEx2.Controls.Add(this.buttonXSlopeDrawing);
             this.panelEx2.DisabledBackColor = System.Drawing.Color.Empty;
-            this.panelEx2.Location = new System.Drawing.Point(1171, 82);
+            this.panelEx2.Location = new System.Drawing.Point(1207, 82);
             this.panelEx2.Name = "panelEx2";
             this.panelEx2.Size = new System.Drawing.Size(60, 518);
             this.panelEx2.Style.Alignment = System.Drawing.StringAlignment.Center;
@@ -795,15 +806,15 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.axTE3DWindow1);
-            this.splitContainer1.Size = new System.Drawing.Size(1167, 521);
-            this.splitContainer1.SplitterDistance = 225;
+            this.splitContainer1.Size = new System.Drawing.Size(1203, 521);
+            this.splitContainer1.SplitterDistance = 231;
             this.splitContainer1.TabIndex = 34;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1234, 629);
+            this.ClientSize = new System.Drawing.Size(1270, 629);
             this.Controls.Add(this.rbAnalysis);
             this.Controls.Add(this.btnChamber);
             this.Controls.Add(this.rbData);
@@ -884,6 +895,7 @@
         private DevComponents.DotNetBar.ButtonX buttonXFoundationDrawing;
         private DevComponents.DotNetBar.PanelEx panelEx2;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private DevComponents.DotNetBar.ButtonItem btnStereonet;
     }
 }
 

@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Draw", "Draw\Draw.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{27334AE8-408E-4128-A287-2451A39B55FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stereonet", "Stereonet\Stereonet\Stereonet.csproj", "{B2558702-0179-492A-A623-74BE9233787D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +108,14 @@ Global
 		{27334AE8-408E-4128-A287-2451A39B55FE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27334AE8-408E-4128-A287-2451A39B55FE}.Release|x86.ActiveCfg = Release|Any CPU
 		{27334AE8-408E-4128-A287-2451A39B55FE}.Release|x86.Build.0 = Release|Any CPU
+		{B2558702-0179-492A-A623-74BE9233787D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2558702-0179-492A-A623-74BE9233787D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2558702-0179-492A-A623-74BE9233787D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B2558702-0179-492A-A623-74BE9233787D}.Debug|x86.Build.0 = Debug|Any CPU
+		{B2558702-0179-492A-A623-74BE9233787D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2558702-0179-492A-A623-74BE9233787D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2558702-0179-492A-A623-74BE9233787D}.Release|x86.ActiveCfg = Release|Any CPU
+		{B2558702-0179-492A-A623-74BE9233787D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

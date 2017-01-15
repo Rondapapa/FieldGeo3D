@@ -290,8 +290,13 @@ namespace FGeo3D.GeoObj
             return resultPointList;
         }
 
-
-        private static bool IsPointInPolygon(List<Point> vertexList, Point p)
+        /// <summary>
+        /// 判断点是否在多边形内
+        /// </summary>
+        /// <param name="vertexList"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public static bool IsPointInPolygon(List<Point> vertexList, Point p)
         {
             if (vertexList.Count < 3)
             {
