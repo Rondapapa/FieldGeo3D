@@ -15,7 +15,7 @@ using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace Stereonet
 {
-    
+
     public partial class FrmStereonet : Form
     {
         int numOfA = 0;
@@ -27,20 +27,19 @@ namespace Stereonet
         string tempType = null;
         List<LongtitudeCircle> listOfCircle = new List<LongtitudeCircle>();// 存放圆，对应结构面
         List<Point> listOfPoint = new List<Point>(); //存放点，对应结构面交线
-        List<DataFromMain> theDataFromMain=new List<DataFromMain>();
+        List<DataFromMain> theDataFromMain = new List<DataFromMain>();
 
-        
+
         public FrmStereonet()
         {
             InitializeComponent();
         }
-        
-        public FrmStereonet(List<DataFromMain>  ld)
+
+        public FrmStereonet(List<DataFromMain> ld)
         {
             InitializeComponent();
-            theDataFromMain = ld;
-           
             
+            theDataFromMain = ld;
         }
 
         private void FrmStereonet_Load(object sender, EventArgs e)
@@ -52,29 +51,18 @@ namespace Stereonet
             attitudeInfo.Rows.Add(9);
             attitudeInfo.ClearSelection();
 
+
             Graphics g = pictureBox1.CreateGraphics();
             if (theDataFromMain.Count > 0)
             {
                 for (int i = 0; i < theDataFromMain.Count; i++)
                 {
-
-                    //attitudeInfo.Rows[i].Cells[0].Value = string.Format("A_" + (i + 1).ToString());
-                    //attitudeInfo.Rows[i].Cells[1].Value = theDataFromMain[i].Dip;
-                    //attitudeInfo.Rows[i].Cells[2].Value = theDataFromMain[i].Angle;
-                    //attitudeInfo.Rows.Add(1);   // 加一个空行
-                    //numOfA++;
-                    //totalRecord++;
                     typeOfArc = btnFreeFace.Name;
-                    textBoxTrend.Text= theDataFromMain[i].Dip.ToString();
+                    textBoxTrend.Text = theDataFromMain[i].Dip.ToString();
                     textBoxDip.Text = theDataFromMain[i].Angle.ToString();
-                    btnOK_Click(sender,e);
-
-
+                    btnOK_Click(sender, e);
                 }
-              
             }
-            
-
         }
 
 
@@ -178,7 +166,7 @@ namespace Stereonet
 
 
             }
-            
+
 
         }
 
@@ -188,7 +176,7 @@ namespace Stereonet
         public class DataFromMain
         {
             public double Dip { get; set; }           // 倾向
-            public  double Angle { set; get; }        // 倾角
+            public double Angle { set; get; }        // 倾角
 
             public DataFromMain(double dip, double angle)
             {
@@ -207,7 +195,7 @@ namespace Stereonet
             public double Y0 { get; set; }
             public double R { get; set; }
             public string Name { get; set; }
-            public  string type { get; set; }   // 主程序传入参数时用
+            public string type { get; set; }   // 主程序传入参数时用
             public LongtitudeCircle(string name, double x, double y, double r)
             {
                 Name = name;
@@ -219,7 +207,7 @@ namespace Stereonet
 
             public LongtitudeCircle(double a, double b)
             {
-                
+
             }
         }
         /// <summary>
@@ -324,7 +312,7 @@ namespace Stereonet
             Point newp1 = new Point(-R * Math.Cos(trend), -R * Math.Sin(trend));
             Point newp2 = new Point(R * Math.Cos(trend), R * Math.Sin(trend));
             double d = R * Math.Tan(Math.PI / 4 - dip / 2);
-           
+
             Point newp3 = new Point(d * Math.Sin(trend), -d * Math.Cos(trend));
 
             double x0, y0, r;
@@ -423,6 +411,11 @@ namespace Stereonet
             typeOfArc = btnStructural.Name;
         }
 
+        /// <summary>
+        /// 重置键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReset_Click(object sender, EventArgs e)
         {
             highlighter1.SetHighlightColor(btnStructural, DevComponents.DotNetBar.Validator.eHighlightColor.None);
@@ -521,7 +514,7 @@ namespace Stereonet
                         try
                         {
                             int a = attitudeInfo.SelectedRows[0].Index;                                          // 如果要删的行是该类的最后一行，则该类的数量减一
-                            if (attitudeInfo.Rows[a + 1].IsNewRow || attitudeInfo.Rows[a + 1].Cells[0].Value.ToString().Substring(0, 1) != "A")
+                            if (attitudeInfo.Rows[a + 1].IsNewRow || (attitudeInfo.Rows[a + 1].Cells[0].Value!=null && attitudeInfo.Rows[a + 1].Cells[0].Value.ToString().Substring(0, 1) != "A"))
                                 numOfA--;
                         }
                         finally { }
@@ -533,7 +526,7 @@ namespace Stereonet
                         try
                         {
                             int a = attitudeInfo.SelectedRows[0].Index;
-                            if (attitudeInfo.Rows[a + 1].IsNewRow || attitudeInfo.Rows[a + 1].Cells[0].Value.ToString().Substring(0, 1) != "B")
+                            if (attitudeInfo.Rows[a + 1].IsNewRow || (attitudeInfo.Rows[a + 1].Cells[0].Value != null && attitudeInfo.Rows[a + 1].Cells[0].Value.ToString().Substring(0, 1) != "B"))
                                 numOfB--;
                         }
                         finally { }
@@ -699,7 +692,7 @@ namespace Stereonet
 
                 textBoxReport.Text += "（二）交线情况：\r\n";
                 foreach (Point p in listOfPoint)
-                    textBoxReport.Text += "  " + p.Name.ToString() + ":(" + p.C1.Name + "," + p.C2.Name + 
+                    textBoxReport.Text += "  " + p.Name.ToString() + ":(" + p.C1.Name + "," + p.C2.Name +
                         ")(NE " + p.alpha.ToString("#0.0") + ", " + p.beta.ToString("#0.0") + ")\r\n";
             }
             else
@@ -752,7 +745,7 @@ namespace Stereonet
             //    LongtitudeCircle newCircle;
             //    DrawPlanes(out newCircle, e.Graphics, attitudeInfo.Rows[i], new Pen(Color.Red));
             //    listOfCircle.Add(newCircle);
-               
+
             //}
 
             Point p1 = new Point(0, -R);
@@ -789,6 +782,37 @@ namespace Stereonet
             var imageFileName = Path.Combine(Directory.GetCurrentDirectory(), "neel.png");
             Image newImage = Image.FromFile(imageFileName);
             e.Graphics.DrawImage(newImage, 244, 236, 36, 55);
+        }
+
+        /// <summary>
+        /// 关闭窗体后所有的变量清空
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FrmStereonet_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            numOfA = 0;
+            numOfB = 0;
+            totalRecord = 0;
+
+            typeOfArc = null;
+            tempPlane = null;
+            tempType = null;
+            listOfCircle = new List<LongtitudeCircle>(); // 存放圆，对应结构面
+            listOfPoint = new List<Point>(); //存放点，对应结构面交线
+         
+            for (int i = 0; i < attitudeInfo.RowCount; i++)
+            {
+                if (attitudeInfo.Rows[i].Cells[0].Value != null)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        attitudeInfo.Rows[i].Cells[j].Value = "";
+                    }
+                    attitudeInfo.Rows.Add(1);
+                }
+            }
+
         }
     }
 }

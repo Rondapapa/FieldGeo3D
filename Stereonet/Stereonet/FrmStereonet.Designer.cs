@@ -465,6 +465,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmStereonet";
             this.Text = "块体分析";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmStereonet_FormClosed);
             this.Load += new System.EventHandler(this.FrmStereonet_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelInfoInput.ResumeLayout(false);
