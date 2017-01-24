@@ -35,8 +35,12 @@
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar.Keyboard, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
-    <Reference Include="MathNet.Numerics, Version=3.16.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MathNet.Numerics.3.16.0\lib\net40\MathNet.Numerics.dll</HintPath>
+    <Reference Include="MathNet.Numerics, Version=3.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MathNet.Numerics.3.15.0\lib\net40\MathNet.Numerics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MathNet.Spatial, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MathNet.Spatial.0.3.0\lib\net40\MathNet.Spatial.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

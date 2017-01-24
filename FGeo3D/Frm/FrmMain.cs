@@ -93,7 +93,6 @@ namespace FGeo3D_TE.Frm
 
         // 块体分析 边坡起点ID
         private string _startOfStereonet = "";
-        private string slopeId = "";
         IWorldPointInfo66 firstPoint = null;
         List<Point> vertexOfStereonet = new List<Point>();
         private List<Stereonet.FrmStereonet.DataFromMain> selectedPointInStereonet = new List<FrmStereonet.DataFromMain>();
@@ -1431,16 +1430,24 @@ namespace FGeo3D_TE.Frm
 
             if (pbhander == "Stereonet")
             {
+                
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
                 sgworld.OnLButtonDown -= OnLBtnDown_Stereonet;
                 ResetButton(btnStereonet, true);
                 foreach (var item in LoggingObject.DictOfLoggingObjects)
                 {
-                    Point tempPoint = new Point(item.Value.Markers01.GetMarker(0).X, item.Value.Markers01.GetMarker(0).Y, item.Value.Markers01.GetMarker(0).Z);
-                    // 如果这个数据点在多边形内，则传入产状列表
-                    if (GeoHelper.IsPointInPolygon(vertexOfStereonet, tempPoint))
-                        selectedPointInStereonet.Add(new FrmStereonet.DataFromMain(item.Value.Markers01.GetMarker(0).Dip, item.Value.Markers01.GetMarker(0).Angle));
+                    if (item.Value.Type.ToString() == "Spot")
+                    {
+                        Point tempPoint = new Point(item.Value.Markers01.GetMarker(0).X,
+                            item.Value.Markers01.GetMarker(0).Y, item.Value.Markers01.GetMarker(0).Z);
+                        // 如果这个数据点在多边形内，则传入产状列表
+                        if (GeoHelper.IsPointInPolygon(vertexOfStereonet, tempPoint))
+                            selectedPointInStereonet.Add(
+                                new FrmStereonet.DataFromMain(item.Value.Markers01.GetMarker(0).Dip,
+                                    item.Value.Markers01.GetMarker(0).Angle));
+                    }
                 }
+                vertexOfStereonet.Clear();
                 Stereonet.FrmStereonet newStereonet = new FrmStereonet(selectedPointInStereonet);
                 newStereonet.Show();
             }
@@ -1512,6 +1519,15 @@ namespace FGeo3D_TE.Frm
         /// <returns></returns>
         private bool OnRBtnDown_DrawingComplete(int flags, int x, int y)
         {
+            if (PbHander == "Stereonet" && _pItPolygon!=null)
+            {
+                sgworld.ProjectTree.DeleteItem(_startOfStereonet);
+                sgworld.ProjectTree.DeleteItem(_pItPolygon.ID);
+                string str = _cWorldPointInfo.ObjectID;
+                sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                sgworld.OnLButtonDown -= OnLBtnDown_Stereonet;
+                _pItPolygon = null;
+            }
             DrawingComplete(PbHander);
             if (PbHander == "LineNew")
             {
@@ -2768,6 +2784,7 @@ namespace FGeo3D_TE.Frm
                 //}
                 try
                 {
+                    selectedPointInStereonet = new List<FrmStereonet.DataFromMain>();
                     sgworld.Window.SetInputMode((MouseInputMode.MI_COM_CLIENT));
                     HighlightButton(btnStereonet, true);
                     PbHander = "Stereonet";
@@ -2798,8 +2815,9 @@ namespace FGeo3D_TE.Frm
         private bool OnLBtnDown_Stereonet(int flags, int x, int y)
         {
             var pointList = new List<double>();
+            
 
-            ITerraExplorerObject66 _theFirstPoint;
+          
             if (_pItPolygon == null)
             {
                 _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
@@ -2860,6 +2878,7 @@ namespace FGeo3D_TE.Frm
 
                 if (_startOfStereonet == _cWorldPointInfo.ObjectID)          // 捕捉地质点要通过 ID
                 {
+                   
                     sgworld.ProjectTree.DeleteItem(_cWorldPointInfo.ObjectID);
                     sgworld.ProjectTree.DeleteItem(_pItPolygon.ID);
                     string str = _cWorldPointInfo.ObjectID;
