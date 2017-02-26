@@ -310,6 +310,10 @@ namespace FGeo3D.GeoCurvedSurface
 
             // 绘制曲面 
             IColor66 fillColor = this.sgworld.Creator.CreateColor(128, 128, 128, 128);
+
+
+
+
             IColor66 lineColor = this.sgworld.Creator.CreateColor(255, 255, 255, 0);
 
             var parentGid = GeoHelper.CreateGroup("产状地质曲面", ref this.sgworld);
@@ -318,7 +322,7 @@ namespace FGeo3D.GeoCurvedSurface
 
             Facet facet = new Facet(ref this.sgworld, tris.TsData, "Test", parentGid, lineColor, fillColor);
             
-            // facet.DrawFacet();
+            facet.DrawFacet();
 
             // 保存三角网结果
             TsFile ts = new TsFile(

@@ -35,7 +35,7 @@ namespace Draw.CoordSys
             double angle = Math.Abs(YR1.getInterAngle(newY));// 两向量夹角
             if (angle > 90)
             {
-                newY.reverse();
+                newY.reverse(); 
             }
             
             mTrans = new sg_Transformation(newZ, newX, newY, orgin);
