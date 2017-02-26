@@ -2791,10 +2791,6 @@ namespace FGeo3D_TE.Frm
                     StatusSystem.Text = @"系统状态：【块体分析】";
                     ToastNotification.Show(this, "请选择待分析区域", 2500, eToastPosition.MiddleCenter);
                     sgworld.OnLButtonDown += OnLBtnDown_Stereonet;
-                 
-
-
-
                 }
                 catch (Exception ex)
                 {

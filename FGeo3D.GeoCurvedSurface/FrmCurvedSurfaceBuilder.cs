@@ -321,9 +321,7 @@ namespace FGeo3D.GeoCurvedSurface
             
 
             Facet facet = new Facet(ref this.sgworld, tris.TsData, "Test", parentGid, lineColor, fillColor);
-            
-            facet.DrawFacet();
-
+             facet.DrawFacet();
             // 保存三角网结果
             TsFile ts = new TsFile(
                 tris.TsData,
