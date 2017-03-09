@@ -69,7 +69,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CHIDI.DZ.GUI.DrawPat">
-      <HintPath>..\..\comparefiles\CHIDI.DZ.GUI.DrawPat.dll</HintPath>
+      <HintPath>bin\Debug\CHIDI.DZ.GUI.DrawPat.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar.Keyboard, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
@@ -125,75 +125,75 @@
       <HintPath>..\..\comparefiles\DevExpress.XtraTreeList.v15.2.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.BLL.COM">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.COM.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.BLL.COM.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.BLL.Common">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.Common.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.BLL.Common.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.BLL.DZD">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.DZD.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.BLL.DZD.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.BLL.Export">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.Export.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.BLL.Export.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.BLL.XTGL">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.XTGL.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.BLL.XTGL.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.BLL.YSZL">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.YSZL.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.BLL.YSZL.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.BLL.ZBJS">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.ZBJS.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.BLL.ZBJS.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.BLL.ZK">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.ZK.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.BLL.ZK.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.COM.Common">
-      <HintPath>..\DB\GeoIM.CHIDI.DZ.COM.Common.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.COM.Common.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Model.Common">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.Model.Common.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.Model.Common.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Model.DZD">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.Model.DZD.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.Model.DZD.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Model.XTGL">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.Model.XTGL.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.Model.XTGL.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Model.YSZL, Version=2.0.2.0, Culture=neutral, PublicKeyToken=2bc0b3e9af90ed3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\GeoIM.CHIDI.DZ.Model.YSZL.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Model.ZK">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.Model.ZK.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.Model.ZK.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.UI.BaseContainer">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.UI.BaseContainer.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.UI.BaseContainer.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.UI.COM">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.UI.COM.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.UI.COM.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.UI.Common">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.UI.Common.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.UI.Common.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.UI.GCGL">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.UI.GCGL.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.UI.GCGL.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.UI.YSZL">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.UI.YSZL.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.UI.YSZL.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Util.ClientLogger">
-      <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.Util.ClientLogger.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.Util.ClientLogger.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Util.Common, Version=2.0.2.0, Culture=neutral, PublicKeyToken=2bc0b3e9af90ed3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\GeoIM.CHIDI.DZ.Util.Common.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.Util.EnumHelper">
-      <HintPath>..\DB\GeoIM.CHIDI.DZ.Util.EnumHelper.dll</HintPath>
+      <HintPath>bin\Debug\GeoIM.CHIDI.DZ.Util.EnumHelper.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\comparefiles\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>bin\Debug\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Interop.TerraExplorerX, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -218,19 +218,19 @@
       <HintPath>..\..\comparefiles\Microsoft.Office.Interop.Word.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
-      <HintPath>..\..\comparefiles\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+      <HintPath>bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging">
-      <HintPath>..\..\comparefiles\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+      <HintPath>bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\comparefiles\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <HintPath>bin\Debug\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\..\comparefiles\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>bin\Debug\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception">
-      <HintPath>..\..\comparefiles\Microsoft.Practices.Unity.Interception.dll</HintPath>
+      <HintPath>bin\Debug\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -247,7 +247,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="YWCH.CHIDI.DZ.COM.Skyline">
-      <HintPath>..\DB\YWCH.CHIDI.DZ.COM.Skyline.dll</HintPath>
+      <HintPath>bin\Debug\YWCH.CHIDI.DZ.COM.Skyline.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

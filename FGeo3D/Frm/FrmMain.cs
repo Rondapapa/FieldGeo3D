@@ -3061,6 +3061,7 @@ namespace FGeo3D_TE.Frm
             drawParameter para = new drawParameter();
 
             FrmDrawEx frmDrawEx = new FrmDrawEx();
+            // FrmDrawEx frmDrawEx = new FrmDrawEx(para);
             var drawDlg = frmDrawEx.ShowDialog();
         }
 

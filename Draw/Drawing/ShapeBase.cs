@@ -8,8 +8,8 @@ namespace Draw.Drawing
 {
     public abstract class ShapeBase
     {
-        public abstract void Draw(Graphics g);
-        public abstract RectangleF getBounds();
+       // public abstract void Draw(Graphics g);
+      //  public abstract RectangleF getBounds();
         private static int IdCount;
         public ShapeBase()
         {
@@ -22,29 +22,29 @@ namespace Draw.Drawing
             private set;
         }
 
-        public bool Contains(ShapeBase shape)
-        {
-            return getBounds().Contains(shape.getBounds());
-        }
+        //public bool Contains(ShapeBase shape)
+        //{
+        //    return getBounds().Contains(shape.getBounds());
+        //}
 
-        public bool Contains(PointF pt)
-        {
-            return getBounds().Contains(pt);
-        }
+        //public bool Contains(PointF pt)
+        //{
+        //    return getBounds().Contains(pt);
+        //}
 
-        public bool Contains(RectangleF rect)
-        {
-            return getBounds().Contains(rect);
-        }
+        //public bool Contains(RectangleF rect)
+        //{
+        //    return getBounds().Contains(rect);
+        //}
 
-        public bool Contains(float x, float y)
-        {
-            return getBounds().Contains(x, y);
-        }
+        //public bool Contains(float x, float y)
+        //{
+        //    return getBounds().Contains(x, y);
+        //}
 
-        public bool IntersectsWith(RectangleF rect)
-        {
-            return getBounds().IntersectsWith(rect);
-        }
+        //public bool IntersectsWith(RectangleF rect)
+        //{
+        //    return getBounds().IntersectsWith(rect);
+        //}
     }
 }
