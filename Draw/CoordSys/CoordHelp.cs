@@ -97,13 +97,15 @@ namespace Draw.CoordSys
         /// <returns></returns>
         public static bool get_JBBLZBPt3(string id, out sg_Vector3[] pts)
         {
-            pts = new sg_Vector3[3];
+            pts = new sg_Vector3[3];    
 
-            DataTable dt = BLHTBLL.GetXDMXJDZB(id);
+            DataTable dt = BLHTBLL.GetXDMXJDZB(id); // 数据来源是大地坐标吗？  
             if (dt.Rows.Count == 0)
             {
                 return false;
             }
+
+
 
             // 待实现
             return true;

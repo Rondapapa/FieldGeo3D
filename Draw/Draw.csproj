@@ -114,6 +114,8 @@
     <Content Include="Resources\loadpic.png" />
     <Content Include="Resources\mgz.png" />
     <Content Include="Resources\ok.png" />
+    <None Include="Resources\recall.png" />
+    <None Include="Resources\panorama.png" />
     <Content Include="Resources\save.png" />
     <Content Include="Resources\saveas.png" />
     <Content Include="Resources\shouqi.png" />

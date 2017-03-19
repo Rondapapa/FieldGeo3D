@@ -2791,11 +2791,6 @@ namespace FGeo3D_TE.Frm
                     StatusSystem.Text = @"系统状态：【块体分析】";
                     ToastNotification.Show(this, "请选择待分析区域", 2500, eToastPosition.MiddleCenter);
                     sgworld.OnLButtonDown += OnLBtnDown_Stereonet;
-                    sgworld.OnRButtonDown += OnRBtnDown_DrawingComplete;
-
-
-
-
                 }
                 catch (Exception ex)
                 {
@@ -2976,7 +2971,7 @@ namespace FGeo3D_TE.Frm
                     var parentGid = GeoHelper.CreateGroup("闭合地质曲面", ref this.sgworld);
 
                     Facet facet = new Facet(ref this.sgworld, tris.TsData, thisDrawingObj.Name, parentGid, lineColor, fillColor);
-                    facet.DrawFacet(); // 优化速度！
+                    facet.DrawFacet();              // 优化速度！
 
                     StatusSystem.Text = @"系统状态：【曲面绘制完毕】";
 
@@ -3066,6 +3061,7 @@ namespace FGeo3D_TE.Frm
             drawParameter para = new drawParameter();
 
             FrmDrawEx frmDrawEx = new FrmDrawEx();
+            // FrmDrawEx frmDrawEx = new FrmDrawEx(para);
             var drawDlg = frmDrawEx.ShowDialog();
         }
 

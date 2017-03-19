@@ -120,20 +120,22 @@ namespace Draw.Drawing
 
         Dictionary<int, ShapeBase> items = new Dictionary<int, ShapeBase>();  // 存的是什么坐标？屏幕坐标？
 
+
+        // 该线所对应 的三个坐标系
         private CoordSys.M1 m1 = null;
-
         private CoordSys.M3 m3Raw = null;
-
         private CoordSys.M3 m3Screen = null;
+
+        // 宽高比，用于绘制图形
+        public double widthHeightRito;
+        public double recWidth;       // 局部坐标下 包络矩形的宽
+        public double recHeight;      // 局部坐标下，包络矩形的高
+
         private DataSet EditDataSet;
         private DataTable dt;
         private sg_Vector3 NormalVector;
 
-        public bool IsChanged
-        {
-            get;
-            set;
-        }
+        public bool IsChanged { get; set; }
 
         public Document(drawParameter para)
         {
@@ -174,6 +176,7 @@ namespace Draw.Drawing
 
             sg_Vector3[] ptsForM3; // 用于求M3的控制点
             dt = BLHTBLL.GetXDMXJDZB(SJLYID); // 用于求M3（可能重构进入CoordHelp相关函数中）
+
             if (!CoordHelp.get_JBBLZBPt3(SJLYID, out ptsForM3))
             {
                 return;
@@ -198,26 +201,26 @@ namespace Draw.Drawing
             // 获取新的原点
             double xNewO = Math.Min(Math.Min(pts1InM3.x, pts2InM3.x), pts3InM3.x);
             double yNewO = Math.Min(Math.Min(pts1InM3.y, pts2InM3.y), pts3InM3.y);
-            
+
 
             // 获取新原点下的坐标偏移值
-            double xOffset = xNewO - pts1InM3.x;
+            double xOffset = xNewO - pts1InM3.x;  // 减控制点1的横纵坐标什么意思？？？
             double yOffset = yNewO - pts1InM3.y;
 
             // 建立M3Screen （M3与M3Screen）
             this.m3Screen = new M3(ptsForM3, xOffset, yOffset);
 
             // 确定矩形参数 //矩形的四个顶点作为屏幕坐标的基准点
-            double recWidth = Math.Max(Math.Max(pts1InM3.x, pts2InM3.x), pts3InM3.x)
+            recWidth = Math.Max(Math.Max(pts1InM3.x, pts2InM3.x), pts3InM3.x)
                                - Math.Min(Math.Min(pts1InM3.x, pts2InM3.x), pts3InM3.x);
-            double recHeight = Math.Max(Math.Max(pts1InM3.y, pts2InM3.y), pts3InM3.y)
+            recHeight = Math.Max(Math.Max(pts1InM3.y, pts2InM3.y), pts3InM3.y)
                                - Math.Min(Math.Min(pts1InM3.y, pts2InM3.y), pts3InM3.y);
             sg_Vector3 recLeftLow = new sg_Vector3(0, 0);
             sg_Vector3 recLeftHigh = new sg_Vector3(0, recHeight);
             sg_Vector3 recRightLow = new sg_Vector3(recWidth, 0);
             sg_Vector3 recRightHigh = new sg_Vector3(recWidth, recHeight);
 
-
+            widthHeightRito = recWidth/recHeight;
 
             // 绘制矩形
 
@@ -236,11 +239,20 @@ namespace Draw.Drawing
             return true;
         }
 
-        public void AddShape(ShapeBase shape)
+        //public void AddShape(ShapeBase shape)
+        //{
+        //    if (!items.ContainsKey(shape.Id))
+        //    {
+        //        items.Add(shape.Id, shape);
+        //        IsChanged = true;
+        //    }
+        //}
+        
+        public void AddLine(Line newLine)      // 添加线
         {
-            if (!items.ContainsKey(shape.Id))
+            if (!items.ContainsKey(newLine.Id))
             {
-                items.Add(shape.Id, shape);
+                items.Add(newLine.Id, newLine);
                 IsChanged = true;
             }
         }
@@ -248,13 +260,13 @@ namespace Draw.Drawing
         /// 在Graphics
         /// </summary>
         /// <param name="g"></param>
-        public void Draw(Graphics g)
-        {
-            foreach (int itemid in items.Keys)
-            {
-                ShapeBase item = items[itemid];
-                item.Draw(g);
-            }
-        }
+        //public void Draw(Graphics g)
+        //{
+        //    foreach (int itemid in items.Keys)
+        //    {
+        //        ShapeBase item = items[itemid];
+        //        item.Draw(g);
+        //    }
+        //}
     }
 }
