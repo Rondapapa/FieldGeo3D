@@ -22,7 +22,6 @@ namespace FGeo3D_TE.DrawingObjs
             ConnObjGuids = conObjGuids;
             Ts = new TsFile(inLine, Type, "PLine", "X", MarkerType, Name, conObjGuids);
             Ts.WriteTsFile();
-            
         }
 
         /// <summary>

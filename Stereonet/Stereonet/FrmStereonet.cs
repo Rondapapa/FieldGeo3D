@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using DevComponents.DotNetBar.Controls;
 using DevComponents.DotNetBar.Keyboard;
 using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Spatial.Euclidean;
@@ -19,6 +20,7 @@ namespace Stereonet
 
     public partial class FrmStereonet : Form
     {
+        
         int numOfA = 0;
         int numOfB = 0;
         int totalRecord = 0;

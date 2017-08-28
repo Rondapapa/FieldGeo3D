@@ -971,24 +971,6 @@
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>266, 17</value>
   </metadata>
-  <data name="axTE3DWindow1.OcxState" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACFTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5BeEhvc3QrU3RhdGUBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAbQAAAAIB
-        AAAAAQAAAAAAAAAAAAAAAFgAAAAACgAA2BMAANgTAAATAAAAAAADAAIAAAAIAAIAAAAAABMAAAAAAAgA
-        HAAAAGEAeABUAEUAMwBEAFcAaQBuAGQAbwB3ADEAAAAAAAAAAAAAAAAAAAAAAAAACw==
-</value>
-  </data>
-  <data name="axTEInformationWindow1.OcxState" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACFTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5BeEhvc3QrU3RhdGUBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAASQAAAAIB
-        AAAAAQAAAAAAAAAAAAAAADQAAAAACgAA2BMAANgTAAATAAAAAAADAAIAAAATAAAAAAAIAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAACw==
-</value>
-  </data>
   <metadata name="timerGPSReader.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>387, 17</value>
   </metadata>
@@ -1042,6 +1024,24 @@
         1tFWZWn5I7we67kH7xXj4+Z0NKydB3U5mVVTQ38NXt2e9dbj9w6gIs7nGxmOnP3U678OtYebfireUf4l
         u4qKLxn/W8jIyFB0dDSVlJRQVlYmlZWVcVNSNuewIaXJGf8l2BH+f+XvvvzrCPoV7lUScj4rnbEAAAAA
         SUVORK5CYII=
+</value>
+  </data>
+  <data name="axTEInformationWindow1.OcxState" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACFTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5BeEhvc3QrU3RhdGUBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAASQAAAAIB
+        AAAAAQAAAAAAAAAAAAAAADQAAAAACgAA2BMAANgTAAATAAAAAAADAAIAAAATAAAAAAAIAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAACw==
+</value>
+  </data>
+  <data name="axTE3DWindow1.OcxState" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACFTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5BeEhvc3QrU3RhdGUBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAbQAAAAIB
+        AAAAAQAAAAAAAAAAAAAAAFgAAAAACgAA2BMAANgTAAATAAAAAAADAAIAAAAIAAIAAAAAABMAAAAAAAgA
+        HAAAAGEAeABUAEUAMwBEAFcAaQBuAGQAbwB3ADEAAAAAAAAAAAAAAAAAAAAAAAAACw==
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable virtualKeyboardColorTable1 = new DevComponents.DotNetBar.Keyboard.VirtualKeyboardColorTable();
+            DevComponents.DotNetBar.Keyboard.FlatStyleRenderer flatStyleRenderer1 = new DevComponents.DotNetBar.Keyboard.FlatStyleRenderer();
             this.groupPanelGeoObjs = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.buttonXGeoObjAllDesel = new DevComponents.DotNetBar.ButtonX();
             this.buttonXGeoObjAllSel = new DevComponents.DotNetBar.ButtonX();
@@ -51,6 +53,8 @@
             this.labelXCPCount = new DevComponents.DotNetBar.LabelX();
             this.buttonXSave = new DevComponents.DotNetBar.ButtonX();
             this.buttonXCancel = new DevComponents.DotNetBar.ButtonX();
+            this.keyboardControl1 = new DevComponents.DotNetBar.Keyboard.KeyboardControl();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupPanelGeoObjs.SuspendLayout();
             this.groupPanelMarkerType.SuspendLayout();
             this.groupPanelUseFor.SuspendLayout();
@@ -58,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.doubleInputGridEdgeLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleInputAttitudeLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleInputShapeRadium)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupPanelGeoObjs
@@ -71,7 +76,7 @@
             this.groupPanelGeoObjs.DisabledBackColor = System.Drawing.Color.Empty;
             this.groupPanelGeoObjs.Location = new System.Drawing.Point(1, 0);
             this.groupPanelGeoObjs.Name = "groupPanelGeoObjs";
-            this.groupPanelGeoObjs.Size = new System.Drawing.Size(199, 215);
+            this.groupPanelGeoObjs.Size = new System.Drawing.Size(234, 209);
             // 
             // 
             // 
@@ -107,9 +112,9 @@
             // 
             this.buttonXGeoObjAllDesel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXGeoObjAllDesel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXGeoObjAllDesel.Location = new System.Drawing.Point(108, 146);
+            this.buttonXGeoObjAllDesel.Location = new System.Drawing.Point(122, 146);
             this.buttonXGeoObjAllDesel.Name = "buttonXGeoObjAllDesel";
-            this.buttonXGeoObjAllDesel.Size = new System.Drawing.Size(82, 27);
+            this.buttonXGeoObjAllDesel.Size = new System.Drawing.Size(103, 27);
             this.buttonXGeoObjAllDesel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXGeoObjAllDesel.TabIndex = 1;
             this.buttonXGeoObjAllDesel.Text = "清除选定";
@@ -121,7 +126,7 @@
             this.buttonXGeoObjAllSel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.buttonXGeoObjAllSel.Location = new System.Drawing.Point(3, 146);
             this.buttonXGeoObjAllSel.Name = "buttonXGeoObjAllSel";
-            this.buttonXGeoObjAllSel.Size = new System.Drawing.Size(82, 27);
+            this.buttonXGeoObjAllSel.Size = new System.Drawing.Size(103, 27);
             this.buttonXGeoObjAllSel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXGeoObjAllSel.TabIndex = 1;
             this.buttonXGeoObjAllSel.Text = "全部选定";
@@ -140,7 +145,7 @@
             this.listBoxAdvGeoObjs.DragDropSupport = true;
             this.listBoxAdvGeoObjs.Location = new System.Drawing.Point(3, 3);
             this.listBoxAdvGeoObjs.Name = "listBoxAdvGeoObjs";
-            this.listBoxAdvGeoObjs.Size = new System.Drawing.Size(187, 137);
+            this.listBoxAdvGeoObjs.Size = new System.Drawing.Size(222, 137);
             this.listBoxAdvGeoObjs.TabIndex = 0;
             this.listBoxAdvGeoObjs.Text = "选定的地质对象";
             this.listBoxAdvGeoObjs.ItemCheck += new DevComponents.DotNetBar.ListBoxAdvItemCheckEventHandler(this.listBoxAdvGeoObjs_ItemCheck);
@@ -152,9 +157,9 @@
             this.groupPanelMarkerType.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
             this.groupPanelMarkerType.Controls.Add(this.listBoxAdvMarkerType);
             this.groupPanelMarkerType.DisabledBackColor = System.Drawing.Color.Empty;
-            this.groupPanelMarkerType.Location = new System.Drawing.Point(4, 215);
+            this.groupPanelMarkerType.Location = new System.Drawing.Point(4, 200);
             this.groupPanelMarkerType.Name = "groupPanelMarkerType";
-            this.groupPanelMarkerType.Size = new System.Drawing.Size(96, 152);
+            this.groupPanelMarkerType.Size = new System.Drawing.Size(116, 201);
             // 
             // 
             // 
@@ -194,11 +199,12 @@
             // 
             this.listBoxAdvMarkerType.BackgroundStyle.Class = "ListBoxAdv";
             this.listBoxAdvMarkerType.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.listBoxAdvMarkerType.CheckStateMember = null;
             this.listBoxAdvMarkerType.ContainerControlProcessDialogKey = true;
             this.listBoxAdvMarkerType.DragDropSupport = true;
             this.listBoxAdvMarkerType.Location = new System.Drawing.Point(2, 6);
             this.listBoxAdvMarkerType.Name = "listBoxAdvMarkerType";
-            this.listBoxAdvMarkerType.Size = new System.Drawing.Size(80, 106);
+            this.listBoxAdvMarkerType.Size = new System.Drawing.Size(102, 168);
             this.listBoxAdvMarkerType.TabIndex = 0;
             this.listBoxAdvMarkerType.Text = "listBoxAdv1";
             this.listBoxAdvMarkerType.ItemClick += new System.EventHandler(this.listBoxAdvMarkerType_ItemClick);
@@ -211,9 +217,9 @@
             this.groupPanelUseFor.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
             this.groupPanelUseFor.Controls.Add(this.listBoxAdvUseFor);
             this.groupPanelUseFor.DisabledBackColor = System.Drawing.Color.Empty;
-            this.groupPanelUseFor.Location = new System.Drawing.Point(100, 215);
+            this.groupPanelUseFor.Location = new System.Drawing.Point(117, 200);
             this.groupPanelUseFor.Name = "groupPanelUseFor";
-            this.groupPanelUseFor.Size = new System.Drawing.Size(100, 152);
+            this.groupPanelUseFor.Size = new System.Drawing.Size(118, 201);
             // 
             // 
             // 
@@ -256,9 +262,9 @@
             this.listBoxAdvUseFor.CheckStateMember = null;
             this.listBoxAdvUseFor.ContainerControlProcessDialogKey = true;
             this.listBoxAdvUseFor.DragDropSupport = true;
-            this.listBoxAdvUseFor.Location = new System.Drawing.Point(3, 6);
+            this.listBoxAdvUseFor.Location = new System.Drawing.Point(6, 6);
             this.listBoxAdvUseFor.Name = "listBoxAdvUseFor";
-            this.listBoxAdvUseFor.Size = new System.Drawing.Size(85, 106);
+            this.listBoxAdvUseFor.Size = new System.Drawing.Size(102, 168);
             this.listBoxAdvUseFor.TabIndex = 0;
             this.listBoxAdvUseFor.Text = "listBoxAdv1";
             this.listBoxAdvUseFor.ItemClick += new System.EventHandler(this.listBoxAdvUseFor_ItemClick);
@@ -267,7 +273,7 @@
             // 
             this.groupPanelSurfacePars.BackColor = System.Drawing.Color.White;
             this.groupPanelSurfacePars.CanvasColor = System.Drawing.SystemColors.Control;
-            this.groupPanelSurfacePars.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+            this.groupPanelSurfacePars.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.groupPanelSurfacePars.Controls.Add(this.doubleInputGridEdgeLength);
             this.groupPanelSurfacePars.Controls.Add(this.doubleInputAttitudeLength);
             this.groupPanelSurfacePars.Controls.Add(this.doubleInputShapeRadium);
@@ -281,9 +287,9 @@
             this.groupPanelSurfacePars.Controls.Add(this.labelXSurfaceBorder);
             this.groupPanelSurfacePars.Controls.Add(this.labelXCPCount);
             this.groupPanelSurfacePars.DisabledBackColor = System.Drawing.Color.Empty;
-            this.groupPanelSurfacePars.Location = new System.Drawing.Point(1, 366);
+            this.groupPanelSurfacePars.Location = new System.Drawing.Point(5, 0);
             this.groupPanelSurfacePars.Name = "groupPanelSurfacePars";
-            this.groupPanelSurfacePars.Size = new System.Drawing.Size(199, 197);
+            this.groupPanelSurfacePars.Size = new System.Drawing.Size(209, 197);
             // 
             // 
             // 
@@ -328,9 +334,10 @@
             this.doubleInputGridEdgeLength.MinValue = 0D;
             this.doubleInputGridEdgeLength.Name = "doubleInputGridEdgeLength";
             this.doubleInputGridEdgeLength.ShowUpDown = true;
-            this.doubleInputGridEdgeLength.Size = new System.Drawing.Size(87, 21);
+            this.doubleInputGridEdgeLength.Size = new System.Drawing.Size(97, 21);
             this.doubleInputGridEdgeLength.TabIndex = 4;
             this.doubleInputGridEdgeLength.ValueChanged += new System.EventHandler(this.doubleInputGridEdgeLength_ValueChanged);
+            this.doubleInputGridEdgeLength.MouseClick += new System.Windows.Forms.MouseEventHandler(this.doubleInputGridEdgeLength_MouseClick);
             // 
             // doubleInputAttitudeLength
             // 
@@ -345,7 +352,7 @@
             this.doubleInputAttitudeLength.MinValue = 0D;
             this.doubleInputAttitudeLength.Name = "doubleInputAttitudeLength";
             this.doubleInputAttitudeLength.ShowUpDown = true;
-            this.doubleInputAttitudeLength.Size = new System.Drawing.Size(87, 21);
+            this.doubleInputAttitudeLength.Size = new System.Drawing.Size(97, 21);
             this.doubleInputAttitudeLength.TabIndex = 4;
             this.doubleInputAttitudeLength.ValueChanged += new System.EventHandler(this.doubleInputAttitudeLength_ValueChanged);
             // 
@@ -362,7 +369,7 @@
             this.doubleInputShapeRadium.MinValue = 0D;
             this.doubleInputShapeRadium.Name = "doubleInputShapeRadium";
             this.doubleInputShapeRadium.ShowUpDown = true;
-            this.doubleInputShapeRadium.Size = new System.Drawing.Size(87, 21);
+            this.doubleInputShapeRadium.Size = new System.Drawing.Size(98, 21);
             this.doubleInputShapeRadium.TabIndex = 4;
             this.doubleInputShapeRadium.ValueChanged += new System.EventHandler(this.doubleInputShapeRadium_ValueChanged);
             // 
@@ -376,7 +383,7 @@
             this.textBoxSurfaceBorder.ButtonDropDown.Visible = true;
             this.textBoxSurfaceBorder.Location = new System.Drawing.Point(103, 33);
             this.textBoxSurfaceBorder.Name = "textBoxSurfaceBorder";
-            this.textBoxSurfaceBorder.Size = new System.Drawing.Size(87, 20);
+            this.textBoxSurfaceBorder.Size = new System.Drawing.Size(97, 20);
             this.textBoxSurfaceBorder.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.textBoxSurfaceBorder.TabIndex = 3;
             this.textBoxSurfaceBorder.Text = "自动";
@@ -387,7 +394,7 @@
             this.buttonXCalculateParam.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.buttonXCalculateParam.Location = new System.Drawing.Point(3, 139);
             this.buttonXCalculateParam.Name = "buttonXCalculateParam";
-            this.buttonXCalculateParam.Size = new System.Drawing.Size(85, 26);
+            this.buttonXCalculateParam.Size = new System.Drawing.Size(90, 26);
             this.buttonXCalculateParam.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXCalculateParam.TabIndex = 2;
             this.buttonXCalculateParam.Text = "计算默认参数";
@@ -397,9 +404,9 @@
             // 
             this.buttonXBuild.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXBuild.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXBuild.Location = new System.Drawing.Point(102, 139);
+            this.buttonXBuild.Location = new System.Drawing.Point(110, 139);
             this.buttonXBuild.Name = "buttonXBuild";
-            this.buttonXBuild.Size = new System.Drawing.Size(86, 26);
+            this.buttonXBuild.Size = new System.Drawing.Size(90, 26);
             this.buttonXBuild.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonXBuild.TabIndex = 2;
             this.buttonXBuild.Text = "生成曲面";
@@ -419,7 +426,7 @@
             this.textBoxXCPCount.Name = "textBoxXCPCount";
             this.textBoxXCPCount.PreventEnterBeep = true;
             this.textBoxXCPCount.ReadOnly = true;
-            this.textBoxXCPCount.Size = new System.Drawing.Size(87, 21);
+            this.textBoxXCPCount.Size = new System.Drawing.Size(97, 21);
             this.textBoxXCPCount.TabIndex = 1;
             // 
             // labelXGridEdgeLength
@@ -491,7 +498,7 @@
             // 
             this.buttonXSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXSave.Location = new System.Drawing.Point(4, 569);
+            this.buttonXSave.Location = new System.Drawing.Point(246, 371);
             this.buttonXSave.Name = "buttonXSave";
             this.buttonXSave.Size = new System.Drawing.Size(96, 30);
             this.buttonXSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -503,7 +510,7 @@
             // 
             this.buttonXCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonXCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonXCancel.Location = new System.Drawing.Point(104, 569);
+            this.buttonXCancel.Location = new System.Drawing.Point(359, 371);
             this.buttonXCancel.Name = "buttonXCancel";
             this.buttonXCancel.Size = new System.Drawing.Size(96, 30);
             this.buttonXCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -511,17 +518,51 @@
             this.buttonXCancel.Text = "取消";
             this.buttonXCancel.Click += new System.EventHandler(this.buttonXCancel_Click);
             // 
+            // keyboardControl1
+            // 
+            this.keyboardControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            virtualKeyboardColorTable1.BackgroundColor = System.Drawing.Color.Black;
+            virtualKeyboardColorTable1.DarkKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
+            virtualKeyboardColorTable1.DownKeysColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable1.DownTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            virtualKeyboardColorTable1.KeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(55)))));
+            virtualKeyboardColorTable1.LightKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(68)))), ((int)(((byte)(76)))));
+            virtualKeyboardColorTable1.PressedKeysColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(161)))), ((int)(((byte)(81)))));
+            virtualKeyboardColorTable1.TextColor = System.Drawing.Color.White;
+            virtualKeyboardColorTable1.ToggleTextColor = System.Drawing.Color.Green;
+            virtualKeyboardColorTable1.TopBarTextColor = System.Drawing.Color.White;
+            this.keyboardControl1.ColorTable = virtualKeyboardColorTable1;
+            this.keyboardControl1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.keyboardControl1.Location = new System.Drawing.Point(246, 166);
+            this.keyboardControl1.Name = "keyboardControl1";
+            flatStyleRenderer1.ColorTable = virtualKeyboardColorTable1;
+            flatStyleRenderer1.ForceAntiAlias = false;
+            this.keyboardControl1.Renderer = flatStyleRenderer1;
+            this.keyboardControl1.Size = new System.Drawing.Size(209, 199);
+            this.keyboardControl1.TabIndex = 4;
+            this.keyboardControl1.Text = "keyboardControl1";
+            this.keyboardControl1.KeyboardClosing += new System.ComponentModel.CancelEventHandler(this.keyboardControl1_KeyboardClosing);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.groupPanelSurfacePars);
+            this.panel1.Location = new System.Drawing.Point(241, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(224, 194);
+            this.panel1.TabIndex = 5;
+            // 
             // FrmCurvedSurfaceBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(201, 600);
+            this.ClientSize = new System.Drawing.Size(460, 405);
             this.Controls.Add(this.buttonXCancel);
             this.Controls.Add(this.buttonXSave);
-            this.Controls.Add(this.groupPanelSurfacePars);
             this.Controls.Add(this.groupPanelUseFor);
             this.Controls.Add(this.groupPanelMarkerType);
             this.Controls.Add(this.groupPanelGeoObjs);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.keyboardControl1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmCurvedSurfaceBuilder";
@@ -530,6 +571,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "生成地质曲面";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.FrmCurvedSurfaceBuilder_Load);
             this.groupPanelGeoObjs.ResumeLayout(false);
             this.groupPanelMarkerType.ResumeLayout(false);
             this.groupPanelUseFor.ResumeLayout(false);
@@ -537,6 +579,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.doubleInputGridEdgeLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleInputAttitudeLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleInputShapeRadium)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -566,5 +609,7 @@
         private DevComponents.DotNetBar.ButtonX buttonXCalculateParam;
         private DevComponents.Editors.DoubleInput doubleInputAttitudeLength;
         private DevComponents.DotNetBar.LabelX labelXAttitudeLength;
+        private DevComponents.DotNetBar.Keyboard.KeyboardControl keyboardControl1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

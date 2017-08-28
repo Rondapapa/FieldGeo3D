@@ -14,6 +14,9 @@ using FGeo3D.LoggingObj;
 using GeoIM.CHIDI.DZ.COM;
 using TerraExplorerX;
 using Stereonet;
+using MathNet.Spatial.Euclidean;
+
+
 
 namespace FGeo3D_TE.Frm
 {
@@ -88,6 +91,7 @@ namespace FGeo3D_TE.Frm
         public double YTop { get; private set; }
         public double YBottom { get; private set; }
 
+
         // 地形多边形
         public ITerrainPolygon66 TerrainPolygon { get; private set; }
 
@@ -95,6 +99,9 @@ namespace FGeo3D_TE.Frm
         private string _startOfStereonet = "";
         IWorldPointInfo66 firstPoint = null;
         List<Point> vertexOfStereonet = new List<Point>();
+        List<Line3D> LinesOfStereonet = new List<Line3D>();
+
+
         private List<Stereonet.FrmStereonet.DataFromMain> selectedPointInStereonet = new List<FrmStereonet.DataFromMain>();
 
 
@@ -280,7 +287,11 @@ namespace FGeo3D_TE.Frm
         {
             // 登录、选择工程阶段
             _isDbConnected = db.SkyLogin();
-            if (!_isDbConnected) return;
+            if (!_isDbConnected || db.GCGuid == null)
+            {
+                db = new YWCHEntEx();
+                return;
+            }
             // 创建模型
             _modelPath = db.SkyOpenOrNewModal();
             _modelGuid = db.SkyModelGuid;
@@ -1430,7 +1441,7 @@ namespace FGeo3D_TE.Frm
 
             if (pbhander == "Stereonet")
             {
-                
+
                 sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
                 sgworld.OnLButtonDown -= OnLBtnDown_Stereonet;
                 ResetButton(btnStereonet, true);
@@ -1448,10 +1459,12 @@ namespace FGeo3D_TE.Frm
                     }
                 }
                 vertexOfStereonet.Clear();
+                LinesOfStereonet.Clear();
                 Stereonet.FrmStereonet newStereonet = new FrmStereonet(selectedPointInStereonet);
                 newStereonet.Show();
+                StatusSystem.Text = @"系统状态：【就绪】";
             }
-            
+
             #endregion
 
             #region 体
@@ -1519,7 +1532,7 @@ namespace FGeo3D_TE.Frm
         /// <returns></returns>
         private bool OnRBtnDown_DrawingComplete(int flags, int x, int y)
         {
-            if (PbHander == "Stereonet" && _pItPolygon!=null)
+            if (PbHander == "Stereonet" && _pItPolygon != null)
             {
                 sgworld.ProjectTree.DeleteItem(_startOfStereonet);
                 sgworld.ProjectTree.DeleteItem(_pItPolygon.ID);
@@ -2791,6 +2804,7 @@ namespace FGeo3D_TE.Frm
                     StatusSystem.Text = @"系统状态：【块体分析】";
                     ToastNotification.Show(this, "请选择待分析区域", 2500, eToastPosition.MiddleCenter);
                     sgworld.OnLButtonDown += OnLBtnDown_Stereonet;
+
                 }
                 catch (Exception ex)
                 {
@@ -2800,8 +2814,14 @@ namespace FGeo3D_TE.Frm
             }
             else if (dr == DialogResult.No)
             {
+                PbHander = "Stereonet";
+                StatusSystem.Text = @"系统状态：【块体分析】";
                 Stereonet.FrmStereonet newStereonet = new FrmStereonet();
                 newStereonet.Show();
+
+                PbHander = string.Empty;
+                IsSaved = false;
+                Text = _tProjectUrl + @"* - FieldGeo3D";
             }
 
         }
@@ -2810,9 +2830,9 @@ namespace FGeo3D_TE.Frm
         private bool OnLBtnDown_Stereonet(int flags, int x, int y)
         {
             var pointList = new List<double>();
-            
 
-          
+
+
             if (_pItPolygon == null)
             {
                 _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
@@ -2860,20 +2880,21 @@ namespace FGeo3D_TE.Frm
             }
             else
             {
+
                 //非第一次画线
                 var polygonGeometry = _pItPolygon.Geometry as IPolygon;
-                
                 if (polygonGeometry == null) return false;
-
                 //捕捉地质点，获取坐标
                 _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
 
-                vertexOfStereonet.Add(new Point(_cWorldPointInfo.Position.X, _cWorldPointInfo.Position.Y, 0));  // 加到边坡顶点列表
+
+                // 加到边坡顶点列表
 
 
-                if (_startOfStereonet == _cWorldPointInfo.ObjectID)          // 捕捉地质点要通过 ID
+                if (_startOfStereonet == _cWorldPointInfo.ObjectID) // 捕捉地质点要通过 ID
                 {
-                   
+                    vertexOfStereonet.Add(new Point(_cWorldPointInfo.Position.X, _cWorldPointInfo.Position.Y, 0));
+
                     sgworld.ProjectTree.DeleteItem(_cWorldPointInfo.ObjectID);
                     sgworld.ProjectTree.DeleteItem(_pItPolygon.ID);
                     string str = _cWorldPointInfo.ObjectID;
@@ -2881,29 +2902,87 @@ namespace FGeo3D_TE.Frm
                     sgworld.OnLButtonDown -= OnLBtnDown_Stereonet;
                     _pItPolygon = null;
                     DrawingComplete(PbHander);
+
+                    PbHander = string.Empty;
+                    IsSaved = false;
+                    Text = _tProjectUrl + @"* - FieldGeo3D";
+
                 }
                 else
                 {
-                    //开始编辑polygon
-                    polygonGeometry.StartEdit();
-                    foreach (ILinearRing ring in polygonGeometry.Rings)
+
+
+                    // 判断 是否相交
+                    Line3D nl = new Line3D(new Point3D(vertexOfStereonet[vertexOfStereonet.Count - 1].X, vertexOfStereonet[vertexOfStereonet.Count - 1].Y, 0),
+                        new Point3D(_cWorldPointInfo.Position.X, _cWorldPointInfo.Position.Y, 0));
+                    // 判断 下一个点是否会形成相交
+
+
+                    LinesOfStereonet.Add(nl);
+
+                    int numCross = 0;
+                    if (LinesOfStereonet.Count > 0)
                     {
-                        var dx = _cWorldPointInfo.Position.X;
-                        var dy = _cWorldPointInfo.Position.Y;
-                        var dz = _cWorldPointInfo.Position.Altitude;
-                        ring.Points.AddPoint(dx, dy, dz);
+                        int N = LinesOfStereonet.Count;
+                        Line3D needCheck1 = LinesOfStereonet[N - 1];
+                        Line3D needCheck2 = new Line3D(new Point3D(vertexOfStereonet[0].X, vertexOfStereonet[0].Y, 0),
+                          new Point3D(_cWorldPointInfo.Position.X, _cWorldPointInfo.Position.Y, 0));
+
+                        for (int i = 0; i < N - 2; i++)
+                        {
+                            bool isCross;
+                            isCross = CheckCross.CheckTwoLineCrose(needCheck1, LinesOfStereonet[i]);
+                            if (isCross)
+                            {
+                                numCross += 1;
+                            }
+
+                            isCross = CheckCross.CheckTwoLineCrose(needCheck2, LinesOfStereonet[i + 1]);
+                            if (isCross)
+                            {
+                                numCross += 1;
+                            }
+                        }
                     }
 
-                    //结束编辑，保存polygon
-                    var editedGeometry = polygonGeometry.EndEdit();
-                   
-                    _pItPolygon.Geometry = editedGeometry;
+                    if (numCross == 0)
+                    {
+                        vertexOfStereonet.Add(new Point(_cWorldPointInfo.Position.X, _cWorldPointInfo.Position.Y, 0));
+                        //开始编辑polygon
+                        polygonGeometry.StartEdit();
+                        foreach (ILinearRing ring in polygonGeometry.Rings)
+                        {
+                            var dx = _cWorldPointInfo.Position.X;
+                            var dy = _cWorldPointInfo.Position.Y;
+                            var dz = _cWorldPointInfo.Position.Altitude;
+                            ring.Points.AddPoint(dx, dy, dz);
+                        }
+
+                        //结束编辑，保存polygon
+                        var editedGeometry = polygonGeometry.EndEdit();
+
+                        _pItPolygon.Geometry = editedGeometry;
+                    }
+                    else
+                    {
+                        LinesOfStereonet.RemoveAt(LinesOfStereonet.Count-1);
+                    }
+
                 }
+
             }
             return false;
 
+
         }
 
+        /// <summary>
+        /// 地线推面
+        /// </summary>
+        /// <param name="flags">捕捉到的标记物</param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         private bool OnLBtnDown_PlaneViaLine(int flags, int x, int y)
         {
             _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_DEFAULT);
@@ -2971,7 +3050,7 @@ namespace FGeo3D_TE.Frm
                     var parentGid = GeoHelper.CreateGroup("闭合地质曲面", ref this.sgworld);
 
                     Facet facet = new Facet(ref this.sgworld, tris.TsData, thisDrawingObj.Name, parentGid, lineColor, fillColor);
-                    facet.DrawFacet();              // 优化速度！
+                    facet.DrawFacet(); // 优化速度！
 
                     StatusSystem.Text = @"系统状态：【曲面绘制完毕】";
 
@@ -3061,10 +3140,59 @@ namespace FGeo3D_TE.Frm
             drawParameter para = new drawParameter();
 
             FrmDrawEx frmDrawEx = new FrmDrawEx();
-            // FrmDrawEx frmDrawEx = new FrmDrawEx(para);
             var drawDlg = frmDrawEx.ShowDialog();
+        }
+        /// <summary>
+        /// 判断线段是否相交
+        /// </summary>
+        public class CheckCross
+        {
+            static private bool CheckCrose(Line3D line1, Line3D line2)
+            {
+                Point v1 = new Point();
+                Point v2 = new Point();
+                Point v3 = new Point();
+
+                v1.X = line2.StartPoint.X - line1.EndPoint.X;
+                v1.Y = line2.StartPoint.Y - line1.EndPoint.Y;
+
+                v2.X = line2.EndPoint.X - line1.EndPoint.X;
+                v2.Y = line2.EndPoint.Y - line1.EndPoint.Y;
+
+                v3.X = line1.StartPoint.X - line1.EndPoint.X;
+                v3.Y = line1.StartPoint.Y - line1.EndPoint.Y;
+
+                return (CrossMul(v1, v3) * CrossMul(v2, v3) < 0.0001);
+
+            }
+
+            /// <summary>  
+            /// 判断两条线段是否相交。  
+            /// </summary>  
+            /// <param name="line1">线段1</param>  
+            /// <param name="line2">线段2</param>  
+            /// <returns>相交返回真，否则返回假。</returns>  
+            static public bool CheckTwoLineCrose(Line3D line1, Line3D line2)
+            {
+                return CheckCrose(line1, line2) && CheckCrose(line2, line1);
+            }
+
+            /// <summary>  
+            /// 计算两个向量的叉乘。  
+            /// </summary>  
+            /// <param name="pt1"></param>  
+            /// <param name="pt2"></param>  
+            /// <returns></returns>  
+            static public double CrossMul(Point pt1, Point pt2)
+            {
+                return pt1.X * pt2.Y - pt1.Y * pt2.X;
+            }
         }
 
 
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

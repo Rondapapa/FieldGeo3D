@@ -70,8 +70,6 @@
             this.StatusSystem = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusWorkingObj = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusGPS = new System.Windows.Forms.ToolStripStatusLabel();
-            this.axTE3DWindow1 = new AxTerraExplorerX.AxTE3DWindow();
-            this.axTEInformationWindow1 = new AxTerraExplorerX.AxTEInformationWindow();
             this.timerGPSReader = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.switchButtonUnderground = new DevComponents.DotNetBar.Controls.SwitchButton();
@@ -82,15 +80,17 @@
             this.buttonXFoundationDrawing = new DevComponents.DotNetBar.ButtonX();
             this.panelEx2 = new DevComponents.DotNetBar.PanelEx();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.axTEInformationWindow1 = new AxTerraExplorerX.AxTEInformationWindow();
+            this.axTE3DWindow1 = new AxTerraExplorerX.AxTE3DWindow();
             this.gpMeasure.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
             this.panelEx2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).BeginInit();
             this.SuspendLayout();
             // 
             // styleManager1
@@ -644,30 +644,6 @@
             this.StatusGPS.Size = new System.Drawing.Size(131, 21);
             this.StatusGPS.Text = "GPS状态：【未连接】";
             // 
-            // axTE3DWindow1
-            // 
-            this.axTE3DWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.axTE3DWindow1.Enabled = true;
-            this.axTE3DWindow1.Location = new System.Drawing.Point(0, 0);
-            this.axTE3DWindow1.Name = "axTE3DWindow1";
-            this.axTE3DWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTE3DWindow1.OcxState")));
-            this.axTE3DWindow1.Size = new System.Drawing.Size(965, 521);
-            this.axTE3DWindow1.TabIndex = 1;
-            // 
-            // axTEInformationWindow1
-            // 
-            this.axTEInformationWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.axTEInformationWindow1.Enabled = true;
-            this.axTEInformationWindow1.Location = new System.Drawing.Point(0, 0);
-            this.axTEInformationWindow1.Name = "axTEInformationWindow1";
-            this.axTEInformationWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTEInformationWindow1.OcxState")));
-            this.axTEInformationWindow1.Size = new System.Drawing.Size(231, 521);
-            this.axTEInformationWindow1.TabIndex = 0;
-            // 
             // timerGPSReader
             // 
             this.timerGPSReader.Interval = 1000;
@@ -810,6 +786,30 @@
             this.splitContainer1.SplitterDistance = 231;
             this.splitContainer1.TabIndex = 34;
             // 
+            // axTEInformationWindow1
+            // 
+            this.axTEInformationWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.axTEInformationWindow1.Enabled = true;
+            this.axTEInformationWindow1.Location = new System.Drawing.Point(0, 0);
+            this.axTEInformationWindow1.Name = "axTEInformationWindow1";
+            this.axTEInformationWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTEInformationWindow1.OcxState")));
+            this.axTEInformationWindow1.Size = new System.Drawing.Size(231, 521);
+            this.axTEInformationWindow1.TabIndex = 0;
+            // 
+            // axTE3DWindow1
+            // 
+            this.axTE3DWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.axTE3DWindow1.Enabled = true;
+            this.axTE3DWindow1.Location = new System.Drawing.Point(0, 0);
+            this.axTE3DWindow1.Name = "axTE3DWindow1";
+            this.axTE3DWindow1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTE3DWindow1.OcxState")));
+            this.axTE3DWindow1.Size = new System.Drawing.Size(965, 521);
+            this.axTE3DWindow1.TabIndex = 1;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -826,17 +826,17 @@
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FieldGeo3D";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.FrmMain_Load);
             this.gpMeasure.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).EndInit();
             this.panelEx2.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axTEInformationWindow1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axTE3DWindow1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

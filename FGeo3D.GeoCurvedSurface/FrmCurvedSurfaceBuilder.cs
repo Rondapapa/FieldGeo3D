@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YWCH.CHIDI.DZ.COM.Skyline;
+using DevComponents.DotNetBar.Keyboard;
 
 namespace FGeo3D.GeoCurvedSurface
 {
@@ -59,6 +60,37 @@ namespace FGeo3D.GeoCurvedSurface
         /// 产状半径
         /// </summary>
         public double AttitudeLength { get; private set; }
+        private Keyboard CreateNumericKeyboard()
+        {
+            Keyboard keyboard = new Keyboard();
+
+            LinearKeyboardLayout kl = new LinearKeyboardLayout();
+
+            kl.AddKey("7");
+            kl.AddKey("8");
+            kl.AddKey("9");
+            kl.AddKey("退格", "{BACKSPACE}");
+            kl.AddLine();
+
+            kl.AddKey("4");
+            kl.AddKey("5");
+            kl.AddKey("6");
+            //   kl.AddKey("-", "{SUBTRACT}");
+            kl.AddKey("Tab", "{Enter}", height: 32);
+            kl.AddLine();
+
+            kl.AddKey("1");
+            kl.AddKey("2");
+            kl.AddKey("3");
+
+            kl.AddLine();
+
+            kl.AddKey("0", width: 21);
+            kl.AddKey(".");
+
+            keyboard.Layouts.Add(kl);
+            return keyboard;
+        }
 
 
         /// <summary>
@@ -310,10 +342,6 @@ namespace FGeo3D.GeoCurvedSurface
 
             // 绘制曲面 
             IColor66 fillColor = this.sgworld.Creator.CreateColor(128, 128, 128, 128);
-
-
-
-
             IColor66 lineColor = this.sgworld.Creator.CreateColor(255, 255, 255, 0);
 
             var parentGid = GeoHelper.CreateGroup("产状地质曲面", ref this.sgworld);
@@ -321,7 +349,9 @@ namespace FGeo3D.GeoCurvedSurface
             
 
             Facet facet = new Facet(ref this.sgworld, tris.TsData, "Test", parentGid, lineColor, fillColor);
+            
              facet.DrawFacet();
+
             // 保存三角网结果
             TsFile ts = new TsFile(
                 tris.TsData,
@@ -354,6 +384,23 @@ namespace FGeo3D.GeoCurvedSurface
         private void buttonXCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void doubleInputGridEdgeLength_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void FrmCurvedSurfaceBuilder_Load(object sender, EventArgs e)
+        {
+
+            keyboardControl1.Keyboard = CreateNumericKeyboard();
+            keyboardControl1.Text = "";
+        }
+
+        private void keyboardControl1_KeyboardClosing(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

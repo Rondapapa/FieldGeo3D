@@ -249,6 +249,7 @@ namespace Draw
         private void ReDraw()
         {
             g_bmp.Clear(DrawBackColor);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.AllPaintingInWmPaint, true);
 
             // 绘制包络矩形
             widthScreen = Width - 17;        // 画板的宽度 ，边缘宽度约为 17，需减掉                                               
