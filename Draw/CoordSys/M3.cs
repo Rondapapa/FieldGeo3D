@@ -13,7 +13,7 @@ namespace Draw.CoordSys
     public class M3
     {
         private sg_Transformation mTrans;
-
+        public sg_Vector3[] ctrlPts;
 
         public bool IsValid { get; private set; }
 
@@ -21,7 +21,7 @@ namespace Draw.CoordSys
         public M3(sg_Vector3[] pts, double xOffset = 0.0, double yOffset = 0.0) : this(pts[0], pts[1], pts[2], xOffset, yOffset)
 
         {
-
+            ctrlPts = pts;
         }
 
         /// <summary>
@@ -32,6 +32,12 @@ namespace Draw.CoordSys
         /// <param name="pt3">局部编录坐标控制点3</param>
         public M3(sg_Vector3 pt1, sg_Vector3 pt2, sg_Vector3 pt3, double xOffset = 0.0, double yOffset = 0.0)
         {
+            ctrlPts = new sg_Vector3[3];
+            ctrlPts[0] = pt1;
+            ctrlPts[1] = pt2;
+            ctrlPts[2] = pt3;
+
+
             sg_Vector3 v12 = pt2 - pt1;
             sg_Vector3 v13 = pt3 - pt1;
             if (v12.isParallel(v13))

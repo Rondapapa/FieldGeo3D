@@ -27,14 +27,14 @@ namespace FGeo3D.LoggingObj
             SkylineMouthObj = sgworld.Creator.CreateSphere(cPos, radius, Style, nLineColor, nFillColor, SegmentDensity, gid, Name + signIsInTerrain);
 
             //绘制孔身
-            var arrVertices = new double[]
-            {
-                Top.X, Top.Y, Top.Z,
-                Bottom.X, Bottom.Y, Bottom.Z
-            };
-            var lineColor = sgworld.Creator.CreateColor(255, 0, 0, 128);
-            SkylineBodyObj = sgworld.Creator.CreatePolylineFromArray(arrVertices, lineColor, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
-                sgworld.ProjectTree.HiddenGroupID, Name);
+            //var arrVertices = new double[]
+            //{
+            //    Top.X, Top.Y, Top.Z,
+            //    Bottom.X, Bottom.Y, Bottom.Z
+            //};
+            //var lineColor = sgworld.Creator.CreateColor(255, 0, 0, 128);
+            //SkylineBodyObj = sgworld.Creator.CreatePolylineFromArray(arrVertices, lineColor, AltitudeTypeCode.ATC_TERRAIN_ABSOLUTE,
+            //    sgworld.ProjectTree.HiddenGroupID, Name);
 
 
             //绘制文字标签

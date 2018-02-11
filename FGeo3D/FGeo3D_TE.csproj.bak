@@ -31,6 +31,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+   
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -66,7 +68,9 @@
   <PropertyGroup>
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
-  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>5842EA18D730BA13BB70226557BF2C70D8856A73</ManifestCertificateThumbprint>
   </PropertyGroup>
@@ -74,7 +78,7 @@
     <ManifestKeyFile>FGeo3D_TE_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CHIDI.DZ.GUI.DrawPat">
@@ -82,41 +86,56 @@
     </Reference>
     <Reference Include="DevComponents.DotNetBar.Keyboard, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.BonusSkins.v17.1">
+    <Reference Include="DevExpress.BonusSkins.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.BonusSkins.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Data.v17.1">
+    <Reference Include="DevExpress.Data.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.Data.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v17.1">
+    <Reference Include="DevExpress.ExpressApp.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.ExpressApp.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v17.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.ExpressApp.Win.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Office.v17.1.Core">
+    <Reference Include="DevExpress.Office.v15.2.Core">
+      <HintPath>..\..\comparefiles\DevExpress.Office.v15.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Pdf.v17.1.Core">
+    <Reference Include="DevExpress.Printing.v15.2.Core">
+      <HintPath>..\..\comparefiles\DevExpress.Printing.v15.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Printing.v17.1.Core">
+    <Reference Include="DevExpress.RichEdit.v15.2.Core">
+      <HintPath>..\..\comparefiles\DevExpress.RichEdit.v15.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.1.Core">
+    <Reference Include="DevExpress.Sparkline.v15.2.Core">
+      <HintPath>..\..\comparefiles\DevExpress.Sparkline.v15.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v17.1.Core">
+    <Reference Include="DevExpress.Utils.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.Utils.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Utils.v17.1">
+    <Reference Include="DevExpress.XtraBars.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraBars.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v17.1">
+    <Reference Include="DevExpress.XtraEditors.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraEditors.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v17.1">
+    <Reference Include="DevExpress.XtraGrid.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraGrid.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v17.1">
+    <Reference Include="DevExpress.XtraLayout.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraLayout.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v17.1">
+    <Reference Include="DevExpress.XtraNavBar.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraNavBar.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v17.1">
+    <Reference Include="DevExpress.XtraPrinting.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraPrinting.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v17.1">
+    <Reference Include="DevExpress.XtraRichEdit.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraRichEdit.v15.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v17.1">
-    </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v17.1">
+    <Reference Include="DevExpress.XtraTreeList.v15.2">
+      <HintPath>..\..\comparefiles\DevExpress.XtraTreeList.v15.2.dll</HintPath>
     </Reference>
     <Reference Include="GeoIM.CHIDI.DZ.BLL.COM">
       <HintPath>..\..\comparefiles\GeoIM.CHIDI.DZ.BLL.COM.dll</HintPath>
@@ -248,12 +267,6 @@
     <Compile Include="DrawingObjs\DrawingLine.cs" />
     <Compile Include="DrawingObjs\DrawingObject.cs" />
     <Compile Include="DrawingObjs\DrawingObjectInfo.cs" />
-    <Compile Include="Frm\FrmCaveWidthHeight.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Frm\FrmCaveWidthHeight.Designer.cs">
-      <DependentUpon>FrmCaveWidthHeight.cs</DependentUpon>
-    </Compile>
     <Compile Include="Frm\FrmColorPicker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -300,9 +313,6 @@
     <Compile Include="DrawingObjs\DrawingRegion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Frm\FrmCaveWidthHeight.resx">
-      <DependentUpon>FrmCaveWidthHeight.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Frm\FrmColorPicker.resx">
       <DependentUpon>FrmColorPicker.cs</DependentUpon>
     </EmbeddedResource>
@@ -336,7 +346,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="FGeo3D_TE_TemporaryKey.pfx" />
     <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">

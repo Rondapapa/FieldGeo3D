@@ -28,8 +28,9 @@ namespace FGeo3D.LoggingObj
         public IGPoint Top { get; set; }
         public IGPoint Bottom { get; set; }
         public double Depth => Top.Z - Bottom.Z; //?
+        public bool isValidate=true;  // 判断导入的数据是否有效
 
-        
+
 
         public IGMarkerList Markers01 { get; set; }
         public IGMarkerList Markers02 { get; set; }
@@ -63,7 +64,7 @@ namespace FGeo3D.LoggingObj
 
         public static Dictionary<string, LoggingObject> DictOfLoggingObjects = new Dictionary<string, LoggingObject>();
 
-        
+
 
         public static Dictionary<string, string> DictOfSkyIdGuid = new Dictionary<string, string>();
 
@@ -78,9 +79,9 @@ namespace FGeo3D.LoggingObj
 
         public LoggingObject(IObjData dataObj, ref SGWorld66 sgworld, double xOffset = 0.0, double yOffset = 0.0)
         {
-            
+
             _dataObj = dataObj;
-            if (dataObj.Points.Count > 0)
+            if (dataObj.Points != null && dataObj.Points.Count > 0)
             {
                 Top = dataObj.Points.GetPoint(0);
                 var last = dataObj.Points.Count - 1;
@@ -88,14 +89,15 @@ namespace FGeo3D.LoggingObj
             }
             else
             {
-                MessageBox.Show($"类型：{dataObj.Type} 编号：{dataObj.BH} 数据无效或格式错误，请到数据库后台校验",@"数据导入错误");
+                MessageBox.Show($"类型：{dataObj.Type} 编号：{dataObj.BH} 数据无效或格式错误，请到数据库后台校验", @"数据导入错误");
+                isValidate = false;
                 return;
             }
-            
+
             Markers01 = dataObj.MarkersNO1;
             Markers02 = dataObj.MarkersNO2;
             Markers03 = dataObj.MarkersNO3;
-            
+
             /*
             for (var index = 0; index < dataObj.MarkersNO1.Count; index++)
             {
@@ -190,24 +192,24 @@ namespace FGeo3D.LoggingObj
             if (SkylineMouthObj != null)
             {
                 sgworld.Creator.DeleteObject(SkylineMouthObj.ID);
-                
+
                 SkylineMouthObj = null;
             }
             if (SkylineBodyObj != null)
             {
                 sgworld.Creator.DeleteObject(SkylineBodyObj.ID);
-                
+
                 SkylineBodyObj = null;
             }
             if (SkylineLabelObj != null)
             {
                 sgworld.Creator.DeleteObject(SkylineLabelObj.ID);
-                
+
                 SkylineLabelObj = null;
             }
-            
+
         }
-        
+
         /// <summary>
         /// 统计指定MarkerType的Marker数量
         /// </summary>
@@ -223,7 +225,7 @@ namespace FGeo3D.LoggingObj
                 {
                     ++count;
                 }
-                
+
             }
             return count;
         }
@@ -235,7 +237,7 @@ namespace FGeo3D.LoggingObj
         public List<string> GetMarkerTypeList()
         {
             List<string> markerTypeList = new List<string>();
-            for(int i = 0; i < Markers01.Count; ++i)
+            for (int i = 0; i < Markers01.Count; ++i)
             {
                 var thisMarker = Markers01.GetMarker(i);
                 if (!markerTypeList.Contains(thisMarker.Type) && thisMarker.Type != "控制点")

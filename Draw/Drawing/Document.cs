@@ -7,54 +7,14 @@ using System.Data;
 
 using GeoIM.CHIDI.DZ.BLL.Geometry;
 using GeoIM.CHIDI.DZ.BLL.YSZL;
-
+using GeoIM.CHIDI.DZ.COM;
 using GeoIM.CHIDI.DZ.Util.Common;
+using MathNet.Spatial.Euclidean;
 
 namespace Draw.Drawing
 {
     using Draw.CoordSys;
-
-    public struct drawingParameter
-    {
-        /// <summary>
-        /// 数据来源ID
-        /// </summary>
-        public string SJLYID;
-
-        /// <summary>
-        /// 数据来源类型
-        /// </summary>
-        public string SJLYLXID;
-
-        /// <summary>
-        /// 数据来源类型名称
-        /// </summary>
-        public string SJLYLXMC;
-
-
-        /// <summary>
-        /// 地质对象ID
-        /// </summary>
-        public string DZDXID;
-
-
-        /// <summary>
-        /// 地质对象类型
-        /// </summary>
-        public string DZDXLX;
-
-        /// <summary>
-        /// 编号
-        /// </summary>
-        public string BH;
-
-
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string MC;
-    }
-
+    
     /// <summary>
     /// 管理一个绘制对象所有的绘制单元(线条)，并负责把数据取出和把修改保存到数据库
     /// </summary>
@@ -118,6 +78,34 @@ namespace Draw.Drawing
             private set;
         }
 
+        /// <summary>
+        /// 三个控制点
+        /// </summary>
+        public IGPoint[] CtrlPts
+        {
+            get;
+            set;
+        }
+        public string AllLines
+        {
+            get;set;
+        }
+        /// <summary>
+        /// 编录绘图的类型：边坡编录(BP)、基础编录(JC)、洞室编录(DS)
+        /// </summary>
+        public string TypeOfBLHT
+        {
+            get;set;
+        }
+
+        /// <summary>
+        /// 专用于洞室编录
+        /// </summary>
+        public double CaveWidth { get; set; }
+        public double CaveHeight { get; set; }
+
+
+
         Dictionary<int, ShapeBase> items = new Dictionary<int, ShapeBase>();  // 存的是什么坐标？屏幕坐标？
 
 
@@ -131,6 +119,16 @@ namespace Draw.Drawing
         public double recWidth;       // 局部坐标下 包络矩形的宽
         public double recHeight;      // 局部坐标下，包络矩形的高
 
+        /// <summary>
+        /// 开挖坐标下的三个控制点
+        /// </summary>
+        public sg_Vector3[] ptsForM3;
+        /// <summary>
+        /// 用于画在画板上，三个点的顺序为 上方顶点、左下点、右下点
+        /// </summary>
+        public Point3D[] ptsTriangleSC = new Point3D[3];
+
+
         private DataSet EditDataSet;
         private DataTable dt;
         private sg_Vector3 NormalVector;
@@ -139,12 +137,21 @@ namespace Draw.Drawing
 
         public Document(drawParameter para)
         {
+            CtrlPts = para.CtrlPts;
+            AllLines = para.AllLines;
             SJLYID = para.SJLYID;
             SJLYLXID = para.SJLYLXID;
             SJLYLXMC = para.SJLYLXMC;
             DZDXID = para.DZDXID;
             DZDXLX = para.DZDXLX;
             BH = para.BH;
+            TypeOfBLHT = para.TypeOfBLHT;
+            if (TypeOfBLHT == "DS")
+            {
+                CaveHeight = para.CaveHeight;
+                CaveWidth = para.CaveWidth;
+            }
+
             MC = para.MC;
             IsChanged = false;
 
@@ -174,10 +181,12 @@ namespace Draw.Drawing
 
             EditDataSet = GLDXMDXKBLL.GetEditDataSet(SJLYID, OperateID, DXID, string.Empty); // ?
 
-            sg_Vector3[] ptsForM3; // 用于求M3的控制点
+
+
+             // 用于求M3的控制点
             dt = BLHTBLL.GetXDMXJDZB(SJLYID); // 用于求M3（可能重构进入CoordHelp相关函数中）
 
-            if (!CoordHelp.get_JBBLZBPt3(SJLYID, out ptsForM3))
+            if (!CoordHelp.get_JBBLZBPt3(SJLYID, CtrlPts, out ptsForM3))
             {
                 return;
             }
@@ -193,40 +202,57 @@ namespace Draw.Drawing
                 throw new Exception("M3创建失败，请检查控制点坐标。");
             }
 
-            // 大地控制点在M3下的坐标
-            sg_Vector3 pts1InM3 = this.m3Raw.getLocCoord(ptsForM3[0]);
-            sg_Vector3 pts2InM3 = this.m3Raw.getLocCoord(ptsForM3[1]);
-            sg_Vector3 pts3InM3 = this.m3Raw.getLocCoord(ptsForM3[2]);
-
-            // 获取新的原点
-            double xNewO = Math.Min(Math.Min(pts1InM3.x, pts2InM3.x), pts3InM3.x);
-            double yNewO = Math.Min(Math.Min(pts1InM3.y, pts2InM3.y), pts3InM3.y);
-
-
-            // 获取新原点下的坐标偏移值
-            double xOffset = xNewO - pts1InM3.x;  // 减控制点1的横纵坐标什么意思？？？
-            double yOffset = yNewO - pts1InM3.y;
-
+         
             // 建立M3Screen （M3与M3Screen）
-            this.m3Screen = new M3(ptsForM3, xOffset, yOffset);
+          //  this.m3Screen = new M3(ptsForM3, xOffset, yOffset);
 
-            // 确定矩形参数 //矩形的四个顶点作为屏幕坐标的基准点
-            recWidth = Math.Max(Math.Max(pts1InM3.x, pts2InM3.x), pts3InM3.x)
-                               - Math.Min(Math.Min(pts1InM3.x, pts2InM3.x), pts3InM3.x);
-            recHeight = Math.Max(Math.Max(pts1InM3.y, pts2InM3.y), pts3InM3.y)
-                               - Math.Min(Math.Min(pts1InM3.y, pts2InM3.y), pts3InM3.y);
-            sg_Vector3 recLeftLow = new sg_Vector3(0, 0);
-            sg_Vector3 recLeftHigh = new sg_Vector3(0, recHeight);
-            sg_Vector3 recRightLow = new sg_Vector3(recWidth, 0);
-            sg_Vector3 recRightHigh = new sg_Vector3(recWidth, recHeight);
+            Point3D[] Pts = new Point3D[3];
+            Pts[0] = new Point3D(ptsForM3[0].x, ptsForM3[0].y, ptsForM3[0].z);
+            Pts[1] = new Point3D(ptsForM3[1].x, ptsForM3[1].y, ptsForM3[1].z);
+            Pts[2] = new Point3D(ptsForM3[2].x, ptsForM3[2].y, ptsForM3[2].z);
 
-            widthHeightRito = recWidth/recHeight;
+            //  确定三角形上方顶点、左下的点、右下的点
+            //  以三角形中最长的边为底边
+            Point3D pLeftDown = Pts[0], pRightDown = Pts[1], pUp = Pts[2];
+            if (Pts[1].DistanceTo(Pts[2]) > pLeftDown.DistanceTo(pRightDown))
+            {
+                pLeftDown = Pts[1];
+                pRightDown = Pts[2];
+                pUp = Pts[0];
+            }
+            if (Pts[2].DistanceTo(Pts[0]) > pLeftDown.DistanceTo(pRightDown))
+            {
+                pLeftDown = Pts[2];
+                pRightDown = Pts[0];
+                pUp = Pts[1];
+            }
+            Vector3D tmpBA = pRightDown - pLeftDown;
+            Vector3D tmpCA = pUp - pLeftDown;
 
-            // 绘制矩形
+            //叉乘，如果方向指向下，就要把三角形镜像一下，否则不符合勘察人员的视角
+            //镜像，左下方的点和右下方的点互换即可
+            Vector3D tmpResult = tmpCA.CrossProduct(tmpBA);
+            if (tmpResult.Z < 0)
+            {
+                Point3D tmpP = pLeftDown;
+                pLeftDown = pRightDown;
+                pRightDown = tmpP;
+            }
+            
+            // 根据海伦公式，计算三角的高
+            double distAB = pLeftDown.DistanceTo(pRightDown);
+            double distAC = pLeftDown.DistanceTo(pUp);
+            double distBC = pRightDown.DistanceTo(pUp);
 
+            double r = (distAB + distAC + distBC) / 2;
+            double S = Math.Sqrt(r * (r - distBC) * (r - distAB) * (r - distAC));
+            double h = 2 * S / distAB;
 
-
-
+            //计算包络矩形的宽高比
+            widthHeightRito = distAB / h;
+            ptsTriangleSC[0] = pUp;
+            ptsTriangleSC[1] = pLeftDown;
+            ptsTriangleSC[2] = pRightDown;
         }
 
         /// <summary>
@@ -239,14 +265,6 @@ namespace Draw.Drawing
             return true;
         }
 
-        //public void AddShape(ShapeBase shape)
-        //{
-        //    if (!items.ContainsKey(shape.Id))
-        //    {
-        //        items.Add(shape.Id, shape);
-        //        IsChanged = true;
-        //    }
-        //}
         
         public void AddLine(Line newLine)      // 添加线
         {
@@ -256,17 +274,5 @@ namespace Draw.Drawing
                 IsChanged = true;
             }
         }
-        /// <summary>
-        /// 在Graphics
-        /// </summary>
-        /// <param name="g"></param>
-        //public void Draw(Graphics g)
-        //{
-        //    foreach (int itemid in items.Keys)
-        //    {
-        //        ShapeBase item = items[itemid];
-        //        item.Draw(g);
-        //    }
-        //}
     }
 }

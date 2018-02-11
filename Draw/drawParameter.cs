@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeoIM.CHIDI.DZ.COM;
 
 namespace Draw
 {
@@ -66,5 +67,26 @@ namespace Draw
             get;
             set;
         }
+        public IGPoint[] CtrlPts { get; set; }
+
+        public string AllLines
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 编录绘图的类型：边坡编录(BP)、基础编录(JC)、洞室编录(DS)
+        /// </summary>
+        public string TypeOfBLHT
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 仅用于洞室编录
+        /// </summary>
+        public double CaveWidth { get; set; }
+        public double CaveHeight { get; set; }
+
     }
 }

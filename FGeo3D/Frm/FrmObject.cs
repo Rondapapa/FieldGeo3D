@@ -120,18 +120,6 @@ namespace FGeo3D_TE.Frm
             }
 
 
-            
-            //comboBoxExType.SelectedText = SelectedType;
-            //if (SelectedType == "几何部件")
-            //{
-            //    tbName.Enabled = true;
-            //    colorCombControl.Enabled = true;
-            //}
-            //else
-            //{
-            //    tbName.Enabled = false;
-            //    colorCombControl.Enabled = false;
-            //}
         }
 
         private void tbName_Click(object sender, EventArgs e)

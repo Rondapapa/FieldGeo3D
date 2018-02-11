@@ -7,7 +7,7 @@ using System.Data;
 using GeoIM.CHIDI.DZ.BLL.Geometry;
 using GeoIM.CHIDI.DZ.BLL.Common;
 using GeoIM.CHIDI.DZ.BLL.XTGL;
-
+using GeoIM.CHIDI.DZ.COM;
 using GeoIM.CHIDI.DZ.Util.Common;
 
 using GeoIM.CHIDI.DZ.Model.XTGL;
@@ -95,20 +95,86 @@ namespace Draw.CoordSys
         /// <param name="id"></param>
         /// <param name="pts"></param>
         /// <returns></returns>
-        public static bool get_JBBLZBPt3(string id, out sg_Vector3[] pts)
+        public static bool get_JBBLZBPt3(string id, IGPoint[] slopePts, out sg_Vector3[] pts)
         {
-            pts = new sg_Vector3[3];    
+            //边坡的 3 个点
+            sg_Vector3[] slopeCtrl = new sg_Vector3[3];
+            sg_Vector3[] sysPts = new sg_Vector3[3];
+            pts = new sg_Vector3[3];
+            get_KWZBPt3(id, out sysPts);  //获取 开挖坐标的三个点
 
-            DataTable dt = BLHTBLL.GetXDMXJDZB(id); // 数据来源是大地坐标吗？  
-            if (dt.Rows.Count == 0)
+            //sg_Vector3 sysX = sysPts[1] - sysPts[0]; // 横坐标向量 
+            //sg_Vector3 sysY = sysPts[2] - sysPts[0];//纵坐标向量
+
+            //判断 y 轴与 x 轴的相对位置
+            //double yDirection = sysX.x * sysY.y - sysY.x * sysX.y;
+
+
+            for (int i = 0; i < 3; i++)
             {
-                return false;
+                slopeCtrl[i] = new sg_Vector3(slopePts[i].X, slopePts[i].Y, slopePts[i].Z);
+                pts[i] = ConverToThisSys(sysPts, slopeCtrl[i]);
             }
 
-
-
-            // 待实现
             return true;
+        }
+
+
+        /// <summary>
+        /// 计算大地坐标系下的一个点，在当前开挖坐标系的中坐标
+        /// </summary>
+        /// <param name="coor">开挖坐标系</param>
+        /// <param name="p">大地坐标系下的一个点</param>
+        /// <returns></returns>
+        public static sg_Vector3 ConverToThisSys(sg_Vector3[] coor, sg_Vector3 p)
+        {
+
+
+            sg_Vector3 sysX = coor[1] - coor[0]; // 横坐标向量 
+            sg_Vector3 sysY = coor[2] - coor[0];//纵坐标向量
+            sg_Vector3 _p = p - coor[0];
+            double yDirection = sysX.x * sysY.y - sysY.x * sysX.y;
+
+
+            double distance = Math.Sqrt(_p.x * _p.x + _p.y * _p.y);
+            double fenMu = Math.Sqrt(sysX.x * sysX.x + sysX.y * sysX.y) * Math.Sqrt(_p.x * _p.x + _p.y * _p.y);
+
+            double fenZi1 = sysX.x * _p.x + sysX.y * _p.y;
+            double cosValue1 = fenZi1 / fenMu;
+            double xValue = cosValue1 * distance;// 点的横坐标
+            double yValue;
+            double sinValue1 = Math.Sqrt(1 - cosValue1 * cosValue1);
+
+            if (cosValue1 >= 0)
+            {
+                // 坐标系中的y轴如果与x轴是逆时针旋转后的成90度，则计算出的该点y坐标要乘-1
+                if (sysX.x * _p.y - sysX.y * _p.x >= 0)
+                {
+                    yValue = sinValue1 * distance;
+                }
+                else
+                {
+                    yValue = -sinValue1 * distance;
+                }
+            }
+            else
+            {
+                // 坐标系中的y轴如果与x轴是逆时针旋转后的成90度，则计算出的该点y坐标要乘-1
+                if (-sysX.x * _p.y - -sysX.y * _p.x <= 0)
+                {
+                    yValue = sinValue1 * distance;
+                }
+                else
+                {
+                    yValue = -sinValue1 * distance;
+                }
+            }
+            
+            double yDirction = sysX.x * sysY.y - sysY.x * sysX.y;
+            if (yDirction < 0) yValue = -1 * yValue;
+
+            return new sg_Vector3(xValue, yValue, _p.z);
+
         }
 
         /// <summary>
@@ -142,7 +208,7 @@ namespace Draw.CoordSys
                 {
                     continue;
                 }
-                
+
                 // 若两个非零辅助向量不平行，则判定不共线
                 if (!v1.isParallel(v2))
                 {

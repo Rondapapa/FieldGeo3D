@@ -4,17 +4,23 @@ using TerraExplorerX;
 
 namespace FGeo3D.LoggingObj
 {
-    public class LoggingSpot:LoggingObject
-    { 
+    public class LoggingSpot : LoggingObject
+    {
         public LoggingSpot(IObjData dataObj, ref SGWorld66 sgworld) : base(dataObj, ref sgworld)
         {
-            Type = LoggingType.Spot;
-            Draw(ref sgworld);
+            if (isValidate == true)
+            {
+                Type = LoggingType.Spot;
+                Draw(ref sgworld);
+            }
+
         }
 
         public void Draw(ref SGWorld66 sgworld)
         {
+            // 判断是否在地图以外
             string signIsInTerrain = IsLoggingObjInTerrain(ref sgworld) ? "" : "【地图以外】";
+            // if(signIsInTerrain== "【地图以外】") { return; }
 
             //绘制身：暂时用小圆点替代钻孔口模型
             double radius = 10;
@@ -32,7 +38,7 @@ namespace FGeo3D.LoggingObj
             SkylineMouthObj = sgworld.Creator.CreateImageLabel(cPos, imageFileName, null,
                 sgworld.ProjectTree.HiddenGroupID);
 
-            
+
 
 
             //绘制文字标签

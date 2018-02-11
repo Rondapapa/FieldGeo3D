@@ -15,6 +15,9 @@ using GeoIM.CHIDI.DZ.COM;
 using TerraExplorerX;
 using Stereonet;
 using MathNet.Spatial.Euclidean;
+using GeoIM.CHIDI.DZ.BLL.Geometry;
+
+using Draw.Drawing;
 
 
 
@@ -25,6 +28,7 @@ namespace FGeo3D_TE.Frm
     using FGeo3D.GeoCurvedSurface;
     using FGeo3D.GeoObj;
     using FGeo3D.GoCAD;
+    using Draw.CoordSys;
 
     using MIConvexHull;
 
@@ -290,9 +294,11 @@ namespace FGeo3D_TE.Frm
             if (!_isDbConnected || db.GCGuid == null)
             {
                 db = new YWCHEntEx();
+                _isDbConnected = false;
                 return;
             }
             // 创建模型
+            btnImport.Enabled = true;
             _modelPath = db.SkyOpenOrNewModal();
             _modelGuid = db.SkyModelGuid;
             Text = db.GCName + @" - FieldGeo3D";
@@ -1170,82 +1176,6 @@ namespace FGeo3D_TE.Frm
             {
                 MessageBox.Show(ex.Message);
             }
-
-
-
-            /*
-            IPosition66 p1 = sgworld.Creator.CreatePosition(412465.396283, 3264008.200115);
-            IPosition66 p2 = sgworld.Creator.CreatePosition(412019.599981, 3264057.697713);
-            IPosition66 p3 = sgworld.Creator.CreatePosition(412344.021811, 3263541.641142);
-
-            IPosition66 p4 = sgworld.Creator.CreatePosition(412480.938471, 3264213.0889);
-            IPosition66 p5 = sgworld.Creator.CreatePosition(412262.35476, 3263878.751618);
-            IPosition66 p6 = sgworld.Creator.CreatePosition(412992.85769, 3263822.762772);
-
-            ITerrainPolygon66 Itp1 = CreatePolygon3ps(p1, p2, p3);
-            ITerrainPolygon66 Itp2 = CreatePolygon3ps(p4, p5, p6);
-
-            bool overlaps = Itp1.Geometry.SpatialRelation.Overlaps(Itp2.Geometry);
-            MessageBox.Show(@"overlaps: " + overlaps);
-
-            IGeometry ig = Itp1.Geometry.SpatialOperator.Intersection(Itp2.Geometry);
-            ITerrainPolygon66 itp3 = sgworld.Creator.CreatePolygon(ig);
-            */
-
-            ////测试geoplane
-            //var p0 = new Point(415896.957085, 3269487.527959, 3157.6826);
-            //var p1 = new Point(416440.844915, 3270171.110581, 3316.4351);
-            //var p2 = new Point(416994.127891, 3270955.529197, 3404.8826);
-            //var p3 = new Point(417134.990163, 3271563.044139, 3582.7659);
-            //var p4 = new Point(417047.97109, 3272202.00806, 3525.4553);
-            //var p5 = new Point(416789.154441, 3273192.007297, 3103.405);
-            //var p6 = new Point(416129.200254, 3273107.372097, 2933.7236);
-
-            //var pList = new List<Point> {p0, p1, p2, p3, p4, p5, p6};
-
-
-
-            ////测试IsSimple
-            //var arrP1 = new double[]
-            //{
-            //    412615.291731,3269523.095953,0,
-            //    414177.661433,3269060.668648,0,
-            //    412365.834826,3268080.880464,0,
-            //    413435.563589,3269818.148106,0,
-            //    414215.54368,3269670.723062,0,
-            //};
-            //var arrP2 = new double[]
-            //{
-            //    411771.724269,3269043.558136,0,
-            //    412294.277262,3268514.991006,0,
-            //    411507.287252,3268021.481417,0,
-            //    411150.209789,3268490.430657,0,
-            //};
-            //db.SkyGetData().GetObjData(0).MarkersNO1.GetMarker(0).
-
-            ////测试TsFile
-            //var testTsData = new TsData();
-            ////   testTsData.VerticesList.Add()
-            //Point p1 = new Point(100, 200, 300);
-            //Point p2 = new Point(200, 300, 600);
-            //Point p3 = new Point(150, 280, 500);
-            //testTsData.VerticesList.Add(p1);
-            //testTsData.VerticesList.Add(p2);
-            //testTsData.VerticesList.Add(p3);
-            //var trgl1 = new TriLink
-            //{
-            //    VertexA = 2,
-            //    VertexB = 1,
-            //    VertexC = 3
-            //};
-            //testTsData.TriLinksList.Add(trgl1);
-            ////   testTsData.TriLinksList.Add();
-            //var testTsType = "Surface";
-
-            //var testTsFile = new TsFile(testTsData, testTsType);
-
-            //testTsFile.WriteTsFile();
-
         }
 
         /// <summary>
@@ -1774,6 +1704,116 @@ namespace FGeo3D_TE.Frm
         }
 
         /// <summary>
+        /// 基础
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool OnLBtnDown_LoggingFoundation(int flags, int x, int y)
+        {
+
+            sgworld.OnLButtonDown -= OnLBtnDown_LoggingFoundation;
+            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
+
+
+            
+            if (LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
+            {
+                var foundationGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
+                var theFoundationObj = db.SkyGetGeoDataList(foundationGuid).GetObjData(0);
+
+                if (theFoundationObj.Type != "基础编录")
+                {
+                    MessageBox.Show("该点不是基础，请重新选择");
+                    return true;
+                }
+
+
+
+                IGPoint[] foundationPts = new IGPoint[3];
+                foundationPts[0] = theFoundationObj.Points.GetPoint(0);
+                foundationPts[1] = theFoundationObj.Points.GetPoint(1);
+                foundationPts[2] = theFoundationObj.Points.GetPoint(2);
+
+                // 判断三点是否共线，如果共线则无法绘制边坡
+                if (IsCollineation(foundationPts[0], foundationPts[1], foundationPts[2]))
+                {
+                    ToastNotification.Show(this, "三点共线，无法绘制边坡平面", 2500, eToastPosition.MiddleCenter);
+                    sgworld.OnLButtonDown -= OnLBtnDown_LoggingFoundation;
+                    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                    StatusSystem.Text = @"系统状态：【就绪】";
+                    return true;
+                }
+
+
+
+                // 获取已有的标记线
+                string foundationLines = db.SkyGetCHLineData(foundationGuid);
+
+
+                // 获取 M1
+                var KWZBPt3 = new sg_Vector3[3];
+                M1 m1 = null;
+                bool haveCoor = CoordHelp.get_KWZBPt3(foundationGuid, out KWZBPt3);
+                if (!haveCoor)
+                {
+                    ToastNotification.Show(this, "无开挖坐标，无法绘制边坡平面", 2500, eToastPosition.MiddleCenter);
+                    sgworld.OnLButtonDown -= OnLBtnDown_LoggingFoundation;
+                    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                    StatusSystem.Text = @"系统状态：【就绪】";
+                    return true;
+                }
+                m1 = new M1(KWZBPt3);
+
+
+
+                // 调出绘制窗口
+                drawParameter para = new drawParameter();
+                para.BH = theFoundationObj.BH;
+                para.MC = theFoundationObj.Name;
+                para.SJLYID = theFoundationObj.Guid;
+                para.CtrlPts = foundationPts;
+                para.AllLines = foundationLines;
+                para.TypeOfBLHT = "JC";
+
+                FrmBLHT frmDrawEx = new FrmBLHT(para);
+                frmDrawEx.Text = "基础编录";
+                frmDrawEx.DrawBackColor = Color.Thistle;
+                var drawDlg = frmDrawEx.ShowDialog();
+
+
+                return true;
+            }
+
+
+
+            var top = new DMarker
+            {
+                X = _cWorldPointInfo.Position.X,
+                Y = _cWorldPointInfo.Position.Y,
+                Z = _cWorldPointInfo.Position.Altitude,
+                SD = 0,
+                DZDXLX = "KZD"
+            };
+
+            var bottom = top;
+            var middle = top;
+            _cWorldPointInfo = null;
+            var kzdList = new List<DMarker> { top, middle, bottom };
+
+            var thisLoggingFoundationGuid = db.SkyFrmSJLYEdit("JKBL", kzdList);
+
+            var thisLoggingFoundation = db.SkyGetGeoDataList(thisLoggingFoundationGuid).GetObjData(0);
+            if (thisLoggingFoundation == null)
+                return true;
+            var thisFoundation = new LoggingFoundation(thisLoggingFoundation, ref sgworld);
+            StatusSystem.Text = @"系统状态：【就绪】";
+            return true;
+        }
+        /// <summary>
         /// 边坡
         /// </summary>
         /// <param name="flags"></param>
@@ -1782,9 +1822,78 @@ namespace FGeo3D_TE.Frm
         /// <returns></returns>
         private bool OnLBtnDown_LoggingSlope(int flags, int x, int y)
         {
-            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+
             sgworld.OnLButtonDown -= OnLBtnDown_LoggingSlope;
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+
+            // 如果点击的为地形上的标签，则捕捉标签
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
+
+
+            if (LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
+            {
+                var slopeGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
+
+                // 检查是否为边坡
+                var theSlopeObj = db.SkyGetGeoDataList(slopeGuid).GetObjData(0);
+                if (theSlopeObj.Type.ToString() != "边坡编录")
+                {
+                    MessageBox.Show("该点不是边坡，请重新选择");
+                    return true;
+                }
+
+                // 获取边坡定位的三个点     
+                IGPoint[] slopePts = new IGPoint[3];
+                slopePts[0] = theSlopeObj.Points.GetPoint(0);
+                slopePts[1] = theSlopeObj.Points.GetPoint(1);
+                slopePts[2] = theSlopeObj.Points.GetPoint(2);
+
+                // 判断三点是否共线，如果共线则无法绘制边坡
+                if (IsCollineation(slopePts[0], slopePts[1], slopePts[2]))
+                {
+                    ToastNotification.Show(this, "三点共线，无法绘制边坡平面", 2500, eToastPosition.MiddleCenter);
+                    sgworld.OnLButtonDown -= OnLBtnDown_LoggingSlope;
+                    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                    StatusSystem.Text = @"系统状态：【就绪】";
+                    return true;
+                }
+
+
+
+                // 获取已有的标记线
+                string slopeLines = db.SkyGetCHLineData(slopeGuid);
+
+
+                // 检查是否有开挖坐标系
+                var KWZBPt3 = new sg_Vector3[3];
+                M1 m1 = null;
+                bool haveCoor = CoordHelp.get_KWZBPt3(slopeGuid, out KWZBPt3);
+                if (!haveCoor)
+                {
+                    ToastNotification.Show(this, "无开挖坐标，无法绘制边坡平面", 2500, eToastPosition.MiddleCenter);
+                    sgworld.OnLButtonDown -= OnLBtnDown_LoggingSlope;
+                    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                    StatusSystem.Text = @"系统状态：【就绪】";
+                    return true;
+                }
+                
+                // 调出绘制窗口
+                drawParameter para = new drawParameter();
+                para.BH = theSlopeObj.BH;
+                para.MC = theSlopeObj.Name;
+                para.SJLYID = theSlopeObj.Guid;
+                para.CtrlPts = slopePts;
+                para.AllLines = slopeLines;
+
+                para.TypeOfBLHT = "BP";
+
+
+                FrmBLHT frmDrawEx = new FrmBLHT(para);
+
+                var drawDlg = frmDrawEx.ShowDialog();
+                return true;
+            }
+            // 如果没有捕捉标签，则编录新边坡
             var top = new DMarker
             {
                 X = _cWorldPointInfo.Position.X,
@@ -1794,18 +1903,35 @@ namespace FGeo3D_TE.Frm
                 DZDXLX = "KZD"
             };
             var bottom = top;
+            var middle = top;
             _cWorldPointInfo = null;
-            var kzdList = new List<DMarker> { top, bottom };
+            var kzdList = new List<DMarker> { top, middle, bottom };
 
             var thisLoggingSlopeGuid = db.SkyFrmSJLYEdit("BPBL", kzdList);
-
             var thisLoggingSlope = db.SkyGetGeoDataList(thisLoggingSlopeGuid).GetObjData(0);
+
+
+
+
             StatusSystem.Text = @"系统状态：【就绪】";
             if (thisLoggingSlope == null)
                 return true;
             var thisSlope = new LoggingSlope(thisLoggingSlope, ref sgworld);
 
+
             return true;
+        }
+
+        /// <summary>
+        /// 判断三点是否共线
+        /// </summary>
+        /// <returns></returns>
+        private static bool IsCollineation(IGPoint dm1, IGPoint dm2, IGPoint dm3)
+        {
+            double e1 = (dm1.X - dm2.X) * (dm3.Y - dm2.Y) - (dm2.X - dm3.X) * (dm2.Y - dm1.Y);
+            double e2 = (dm1.X - dm2.X) * (dm3.Z - dm2.Z) - (dm2.X - dm3.X) * (dm2.Z - dm1.Z);
+            if (Math.Abs(e1) < 0.005 && Math.Abs(e2) < 0.005) return true;
+            return false;
         }
 
         /// <summary>
@@ -1817,8 +1943,73 @@ namespace FGeo3D_TE.Frm
         /// <returns></returns>
         private bool OnLBtnDown_LoggingCavity(int flags, int x, int y)
         {
-            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
+            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_LABEL);
             sgworld.OnLButtonDown -= OnLBtnDown_LoggingCavity;
+
+            if (LoggingObject.DictOfSkyIdGuid.ContainsKey(_cWorldPointInfo.ObjectID))
+            {
+                var caveGuid = LoggingObject.DictOfSkyIdGuid[_cWorldPointInfo.ObjectID];
+
+                // 获取洞室两端的点     
+                var theCaveObj = db.SkyGetGeoDataList(caveGuid).GetObjData(0);
+                if (theCaveObj.Type.ToString() != "洞室编录")
+                {
+                    MessageBox.Show("该点不是洞室，请重新选择");
+                    return true;
+                }
+                IGPoint[] cavePts = new IGPoint[2];
+                cavePts[0] = theCaveObj.Points.GetPoint(0);
+                cavePts[1] = theCaveObj.Points.GetPoint(1);
+
+                double tmpX = cavePts[0].X - cavePts[1].X;
+                double tmpY = cavePts[0].Y - cavePts[1].Y;
+                double tmpZ = cavePts[0].Z - cavePts[1].Z;
+                if (Math.Abs(tmpX) + Math.Abs(tmpY) + Math.Abs(tmpZ) < 1e-5)
+                {
+                    ToastNotification.Show(this, "洞室两端点为同一点，无法进行洞室绘制", 2500, eToastPosition.MiddleCenter);
+                    sgworld.OnLButtonDown -= OnLBtnDown_LoggingSlope;
+                    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
+                    StatusSystem.Text = @"系统状态：【就绪】";
+                    return true;
+                }
+
+
+
+                // 获取已有的标记线
+                string caveLines = db.SkyGetCHLineData(caveGuid);
+                // 调出绘制窗口
+
+                drawParameter para = new drawParameter();
+                para.BH = theCaveObj.BH;
+                para.MC = theCaveObj.Name;
+                para.SJLYID = theCaveObj.Guid;
+                para.CtrlPts = cavePts;
+                para.AllLines = caveLines;
+                para.TypeOfBLHT = "DS";
+                if (caveLines == "")
+                {
+                    FrmCaveWidthHeight frmCaveWidthHeight = new FrmCaveWidthHeight();
+                    frmCaveWidthHeight.ShowDialog();
+                    if (frmCaveWidthHeight.DialogResult == DialogResult.OK)
+                    {
+                        para.CaveWidth = frmCaveWidthHeight.caveWidth;
+                        para.CaveHeight = frmCaveWidthHeight.caveHeight;
+                    }
+                    else if (frmCaveWidthHeight.DialogResult == DialogResult.Cancel)
+                    {
+                        return true;
+                    }
+
+                }
+                FrmBLHT frmDrawEx = new FrmBLHT(para);
+                frmDrawEx.Text = "洞室编录";
+                frmDrawEx.DrawBackColor = Color.Thistle;
+               // frmDrawEx.Show();
+                var drawDlg = frmDrawEx.ShowDialog();
+                return true;
+            }
+
+
             sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
             var top = new DMarker
             {
@@ -1835,6 +2026,9 @@ namespace FGeo3D_TE.Frm
             var thisLoggingCavityGuid = db.SkyFrmSJLYEdit("DSBL", kzdList);
 
             var thisLoggingCavity = db.SkyGetGeoDataList(thisLoggingCavityGuid).GetObjData(0);
+
+
+
             StatusSystem.Text = @"系统状态：【就绪】";
             if (thisLoggingCavity == null)
                 return true;
@@ -1843,40 +2037,7 @@ namespace FGeo3D_TE.Frm
             return true;
         }
 
-        /// <summary>
-        /// 基础
-        /// </summary>
-        /// <param name="flags"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        private bool OnLBtnDown_LoggingFoundation(int flags, int x, int y)
-        {
-            _cWorldPointInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN);
-            sgworld.OnLButtonDown -= OnLBtnDown_LoggingFoundation;
-            sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-            var top = new DMarker
-            {
-                X = _cWorldPointInfo.Position.X,
-                Y = _cWorldPointInfo.Position.Y,
-                Z = _cWorldPointInfo.Position.Altitude,
-                SD = 0,
-                DZDXLX = "KZD"
-            };
 
-            var bottom = top;
-            _cWorldPointInfo = null;
-            var kzdList = new List<DMarker> { top, bottom };
-
-            var thisLoggingFoundationGuid = db.SkyFrmSJLYEdit("JKBL", kzdList);
-
-            var thisLoggingFoundation = db.SkyGetGeoDataList(thisLoggingFoundationGuid).GetObjData(0);
-            if (thisLoggingFoundation == null)
-                return true;
-            var thisFoundation = new LoggingFoundation(thisLoggingFoundation, ref sgworld);
-            StatusSystem.Text = @"系统状态：【就绪】";
-            return true;
-        }
 
         private bool OnLBtnDown_LineNew(int flags, int x, int y)
         {
@@ -2185,28 +2346,6 @@ namespace FGeo3D_TE.Frm
             return true;
         }
 
-        /*
-        private bool OnLBtnDown_Point(int flags, int x, int y)
-        {
-            IWorldPointInfo66 pIwpInfo = sgworld.Window.PixelToWorld(x, y, WorldPointType.WPT_TERRAIN); //真实位置信息
-            IPosition66 pIPosition = sgworld.Navigate.GetPosition(AltitudeTypeCode.ATC_ON_TERRAIN); //视点位置信息（相机位置）
-            if (_objInfo != null)
-            {
-                if (_objInfo.PointPosition == null)
-                {
-                    _objInfo.PointPosition = sgworld.Creator.CreatePosition(pIwpInfo.Position.X,
-                        pIwpInfo.Position.Y, 0, AltitudeTypeCode.ATC_ON_TERRAIN, 0, 0, 0, 0);
-                    Point cGeoPoint = new Point(_objInfo, ref sgworld);
-                    sgworld.OnLButtonDown -= OnLBtnDown_Point;
-                    sgworld.Window.SetInputMode(MouseInputMode.MI_FREE_FLIGHT);
-                }
-                ResetButton(btnPoint);
-                Text = _tProjectUrl + @"* - FieldGeo3D";
-            }
-            _objInfo = null;
-            return false;
-        }
-        */
 
         private bool OnLBtnDown_Line(int flags, int x, int y)
         {
@@ -2238,9 +2377,6 @@ namespace FGeo3D_TE.Frm
                 cLineString?.Points.AddPoint(dx, dy, dz);
                 var editedGeometry = _pITerrainPolyline.Geometry.EndEdit();
                 _pITerrainPolyline.Geometry = editedGeometry;
-
-                //MessageBox.Show(cLineString.Points.GetType().ToString());
-                //sgworld.Analysis.CreateTerrainProfile(cLineString.Points);
 
             }
             return false;
@@ -2790,11 +2926,7 @@ namespace FGeo3D_TE.Frm
             DialogResult dr = MessageBox.Show("是否圈选边坡", "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
-                //if (!_isDbConnected)
-                //{
-                //    ToastNotification.Show(this, "请先连接数据库", 2500, eToastPosition.BottomCenter);
-                //    return;
-                //}
+
                 try
                 {
                     selectedPointInStereonet = new List<FrmStereonet.DataFromMain>();
@@ -2965,7 +3097,7 @@ namespace FGeo3D_TE.Frm
                     }
                     else
                     {
-                        LinesOfStereonet.RemoveAt(LinesOfStereonet.Count-1);
+                        LinesOfStereonet.RemoveAt(LinesOfStereonet.Count - 1);
                     }
 
                 }
@@ -3139,7 +3271,7 @@ namespace FGeo3D_TE.Frm
         {
             drawParameter para = new drawParameter();
 
-            FrmDrawEx frmDrawEx = new FrmDrawEx();
+            FrmBLHT frmDrawEx = new FrmBLHT();
             var drawDlg = frmDrawEx.ShowDialog();
         }
         /// <summary>
