@@ -1,5 +1,1 @@
-Part codes of **Geological Recording System** intergrated with visual display and analysis module，**Without** Core Codes！ 
-
-Do **NOT** Star or Watch!
-
-Under Heavy Development! 
+DevExpress is not a free plug-in, so we can't provide this tool. If you have the plug-in, you can compile all the code. If you have any problem, please contact us.
